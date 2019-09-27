@@ -56,7 +56,7 @@ class CSVController extends Controller
      */
     public function show($id)
     {
-        //
+        //$contents = Storage::get('file.jpg');
     }
 
     /**

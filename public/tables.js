@@ -388,6 +388,12 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -408,11 +414,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       books: [],
       ats: [],
       isLoading: false,
-      ikelimas: {
-        salis: null,
-        paskirtis: null,
-        csv: null
-      },
+      csv: null,
       isModalActive: false,
       trashObject: null
     };
@@ -968,6 +970,30 @@ var render = function() {
         "section",
         { staticClass: "section is-main-section" },
         [
+          _c(
+            "card-component",
+            { attrs: { title: "CSV įkėlimas", icon: "ballot" } },
+            [
+              _c(
+                "b-field",
+                { attrs: { label: "CSV failas:", horizontal: "" } },
+                [
+                  _c("file-picker", {
+                    model: {
+                      value: _vm.csv,
+                      callback: function($$v) {
+                        _vm.csv = $$v
+                      },
+                      expression: "csv"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
           _c(
             "card-component",
             { attrs: { title: "Sąrašas", icon: "ballot" } },

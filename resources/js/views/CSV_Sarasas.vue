@@ -7,6 +7,12 @@
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
+      <card-component title="CSV įkėlimas" icon="ballot">
+        <b-field label="CSV failas:" horizontal>
+        <file-picker v-model="csv"/>
+        </b-field>
+      </card-component>
+
       <card-component title="Sąrašas" icon="ballot">
         <modal-trash-box :is-active="isModalActive" :trash-subject="trashObjectName" @confirm="trashConfirm" @cancel="trashCancel"/>
         <b-table
@@ -75,11 +81,7 @@ export default {
       books: [],
       ats: [],
       isLoading: false,
-      ikelimas: {
-        salis: null,
-        paskirtis: null,
-        csv: null
-        },
+      csv: null,
       isModalActive: false,
       trashObject: null,
       }
