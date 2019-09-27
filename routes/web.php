@@ -22,7 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 /*
  * CSV
  * */ 
-
 Route::prefix('/csv')->group(function () {
     Route::get('', 'CSVController@index');
     Route::get('{csv}', 'CSVController@show');
