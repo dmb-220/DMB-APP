@@ -126,6 +126,7 @@ export default {
             })
           })
     },
+    
     trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
