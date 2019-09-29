@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\File;
+use App\Http\Requests\FileUploadRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class CSVController extends Controller
 {
@@ -23,8 +26,13 @@ class CSVController extends Controller
             $data[$i] = array("vardas" => $file, "dydis" => $size,
              "modifikuota" => gmdate("Y-m-d - H:i:s", $lastModified));
         }
-        //var_dump($data);
-        return $data;
+
+        //var_dump($records);
+        return response()->json([
+            'status' => true,
+            'data' => $data,
+            //'info' => $lentele
+        ]);
     }
 
     /**
@@ -43,9 +51,68 @@ class CSVController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request){
+        $uploadedFile = $request->file('file');
+
+        if (!$uploadedFile->isValid()) {
+            abort( 422 );}
+
+        $storePath = $uploadedFile->storeAs('CSV_DATA', $uploadedFile->getClientOriginalName());
+        $file = new File;
+
+        $file->name = $uploadedFile->getClientOriginalName();
+        $file->file = $storePath;
+        $file->mime = $uploadedFile->getMimeType();
+        $file->size = $uploadedFile->getSize();
+
+        $file->save();
+
+        return response()->json([
+            'status' => true,
+            'data' => $file,
+            'upload' => $uploadedFile
+        ]);
+    }
+
+    public function CSV_store(Request $request)
     {
-        //
+        $data = $request->all();
+        $failas = $data['failas'];
+        $valstybe = $data['valstybe'];
+        $tipas = $data['tipas'];
+
+        $directory  = "app/CSV_DATA/";
+        $failas = $directory.$failas;
+
+        if($tipas == 1){$lentele = "pardavimai";}
+        if($tipas == 2){$lentele = "likutis";}
+
+        if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
+          while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+              $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+              DB::table('pardavimai')->insert([
+                  'preke' => $duomenys[0],
+                   'pavadinimas' => $duomenys[1],
+                   'barkodas' => $duomenys[2],
+                   'grupe' => $duomenys[3],
+                   'sandelis' => $duomenys[6],
+                   'kiekis' => $duomenys[7],
+                   'pardavimo_kaina' => $duomenys[8],
+                   'pardavimo_suma' => $duomenys[9],
+                   'pvm' => $duomenys[10],
+                   'pvm_suma' => $duomenys[11],
+                   'suma' => $duomenys[12],
+                   'grupes_pavadinimas' => $duomenys[13],
+                   'salis' => $valstybe,
+                  ]);
+          }
+          fclose($handle);
+        }
+
+        return response()->json([
+            'status' => true,
+            //'data' => $duomenys
+        ]);
     }
 
     /**
@@ -79,7 +146,7 @@ class CSVController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**

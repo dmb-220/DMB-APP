@@ -4,7 +4,7 @@
       class="aside is-placed-left is-expanded">
     <aside-tools :is-main-menu="true">
       <span slot="label">
-        <b>Admin</b> One
+        <b>DMB-220</b> APP'S
       </span>
     </aside-tools>
     <div class="menu is-menu-main">

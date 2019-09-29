@@ -1,26 +1,20 @@
 <template>
   <div>
-    <hero-bar>
-      Forms
-      <router-link slot="right" to="/" class="button">
-        Dashboard
-      </router-link>
-    </hero-bar>
     <section class="section is-main-section">
       <card-component title="CSV įkėlimas" icon="ballot">
         <b-field label="CSV failas:" horizontal>
-        <file-picker v-model="csv"/>
+          <file-picker @file-updated="file_info" v-model="file"/>
         </b-field>
       </card-component>
-
       <card-component title="Sąrašas" icon="ballot">
         <modal-trash-box :is-active="isModalActive" :trash-subject="trashObjectName" @confirm="trashConfirm" @cancel="trashCancel"/>
+        <modal-edit-box :is-active="isModalEdit" :edit-subject="editObjectName" @confirm="editConfirm" @cancel="editCancel" @edit="val"/>
+        {{valstybe}} - {{tipas}}
         <b-table
         :data="books"
             :bordered="false"
             :striped="false"
             :loading="isLoading">
-
         <template slot-scope="props">
           <b-table-column label="Pavadinimas" field="vardas" sortable>
             {{ props.row.vardas }}
@@ -33,9 +27,9 @@
           </b-table-column>
           <b-table-column custom-key="actions" class="is-actions-cell">
             <div class="buttons is-right">
-              <router-link :to="{name:'clients.edit', params: {id: props.row.id}}" class="button is-small is-primary">
+              <button class="button is-small is-primary" type="button" @click.prevent="editModal(props.row.vardas)">
                 <b-icon icon="account-edit" size="is-small"/>
-              </router-link>
+              </button>
               <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row.vardas)">
                 <b-icon icon="trash-can" size="is-small"/>
               </button>
@@ -49,13 +43,13 @@
               <p>
                 <b-icon icon="dots-horizontal" size="is-large"/>
               </p>
-              <p>Fetching data...</p>
+              <p>Gaunami duomenys...</p>
             </template>
             <template v-else>
               <p>
                 <b-icon icon="emoticon-sad" size="is-large"/>
               </p>
-              <p>Nothing's here&hellip;</p>
+              <p>Duomenų nerasta &hellip;</p>
             </template>
           </div>
         </section>
@@ -68,22 +62,26 @@
 <script>
 import CardComponent from '@/components/CardComponent'
 import mapValues from 'lodash/mapValues'
-import RadioPicker from '@/components/RadioPicker'
-import FilePicker from '@/components/FilePicker'
-import HeroBar from '@/components/HeroBar'
 import ModalTrashBox from '@/components/ModalTrashBox'
+import ModalEditBox from '@/components/ModalEditBox'
+import each from 'lodash/each'
+import FilePicker from '@/components/FilePicker'
+
 
 export default {
   name: 'Forms',
-  components: { HeroBar, FilePicker, RadioPicker, CardComponent, ModalTrashBox  },
+  components: {CardComponent, ModalTrashBox, ModalEditBox, FilePicker },
   data () {
     return {
+      file: null,
       books: [],
-      ats: [],
       isLoading: false,
-      csv: null,
       isModalActive: false,
       trashObject: null,
+      isModalEdit: false,
+      editObject: null,
+      valstybe: '',
+      tipas: ''
       }
   },
   created() {
@@ -92,35 +90,42 @@ export default {
   computed: {
     trashObjectName () {
       if (this.trashObject) {
-        return this.trashObject.name
+        return this.trashObject
       }
-
       return null
-    }
+    },
+    editObjectName () {
+      if (this.editObject) {
+        return this.editObject
+      }
+      return null
+    },
   },
   methods: {
-    submit () {
-
+    val(valstybe, tipas){
+      this.valstybe = valstybe
+      this.tipas = tipas
+    },
+    file_info (value) {
+      this.getData()
+      console.log(value)
     },
     getData () {
+      this.isLoading = true
       this.axios
-      .get('http://app.test/csv')
+      .get('/csv')
       .then(response => {
-          this.books = response.data;
-      });
-    },
-    reset () {
-      this.form = mapValues(this.form, item => {
-        if (item && typeof item === 'object') {
-          return []
-        }
-        return null
+        this.isLoading = false
+        this.books = response.data.data;
       })
-
-      this.$buefy.snackbar.open({
-        message: 'Reset successfully',
-        queue: false
-      })
+      .catch( err => {
+            this.isLoading = false
+            this.$buefy.toast.open({
+              message: `Error: ${e.message}`,
+              type: 'is-danger',
+              queue: false
+            })
+          })
     },
     trashModal (trashObject) {
       this.trashObject = trashObject
@@ -130,11 +135,9 @@ export default {
       this.isModalActive = false
 
       axios
-        .delete(`http://app.test/csv/${this.trashObject}/destroy`)
+        .delete(`/csv/${this.trashObject}/destroy`)
         .then(response => {
           this.getData()
-          this.ats = response.data;
-          console.log(JSON.stringify(this.ats));
           this.$buefy.snackbar.open({
             message: `Ištrintas ${this.trashObject}`,
             queue: false
@@ -150,7 +153,40 @@ export default {
     },
     trashCancel () {
       this.isModalActive = false
-    }
+    },
+    //Edit modal
+    editModal (editObject) {
+      this.editObject = editObject
+      this.isModalEdit = true
+    },
+    editConfirm () {
+      this.isModalEdit = false
+
+      axios
+        .post(`/csv/CSV_store`, {
+          failas: this.editObject,
+          valstybe: this.valstybe,
+          tipas: this.tipas
+          })
+        .then(response => {
+          console.log(response.data)
+          this.getData()
+          this.$buefy.snackbar.open({
+            message: `Duomenys iš ${this.editObject} failo įkelti`,
+            queue: false
+          })
+      })
+        .catch( err => {
+          this.$buefy.toast.open({
+            message: `Error: ${err.message}`,
+            type: 'is-danger',
+            queue: false
+          })
+        })
+    },
+    editCancel () {
+      this.isModalEdit = false
+    },
   }
 }
 </script>

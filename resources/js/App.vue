@@ -43,14 +43,9 @@ export default {
         'VEIKSMAI',
         [
           {
-            to: '/ikelti_csv',
-            label: 'Įkelti CSV failus',
-            icon: 'upload'
-          },
-          {
             to: '/csv_sarasas',
-            label: 'CSV failų sąrašas',
-            icon: 'list'
+            label: 'CSV failų įkėlimas',
+            icon: 'view-list'
           },
           {
             to: '/tables',
@@ -67,21 +62,7 @@ export default {
             label: 'Profile',
             icon: 'account-circle'
           },
-          {
-            label: 'Submenus',
-            subLabel: 'Submenus Example',
-            icon: 'view-list',
-            menu: [
-              {
-                href: '#void',
-                label: 'Sub-item One'
-              },
-              {
-                href: '#void',
-                label: 'Sub-item Two'
-              }
-            ]
-          }
+
         ]
       ]
     }

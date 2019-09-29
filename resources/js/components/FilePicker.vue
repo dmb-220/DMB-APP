@@ -82,15 +82,14 @@ export default {
   },
   methods: {
     upload (file) {
-      //var newFileName = this.file.name + "new";
       this.errors = {}
       let formData = new FormData()
       formData.append('file', this.file)
       this.isUploadSuccess = false
-      //console.log(this.file.name);
+      //console.log(JSON.stringify(formData));
 
       axios
-        .post('/files/store', formData, {
+        .post('/csv/store', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           },
@@ -105,7 +104,7 @@ export default {
           //   this.isUploadSuccess = false
           //   this.uploadPercent = 0
           // }, 1500)
-
+          //console.log(JSON.stringify(r.data.upload))
           this.$emit('file-updated', r.data.data)
           this.$emit('file-id-updated', r.data.data.id)
         })

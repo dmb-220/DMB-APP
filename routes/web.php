@@ -26,8 +26,8 @@ Route::prefix('/csv')->group(function () {
     Route::get('', 'CSVController@index');
     Route::get('{csv}', 'CSVController@show');
     Route::post('store', 'CSVController@store');
+    Route::post('CSV_store', 'CSVController@CSV_store');
     Route::patch('{csv}', 'CSVController@update');
-    Route::post('destroy', 'CSVController@destroyMass');
     Route::delete('{csv}/destroy', 'CSVController@destroy');
 });
 

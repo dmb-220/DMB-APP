@@ -13,13 +13,8 @@ export default new Router({
       component: Home
     },
     {
-      path: '/ikelti_csv',
-      name: 'ikelti_csv',
-      component: () => import(/* webpackChunkName: "tables" */ './views/CSV_Ikelimas.vue')
-    },
-    {
       path: '/CSV_sarasas',
-      name: 'csv_sarasas',
+      name: 'CSV_sarasas',
       component: () => import(/* webpackChunkName: "tables" */ './views/CSV_Sarasas.vue')
     },
     {

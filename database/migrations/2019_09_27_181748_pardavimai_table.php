@@ -21,10 +21,11 @@ class PardavimaiTable extends Migration
             $table->string('grupe');
             $table->string('sandelis');
             $table->string('kiekis');
-            $table->string('kaina');
+            $table->string('pardavimo_kaina');
             $table->string('pardavimo_suma');
             $table->string('pvm');
             $table->string('pvm_suma');
+            $table->string('suma');
             $table->string('grupes_pavadinimas');
 	        $table->string('salis')->nullable();
             $table->timestamps();

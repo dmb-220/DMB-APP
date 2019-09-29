@@ -1,5 +1,5 @@
 <template>
-  <modal-box :is-active.sync="isActive" @confirm="confirm" @cancel="cancel" confirm-type="is-danger" confirm-label="Delete">
+  <modal-box :is-active.sync="isActive" @confirm="confirm" @cancel="cancel" confirm-type="is-danger" confirm-label="Ištrinti">
     <p>This will permanently delete <b>{{ trashSubject }}</b></p>
     <p>Action could not be undone</p>
   </modal-box>

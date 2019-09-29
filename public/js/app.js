@@ -1988,13 +1988,9 @@ __webpack_require__.r(__webpack_exports__);
         icon: 'account-multiple',
         updateMark: true
       }], 'VEIKSMAI', [{
-        to: '/ikelti_csv',
-        label: 'Įkelti CSV failus',
-        icon: 'upload'
-      }, {
         to: '/csv_sarasas',
-        label: 'CSV failų sąrašas',
-        icon: 'list'
+        label: 'CSV failų įkėlimas',
+        icon: 'view-list'
       }, {
         to: '/tables',
         label: 'Tables',
@@ -2007,17 +2003,6 @@ __webpack_require__.r(__webpack_exports__);
         to: '/profile',
         label: 'Profile',
         icon: 'account-circle'
-      }, {
-        label: 'Submenus',
-        subLabel: 'Submenus Example',
-        icon: 'view-list',
-        menu: [{
-          href: '#void',
-          label: 'Sub-item One'
-        }, {
-          href: '#void',
-          label: 'Sub-item Two'
-        }]
       }]];
     }
   },
@@ -2758,7 +2743,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     confirmLabel: {
       type: String,
-      "default": 'Confirm'
+      "default": 'Patvirtinti'
     },
     confirmType: {
       type: String,
@@ -49615,8 +49600,8 @@ var render = function() {
     [
       _c("aside-tools", { attrs: { "is-main-menu": true } }, [
         _c("span", { attrs: { slot: "label" }, slot: "label" }, [
-          _c("b", [_vm._v("Admin")]),
-          _vm._v(" One\n    ")
+          _c("b", [_vm._v("DMB-220")]),
+          _vm._v(" APP'S\n    ")
         ])
       ]),
       _vm._v(" "),
@@ -50364,9 +50349,7 @@ var render = function() {
     [
       _c("div", { staticClass: "modal-card" }, [
         _c("header", { staticClass: "modal-card-head" }, [
-          _c("p", { staticClass: "modal-card-title" }, [
-            _vm._v("Confirm action")
-          ])
+          _c("p", { staticClass: "modal-card-title" }, [_vm._v("Veiksmai")])
         ]),
         _vm._v(" "),
         _c(
@@ -50384,7 +50367,7 @@ var render = function() {
               attrs: { type: "button" },
               on: { click: _vm.cancel }
             },
-            [_vm._v("Cancel")]
+            [_vm._v("Atšaukti")]
           ),
           _vm._v(" "),
           _c(
@@ -50425,7 +50408,7 @@ var render = function() {
       attrs: {
         "is-active": _vm.isActive,
         "confirm-type": "is-danger",
-        "confirm-label": "Delete"
+        "confirm-label": "Ištrinti"
       },
       on: {
         "update:isActive": function($event) {
@@ -68375,14 +68358,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     name: 'home',
     component: _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
-    path: '/ikelti_csv',
-    name: 'ikelti_csv',
-    component: function component() {
-      return Promise.all(/*! import() | tables */[__webpack_require__.e("vendors~client~forms~profile~tables"), __webpack_require__.e("tables")]).then(__webpack_require__.bind(null, /*! ./views/CSV_Ikelimas.vue */ "./resources/js/views/CSV_Ikelimas.vue"));
-    }
-  }, {
     path: '/CSV_sarasas',
-    name: 'csv_sarasas',
+    name: 'CSV_sarasas',
     component: function component() {
       return Promise.all(/*! import() | tables */[__webpack_require__.e("vendors~client~forms~profile~tables"), __webpack_require__.e("tables")]).then(__webpack_require__.bind(null, /*! ./views/CSV_Sarasas.vue */ "./resources/js/views/CSV_Sarasas.vue"));
     }

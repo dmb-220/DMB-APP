@@ -2,13 +2,13 @@
   <b-modal :active.sync="isModalActive" has-modal-card>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Confirm action</p>
+        <p class="modal-card-title">Veiksmai</p>
       </header>
       <section class="modal-card-body">
         <slot/>
       </section>
       <footer class="modal-card-foot">
-        <button class="button" type="button" @click="cancel">Cancel</button>
+        <button class="button" type="button" @click="cancel">Atšaukti</button>
         <button :class="confirmButtonClass" @click="confirm">{{ confirmLabel }}</button>
       </footer>
     </div>
@@ -25,7 +25,7 @@ export default {
     },
     confirmLabel: {
       type: String,
-      default: 'Confirm'
+      default: 'Patvirtinti'
     },
     confirmType: {
       type: String,

@@ -95,13 +95,12 @@ __webpack_require__.r(__webpack_exports__);
     upload: function upload(file) {
       var _this = this;
 
-      //var newFileName = this.file.name + "new";
       this.errors = {};
       var formData = new FormData();
       formData.append('file', this.file);
-      this.isUploadSuccess = false; //console.log(this.file.name);
+      this.isUploadSuccess = false; //console.log(JSON.stringify(formData));
 
-      axios.post('/files/store', formData, {
+      axios.post('/csv/store', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
@@ -113,6 +112,7 @@ __webpack_require__.r(__webpack_exports__);
         //   this.isUploadSuccess = false
         //   this.uploadPercent = 0
         // }, 1500)
+        //console.log(JSON.stringify(r.data.upload))
 
         _this.$emit('file-updated', r.data.data);
 
