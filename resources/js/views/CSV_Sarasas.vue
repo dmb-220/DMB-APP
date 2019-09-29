@@ -67,7 +67,6 @@ import ModalEditBox from '@/components/ModalEditBox'
 import each from 'lodash/each'
 import FilePicker from '@/components/FilePicker'
 
-
 export default {
   name: 'Forms',
   components: {CardComponent, ModalTrashBox, ModalEditBox, FilePicker },
