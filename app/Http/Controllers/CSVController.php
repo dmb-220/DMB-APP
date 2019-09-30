@@ -87,6 +87,9 @@ class CSVController extends Controller
         if($tipas == 1){$lentele = "pardavimai";}
         if($tipas == 2){$lentele = "likutis";}
 
+        //patikrinti ar yra tai valstybei ikelti duomenys,
+        //jei yra neleisti ikelti, pranesti kad istrintu senus duomenis, 
+        //arba pazymeti varnele, kad seni isitrintu
         if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
           while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
               $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
@@ -108,6 +111,8 @@ class CSVController extends Controller
           }
           fclose($handle);
         }
+        //jei duomenys sukrito i duomenu base
+        //pasidaryti to failo istrinima, kad nesimaisytu
 
         return response()->json([
             'status' => true,
