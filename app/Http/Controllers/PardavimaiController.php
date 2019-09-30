@@ -15,12 +15,22 @@ class PardavimaiController extends Controller
     public function index()
     {
         $keyword = 'DM-';
-        $re = Pardavimai::query()->orWhere('sandelis', '=', "TELS")
+        $re = Pardavimai::query()->orWhere('sandelis', '=', "SAUL")
         ->where('preke', 'like', "{$keyword}%")->get();
-        echo $re->sum('kiekis')."<br><br>";
+        //echo $re->sum('kiekis')."<br><br>";
+        
         foreach($re as $value){
-            echo $value->preke." - ".$value->kiekis." - ".$value->sandelis."<br>";
+            //echo $value->preke." - ".$value->kiekis." - ".$value->sandelis."<br>";
         }
+
+        //prasukam cikla ir sudedam visu parduotuviu duomenis i masyva
+        $res['SAUL'] = $re;
+        $res['SAUL']['kiek'] = $re->sum('kiekis');
+        //
+        return response()->json([
+            'status' => true,
+            'data' => $res
+        ]);
 
     }
 
