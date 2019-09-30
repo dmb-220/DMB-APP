@@ -84,7 +84,7 @@ class CSVController extends Controller
         $directory  = "app/CSV_DATA/";
         $failas = $directory.$failas;
 
-        if($tipas == 1){$lentele = "pardavimai";}
+        if($tipas == 1){$lentele = "pardavimais";}
         if($tipas == 2){$lentele = "likutis";}
 
         //patikrinti ar yra tai valstybei ikelti duomenys,
@@ -93,13 +93,15 @@ class CSVController extends Controller
         if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
           while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
               $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-              DB::table('pardavimai')->insert([
+              $kiek = explode(",", $duomenys[7]);
+              $kiek = $kiek[0];
+              DB::table('pardavimais')->insert([
                   'preke' => $duomenys[0],
                    'pavadinimas' => $duomenys[1],
                    'barkodas' => $duomenys[2],
                    'grupe' => $duomenys[3],
                    'sandelis' => $duomenys[6],
-                   'kiekis' => $duomenys[7],
+                   'kiekis' => $kiek,
                    'pardavimo_kaina' => $duomenys[8],
                    'pardavimo_suma' => $duomenys[9],
                    'pvm' => $duomenys[10],

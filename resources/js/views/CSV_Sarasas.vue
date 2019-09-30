@@ -161,7 +161,7 @@ export default {
     },
     editConfirm () {
       this.isModalEdit = false
-
+      this.isLoading = true
       axios
         .post(`/csv/CSV_store`, {
           failas: this.editObject,
@@ -169,7 +169,8 @@ export default {
           tipas: this.tipas
           })
         .then(response => {
-          console.log(response.data)
+          //console.log(response.data)
+          this.isLoading = false
           this.getData()
           this.$buefy.snackbar.open({
             message: `Duomenys iš ${this.editObject} failo įkelti`,
@@ -177,6 +178,7 @@ export default {
           })
       })
         .catch( err => {
+          this.isLoading = false
           this.$buefy.toast.open({
             message: `Error: ${err.message}`,
             type: 'is-danger',

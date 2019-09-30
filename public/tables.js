@@ -402,12 +402,14 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.isModalEdit = false;
+      this.isLoading = true;
       axios.post("/csv/CSV_store", {
         failas: this.editObject,
         valstybe: this.valstybe,
         tipas: this.tipas
       }).then(function (response) {
-        console.log(response.data);
+        //console.log(response.data)
+        _this3.isLoading = false;
 
         _this3.getData();
 
@@ -416,6 +418,8 @@ __webpack_require__.r(__webpack_exports__);
           queue: false
         });
       })["catch"](function (err) {
+        _this3.isLoading = false;
+
         _this3.$buefy.toast.open({
           message: "Error: ".concat(err.message),
           type: 'is-danger',

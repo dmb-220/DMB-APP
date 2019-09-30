@@ -3,14 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
-class File extends Model
+class CSV extends Model
 {
-    protected $appends  = [
-        'url'
-    ];
-
     public function getUrlAttribute() {
         if (empty($this->file)) {
             return null;

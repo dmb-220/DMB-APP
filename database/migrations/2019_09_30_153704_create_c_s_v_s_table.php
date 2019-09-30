@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class LikutisTable extends Migration
+class CreateCSVSTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,10 @@ class LikutisTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('c_s_v_s', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +26,6 @@ class LikutisTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('c_s_v_s');
     }
 }

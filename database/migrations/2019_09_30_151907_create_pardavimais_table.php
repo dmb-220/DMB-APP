@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PardavimaiTable extends Migration
+class CreatePardavimaisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class PardavimaiTable extends Migration
      */
     public function up()
     {
-        Schema::create('pardavimai', function (Blueprint $table) {
+        Schema::create('pardavimais', function (Blueprint $table) {
             $table->bigIncrements('id');
 	        $table->string('preke')->nullable();
             $table->string('pavadinimas')->nullable();
             $table->string('barkodas')->nullable();
             $table->string('grupe');
             $table->string('sandelis');
-            $table->string('kiekis');
+            $table->integer('kiekis');
             $table->string('pardavimo_kaina');
             $table->string('pardavimo_suma');
             $table->string('pvm');
@@ -39,6 +39,6 @@ class PardavimaiTable extends Migration
      */
     public function down()
     {
-    
+        Schema::dropIfExists('pardavimais');
     }
 }

@@ -32,6 +32,17 @@ Route::prefix('/csv')->group(function () {
 });
 
 /*
+ * Pardavimai
+ * */ 
+Route::prefix('/pardavimai')->group(function () {
+    Route::get('', 'PardavimaiController@index');
+    Route::get('{pardavimai}', 'PardavimaiController@show');
+    Route::post('store', 'PardavimaiController@store');
+    Route::patch('{pardavimai}', 'PardavimaiController@update');
+    Route::delete('{pardavimai}/destroy', 'PardavimaiController@destroy');
+});
+
+/*
  * Clients management
  * */
 Route::prefix('/clients')->group(function () {
@@ -51,8 +62,3 @@ Route::prefix('/user')->group(function () {
     Route::patch('', 'CurrentUserController@update');
     Route::patch('/password', 'CurrentUserController@updatePassword');
 });
-
-/*
- * File upload (e.g. avatar)
- * */
-Route::post('/files/store', 'FilesController@store');
