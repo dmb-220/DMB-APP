@@ -15,18 +15,32 @@ class PardavimaiController extends Controller
     public function index()
     {
         $keyword = 'DM-';
-        $re = Pardavimai::query()->orWhere('sandelis', '=', "SAUL")
+        $re1 = Pardavimai::query()->orWhere('sandelis', '=', "SAUL")
+        ->where('preke', 'like', "{$keyword}%")->get();
+        $re2 = Pardavimai::query()->orWhere('sandelis', '=', "NORF")
+        ->where('preke', 'like', "{$keyword}%")->get();
+        $re3 = Pardavimai::query()->orWhere('sandelis', '=', "UTEN")
         ->where('preke', 'like', "{$keyword}%")->get();
         //echo $re->sum('kiekis')."<br><br>";
         
-        foreach($re as $value){
+        //foreach($re as $value){
             //echo $value->preke." - ".$value->kiekis." - ".$value->sandelis."<br>";
-        }
+        //}
 
         //prasukam cikla ir sudedam visu parduotuviu duomenis i masyva
-        $res['SAUL'] = $re;
-        $res['SAUL']['kiek'] = $re->sum('kiekis');
-        //
+        $res[0]['kiek'] = $re1->sum('kiekis');
+        $res[0]['sandelys'] = 'SAUL';
+        $res[0]['prekes'] = $re1->toArray();
+//
+        $res[1]['kiek'] = $re2->sum('kiekis');
+        $res[1]['sandelys'] = 'NORF';
+        $res[1]['prekes'] = $re2->toArray();
+
+        $res[2]['kiek'] = $re3->sum('kiekis');
+        $res[2]['sandelys'] = 'UTEN';
+        $res[2]['prekes'] = $re3->toArray();
+        //var_dump($res);
+        
         return response()->json([
             'status' => true,
             'data' => $res

@@ -1,11 +1,11 @@
 {
-    "/js/app.js": "/js/app.js?id=9770e2c53673c6807554",
+    "/js/app.js": "/js/app.js?id=21181d8e6bdb8a097609",
     "/css/app.css": "/css/app.css?id=7736b8d9dfbfbb2ada02",
-    "/client.js": "/client.js?id=788e92231de170d9c68d",
-    "/client~forms~profile.js": "/client~forms~profile.js?id=e921a35bbc24ae18dfb4",
-    "/forms.js": "/forms.js?id=af03255e0ec957b1748b",
-    "/profile.js": "/profile.js?id=a09ef6f6c732f8fccb0d",
-    "/tables.js": "/tables.js?id=8e73e2fa07779023e66e",
+    "/client.js": "/client.js?id=97d4cb24880692af2df3",
+    "/client~forms~tables.js": "/client~forms~tables.js?id=869af9d3603f11624e14",
+    "/forms.js": "/forms.js?id=f6bf4d02d5ed930c990b",
+    "/profile.js": "/profile.js?id=70b01f012968918a8fc8",
+    "/tables.js": "/tables.js?id=1c7b8631781f1ff0fc89",
     "/vendors~client.js": "/vendors~client.js?id=7c110ab6a141edb2d8b3",
     "/vendors~client~forms~profile~tables.js": "/vendors~client~forms~profile~tables.js?id=a8ce9640df94ead56dce",
     "/css/vendor.css": "/css/vendor.css?id=d79135b31ec8f72bcaf7"

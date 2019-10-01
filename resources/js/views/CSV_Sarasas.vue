@@ -9,7 +9,6 @@
       <card-component title="Sąrašas" icon="ballot">
         <modal-trash-box :is-active="isModalActive" :trash-subject="trashObjectName" @confirm="trashConfirm" @cancel="trashCancel"/>
         <modal-edit-box :is-active="isModalEdit" :edit-subject="editObjectName" @confirm="editConfirm" @cancel="editCancel" @edit="val"/>
-        {{valstybe}} - {{tipas}}
         <b-table
         :data="books"
             :bordered="false"

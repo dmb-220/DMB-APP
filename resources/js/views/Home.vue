@@ -1,136 +1,105 @@
 <template>
-  <div>
-    <hero-bar :has-right-visible="false">
-      Dashboard
-    </hero-bar>
     <section class="section is-main-section">
-      <tiles>
-        <card-widget class="tile is-child" type="is-primary" icon="account-multiple" :number="512" label="Clients"/>
-        <card-widget class="tile is-child" type="is-info" icon="cart-outline" :number="7770" prefix="$" label="Sales"/>
-        <card-widget class="tile is-child" type="is-success" icon="chart-timeline-variant" :number="256" suffix="%" label="Performance"/>
-      </tiles>
+      <card-component title="Statistika" icon="finance">  
+        <b-field horizontal>
+            <b-input placeholder="Paieška..." type="search" icon="magnify"></b-input>    
+          <div class="control">
+            <b-button native-type="submit" type="is-primary">Ieškoti</b-button>
+          </div>
+        </b-field>
+        <hr>       
+        <b-table
+        :data="pardavimai"
+        ref="table"
+        :opened-detailed="defaultOpenedDetails"
+        detailed
+        detail-key="sandelys"
+        @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.sandelys}`)"
+        :show-detail-icon="showDetailIcon"
+        :loading="isLoading">
+        <template slot-scope="props">
+          <b-table-column style="background-color:yellow" label="Sandelis" field="sandelys" sortable>
+            <a @click="toggle(props.row)">
+                {{ props.row.sandelys }}
+            </a>
+          </b-table-column>
+          <b-table-column label="Kiekis" field="kiek" sortable>
+            {{ props.row.kiek }}
+          </b-table-column>
+        </template>
 
-      <card-component title="Performance" @header-icon-click="fillChartData" icon="finance" header-icon="reload">
-        <div v-if="defaultChart.chartData" class="chart-area">
-          <line-chart style="height: 100%"
-                      ref="bigChart"
-                      chart-id="big-line-chart"
-                      :chart-data="defaultChart.chartData"
-                      :extra-options="defaultChart.extraOptions">
-          </line-chart>
-        </div>
-      </card-component>
+        <template slot="detail" slot-scope="props">
+            <ul>
+              <li v-for="item in props.row.prekes">
+                {{ item.preke }} - {{ item.kiekis }}
+              </li>
+            </ul>
+        </template>
 
-      <card-component title="Clients" class="has-table has-mobile-sort-spaced">
-        <clients-table-sample data-url="/clients"/>
+        <section class="section" slot="empty">
+          <div class="content has-text-grey has-text-centered">
+            <template v-if="isLoading">
+              <p>
+                <b-icon icon="dots-horizontal" size="is-large"/>
+              </p>
+              <p>Gaunami duomenys...</p>
+            </template>
+            <template v-else>
+              <p>
+                <b-icon icon="emoticon-sad" size="is-large"/>
+              </p>
+              <p>Duomenų nerasta &hellip;</p>
+            </template>
+          </div>
+        </section>
+      </b-table>
+
       </card-component>
     </section>
-  </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import * as chartConfig from '@/components/Charts/chart.config'
-import HeroBar from '@/components/HeroBar'
-import CardWidget from '@/components/CardWidget'
 import CardComponent from '@/components/CardComponent'
-import LineChart from '@/components/Charts/LineChart'
-import ClientsTableSample from '@/components/ClientsTableSample'
 export default {
   name: 'home',
-  components: {
-    ClientsTableSample,
-    LineChart,
-    CardComponent,
-    CardWidget,
-    HeroBar,
-  },
+  components: { CardComponent },
   data () {
     return {
-      defaultChart: {
-        chartData: null,
-        extraOptions: chartConfig.chartOptionsMain
-      }
+     isLoading: false,
+     defaultOpenedDetails: [1],
+     showDetailIcon: false,
+     pardavimai: [],
     }
   },
   computed: {
-    titleStack () {
-      return [
-        'Admin',
-        'Dashboard'
-      ]
-    }
   },
+  created() {
+    this.getData()
+    },
   mounted () {
-    this.fillChartData()
-
-    this.$buefy.snackbar.open({
-      message: 'Welcome back',
-      queue: false
-    })
   },
   methods: {
-    randomChartData (n) {
-      let data = []
-
-      for (let i = 0; i < n; i++) {
-        data.push(Math.round(Math.random() * 200))
-      }
-
-      return data
+    toggle(row) {
+                this.$refs.table.toggleDetails(row)
+            },
+    getData () {
+      this.isLoading = true
+      this.axios
+      .get('/pardavimai')
+      .then(response => {
+        this.isLoading = false
+        this.pardavimai = response.data.data;
+        //console.log(this.pardavimai);
+      })
+      .catch( err => {
+            this.isLoading = false
+            this.$buefy.toast.open({
+              message: `Error: ${e.message}`,
+              type: 'is-danger',
+              queue: false
+            })
+          })
     },
-    fillChartData () {
-      this.defaultChart.chartData = {
-        datasets: [
-          {
-            fill: false,
-            borderColor: chartConfig.chartColors.default.primary,
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: chartConfig.chartColors.default.primary,
-            pointBorderColor: 'rgba(255,255,255,0)',
-            pointHoverBackgroundColor: chartConfig.chartColors.default.primary,
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 4,
-            data: this.randomChartData(9)
-          },
-          {
-            fill: false,
-            borderColor: chartConfig.chartColors.default.info,
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: chartConfig.chartColors.default.info,
-            pointBorderColor: 'rgba(255,255,255,0)',
-            pointHoverBackgroundColor: chartConfig.chartColors.default.info,
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 4,
-            data: this.randomChartData(9)
-          },
-          {
-            fill: false,
-            borderColor: chartConfig.chartColors.default.danger,
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: chartConfig.chartColors.default.danger,
-            pointBorderColor: 'rgba(255,255,255,0)',
-            pointHoverBackgroundColor: chartConfig.chartColors.default.danger,
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 4,
-            data: this.randomChartData(9)
-          }
-        ],
-        labels: ['01', '02', '03', '04', '05', '06', '07', '08', '09']
-      }
-    }
   }
 }
 </script>
