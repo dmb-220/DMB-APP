@@ -2650,6 +2650,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'home',
@@ -2679,7 +2687,8 @@ __webpack_require__.r(__webpack_exports__);
       this.isLoading = true;
       this.axios.get('/pardavimai').then(function (response) {
         _this.isLoading = false;
-        _this.pardavimai = response.data.data; //console.log(this.pardavimai);
+        _this.pardavimai = response.data.data;
+        console.log(_this.pardavimai);
       })["catch"](function (err) {
         _this.isLoading = false;
 
@@ -33864,10 +33873,13 @@ var render = function() {
             {
               ref: "table",
               attrs: {
+                bordered: "",
+                hoverable: "",
                 data: _vm.pardavimai,
                 "opened-detailed": _vm.defaultOpenedDetails,
                 detailed: "",
-                "detail-key": "sandelys",
+                "sort-icon": "arrow-up",
+                "detail-key": "sandelis",
                 "show-detail-icon": _vm.showDetailIcon,
                 loading: _vm.isLoading
               },
@@ -33887,8 +33899,8 @@ var render = function() {
                           staticStyle: { "background-color": "yellow" },
                           attrs: {
                             label: "Sandelis",
-                            field: "sandelys",
-                            sortable: ""
+                            width: "100",
+                            field: "sandelis"
                           }
                         },
                         [
@@ -33904,7 +33916,7 @@ var render = function() {
                             [
                               _vm._v(
                                 "\n            " +
-                                  _vm._s(props.row.sandelys) +
+                                  _vm._s(props.row.sandelis) +
                                   "\n        "
                               )
                             ]
@@ -33916,14 +33928,46 @@ var render = function() {
                         "b-table-column",
                         {
                           attrs: {
-                            label: "Kiekis",
-                            field: "kiek",
+                            label: "Parduota",
+                            field: "parduota",
                             sortable: ""
                           }
                         },
                         [
                           _vm._v(
-                            "\n        " + _vm._s(props.row.kiek) + "\n      "
+                            "\n        " +
+                              _vm._s(props.row.parduota) +
+                              "\n      "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-table-column",
+                        {
+                          attrs: {
+                            label: "Likutis",
+                            field: "likutis",
+                            sortable: ""
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n        " +
+                              _vm._s(props.row.likutis) +
+                              "\n      "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-table-column",
+                        {
+                          attrs: { label: "Viso", field: "viso", sortable: "" }
+                        },
+                        [
+                          _vm._v(
+                            "\n        " + _vm._s(props.row.viso) + "\n      "
                           )
                         ]
                       )

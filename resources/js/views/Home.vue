@@ -7,24 +7,33 @@
             <b-button native-type="submit" type="is-primary">Ieškoti</b-button>
           </div>
         </b-field>
-        <hr>       
+        <hr>
         <b-table
+        bordered
+        hoverable
         :data="pardavimai"
         ref="table"
         :opened-detailed="defaultOpenedDetails"
         detailed
-        detail-key="sandelys"
+        sort-icon="arrow-up"
+        detail-key="sandelis"
         @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.sandelys}`)"
         :show-detail-icon="showDetailIcon"
         :loading="isLoading">
         <template slot-scope="props">
-          <b-table-column style="background-color:yellow" label="Sandelis" field="sandelys" sortable>
+          <b-table-column style="background-color:yellow" label="Sandelis" width="100" field="sandelis">
             <a @click="toggle(props.row)">
-                {{ props.row.sandelys }}
+                {{ props.row.sandelis }}
             </a>
           </b-table-column>
-          <b-table-column label="Kiekis" field="kiek" sortable>
-            {{ props.row.kiek }}
+          <b-table-column label="Parduota" field="parduota" sortable>
+            {{ props.row.parduota }}
+          </b-table-column>
+          <b-table-column label="Likutis" field="likutis" sortable>
+            {{ props.row.likutis }}
+          </b-table-column>
+          <b-table-column label="Viso" field="viso" sortable>
+            {{ props.row.viso }}
           </b-table-column>
         </template>
 
@@ -89,7 +98,7 @@ export default {
       .then(response => {
         this.isLoading = false
         this.pardavimai = response.data.data;
-        //console.log(this.pardavimai);
+        console.log(this.pardavimai);
       })
       .catch( err => {
             this.isLoading = false
