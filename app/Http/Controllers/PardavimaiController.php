@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pardavimai;
+use App\Likutis;
 
 class PardavimaiController extends Controller
 {
@@ -14,25 +15,20 @@ class PardavimaiController extends Controller
      */
     public function index()
     {
-        /*$keyword = 'DM-';
-        $re1 = Pardavimai::query()->orWhere('sandelis', '=', "SAUL")
-        ->where('preke', 'like', "{$keyword}%")->get();
-        $re2 = Pardavimai::query()->orWhere('sandelis', '=', "NORF")
-        ->where('preke', 'like', "{$keyword}%")->get();
-        $re3 = Pardavimai::query()->orWhere('sandelis', '=', "UTEN")
-        ->where('preke', 'like', "{$keyword}%")->get();
-        //echo $re->sum('kiekis')."<br><br>";*/
-        
-        //foreach($re as $value){
-            //echo $value->preke." - ".$value->kiekis." - ".$value->sandelis."<br>";
-        //}
         $keyword = 'DM-';
+
         $re1 = Pardavimai::query()
         ->where('preke', 'like', "{$keyword}%")->get();
-
         $group = array();
         foreach ( $re1 as $value ) {
             $group[$value['sandelis']][] = $value;
+        }
+
+        $re2 = Likutis::query()
+        ->where('preke', 'like', "{$keyword}%")->get();
+        $group2 = array();
+        foreach ( $re2 as $value ) {
+            $group2[$value['sandelis']][] = $value;
         }
 
         $da = array();
@@ -46,29 +42,21 @@ class PardavimaiController extends Controller
                 return $runningTotal;
                 }, 0);
 
+                $total = array_reduce($group2[$idx],
+                function($runningTotal, $record) use($sumDetail) {
+                $runningTotal += $record[$sumDetail];
+                return $runningTotal;
+                }, 0);
+
                 $da[$i]['sandelis'] = $idx;
                 $da[$i]['parduota'] = $totalVAT;
-                $da[$i]['likutis'] = $totalVAT;
-                $da[$i]['viso'] = $totalVAT-($totalVAT/2);
+                $da[$i]['likutis'] = $total;
+                $da[$i]['viso'] = $total-($totalVAT*2);
                 $da[$i]['prekes'] = $value;
+                $da[$i]['likut'] = $group2[$idx];
                 $i++;
             }
         }
-
-
-        //prasukam cikla ir sudedam visu parduotuviu duomenis i masyva
-       /* $res[0]['kiek'] = $re1->sum('kiekis');
-        $res[0]['sandelys'] = 'SAUL';
-        $res[0]['prekes'] = $re1;
-//
-        $res[1]['kiek'] = $re2->sum('kiekis');
-        $res[1]['sandelys'] = 'NORF';
-        $res[1]['prekes'] = $re2;
-
-        $res[2]['kiek'] = $re3->sum('kiekis');
-        $res[2]['sandelys'] = 'UTEN';
-        $res[2]['prekes'] = $re3;
-        //var_dump($res);*/
         
         return response()->json([
             'status' => true,

@@ -254,7 +254,7 @@ __webpack_require__.r(__webpack_exports__);
         valstybe: this.valstybe,
         tipas: this.tipas
       }).then(function (response) {
-        //console.log(response.data)
+        console.log(response.data.data);
         _this3.isLoading = false;
 
         _this3.getData();

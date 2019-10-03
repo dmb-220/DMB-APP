@@ -76,6 +76,9 @@ class CSVController extends Controller
 
     public function CSV_store(Request $request)
     {
+        //pranesimai, ivykus klaidai
+        $message = array();
+
         $data = $request->all();
         $failas = $data['failas'];
         $valstybe = $data['valstybe'];
@@ -84,41 +87,78 @@ class CSVController extends Controller
         $directory  = "app/CSV_DATA/";
         $failas = $directory.$failas;
 
-        if($tipas == 1){$lentele = "pardavimais";}
-        if($tipas == 2){$lentele = "likutis";}
-
         //patikrinti ar yra tai valstybei ikelti duomenys,
         //jei yra neleisti ikelti, pranesti kad istrintu senus duomenis, 
         //arba pazymeti varnele, kad seni isitrintu
-        if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
-          while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
-              $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-              $kiek = explode(",", $duomenys[7]);
-              $kiek = $kiek[0];
-              DB::table('pardavimais')->insert([
-                  'preke' => $duomenys[0],
-                   'pavadinimas' => $duomenys[1],
-                   'barkodas' => $duomenys[2],
-                   'grupe' => $duomenys[3],
-                   'sandelis' => $duomenys[6],
-                   'kiekis' => $kiek,
-                   'pardavimo_kaina' => $duomenys[8],
-                   'pardavimo_suma' => $duomenys[9],
-                   'pvm' => $duomenys[10],
-                   'pvm_suma' => $duomenys[11],
-                   'suma' => $duomenys[12],
-                   'grupes_pavadinimas' => $duomenys[13],
-                   'salis' => $valstybe,
-                  ]);
-          }
-          fclose($handle);
-        }
+        //perkelti is CIA i pardavimai Controller
         //jei duomenys sukrito i duomenu base
         //pasidaryti to failo istrinima, kad nesimaisytu
 
+        //daromas pardavimu užkėlimas
+        if($tipas == 1){
+            //Uzkelime LIETUVOS ir LATVIJOS duomenis
+            if($valstybe == 1 || $valstybe == 2){
+                if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                    $kiek = explode(",", $duomenys[7]);
+                    $kiek = $kiek[0];
+                    DB::table('pardavimais')->insert([
+                        'preke' => $duomenys[0],
+                        'pavadinimas' => $duomenys[1],
+                        'barkodas' => $duomenys[2],
+                        'grupe' => $duomenys[3],
+                        'sandelis' => $duomenys[6],
+                        'kiekis' => $kiek,
+                        'pardavimo_kaina' => $duomenys[8],
+                        'pardavimo_suma' => $duomenys[9],
+                        'pvm' => $duomenys[10],
+                        'pvm_suma' => $duomenys[11],
+                        'suma' => $duomenys[12],
+                        'grupes_pavadinimas' => $duomenys[13],
+                        'salis' => $valstybe,
+                        ]);
+                }
+                fclose($handle);
+                }
+            }
+            //uzkeliame ESTIJOS pardavimus
+            if($valstybe == 3){
+
+            }
+        }
+
+        //daromas likuciu uzkelimas
+        if($tipas == 2){
+            //Uzkelime LIETUVOS ir LATVIJOS duomenis
+            if($valstybe == 1 || $valstybe == 2){
+                if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                    $kiek = explode(",", $duomenys[4]);
+                    $kiek = $kiek[0];
+                    DB::table('likutis')->insert([
+                        'preke' => $duomenys[0],
+                        'pavadinimas' => $duomenys[1],
+                        'kaina' => $duomenys[3],
+                        'kiekis' => $kiek,
+                        'suma' => $duomenys[5],
+                        'sandelis' => $duomenys[6],
+                        'salis' => $valstybe,
+                        ]);
+                }
+                fclose($handle);
+                }
+            }
+            //uzkeliame ESTIJOS duomenis
+            if($valstybe == 3){
+
+            }
+        }
+
         return response()->json([
             'status' => true,
-            //'data' => $duomenys
+            'data' => $message
         ]);
     }
 

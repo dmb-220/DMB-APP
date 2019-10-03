@@ -13,8 +13,16 @@ class CreateLikutisTable extends Migration
      */
     public function up()
     {
+        //Kodas;Pavadinimas;Vnt.;Kaina;Kiekis;Suma;Sandėlis;
         Schema::create('likutis', function (Blueprint $table) {
             $table->bigIncrements('id');
+	        $table->string('preke');
+            $table->string('pavadinimas');
+            $table->string('kaina');
+            $table->integer('kiekis');
+            $table->string('suma');
+            $table->string('sandelis');
+            $table->string('salis');
             $table->timestamps();
         });
     }

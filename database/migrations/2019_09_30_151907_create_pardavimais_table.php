@@ -15,9 +15,9 @@ class CreatePardavimaisTable extends Migration
     {
         Schema::create('pardavimais', function (Blueprint $table) {
             $table->bigIncrements('id');
-	        $table->string('preke')->nullable();
-            $table->string('pavadinimas')->nullable();
-            $table->string('barkodas')->nullable();
+	        $table->string('preke');
+            $table->string('pavadinimas');
+            $table->string('barkodas');
             $table->string('grupe');
             $table->string('sandelis');
             $table->integer('kiekis');
@@ -27,7 +27,7 @@ class CreatePardavimaisTable extends Migration
             $table->string('pvm_suma');
             $table->string('suma');
             $table->string('grupes_pavadinimas');
-	        $table->string('salis')->nullable();
+	        $table->string('salis');
             $table->timestamps();
         });
     }

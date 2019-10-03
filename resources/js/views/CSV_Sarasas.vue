@@ -168,7 +168,7 @@ export default {
           tipas: this.tipas
           })
         .then(response => {
-          //console.log(response.data)
+          console.log(response.data.data)
           this.isLoading = false
           this.getData()
           this.$buefy.snackbar.open({

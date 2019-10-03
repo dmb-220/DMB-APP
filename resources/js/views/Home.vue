@@ -21,16 +21,16 @@
         :show-detail-icon="showDetailIcon"
         :loading="isLoading">
         <template slot-scope="props">
-          <b-table-column style="background-color:yellow" label="Sandelis" width="100" field="sandelis">
+          <b-table-column style="background-color:green" label="Sandelis" width="100" field="sandelis">
             <a @click="toggle(props.row)">
                 {{ props.row.sandelis }}
             </a>
           </b-table-column>
-          <b-table-column label="Parduota" field="parduota" sortable>
-            {{ props.row.parduota }}
-          </b-table-column>
           <b-table-column label="Likutis" field="likutis" sortable>
             {{ props.row.likutis }}
+          </b-table-column>
+          <b-table-column label="Parduota" field="parduota" sortable>
+            {{ props.row.parduota }}
           </b-table-column>
           <b-table-column label="Viso" field="viso" sortable>
             {{ props.row.viso }}

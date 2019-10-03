@@ -33896,7 +33896,7 @@ var render = function() {
                       _c(
                         "b-table-column",
                         {
-                          staticStyle: { "background-color": "yellow" },
+                          staticStyle: { "background-color": "green" },
                           attrs: {
                             label: "Sandelis",
                             width: "100",
@@ -33928,24 +33928,6 @@ var render = function() {
                         "b-table-column",
                         {
                           attrs: {
-                            label: "Parduota",
-                            field: "parduota",
-                            sortable: ""
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n        " +
-                              _vm._s(props.row.parduota) +
-                              "\n      "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-table-column",
-                        {
-                          attrs: {
                             label: "Likutis",
                             field: "likutis",
                             sortable: ""
@@ -33955,6 +33937,24 @@ var render = function() {
                           _vm._v(
                             "\n        " +
                               _vm._s(props.row.likutis) +
+                              "\n      "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-table-column",
+                        {
+                          attrs: {
+                            label: "Parduota",
+                            field: "parduota",
+                            sortable: ""
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n        " +
+                              _vm._s(props.row.parduota) +
                               "\n      "
                           )
                         ]
@@ -51171,8 +51171,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\wamp64\www\vuejs-laravel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\wamp64\www\vuejs-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\DMB-APP\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\DMB-APP\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
