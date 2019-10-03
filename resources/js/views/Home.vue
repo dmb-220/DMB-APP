@@ -8,9 +8,16 @@
           </div>
         </b-field>
         <hr>
+        <div class="columns">
+          <div class="column" :style="{'background-color': 'greenyellow'}">LIETUVA</div>
+          <div class="column" :style="{'background-color': 'gold'}">LATVIJA</div>
+          <div class="column" :style="{'background-color': 'tomato'}">ESTIJA</div>
+        </div>
+        <hr>
         <b-table
         bordered
         hoverable
+        :narrowed="isNarrowed"
         :data="pardavimai"
         ref="table"
         :opened-detailed="defaultOpenedDetails"
@@ -18,13 +25,16 @@
         sort-icon="arrow-up"
         detail-key="sandelis"
         @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.sandelys}`)"
-        :show-detail-icon="showDetailIcon"
         :loading="isLoading">
         <template slot-scope="props">
-          <b-table-column style="background-color:green" label="Sandelis" width="100" field="sandelis">
-            <a @click="toggle(props.row)">
+          <b-table-column v-if="props.row.prekes[0].salis == 1" :style="{'background-color': 'greenyellow'}"  label="Sandelis" width="150" field="sandelis">
                 {{ props.row.sandelis }}
-            </a>
+          </b-table-column>
+          <b-table-column v-if="props.row.prekes[0].salis == 2" :style="{'background-color': 'gold'}"  label="Sandelis" width="150" field="sandelis">
+                {{ props.row.sandelis }}
+          </b-table-column>
+          <b-table-column v-if="props.row.prekes[0].salis == 3" :style="{'background-color': 'tomato'}"  label="Sandelis" width="150" field="sandelis">
+                {{ props.row.sandelis }}
           </b-table-column>
           <b-table-column label="Likutis" field="likutis" sortable>
             {{ props.row.likutis }}
@@ -33,16 +43,51 @@
             {{ props.row.parduota }}
           </b-table-column>
           <b-table-column label="Viso" field="viso" sortable>
-            {{ props.row.viso }}
+            <b>{{ props.row.viso }}</b>
           </b-table-column>
         </template>
 
         <template slot="detail" slot-scope="props">
-            <ul>
-              <li v-for="item in props.row.prekes">
-                {{ item.preke }} - {{ item.kiekis }}
-              </li>
-            </ul>
+          <div class="columns">
+          <div class="column" :style="{'border': '1px solid'}">
+            <div class="has-text-centered">Likučiai:</div>
+            <b-table
+            :data="props.row.likut"
+            default-sort-direction="desc"
+            default-sort="kiekis"
+            bordered="true"
+            striped="true"
+            narrowed="true">
+            <template slot-scope="props">
+                <b-table-column field="preke" label="Prekė">
+                    {{ props.row.preke }}
+                </b-table-column>
+                <b-table-column field="kiekis" label="Kiekis" sortable>
+                    {{ props.row.kiekis }}
+                </b-table-column>
+            </template>
+            </b-table>
+          </div>
+          <div class="column" :style="{'border': '1px solid'}">
+            <div class="has-text-centered">Pardavimai:</div>
+            <b-table
+            :data="props.row.prekes"
+            default-sort-direction="desc"
+            default-sort="kiekis"
+            bordered="true"
+            striped="true"
+            narrowed="true">
+            <template slot-scope="props">
+                <b-table-column field="preke" label="Prekė">
+                    {{ props.row.preke }}
+                </b-table-column>
+                <b-table-column field="kiekis" label="Kiekis" sortable>
+                    {{ props.row.kiekis }}
+                </b-table-column>
+            </template>
+            </b-table>
+          </div>
+        </div>
         </template>
 
         <section class="section" slot="empty">
@@ -67,6 +112,11 @@
     </section>
 </template>
 
+<style lang="scss">
+$table-cell-border: 1px solid black
+</style>
+
+
 <script>
 import CardComponent from '@/components/CardComponent'
 export default {
@@ -77,6 +127,7 @@ export default {
      isLoading: false,
      defaultOpenedDetails: [1],
      showDetailIcon: false,
+     isNarrowed: true,
      pardavimai: [],
     }
   },

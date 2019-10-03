@@ -27,11 +27,19 @@ class CSVController extends Controller
              "modifikuota" => gmdate("Y-m-d - H:i:s", $lastModified));
         }
 
+
+        /*$failas = 'pardavimai-estija.csv';
+        $valstybe = 3;
+        $tipas = 1;
+
+        $directory  = "app/CSV_DATA/";
+        $failas = $directory.$failas;*/
+
+            
         //var_dump($records);
         return response()->json([
             'status' => true,
             'data' => $data,
-            //'info' => $lentele
         ]);
     }
 
@@ -122,9 +130,29 @@ class CSVController extends Controller
                 fclose($handle);
                 }
             }
-            //uzkeliame ESTIJOS pardavimus
+            //uzkeliame ESTIJOS pardavimusduomenis
             if($valstybe == 3){
-
+                if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
+                    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                        $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                        DB::table('pardavimais')->insert([
+                            'preke' => $duomenys[8],
+                            'pavadinimas' => $duomenys[3],
+                            'barkodas' => $duomenys[8],
+                            'grupe' => $duomenys[1],
+                            'sandelis' => $duomenys[2],
+                            'kiekis' => $duomenys[5],
+                            'pardavimo_kaina' => 0,
+                            'pardavimo_suma' => 0,
+                            'pvm' => 0,
+                            'pvm_suma' => 0,
+                            'suma' => 0,
+                            'grupes_pavadinimas' => 0,
+                            'salis' => $valstybe,
+                            ]);
+                    }
+                    fclose($handle);
+                }
             }
         }
 
@@ -152,7 +180,21 @@ class CSVController extends Controller
             }
             //uzkeliame ESTIJOS duomenis
             if($valstybe == 3){
-
+                if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
+                    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                        $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                        DB::table('likutis')->insert([
+                            'preke' => $duomenys[6],
+                            'pavadinimas' => $duomenys[1],
+                            'kaina' => 0,
+                            'kiekis' => $duomenys[7],
+                            'suma' => $duomenys[8],
+                            'sandelis' => $duomenys[5],
+                            'salis' => $valstybe,
+                            ]);
+                    }
+                    fclose($handle);
+                }
             }
         }
 
