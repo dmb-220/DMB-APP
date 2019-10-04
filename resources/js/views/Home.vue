@@ -2,16 +2,19 @@
     <section class="section is-main-section">
       <card-component title="Statistika" icon="finance">  
         <b-field horizontal>
-            <b-input placeholder="Paieška..." type="search" icon="magnify"></b-input>    
+            <b-input placeholder="Paieška..." type="search" v-model="ieskoti" icon="magnify"></b-input>    
           <div class="control">
             <b-button native-type="submit" type="is-primary">Ieškoti</b-button>
           </div>
         </b-field>
         <hr>
         <div class="columns">
-          <div class="column" :style="{'background-color': 'greenyellow'}">LIETUVA</div>
-          <div class="column" :style="{'background-color': 'gold'}">LATVIJA</div>
-          <div class="column" :style="{'background-color': 'tomato'}">ESTIJA</div>
+          <div class="column has-text-centered has-text-weight-bold">{{ paieska }} </div>
+        </div>
+        <div class="columns">
+          <div class="column has-text-centered is-size-6" :style="{'background-color': 'greenyellow'}">LIETUVA</div>
+          <div class="column has-text-centered is-size-6" :style="{'background-color': 'gold'}">LATVIJA</div>
+          <div class="column has-text-centered is-size-6" :style="{'background-color': 'tomato'}">ESTIJA</div>
         </div>
         <hr>
         <b-table
@@ -24,28 +27,29 @@
         detailed
         sort-icon="arrow-up"
         detail-key="sandelis"
-        @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.sandelys}`)"
+        @details-open="(row, index) => $buefy.toast.open(`Išskleistas ${row.sandelys} sandelys!`)"
         :loading="isLoading">
         <template slot-scope="props">
-          <b-table-column v-if="props.row.prekes[0].salis == 1" :style="{'background-color': 'greenyellow'}"  label="Sandelis" width="150" field="sandelis">
+          <b-table-column v-if="props.row.prekes[0].salis == 1" :style="{'background-color': 'greenyellow'}"  label="Sandelis" width="200" field="sandelis">
                 {{ props.row.sandelis }}
           </b-table-column>
-          <b-table-column v-if="props.row.prekes[0].salis == 2" :style="{'background-color': 'gold'}"  label="Sandelis" width="150" field="sandelis">
+          <b-table-column v-if="props.row.prekes[0].salis == 2" :style="{'background-color': 'gold'}"  label="Sandelis" width="200" field="sandelis">
                 {{ props.row.sandelis }}
           </b-table-column>
-          <b-table-column v-if="props.row.prekes[0].salis == 3" :style="{'background-color': 'tomato'}"  label="Sandelis" width="150" field="sandelis">
+          <b-table-column v-if="props.row.prekes[0].salis == 3" :style="{'background-color': 'tomato'}"  label="Sandelis" width="200" field="sandelis">
                 {{ props.row.sandelis }}
           </b-table-column>
-          <b-table-column label="Likutis" field="likutis" sortable>
+          <b-table-column label="Likutis" field="likutis" width="300" sortable>
             {{ props.row.likutis }}
           </b-table-column>
-          <b-table-column label="Parduota" field="parduota" sortable>
+          <b-table-column label="Parduota" field="parduota" width="300" sortable>
             {{ props.row.parduota }}
           </b-table-column>
-          <b-table-column label="Viso" field="viso" sortable>
+          <b-table-column label="Viso" field="viso" width="300" sortable>
             <b>{{ props.row.viso }}</b>
           </b-table-column>
         </template>
+        
 
         <template slot="detail" slot-scope="props">
           <div class="columns">
@@ -91,7 +95,7 @@
         </template>
 
         <section class="section" slot="empty">
-          <div class="content has-text-grey has-text-centered">
+          <div class="content has-text-centered">
             <template v-if="isLoading">
               <p>
                 <b-icon icon="dots-horizontal" size="is-large"/>
@@ -107,13 +111,23 @@
           </div>
         </section>
       </b-table>
-
+      <table style="width:100%">
+      <tr>
+          <td width="240"> </td>
+          <td width="300"><b>{{viso_lik}}</b></td>
+          <td width="300"><b>{{viso_pard}}</b></td>
+          <td width="300"> </td>
+        </tr>
+        </table>
       </card-component>
     </section>
 </template>
 
-<style lang="scss">
-$table-cell-border: 1px solid black
+<style lang="css">
+table, th, td {
+  padding-left: 20px;
+  margin-left: 20px;
+}
 </style>
 
 
@@ -129,6 +143,10 @@ export default {
      showDetailIcon: false,
      isNarrowed: true,
      pardavimai: [],
+     ieskoti: '',
+     paieska: '',
+     viso_pard: '',
+     viso_lik: ''
     }
   },
   computed: {
@@ -149,7 +167,10 @@ export default {
       .then(response => {
         this.isLoading = false
         this.pardavimai = response.data.data;
-        console.log(this.pardavimai);
+        this.paieska = response.data.paieska;
+        this.viso_pard = response.data.viso_pard;
+        this.viso_lik = response.data.viso_lik;
+        //console.log(this.pardavimai);
       })
       .catch( err => {
             this.isLoading = false
