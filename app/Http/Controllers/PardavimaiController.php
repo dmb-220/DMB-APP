@@ -29,7 +29,9 @@ class PardavimaiController extends Controller
         ->where('preke', 'like', "{$keyword}%")->get();
         $group = array();
         foreach ( $re1 as $value ) {
+            if($value['sandelis'] != "3333" && $value['sandelis'] != "Braak"){
             $group[$value['sandelis']][] = $value;
+            }
         }
 
         $re2 = Likutis::query()
@@ -43,6 +45,7 @@ class PardavimaiController extends Controller
         $i=0;
         foreach ( $group as $idx => $value ) {
             if($idx != "TELSIAI"){
+                if (array_key_exists($idx, $group)) {
                 $sumDetail = 'kiekis';
                 $totalVAT = array_reduce($value,
                 function($runningTotal, $record) use($sumDetail) {
@@ -50,19 +53,24 @@ class PardavimaiController extends Controller
                 return $runningTotal;
                 }, 0);
 
+                if (array_key_exists($idx, $group2)) {
                 $total = array_reduce($group2[$idx],
                 function($runningTotal, $record) use($sumDetail) {
                 $runningTotal += $record[$sumDetail];
                 return $runningTotal;
                 }, 0);
+            }else{$total =0;}
 
                 $da[$i]['sandelis'] = $idx;
                 $da[$i]['parduota'] = $totalVAT;
                 $da[$i]['likutis'] = $total;
                 $da[$i]['viso'] = $total-($totalVAT*2);
                 $da[$i]['prekes'] = $value;
-                $da[$i]['likut'] = $group2[$idx];
+                if (array_key_exists($idx, $group2)) {
+                    $da[$i]['likut'] = $group2[$idx];
+                }
                 $i++;
+            }
             }
         }
         $sumDetail = 'parduota';
