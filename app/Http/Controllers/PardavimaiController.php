@@ -16,7 +16,14 @@ class PardavimaiController extends Controller
     public function index()
     {
         //pasidaryt kintamuosius is VUE kad pateiktu tik nurodyta valstybe
-        $keyword = 'DM-';
+        //$keyword = 'DMK-';
+        $failas = "paieska.txt";
+        $directory  = "app/";
+        $failas = $directory.$failas;
+
+        $myfile = fopen(storage_path($failas), "r");
+        $keyword = fread($myfile,filesize(storage_path($failas)));
+        fclose($myfile);
 
         $re1 = Pardavimai::query()
         ->where('preke', 'like', "{$keyword}%")->get();
@@ -101,7 +108,21 @@ class PardavimaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $ieskoti = $data['ieskoti'];
+
+        $failas = "paieska.txt";
+        $directory  = "app/";
+        $failas = $directory.$failas;
+
+        $myfile = fopen(storage_path($failas), "w");
+        fwrite($myfile, strtoupper($ieskoti));
+        fclose($myfile);
+
+        return response()->json([
+            'status' => true,
+            'data' => $ieskoti
+        ]);
     }
 
     /**

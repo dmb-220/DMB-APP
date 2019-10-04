@@ -4,7 +4,7 @@
         <b-field horizontal>
             <b-input placeholder="Paieška..." type="search" v-model="ieskoti" icon="magnify"></b-input>    
           <div class="control">
-            <b-button native-type="submit" type="is-primary">Ieškoti</b-button>
+            <b-button native-type="submit" type="is-primary" @click="paieska_post">Ieškoti</b-button>
           </div>
         </b-field>
         <hr>
@@ -122,10 +122,6 @@
 </template>
 
 <style lang="css">
-table, th, td {
-  padding-left: 20px;
-  margin-left: 20px;
-}
 </style>
 
 
@@ -155,9 +151,23 @@ export default {
   mounted () {
   },
   methods: {
-    toggle(row) {
-                this.$refs.table.toggleDetails(row)
-            },
+    paieska_post(){
+      axios
+        .post(`/pardavimai/store`, {
+          ieskoti: this.ieskoti,
+          })
+        .then(response => {
+          console.log(response.data.data)
+          this.getData()
+      })
+        .catch( err => {
+          this.$buefy.toast.open({
+            message: `Error: ${err.message}`,
+            type: 'is-danger',
+            queue: false
+          })
+        })
+    },
     getData () {
       this.isLoading = true
       this.axios
