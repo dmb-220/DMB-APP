@@ -15,6 +15,7 @@ class PardavimaiController extends Controller
      */
     public function index()
     {
+        //pasidaryt kintamuosius is VUE kad pateiktu tik nurodyta valstybe
         $keyword = 'DM-';
 
         $re1 = Pardavimai::query()
@@ -57,10 +58,27 @@ class PardavimaiController extends Controller
                 $i++;
             }
         }
+        $sumDetail = 'parduota';
+        $viso_pard = array_reduce($da,
+        function($runningTotal, $record) use($sumDetail) {
+        $runningTotal += $record[$sumDetail];
+        return $runningTotal;
+        }, 0);
+
+        $sumDetail = 'likutis';
+        $viso_lik = array_reduce($da,
+        function($runningTotal, $record) use($sumDetail) {
+        $runningTotal += $record[$sumDetail];
+        return $runningTotal;
+        }, 0);
+
         
         return response()->json([
             'status' => true,
-            'data' => $da
+            'data' => $da,
+            'paieska' => $keyword,
+            'viso_pard' => $viso_pard,
+            'viso_lik' => $viso_lik
         ]);
 
     }
