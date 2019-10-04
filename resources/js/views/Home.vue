@@ -39,17 +39,16 @@
           <b-table-column v-if="props.row.prekes[0].salis == 3" :style="{'background-color': 'tomato'}"  label="Sandelis" width="200" field="sandelis">
                 {{ props.row.sandelis }}
           </b-table-column>
-          <b-table-column label="Likutis" field="likutis" width="300" sortable>
+          <b-table-column label="Likutis" field="likutis" sortable>
             {{ props.row.likutis }}
           </b-table-column>
-          <b-table-column label="Parduota" field="parduota" width="300" sortable>
+          <b-table-column label="Parduota" field="parduota" sortable>
             {{ props.row.parduota }}
           </b-table-column>
-          <b-table-column label="Viso" field="viso" width="300" sortable>
+          <b-table-column label="Viso" field="viso" sortable>
             <b>{{ props.row.viso }}</b>
           </b-table-column>
-        </template>
-        
+        </template>  
 
         <template slot="detail" slot-scope="props">
           <div class="columns">
@@ -110,15 +109,14 @@
             </template>
           </div>
         </section>
+        <template slot="footer">
+            <th> </th>
+            <th> </th>
+            <th>{{ viso_lik }}</th>
+            <th>{{ viso_pard }}</th>
+            <th> </th>
+        </template>
       </b-table>
-      <table style="width:100%">
-      <tr>
-          <td width="240"> </td>
-          <td width="300"><b>{{viso_lik}}</b></td>
-          <td width="300"><b>{{viso_pard}}</b></td>
-          <td width="300"> </td>
-        </tr>
-        </table>
       </card-component>
     </section>
 </template>

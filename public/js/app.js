@@ -2720,8 +2720,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'home',
@@ -34595,7 +34593,7 @@ var render = function() {
             _c(
               "div",
               { staticClass: "column has-text-centered has-text-weight-bold" },
-              [_vm._v(_vm._s(_vm.paieska) + " - " + _vm._s(_vm.ieskoti))]
+              [_vm._v(_vm._s(_vm.paieska) + " ")]
             )
           ]),
           _vm._v(" "),
@@ -34726,7 +34724,6 @@ var render = function() {
                           attrs: {
                             label: "Likutis",
                             field: "likutis",
-                            width: "300",
                             sortable: ""
                           }
                         },
@@ -34745,7 +34742,6 @@ var render = function() {
                           attrs: {
                             label: "Parduota",
                             field: "parduota",
-                            width: "300",
                             sortable: ""
                           }
                         },
@@ -34761,12 +34757,7 @@ var render = function() {
                       _c(
                         "b-table-column",
                         {
-                          attrs: {
-                            label: "Viso",
-                            field: "viso",
-                            width: "300",
-                            sortable: ""
-                          }
+                          attrs: { label: "Viso", field: "viso", sortable: "" }
                         },
                         [_c("b", [_vm._v(_vm._s(props.row.viso))])]
                       )
@@ -34979,25 +34970,22 @@ var render = function() {
                     2
                   )
                 ]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("table", { staticStyle: { width: "100%" } }, [
-            _c("tr", [
-              _c("td", { attrs: { width: "240" } }),
+              ),
               _vm._v(" "),
-              _c("td", { attrs: { width: "300" } }, [
-                _c("b", [_vm._v(_vm._s(_vm.viso_lik))])
-              ]),
-              _vm._v(" "),
-              _c("td", { attrs: { width: "300" } }, [
-                _c("b", [_vm._v(_vm._s(_vm.viso_pard))])
-              ]),
-              _vm._v(" "),
-              _c("td", { attrs: { width: "300" } })
-            ])
-          ])
+              _c("template", { slot: "footer" }, [
+                _c("th"),
+                _vm._v(" "),
+                _c("th"),
+                _vm._v(" "),
+                _c("th", [_vm._v(_vm._s(_vm.viso_lik))]),
+                _vm._v(" "),
+                _c("th", [_vm._v(_vm._s(_vm.viso_pard))]),
+                _vm._v(" "),
+                _c("th")
+              ])
+            ],
+            2
+          )
         ],
         1
       )
