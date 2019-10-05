@@ -7,6 +7,7 @@
   </div>
 </template>
 
+
 <script>
 // @ is an alias to /src
 import NavBar from '@/components/NavBar'
@@ -68,17 +69,6 @@ export default {
     }
   },
   created () {
-    axios
-      .get('/user')
-      .then(r => {
-        this.$store.commit('user', r.data.data)
-      })
-      .catch(err => {
-        this.$buefy.toast.open({
-          message: `Error: ${err.message}`,
-          type: 'is-danger'
-        })
-      })
   }
 }
 </script>

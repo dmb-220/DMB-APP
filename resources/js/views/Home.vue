@@ -1,15 +1,16 @@
 <template>
     <section class="section is-main-section">
-      <card-component title="Statistika" icon="finance">  
+      <card-component title="Statistika" icon="finance">
         <b-field horizontal>
-            <b-input placeholder="Paieška..." type="search" v-model="ieskoti" icon="magnify"></b-input>    
+            <b-input placeholder="Paieška..." type="search" @keyup.native.enter="paieska_post" 
+            required v-model="ieskoti" icon="magnify"></b-input>    
           <div class="control">
             <b-button native-type="submit" type="is-primary" @click="paieska_post">Ieškoti</b-button>
           </div>
         </b-field>
         <hr>
         <div class="columns">
-          <div class="column has-text-centered has-text-weight-bold">{{ paieska }} </div>
+          <div class="column has-text-centered has-text-weight-bold">{{ paieska }}</div>
         </div>
         <div class="columns">
           <div class="column has-text-centered is-size-6" :style="{'background-color': 'greenyellow'}">LIETUVA</div>
@@ -122,6 +123,10 @@
 </template>
 
 <style lang="css">
+th, td {
+  padding: 15px;
+  text-align: left;
+}
 </style>
 
 
@@ -132,6 +137,7 @@ export default {
   components: { CardComponent },
   data () {
     return {
+      error: '',
      isLoading: false,
      defaultOpenedDetails: [1],
      showDetailIcon: false,
@@ -152,21 +158,29 @@ export default {
   },
   methods: {
     paieska_post(){
-      axios
-        .post(`/pardavimai/store`, {
-          ieskoti: this.ieskoti,
-          })
-        .then(response => {
-          console.log(response.data.data)
-          this.getData()
-      })
-        .catch( err => {
-          this.$buefy.toast.open({
-            message: `Error: ${err.message}`,
-            type: 'is-danger',
-            queue: false
-          })
+      if(this.ieskoti != ""){
+        axios
+          .post(`/pardavimai/store`, {
+            ieskoti: this.ieskoti,
+            })
+          .then(response => {
+            console.log(response.data.data)
+            this.getData()
         })
+          .catch( err => {
+            this.$buefy.toast.open({
+              message: `Error: ${err.message}`,
+              type: 'is-danger',
+              queue: false
+            })
+          })
+        }else{
+          this.$buefy.toast.open({
+              message: `KLAIDA: įveskite paieškos raktažodį!`,
+              type: 'is-danger',
+              queue: false
+            })
+          }
     },
     getData () {
       this.isLoading = true
