@@ -13,9 +13,15 @@
           <div class="column has-text-centered has-text-weight-bold">{{ paieska }}</div>
         </div>
         <div class="columns">
-          <div class="column has-text-centered is-size-6" :style="{'background-color': 'greenyellow'}">LIETUVA</div>
-          <div class="column has-text-centered is-size-6" :style="{'background-color': 'gold'}">LATVIJA</div>
-          <div class="column has-text-centered is-size-6" :style="{'background-color': 'tomato'}">ESTIJA</div>
+          <div class="column has-text-centered" :style="{'background-color': 'greenyellow'}">
+            <b-button :type="[ rodyti_lt ? 'is-primary' : 'is-dark' ]" @click="rodyti_lt = !rodyti_lt">LIETUVA</b-button>
+            </div>
+          <div class="column has-text-centered" :style="{'background-color': 'gold'}">
+            <b-button :type="[ rodyti_lv ? 'is-warning' : 'is-dark' ]" @click="rodyti_lv = !rodyti_lv">LATVIJA</b-button>
+            </div>
+          <div class="column has-text-centered" :style="{'background-color': 'tomato'}">
+            <b-button :type="[ rodyti_ee ? 'is-danger' : 'is-dark' ]" @click="rodyti_ee = !rodyti_ee">ESTIJA</b-button>
+            </div>
         </div>
         <hr>
         <b-table
@@ -123,10 +129,6 @@
 </template>
 
 <style lang="css">
-th, td {
-  padding: 15px;
-  text-align: left;
-}
 </style>
 
 
@@ -146,7 +148,11 @@ export default {
      ieskoti: '',
      paieska: '',
      viso_pard: '',
-     viso_lik: ''
+     viso_lik: '',
+     //ka rodyti, o ko ne
+     rodyti_lt: false,
+     rodyti_lv: true,
+     rodyti_ee: true,
     }
   },
   computed: {
@@ -157,6 +163,9 @@ export default {
   mounted () {
   },
   methods: {
+    change_button(){
+
+    },
     paieska_post(){
       if(this.ieskoti != ""){
         axios
