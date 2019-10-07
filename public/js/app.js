@@ -2695,13 +2695,30 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   methods: {
-    change_button: function change_button() {},
+    change_lt: function change_lt() {
+      this.rodyti_lt = !this.rodyti_lt;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
+    },
+    change_lv: function change_lv() {
+      this.rodyti_lv = !this.rodyti_lv;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
+    },
+    change_ee: function change_ee() {
+      this.rodyti_ee = !this.rodyti_ee;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
+    },
     paieska_post: function paieska_post() {
       var _this = this;
 
       if (this.ieskoti != "") {
         axios.post("/pardavimai/store", {
-          ieskoti: this.ieskoti
+          ieskoti: this.ieskoti,
+          lt: this.rodyti_lt,
+          lv: this.rodyti_lv,
+          ee: this.rodyti_ee
         }).then(function (response) {
           console.log(response.data.data);
 
@@ -33790,10 +33807,10 @@ var render = function() {
                 _c(
                   "b-button",
                   {
-                    attrs: { type: [_vm.rodyti_lt ? "is-primary" : "is-dark"] },
+                    attrs: { type: _vm.rodyti_lt ? "is-primary" : "is-dark" },
                     on: {
                       click: function($event) {
-                        _vm.rodyti_lt = !_vm.rodyti_lt
+                        return _vm.change_lt()
                       }
                     }
                   },
@@ -33813,10 +33830,10 @@ var render = function() {
                 _c(
                   "b-button",
                   {
-                    attrs: { type: [_vm.rodyti_lv ? "is-warning" : "is-dark"] },
+                    attrs: { type: _vm.rodyti_lv ? "is-warning" : "is-dark" },
                     on: {
                       click: function($event) {
-                        _vm.rodyti_lv = !_vm.rodyti_lv
+                        return _vm.change_lv()
                       }
                     }
                   },
@@ -33836,10 +33853,10 @@ var render = function() {
                 _c(
                   "b-button",
                   {
-                    attrs: { type: [_vm.rodyti_ee ? "is-danger" : "is-dark"] },
+                    attrs: { type: _vm.rodyti_ee ? "is-danger" : "is-dark" },
                     on: {
                       click: function($event) {
-                        _vm.rodyti_ee = !_vm.rodyti_ee
+                        return _vm.change_ee()
                       }
                     }
                   },
@@ -51328,8 +51345,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\wamp64\www\vuejs-laravel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\wamp64\www\vuejs-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\DMB-APP\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\DMB-APP\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

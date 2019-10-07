@@ -14,13 +14,13 @@
         </div>
         <div class="columns">
           <div class="column has-text-centered" :style="{'background-color': 'greenyellow'}">
-            <b-button :type="[ rodyti_lt ? 'is-primary' : 'is-dark' ]" @click="rodyti_lt = !rodyti_lt">LIETUVA</b-button>
+            <b-button :type="rodyti_lt ? 'is-primary' : 'is-dark'" @click="change_lt()">LIETUVA</b-button>
             </div>
           <div class="column has-text-centered" :style="{'background-color': 'gold'}">
-            <b-button :type="[ rodyti_lv ? 'is-warning' : 'is-dark' ]" @click="rodyti_lv = !rodyti_lv">LATVIJA</b-button>
+            <b-button :type="rodyti_lv ? 'is-warning' : 'is-dark'" @click="change_lv()">LATVIJA</b-button>
             </div>
           <div class="column has-text-centered" :style="{'background-color': 'tomato'}">
-            <b-button :type="[ rodyti_ee ? 'is-danger' : 'is-dark' ]" @click="rodyti_ee = !rodyti_ee">ESTIJA</b-button>
+            <b-button :type="rodyti_ee ? 'is-danger' : 'is-dark'" @click="change_ee()">ESTIJA</b-button>
             </div>
         </div>
         <hr>
@@ -163,14 +163,29 @@ export default {
   mounted () {
   },
   methods: {
-    change_button(){
-
+    change_lt(){
+      this.rodyti_lt = !this.rodyti_lt
+      this.ieskoti = this.paieska
+      this.paieska_post()
+    },
+    change_lv(){
+      this.rodyti_lv = !this.rodyti_lv
+      this.ieskoti = this.paieska
+      this.paieska_post()
+    },
+    change_ee(){
+      this.rodyti_ee = !this.rodyti_ee
+      this.ieskoti = this.paieska
+      this.paieska_post()
     },
     paieska_post(){
       if(this.ieskoti != ""){
         axios
           .post(`/pardavimai/store`, {
             ieskoti: this.ieskoti,
+            lt: this.rodyti_lt,
+            lv: this.rodyti_lv,
+            ee: this.rodyti_ee,
             })
           .then(response => {
             console.log(response.data.data)

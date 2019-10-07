@@ -22,14 +22,17 @@ class PardavimaiController extends Controller
         $failas = $directory.$failas;
 
         $myfile = fopen(storage_path($failas), "r");
-        $keyword = fread($myfile,filesize(storage_path($failas)));
+        $key = fread($myfile,filesize(storage_path($failas)));
         fclose($myfile);
+
+        $key = explode("||", $key);
+        $keyword = $key[0];
 
         $re1 = Pardavimai::query()
         ->where('preke', 'like', "{$keyword}%")->get();
         $group = array();
         foreach ( $re1 as $value ) {
-            if($value['sandelis'] != "3333" && $value['sandelis'] != "Braak"){
+            if($value['sandelis'] != "3333" && $value['sandelis'] != "Braak" && $value['sandelis'] != "TELSIAI"){
             $group[$value['sandelis']][] = $value;
             }
         }
@@ -44,7 +47,7 @@ class PardavimaiController extends Controller
         $da = array();
         $i=0;
         foreach ( $group as $idx => $value ) {
-            if($idx != "TELSIAI"){
+            //if(value[]){
                 if (array_key_exists($idx, $group)) {
                 $sumDetail = 'kiekis';
                 $totalVAT = array_reduce($value,
@@ -71,7 +74,7 @@ class PardavimaiController extends Controller
                 }
                 $i++;
             }
-            }
+            //}
         }
         $sumDetail = 'parduota';
         $viso_pard = array_reduce($da,
@@ -118,13 +121,18 @@ class PardavimaiController extends Controller
     {
         $data = $request->all();
         $ieskoti = $data['ieskoti'];
+        $lt = $data['lt'];
+        $lv = $data['lv'];
+        $ee = $data['ee'];
 
         $failas = "paieska.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
 
+        $eilute = strtoupper($ieskoti)."||".$lt."||".$lv."||".$ee;
+
         $myfile = fopen(storage_path($failas), "w");
-        fwrite($myfile, strtoupper($ieskoti));
+        fwrite($myfile, $eilute);
         fclose($myfile);
 
         return response()->json([
