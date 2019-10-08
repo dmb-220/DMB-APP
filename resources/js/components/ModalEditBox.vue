@@ -1,30 +1,36 @@
 <template>
   <modal-box :is-active.sync="isActive" @confirm="confirm" @cancel="cancel" confirm-type="is-success" confirm-label="Atnaujinti">
     <p>Įkelti duomenis iš failo <b>{{ editSubject }}</b>?</p>
-    <p>Pasirinkite:</p>
-    <b-select v-model="valstybe" @input="edit_data" placeholder="Valstybė" icon="earth" expanded required>
-        <option value="1">Lietuva</option>
-        <option value="2">Latvija</option>
-        <option value="3">Estija</option>
-    </b-select>
+    <hr>
+    <b-field label="Pasirinkite:" class="has-check" horizontal>
+      <radio-picker @input="edit_data" :options="{1:'LIETUVA', 2:'LATVIJA', 3:'ESTIJA'}" v-model="valstybe"></radio-picker>
+    </b-field>  
     <br>
-    <b-select v-model="tipas" @input="edit_data"  placeholder="Failo tipas" icon="earth" expanded required>
-        <option value="1">Pardavimai</option>
-        <option value="2">Likutis</option>
-    </b-select>
+    <b-field label="Pasirinkite:" class="has-check" horizontal>
+      <radio-picker @input="edit_data" :options="{1:'PARDAVIMAI', 2:'LIKUTIS'}" v-model="tipas"></radio-picker>
+    </b-field>
+    <br>
+    <b-field label="Switch" horizontal>
+      <b-switch v-model="trinti" @input="edit_data">
+        Ištrinti senus duomenis iš DB, ir ikelti naujus?
+      </b-switch>
+    </b-field>
   </modal-box>
 </template>
 
 <script>
 import ModalBox from "./ModalBox";
+import RadioPicker from '@/components/RadioPicker'
+import CheckboxPicker from '@/components/CheckboxPicker'
 
 export default {
   name: "ModalEditBox",
-  components: {ModalBox},
+  components: {ModalBox, RadioPicker, CheckboxPicker},
   data(){
     return{
       valstybe: '',
-      tipas: ''
+      tipas: '',
+      trinti: ''
     }
   },
   props:{
@@ -40,7 +46,7 @@ export default {
 
   methods: {
     edit_data(){
-      this.$emit('edit', this.valstybe, this.tipas)
+      this.$emit('edit', this.valstybe, this.tipas, this.trinti)
     },
     cancel () {
       this.$emit('cancel')

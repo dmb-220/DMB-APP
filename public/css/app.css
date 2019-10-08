@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 /* Theme style (colors & sizes) */
 
 /* We'll need some initial vars to use here */
@@ -322,17 +320,17 @@
   }
 }
 
-.tabs,
+.delete,
+.modal-close,
+.is-unselectable,
+.button,
+.file,
+.breadcrumb,
 .pagination-previous,
 .pagination-next,
 .pagination-link,
 .pagination-ellipsis,
-.breadcrumb,
-.file,
-.button,
-.is-unselectable,
-.modal-close,
-.delete {
+.tabs {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -340,8 +338,8 @@
   user-select: none;
 }
 
-.navbar-link:not(.is-arrowless)::after,
-.select:not(.is-multiple):not(.is-loading)::after {
+.select:not(.is-multiple):not(.is-loading)::after,
+.navbar-link:not(.is-arrowless)::after {
   border: 3px solid transparent;
   border-radius: 2px;
   border-right: 0;
@@ -358,26 +356,26 @@
   width: 0.625em;
 }
 
-.tabs:not(:last-child),
-.message:not(:last-child),
-.list:not(:last-child),
-.level:not(:last-child),
-.breadcrumb:not(:last-child),
-.highlight:not(:last-child),
-.block:not(:last-child),
+.box:not(:last-child),
+.content:not(:last-child),
+.notification:not(:last-child),
+.progress:not(:last-child),
+.table:not(:last-child),
+.table-container:not(:last-child),
 .title:not(:last-child),
 .subtitle:not(:last-child),
-.table-container:not(:last-child),
-.table:not(:last-child),
-.progress:not(:last-child),
-.notification:not(:last-child),
-.content:not(:last-child),
-.box:not(:last-child) {
+.block:not(:last-child),
+.highlight:not(:last-child),
+.breadcrumb:not(:last-child),
+.level:not(:last-child),
+.list:not(:last-child),
+.message:not(:last-child),
+.tabs:not(:last-child) {
   margin-bottom: 1.5rem;
 }
 
-.modal-close,
-.delete {
+.delete,
+.modal-close {
   -moz-appearance: none;
   -webkit-appearance: none;
   background-color: rgba(10, 10, 10, 0.2);
@@ -400,10 +398,10 @@
   width: 20px;
 }
 
-.modal-close::before,
 .delete::before,
-.modal-close::after,
-.delete::after {
+.modal-close::before,
+.delete::after,
+.modal-close::after {
   background-color: white;
   content: "";
   display: block;
@@ -414,32 +412,32 @@
   transform-origin: center center;
 }
 
-.modal-close::before,
-.delete::before {
+.delete::before,
+.modal-close::before {
   height: 2px;
   width: 50%;
 }
 
-.modal-close::after,
-.delete::after {
+.delete::after,
+.modal-close::after {
   height: 50%;
   width: 2px;
 }
 
-.modal-close:hover,
 .delete:hover,
-.modal-close:focus,
-.delete:focus {
+.modal-close:hover,
+.delete:focus,
+.modal-close:focus {
   background-color: rgba(10, 10, 10, 0.3);
 }
 
-.modal-close:active,
-.delete:active {
+.delete:active,
+.modal-close:active {
   background-color: rgba(10, 10, 10, 0.4);
 }
 
-.is-small.modal-close,
-.is-small.delete {
+.is-small.delete,
+.is-small.modal-close {
   height: 16px;
   max-height: 16px;
   max-width: 16px;
@@ -448,8 +446,8 @@
   width: 16px;
 }
 
-.is-medium.modal-close,
-.is-medium.delete {
+.is-medium.delete,
+.is-medium.modal-close {
   height: 24px;
   max-height: 24px;
   max-width: 24px;
@@ -458,8 +456,8 @@
   width: 24px;
 }
 
-.is-large.modal-close,
-.is-large.delete {
+.is-large.delete,
+.is-large.modal-close {
   height: 32px;
   max-height: 32px;
   max-width: 32px;
@@ -468,10 +466,10 @@
   width: 32px;
 }
 
-.control.is-loading::after,
-.select.is-loading::after,
+.button.is-loading::after,
 .loader,
-.button.is-loading::after {
+.select.is-loading::after,
+.control.is-loading::after {
   -webkit-animation: spinAround 500ms infinite linear;
           animation: spinAround 500ms infinite linear;
   border: 2px solid #dbdbdb;
@@ -485,9 +483,7 @@
   width: 1em;
 }
 
-.hero-video,
-.modal-background,
-.modal,
+.is-overlay,
 .image.is-square img,
 .image.is-square .has-ratio,
 .image.is-1by1 img,
@@ -520,7 +516,9 @@
 .image.is-1by2 .has-ratio,
 .image.is-1by3 img,
 .image.is-1by3 .has-ratio,
-.is-overlay {
+.modal,
+.modal-background,
+.hero-video {
   bottom: 0;
   left: 0;
   position: absolute;
@@ -528,17 +526,17 @@
   top: 0;
 }
 
+.button,
+.input,
+.taginput .taginput-container.is-focusable,
+.textarea,
+.select select,
+.file-cta,
+.file-name,
 .pagination-previous,
 .pagination-next,
 .pagination-link,
-.pagination-ellipsis,
-.file-cta,
-.file-name,
-.select select,
-.textarea,
-.input,
-.taginput .taginput-container.is-focusable,
-.button {
+.pagination-ellipsis {
   -moz-appearance: none;
   -webkit-appearance: none;
   align-items: center;
@@ -558,77 +556,77 @@
   vertical-align: top;
 }
 
+.button:focus,
+.input:focus,
+.taginput .taginput-container.is-focusable:focus,
+.textarea:focus,
+.select select:focus,
+.file-cta:focus,
+.file-name:focus,
 .pagination-previous:focus,
 .pagination-next:focus,
 .pagination-link:focus,
 .pagination-ellipsis:focus,
-.file-cta:focus,
-.file-name:focus,
-.select select:focus,
-.textarea:focus,
-.input:focus,
-.taginput .taginput-container.is-focusable:focus,
-.button:focus,
+.is-focused.button,
+.is-focused.input,
+.taginput .is-focused.taginput-container.is-focusable,
+.is-focused.textarea,
+.select select.is-focused,
+.is-focused.file-cta,
+.is-focused.file-name,
 .is-focused.pagination-previous,
 .is-focused.pagination-next,
 .is-focused.pagination-link,
 .is-focused.pagination-ellipsis,
-.is-focused.file-cta,
-.is-focused.file-name,
-.select select.is-focused,
-.is-focused.textarea,
-.is-focused.input,
-.taginput .is-focused.taginput-container.is-focusable,
-.is-focused.button,
+.button:active,
+.input:active,
+.taginput .taginput-container.is-focusable:active,
+.textarea:active,
+.select select:active,
+.file-cta:active,
+.file-name:active,
 .pagination-previous:active,
 .pagination-next:active,
 .pagination-link:active,
 .pagination-ellipsis:active,
-.file-cta:active,
-.file-name:active,
-.select select:active,
-.textarea:active,
-.input:active,
-.taginput .taginput-container.is-focusable:active,
-.button:active,
+.is-active.button,
+.is-active.input,
+.taginput .is-active.taginput-container.is-focusable,
+.is-active.textarea,
+.select select.is-active,
+.is-active.file-cta,
+.is-active.file-name,
 .is-active.pagination-previous,
 .is-active.pagination-next,
 .is-active.pagination-link,
-.is-active.pagination-ellipsis,
-.is-active.file-cta,
-.is-active.file-name,
-.select select.is-active,
-.is-active.textarea,
-.is-active.input,
-.taginput .is-active.taginput-container.is-focusable,
-.is-active.button {
+.is-active.pagination-ellipsis {
   outline: none;
 }
 
-[disabled].pagination-previous,
-[disabled].pagination-next,
-[disabled].pagination-link,
-[disabled].pagination-ellipsis,
-[disabled].file-cta,
-[disabled].file-name,
+.button[disabled],
+.input[disabled],
+.taginput .taginput-container.is-focusable[disabled],
+.textarea[disabled],
 .select select[disabled],
-[disabled].textarea,
-[disabled].input,
-.taginput [disabled].taginput-container.is-focusable,
-[disabled].button,
-fieldset[disabled] .pagination-previous,
-fieldset[disabled] .pagination-next,
-fieldset[disabled] .pagination-link,
-fieldset[disabled] .pagination-ellipsis,
-fieldset[disabled] .file-cta,
-fieldset[disabled] .file-name,
-fieldset[disabled] .select select,
-.select fieldset[disabled] select,
-fieldset[disabled] .textarea,
+.file-cta[disabled],
+.file-name[disabled],
+.pagination-previous[disabled],
+.pagination-next[disabled],
+.pagination-link[disabled],
+.pagination-ellipsis[disabled],
+fieldset[disabled] .button,
 fieldset[disabled] .input,
 fieldset[disabled] .taginput .taginput-container.is-focusable,
 .taginput fieldset[disabled] .taginput-container.is-focusable,
-fieldset[disabled] .button {
+fieldset[disabled] .textarea,
+fieldset[disabled] .select select,
+.select fieldset[disabled] select,
+fieldset[disabled] .file-cta,
+fieldset[disabled] .file-name,
+fieldset[disabled] .pagination-previous,
+fieldset[disabled] .pagination-next,
+fieldset[disabled] .pagination-link,
+fieldset[disabled] .pagination-ellipsis {
   cursor: not-allowed;
 }
 
@@ -806,8 +804,8 @@ img {
   max-width: 100%;
 }
 
-input[type=checkbox],
-input[type=radio] {
+input[type="checkbox"],
+input[type="radio"] {
   vertical-align: baseline;
 }
 
@@ -1341,7 +1339,7 @@ table th {
 
 a.has-text-white:hover,
 a.has-text-white:focus {
-  color: #e6e6e6 !important;
+  color: #e6e5e5 !important;
 }
 
 .has-background-white {
@@ -4818,396 +4816,396 @@ a.tag:hover {
   vertical-align: top;
 }
 
-.select select,
-.textarea,
 .input,
-.taginput .taginput-container.is-focusable {
+.taginput .taginput-container.is-focusable,
+.textarea,
+.select select {
   background-color: white;
   border-color: #dbdbdb;
   border-radius: 4px;
   color: #363636;
 }
 
-.select select::-moz-placeholder,
-.textarea::-moz-placeholder,
 .input::-moz-placeholder,
-.taginput .taginput-container.is-focusable::-moz-placeholder {
+.taginput .taginput-container.is-focusable::-moz-placeholder,
+.textarea::-moz-placeholder,
+.select select::-moz-placeholder {
   color: rgba(54, 54, 54, 0.3);
 }
 
-.select select::-webkit-input-placeholder,
-.textarea::-webkit-input-placeholder,
 .input::-webkit-input-placeholder,
-.taginput .taginput-container.is-focusable::-webkit-input-placeholder {
+.taginput .taginput-container.is-focusable::-webkit-input-placeholder,
+.textarea::-webkit-input-placeholder,
+.select select::-webkit-input-placeholder {
   color: rgba(54, 54, 54, 0.3);
 }
 
-.select select:-moz-placeholder,
-.textarea:-moz-placeholder,
 .input:-moz-placeholder,
-.taginput .taginput-container.is-focusable:-moz-placeholder {
+.taginput .taginput-container.is-focusable:-moz-placeholder,
+.textarea:-moz-placeholder,
+.select select:-moz-placeholder {
   color: rgba(54, 54, 54, 0.3);
 }
 
-.select select:-ms-input-placeholder,
-.textarea:-ms-input-placeholder,
 .input:-ms-input-placeholder,
-.taginput .taginput-container.is-focusable:-ms-input-placeholder {
+.taginput .taginput-container.is-focusable:-ms-input-placeholder,
+.textarea:-ms-input-placeholder,
+.select select:-ms-input-placeholder {
   color: rgba(54, 54, 54, 0.3);
 }
 
-.select select:hover,
-.textarea:hover,
 .input:hover,
 .taginput .taginput-container.is-focusable:hover,
-.select select.is-hovered,
-.is-hovered.textarea,
+.textarea:hover,
+.select select:hover,
 .is-hovered.input,
-.taginput .is-hovered.taginput-container.is-focusable {
+.taginput .is-hovered.taginput-container.is-focusable,
+.is-hovered.textarea,
+.select select.is-hovered {
   border-color: #b5b5b5;
 }
 
-.select select:focus,
-.textarea:focus,
 .input:focus,
 .taginput .taginput-container.is-focusable:focus,
-.select select.is-focused,
-.is-focused.textarea,
+.textarea:focus,
+.select select:focus,
 .is-focused.input,
 .taginput .is-focused.taginput-container.is-focusable,
-.select select:active,
-.textarea:active,
+.is-focused.textarea,
+.select select.is-focused,
 .input:active,
 .taginput .taginput-container.is-focusable:active,
-.select select.is-active,
-.is-active.textarea,
+.textarea:active,
+.select select:active,
 .is-active.input,
-.taginput .is-active.taginput-container.is-focusable {
+.taginput .is-active.taginput-container.is-focusable,
+.is-active.textarea,
+.select select.is-active {
   border-color: #3273dc;
   box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
 }
 
+.input[disabled],
+.taginput .taginput-container.is-focusable[disabled],
+.textarea[disabled],
 .select select[disabled],
-[disabled].textarea,
-[disabled].input,
-.taginput [disabled].taginput-container.is-focusable,
-fieldset[disabled] .select select,
-.select fieldset[disabled] select,
-fieldset[disabled] .textarea,
 fieldset[disabled] .input,
 fieldset[disabled] .taginput .taginput-container.is-focusable,
-.taginput fieldset[disabled] .taginput-container.is-focusable {
+.taginput fieldset[disabled] .taginput-container.is-focusable,
+fieldset[disabled] .textarea,
+fieldset[disabled] .select select,
+.select fieldset[disabled] select {
   background-color: whitesmoke;
   border-color: whitesmoke;
   box-shadow: none;
   color: #7a7a7a;
 }
 
+.input[disabled]::-moz-placeholder,
+.taginput .taginput-container.is-focusable[disabled]::-moz-placeholder,
+.textarea[disabled]::-moz-placeholder,
 .select select[disabled]::-moz-placeholder,
-[disabled].textarea::-moz-placeholder,
-[disabled].input::-moz-placeholder,
-.taginput [disabled].taginput-container.is-focusable::-moz-placeholder,
-fieldset[disabled] .select select::-moz-placeholder,
-.select fieldset[disabled] select::-moz-placeholder,
-fieldset[disabled] .textarea::-moz-placeholder,
 fieldset[disabled] .input::-moz-placeholder,
 fieldset[disabled] .taginput .taginput-container.is-focusable::-moz-placeholder,
-.taginput fieldset[disabled] .taginput-container.is-focusable::-moz-placeholder {
+.taginput fieldset[disabled] .taginput-container.is-focusable::-moz-placeholder,
+fieldset[disabled] .textarea::-moz-placeholder,
+fieldset[disabled] .select select::-moz-placeholder,
+.select fieldset[disabled] select::-moz-placeholder {
   color: rgba(122, 122, 122, 0.3);
 }
 
+.input[disabled]::-webkit-input-placeholder,
+.taginput .taginput-container.is-focusable[disabled]::-webkit-input-placeholder,
+.textarea[disabled]::-webkit-input-placeholder,
 .select select[disabled]::-webkit-input-placeholder,
-[disabled].textarea::-webkit-input-placeholder,
-[disabled].input::-webkit-input-placeholder,
-.taginput [disabled].taginput-container.is-focusable::-webkit-input-placeholder,
-fieldset[disabled] .select select::-webkit-input-placeholder,
-.select fieldset[disabled] select::-webkit-input-placeholder,
-fieldset[disabled] .textarea::-webkit-input-placeholder,
 fieldset[disabled] .input::-webkit-input-placeholder,
 fieldset[disabled] .taginput .taginput-container.is-focusable::-webkit-input-placeholder,
-.taginput fieldset[disabled] .taginput-container.is-focusable::-webkit-input-placeholder {
+.taginput fieldset[disabled] .taginput-container.is-focusable::-webkit-input-placeholder,
+fieldset[disabled] .textarea::-webkit-input-placeholder,
+fieldset[disabled] .select select::-webkit-input-placeholder,
+.select fieldset[disabled] select::-webkit-input-placeholder {
   color: rgba(122, 122, 122, 0.3);
 }
 
+.input[disabled]:-moz-placeholder,
+.taginput .taginput-container.is-focusable[disabled]:-moz-placeholder,
+.textarea[disabled]:-moz-placeholder,
 .select select[disabled]:-moz-placeholder,
-[disabled].textarea:-moz-placeholder,
-[disabled].input:-moz-placeholder,
-.taginput [disabled].taginput-container.is-focusable:-moz-placeholder,
-fieldset[disabled] .select select:-moz-placeholder,
-.select fieldset[disabled] select:-moz-placeholder,
-fieldset[disabled] .textarea:-moz-placeholder,
 fieldset[disabled] .input:-moz-placeholder,
 fieldset[disabled] .taginput .taginput-container.is-focusable:-moz-placeholder,
-.taginput fieldset[disabled] .taginput-container.is-focusable:-moz-placeholder {
+.taginput fieldset[disabled] .taginput-container.is-focusable:-moz-placeholder,
+fieldset[disabled] .textarea:-moz-placeholder,
+fieldset[disabled] .select select:-moz-placeholder,
+.select fieldset[disabled] select:-moz-placeholder {
   color: rgba(122, 122, 122, 0.3);
 }
 
+.input[disabled]:-ms-input-placeholder,
+.taginput .taginput-container.is-focusable[disabled]:-ms-input-placeholder,
+.textarea[disabled]:-ms-input-placeholder,
 .select select[disabled]:-ms-input-placeholder,
-[disabled].textarea:-ms-input-placeholder,
-[disabled].input:-ms-input-placeholder,
-.taginput [disabled].taginput-container.is-focusable:-ms-input-placeholder,
-fieldset[disabled] .select select:-ms-input-placeholder,
-.select fieldset[disabled] select:-ms-input-placeholder,
-fieldset[disabled] .textarea:-ms-input-placeholder,
 fieldset[disabled] .input:-ms-input-placeholder,
 fieldset[disabled] .taginput .taginput-container.is-focusable:-ms-input-placeholder,
-.taginput fieldset[disabled] .taginput-container.is-focusable:-ms-input-placeholder {
+.taginput fieldset[disabled] .taginput-container.is-focusable:-ms-input-placeholder,
+fieldset[disabled] .textarea:-ms-input-placeholder,
+fieldset[disabled] .select select:-ms-input-placeholder,
+.select fieldset[disabled] select:-ms-input-placeholder {
   color: rgba(122, 122, 122, 0.3);
 }
 
-.textarea,
 .input,
-.taginput .taginput-container.is-focusable {
+.taginput .taginput-container.is-focusable,
+.textarea {
   box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
   max-width: 100%;
   width: 100%;
 }
 
-[readonly].textarea,
-[readonly].input,
-.taginput [readonly].taginput-container.is-focusable {
+.input[readonly],
+.taginput .taginput-container.is-focusable[readonly],
+.textarea[readonly] {
   box-shadow: none;
 }
 
-.is-white.textarea,
 .is-white.input,
-.taginput .is-white.taginput-container.is-focusable {
+.taginput .is-white.taginput-container.is-focusable,
+.is-white.textarea {
   border-color: white;
 }
 
-.is-white.textarea:focus,
 .is-white.input:focus,
 .taginput .is-white.taginput-container.is-focusable:focus,
-.is-white.is-focused.textarea,
+.is-white.textarea:focus,
 .is-white.is-focused.input,
 .taginput .is-white.is-focused.taginput-container.is-focusable,
-.is-white.textarea:active,
+.is-white.is-focused.textarea,
 .is-white.input:active,
 .taginput .is-white.taginput-container.is-focusable:active,
-.is-white.is-active.textarea,
+.is-white.textarea:active,
 .is-white.is-active.input,
-.taginput .is-white.is-active.taginput-container.is-focusable {
+.taginput .is-white.is-active.taginput-container.is-focusable,
+.is-white.is-active.textarea {
   box-shadow: 0 0 0 0.125em rgba(255, 255, 255, 0.25);
 }
 
-.is-black.textarea,
 .is-black.input,
-.taginput .is-black.taginput-container.is-focusable {
+.taginput .is-black.taginput-container.is-focusable,
+.is-black.textarea {
   border-color: #0a0a0a;
 }
 
-.is-black.textarea:focus,
 .is-black.input:focus,
 .taginput .is-black.taginput-container.is-focusable:focus,
-.is-black.is-focused.textarea,
+.is-black.textarea:focus,
 .is-black.is-focused.input,
 .taginput .is-black.is-focused.taginput-container.is-focusable,
-.is-black.textarea:active,
+.is-black.is-focused.textarea,
 .is-black.input:active,
 .taginput .is-black.taginput-container.is-focusable:active,
-.is-black.is-active.textarea,
+.is-black.textarea:active,
 .is-black.is-active.input,
-.taginput .is-black.is-active.taginput-container.is-focusable {
+.taginput .is-black.is-active.taginput-container.is-focusable,
+.is-black.is-active.textarea {
   box-shadow: 0 0 0 0.125em rgba(10, 10, 10, 0.25);
 }
 
-.is-light.textarea,
 .is-light.input,
-.taginput .is-light.taginput-container.is-focusable {
+.taginput .is-light.taginput-container.is-focusable,
+.is-light.textarea {
   border-color: whitesmoke;
 }
 
-.is-light.textarea:focus,
 .is-light.input:focus,
 .taginput .is-light.taginput-container.is-focusable:focus,
-.is-light.is-focused.textarea,
+.is-light.textarea:focus,
 .is-light.is-focused.input,
 .taginput .is-light.is-focused.taginput-container.is-focusable,
-.is-light.textarea:active,
+.is-light.is-focused.textarea,
 .is-light.input:active,
 .taginput .is-light.taginput-container.is-focusable:active,
-.is-light.is-active.textarea,
+.is-light.textarea:active,
 .is-light.is-active.input,
-.taginput .is-light.is-active.taginput-container.is-focusable {
+.taginput .is-light.is-active.taginput-container.is-focusable,
+.is-light.is-active.textarea {
   box-shadow: 0 0 0 0.125em rgba(245, 245, 245, 0.25);
 }
 
-.is-dark.textarea,
 .is-dark.input,
-.taginput .is-dark.taginput-container.is-focusable {
+.taginput .is-dark.taginput-container.is-focusable,
+.is-dark.textarea {
   border-color: #363636;
 }
 
-.is-dark.textarea:focus,
 .is-dark.input:focus,
 .taginput .is-dark.taginput-container.is-focusable:focus,
-.is-dark.is-focused.textarea,
+.is-dark.textarea:focus,
 .is-dark.is-focused.input,
 .taginput .is-dark.is-focused.taginput-container.is-focusable,
-.is-dark.textarea:active,
+.is-dark.is-focused.textarea,
 .is-dark.input:active,
 .taginput .is-dark.taginput-container.is-focusable:active,
-.is-dark.is-active.textarea,
+.is-dark.textarea:active,
 .is-dark.is-active.input,
-.taginput .is-dark.is-active.taginput-container.is-focusable {
+.taginput .is-dark.is-active.taginput-container.is-focusable,
+.is-dark.is-active.textarea {
   box-shadow: 0 0 0 0.125em rgba(54, 54, 54, 0.25);
 }
 
-.is-primary.textarea,
 .is-primary.input,
-.taginput .is-primary.taginput-container.is-focusable {
+.taginput .is-primary.taginput-container.is-focusable,
+.is-primary.textarea {
   border-color: #00d1b2;
 }
 
-.is-primary.textarea:focus,
 .is-primary.input:focus,
 .taginput .is-primary.taginput-container.is-focusable:focus,
-.is-primary.is-focused.textarea,
+.is-primary.textarea:focus,
 .is-primary.is-focused.input,
 .taginput .is-primary.is-focused.taginput-container.is-focusable,
-.is-primary.textarea:active,
+.is-primary.is-focused.textarea,
 .is-primary.input:active,
 .taginput .is-primary.taginput-container.is-focusable:active,
-.is-primary.is-active.textarea,
+.is-primary.textarea:active,
 .is-primary.is-active.input,
-.taginput .is-primary.is-active.taginput-container.is-focusable {
+.taginput .is-primary.is-active.taginput-container.is-focusable,
+.is-primary.is-active.textarea {
   box-shadow: 0 0 0 0.125em rgba(0, 209, 178, 0.25);
 }
 
-.is-link.textarea,
 .is-link.input,
-.taginput .is-link.taginput-container.is-focusable {
+.taginput .is-link.taginput-container.is-focusable,
+.is-link.textarea {
   border-color: #3273dc;
 }
 
-.is-link.textarea:focus,
 .is-link.input:focus,
 .taginput .is-link.taginput-container.is-focusable:focus,
-.is-link.is-focused.textarea,
+.is-link.textarea:focus,
 .is-link.is-focused.input,
 .taginput .is-link.is-focused.taginput-container.is-focusable,
-.is-link.textarea:active,
+.is-link.is-focused.textarea,
 .is-link.input:active,
 .taginput .is-link.taginput-container.is-focusable:active,
-.is-link.is-active.textarea,
+.is-link.textarea:active,
 .is-link.is-active.input,
-.taginput .is-link.is-active.taginput-container.is-focusable {
+.taginput .is-link.is-active.taginput-container.is-focusable,
+.is-link.is-active.textarea {
   box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
 }
 
-.is-info.textarea,
 .is-info.input,
-.taginput .is-info.taginput-container.is-focusable {
+.taginput .is-info.taginput-container.is-focusable,
+.is-info.textarea {
   border-color: #167df0;
 }
 
-.is-info.textarea:focus,
 .is-info.input:focus,
 .taginput .is-info.taginput-container.is-focusable:focus,
-.is-info.is-focused.textarea,
+.is-info.textarea:focus,
 .is-info.is-focused.input,
 .taginput .is-info.is-focused.taginput-container.is-focusable,
-.is-info.textarea:active,
+.is-info.is-focused.textarea,
 .is-info.input:active,
 .taginput .is-info.taginput-container.is-focusable:active,
-.is-info.is-active.textarea,
+.is-info.textarea:active,
 .is-info.is-active.input,
-.taginput .is-info.is-active.taginput-container.is-focusable {
+.taginput .is-info.is-active.taginput-container.is-focusable,
+.is-info.is-active.textarea {
   box-shadow: 0 0 0 0.125em rgba(22, 125, 240, 0.25);
 }
 
-.is-success.textarea,
 .is-success.input,
-.taginput .is-success.taginput-container.is-focusable {
+.taginput .is-success.taginput-container.is-focusable,
+.is-success.textarea {
   border-color: #23d160;
 }
 
-.is-success.textarea:focus,
 .is-success.input:focus,
 .taginput .is-success.taginput-container.is-focusable:focus,
-.is-success.is-focused.textarea,
+.is-success.textarea:focus,
 .is-success.is-focused.input,
 .taginput .is-success.is-focused.taginput-container.is-focusable,
-.is-success.textarea:active,
+.is-success.is-focused.textarea,
 .is-success.input:active,
 .taginput .is-success.taginput-container.is-focusable:active,
-.is-success.is-active.textarea,
+.is-success.textarea:active,
 .is-success.is-active.input,
-.taginput .is-success.is-active.taginput-container.is-focusable {
+.taginput .is-success.is-active.taginput-container.is-focusable,
+.is-success.is-active.textarea {
   box-shadow: 0 0 0 0.125em rgba(35, 209, 96, 0.25);
 }
 
-.is-warning.textarea,
 .is-warning.input,
-.taginput .is-warning.taginput-container.is-focusable {
+.taginput .is-warning.taginput-container.is-focusable,
+.is-warning.textarea {
   border-color: #ffdd57;
 }
 
-.is-warning.textarea:focus,
 .is-warning.input:focus,
 .taginput .is-warning.taginput-container.is-focusable:focus,
-.is-warning.is-focused.textarea,
+.is-warning.textarea:focus,
 .is-warning.is-focused.input,
 .taginput .is-warning.is-focused.taginput-container.is-focusable,
-.is-warning.textarea:active,
+.is-warning.is-focused.textarea,
 .is-warning.input:active,
 .taginput .is-warning.taginput-container.is-focusable:active,
-.is-warning.is-active.textarea,
+.is-warning.textarea:active,
 .is-warning.is-active.input,
-.taginput .is-warning.is-active.taginput-container.is-focusable {
+.taginput .is-warning.is-active.taginput-container.is-focusable,
+.is-warning.is-active.textarea {
   box-shadow: 0 0 0 0.125em rgba(255, 221, 87, 0.25);
 }
 
-.is-danger.textarea,
 .is-danger.input,
-.taginput .is-danger.taginput-container.is-focusable {
+.taginput .is-danger.taginput-container.is-focusable,
+.is-danger.textarea {
   border-color: #ff3860;
 }
 
-.is-danger.textarea:focus,
 .is-danger.input:focus,
 .taginput .is-danger.taginput-container.is-focusable:focus,
-.is-danger.is-focused.textarea,
+.is-danger.textarea:focus,
 .is-danger.is-focused.input,
 .taginput .is-danger.is-focused.taginput-container.is-focusable,
-.is-danger.textarea:active,
+.is-danger.is-focused.textarea,
 .is-danger.input:active,
 .taginput .is-danger.taginput-container.is-focusable:active,
-.is-danger.is-active.textarea,
+.is-danger.textarea:active,
 .is-danger.is-active.input,
-.taginput .is-danger.is-active.taginput-container.is-focusable {
+.taginput .is-danger.is-active.taginput-container.is-focusable,
+.is-danger.is-active.textarea {
   box-shadow: 0 0 0 0.125em rgba(255, 56, 96, 0.25);
 }
 
-.is-small.textarea,
 .is-small.input,
-.taginput .is-small.taginput-container.is-focusable {
+.taginput .is-small.taginput-container.is-focusable,
+.is-small.textarea {
   border-radius: 2px;
   font-size: 0.75rem;
 }
 
-.is-medium.textarea,
 .is-medium.input,
-.taginput .is-medium.taginput-container.is-focusable {
+.taginput .is-medium.taginput-container.is-focusable,
+.is-medium.textarea {
   font-size: 1.25rem;
 }
 
-.is-large.textarea,
 .is-large.input,
-.taginput .is-large.taginput-container.is-focusable {
+.taginput .is-large.taginput-container.is-focusable,
+.is-large.textarea {
   font-size: 1.5rem;
 }
 
-.is-fullwidth.textarea,
 .is-fullwidth.input,
-.taginput .is-fullwidth.taginput-container.is-focusable {
+.taginput .is-fullwidth.taginput-container.is-focusable,
+.is-fullwidth.textarea {
   display: block;
   width: 100%;
 }
 
-.is-inline.textarea,
 .is-inline.input,
-.taginput .is-inline.taginput-container.is-focusable {
+.taginput .is-inline.taginput-container.is-focusable,
+.is-inline.textarea {
   display: inline;
   width: auto;
 }
@@ -5249,28 +5247,28 @@ fieldset[disabled] .taginput .taginput-container.is-focusable:-ms-input-placehol
   resize: none;
 }
 
-.radio,
-.checkbox {
+.checkbox,
+.radio {
   cursor: pointer;
   display: inline-block;
   line-height: 1.25;
   position: relative;
 }
 
-.radio input,
-.checkbox input {
+.checkbox input,
+.radio input {
   cursor: pointer;
 }
 
-.radio:hover,
-.checkbox:hover {
+.checkbox:hover,
+.radio:hover {
   color: #363636;
 }
 
-[disabled].radio,
-[disabled].checkbox,
-fieldset[disabled] .radio,
-fieldset[disabled] .checkbox {
+.checkbox[disabled],
+.radio[disabled],
+fieldset[disabled] .checkbox,
+fieldset[disabled] .radio {
   color: #7a7a7a;
   cursor: not-allowed;
 }
@@ -7009,7 +7007,7 @@ a.list-item {
 
 .message.is-white .message-body {
   border-color: white;
-  color: #4d4d4d;
+  color: #4d4c4c;
 }
 
 .message.is-black {
@@ -7023,7 +7021,7 @@ a.list-item {
 
 .message.is-black .message-body {
   border-color: #0a0a0a;
-  color: #0a0a0a;
+  color: #090909;
 }
 
 .message.is-light {
@@ -7037,7 +7035,7 @@ a.list-item {
 
 .message.is-light .message-body {
   border-color: whitesmoke;
-  color: #4f4f4f;
+  color: #505050;
 }
 
 .message.is-dark {
@@ -7107,7 +7105,7 @@ a.list-item {
 
 .message.is-success .message-body {
   border-color: #23d160;
-  color: #0e311a;
+  color: #0e301a;
 }
 
 .message.is-warning {
@@ -7121,7 +7119,7 @@ a.list-item {
 
 .message.is-warning .message-body {
   border-color: #ffdd57;
-  color: #3c3108;
+  color: #3b3108;
 }
 
 .message.is-danger {
@@ -8450,12 +8448,12 @@ a.navbar-item.is-active,
 
   .navbar > .container .navbar-brand,
   .container > .navbar .navbar-brand {
-    margin-left: -0.75rem;
+    margin-left: -.75rem;
   }
 
   .navbar > .container .navbar-menu,
   .container > .navbar .navbar-menu {
-    margin-right: -0.75rem;
+    margin-right: -.75rem;
   }
 
   .navbar.is-fixed-bottom-desktop,
@@ -8756,7 +8754,7 @@ a.navbar-item.is-active,
   padding: 0.5em 0.75em;
 }
 
-.panel-block input[type=checkbox] {
+.panel-block input[type="checkbox"] {
   margin-right: 0.75em;
 }
 
@@ -9078,20 +9076,20 @@ label.panel-block:hover {
 
 .columns.is-mobile > .column.is-1 {
   flex: none;
-  width: 8.3333333333%;
+  width: 8.33333333%;
 }
 
 .columns.is-mobile > .column.is-offset-1 {
-  margin-left: 8.3333333333%;
+  margin-left: 8.33333333%;
 }
 
 .columns.is-mobile > .column.is-2 {
   flex: none;
-  width: 16.6666666667%;
+  width: 16.66666667%;
 }
 
 .columns.is-mobile > .column.is-offset-2 {
-  margin-left: 16.6666666667%;
+  margin-left: 16.66666667%;
 }
 
 .columns.is-mobile > .column.is-3 {
@@ -9105,20 +9103,20 @@ label.panel-block:hover {
 
 .columns.is-mobile > .column.is-4 {
   flex: none;
-  width: 33.3333333333%;
+  width: 33.33333333%;
 }
 
 .columns.is-mobile > .column.is-offset-4 {
-  margin-left: 33.3333333333%;
+  margin-left: 33.33333333%;
 }
 
 .columns.is-mobile > .column.is-5 {
   flex: none;
-  width: 41.6666666667%;
+  width: 41.66666667%;
 }
 
 .columns.is-mobile > .column.is-offset-5 {
-  margin-left: 41.6666666667%;
+  margin-left: 41.66666667%;
 }
 
 .columns.is-mobile > .column.is-6 {
@@ -9132,20 +9130,20 @@ label.panel-block:hover {
 
 .columns.is-mobile > .column.is-7 {
   flex: none;
-  width: 58.3333333333%;
+  width: 58.33333333%;
 }
 
 .columns.is-mobile > .column.is-offset-7 {
-  margin-left: 58.3333333333%;
+  margin-left: 58.33333333%;
 }
 
 .columns.is-mobile > .column.is-8 {
   flex: none;
-  width: 66.6666666667%;
+  width: 66.66666667%;
 }
 
 .columns.is-mobile > .column.is-offset-8 {
-  margin-left: 66.6666666667%;
+  margin-left: 66.66666667%;
 }
 
 .columns.is-mobile > .column.is-9 {
@@ -9159,20 +9157,20 @@ label.panel-block:hover {
 
 .columns.is-mobile > .column.is-10 {
   flex: none;
-  width: 83.3333333333%;
+  width: 83.33333333%;
 }
 
 .columns.is-mobile > .column.is-offset-10 {
-  margin-left: 83.3333333333%;
+  margin-left: 83.33333333%;
 }
 
 .columns.is-mobile > .column.is-11 {
   flex: none;
-  width: 91.6666666667%;
+  width: 91.66666667%;
 }
 
 .columns.is-mobile > .column.is-offset-11 {
-  margin-left: 91.6666666667%;
+  margin-left: 91.66666667%;
 }
 
 .columns.is-mobile > .column.is-12 {
@@ -9286,20 +9284,20 @@ label.panel-block:hover {
 
   .column.is-1-mobile {
     flex: none;
-    width: 8.3333333333%;
+    width: 8.33333333%;
   }
 
   .column.is-offset-1-mobile {
-    margin-left: 8.3333333333%;
+    margin-left: 8.33333333%;
   }
 
   .column.is-2-mobile {
     flex: none;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
 
   .column.is-offset-2-mobile {
-    margin-left: 16.6666666667%;
+    margin-left: 16.66666667%;
   }
 
   .column.is-3-mobile {
@@ -9313,20 +9311,20 @@ label.panel-block:hover {
 
   .column.is-4-mobile {
     flex: none;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
 
   .column.is-offset-4-mobile {
-    margin-left: 33.3333333333%;
+    margin-left: 33.33333333%;
   }
 
   .column.is-5-mobile {
     flex: none;
-    width: 41.6666666667%;
+    width: 41.66666667%;
   }
 
   .column.is-offset-5-mobile {
-    margin-left: 41.6666666667%;
+    margin-left: 41.66666667%;
   }
 
   .column.is-6-mobile {
@@ -9340,20 +9338,20 @@ label.panel-block:hover {
 
   .column.is-7-mobile {
     flex: none;
-    width: 58.3333333333%;
+    width: 58.33333333%;
   }
 
   .column.is-offset-7-mobile {
-    margin-left: 58.3333333333%;
+    margin-left: 58.33333333%;
   }
 
   .column.is-8-mobile {
     flex: none;
-    width: 66.6666666667%;
+    width: 66.66666667%;
   }
 
   .column.is-offset-8-mobile {
-    margin-left: 66.6666666667%;
+    margin-left: 66.66666667%;
   }
 
   .column.is-9-mobile {
@@ -9367,20 +9365,20 @@ label.panel-block:hover {
 
   .column.is-10-mobile {
     flex: none;
-    width: 83.3333333333%;
+    width: 83.33333333%;
   }
 
   .column.is-offset-10-mobile {
-    margin-left: 83.3333333333%;
+    margin-left: 83.33333333%;
   }
 
   .column.is-11-mobile {
     flex: none;
-    width: 91.6666666667%;
+    width: 91.66666667%;
   }
 
   .column.is-offset-11-mobile {
-    margin-left: 91.6666666667%;
+    margin-left: 91.66666667%;
   }
 
   .column.is-12-mobile {
@@ -9518,23 +9516,23 @@ label.panel-block:hover {
   .column.is-1,
   .column.is-1-tablet {
     flex: none;
-    width: 8.3333333333%;
+    width: 8.33333333%;
   }
 
   .column.is-offset-1,
   .column.is-offset-1-tablet {
-    margin-left: 8.3333333333%;
+    margin-left: 8.33333333%;
   }
 
   .column.is-2,
   .column.is-2-tablet {
     flex: none;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
 
   .column.is-offset-2,
   .column.is-offset-2-tablet {
-    margin-left: 16.6666666667%;
+    margin-left: 16.66666667%;
   }
 
   .column.is-3,
@@ -9551,23 +9549,23 @@ label.panel-block:hover {
   .column.is-4,
   .column.is-4-tablet {
     flex: none;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
 
   .column.is-offset-4,
   .column.is-offset-4-tablet {
-    margin-left: 33.3333333333%;
+    margin-left: 33.33333333%;
   }
 
   .column.is-5,
   .column.is-5-tablet {
     flex: none;
-    width: 41.6666666667%;
+    width: 41.66666667%;
   }
 
   .column.is-offset-5,
   .column.is-offset-5-tablet {
-    margin-left: 41.6666666667%;
+    margin-left: 41.66666667%;
   }
 
   .column.is-6,
@@ -9584,23 +9582,23 @@ label.panel-block:hover {
   .column.is-7,
   .column.is-7-tablet {
     flex: none;
-    width: 58.3333333333%;
+    width: 58.33333333%;
   }
 
   .column.is-offset-7,
   .column.is-offset-7-tablet {
-    margin-left: 58.3333333333%;
+    margin-left: 58.33333333%;
   }
 
   .column.is-8,
   .column.is-8-tablet {
     flex: none;
-    width: 66.6666666667%;
+    width: 66.66666667%;
   }
 
   .column.is-offset-8,
   .column.is-offset-8-tablet {
-    margin-left: 66.6666666667%;
+    margin-left: 66.66666667%;
   }
 
   .column.is-9,
@@ -9617,23 +9615,23 @@ label.panel-block:hover {
   .column.is-10,
   .column.is-10-tablet {
     flex: none;
-    width: 83.3333333333%;
+    width: 83.33333333%;
   }
 
   .column.is-offset-10,
   .column.is-offset-10-tablet {
-    margin-left: 83.3333333333%;
+    margin-left: 83.33333333%;
   }
 
   .column.is-11,
   .column.is-11-tablet {
     flex: none;
-    width: 91.6666666667%;
+    width: 91.66666667%;
   }
 
   .column.is-offset-11,
   .column.is-offset-11-tablet {
-    margin-left: 91.6666666667%;
+    margin-left: 91.66666667%;
   }
 
   .column.is-12,
@@ -9750,20 +9748,20 @@ label.panel-block:hover {
 
   .column.is-1-touch {
     flex: none;
-    width: 8.3333333333%;
+    width: 8.33333333%;
   }
 
   .column.is-offset-1-touch {
-    margin-left: 8.3333333333%;
+    margin-left: 8.33333333%;
   }
 
   .column.is-2-touch {
     flex: none;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
 
   .column.is-offset-2-touch {
-    margin-left: 16.6666666667%;
+    margin-left: 16.66666667%;
   }
 
   .column.is-3-touch {
@@ -9777,20 +9775,20 @@ label.panel-block:hover {
 
   .column.is-4-touch {
     flex: none;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
 
   .column.is-offset-4-touch {
-    margin-left: 33.3333333333%;
+    margin-left: 33.33333333%;
   }
 
   .column.is-5-touch {
     flex: none;
-    width: 41.6666666667%;
+    width: 41.66666667%;
   }
 
   .column.is-offset-5-touch {
-    margin-left: 41.6666666667%;
+    margin-left: 41.66666667%;
   }
 
   .column.is-6-touch {
@@ -9804,20 +9802,20 @@ label.panel-block:hover {
 
   .column.is-7-touch {
     flex: none;
-    width: 58.3333333333%;
+    width: 58.33333333%;
   }
 
   .column.is-offset-7-touch {
-    margin-left: 58.3333333333%;
+    margin-left: 58.33333333%;
   }
 
   .column.is-8-touch {
     flex: none;
-    width: 66.6666666667%;
+    width: 66.66666667%;
   }
 
   .column.is-offset-8-touch {
-    margin-left: 66.6666666667%;
+    margin-left: 66.66666667%;
   }
 
   .column.is-9-touch {
@@ -9831,20 +9829,20 @@ label.panel-block:hover {
 
   .column.is-10-touch {
     flex: none;
-    width: 83.3333333333%;
+    width: 83.33333333%;
   }
 
   .column.is-offset-10-touch {
-    margin-left: 83.3333333333%;
+    margin-left: 83.33333333%;
   }
 
   .column.is-11-touch {
     flex: none;
-    width: 91.6666666667%;
+    width: 91.66666667%;
   }
 
   .column.is-offset-11-touch {
-    margin-left: 91.6666666667%;
+    margin-left: 91.66666667%;
   }
 
   .column.is-12-touch {
@@ -9959,20 +9957,20 @@ label.panel-block:hover {
 
   .column.is-1-desktop {
     flex: none;
-    width: 8.3333333333%;
+    width: 8.33333333%;
   }
 
   .column.is-offset-1-desktop {
-    margin-left: 8.3333333333%;
+    margin-left: 8.33333333%;
   }
 
   .column.is-2-desktop {
     flex: none;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
 
   .column.is-offset-2-desktop {
-    margin-left: 16.6666666667%;
+    margin-left: 16.66666667%;
   }
 
   .column.is-3-desktop {
@@ -9986,20 +9984,20 @@ label.panel-block:hover {
 
   .column.is-4-desktop {
     flex: none;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
 
   .column.is-offset-4-desktop {
-    margin-left: 33.3333333333%;
+    margin-left: 33.33333333%;
   }
 
   .column.is-5-desktop {
     flex: none;
-    width: 41.6666666667%;
+    width: 41.66666667%;
   }
 
   .column.is-offset-5-desktop {
-    margin-left: 41.6666666667%;
+    margin-left: 41.66666667%;
   }
 
   .column.is-6-desktop {
@@ -10013,20 +10011,20 @@ label.panel-block:hover {
 
   .column.is-7-desktop {
     flex: none;
-    width: 58.3333333333%;
+    width: 58.33333333%;
   }
 
   .column.is-offset-7-desktop {
-    margin-left: 58.3333333333%;
+    margin-left: 58.33333333%;
   }
 
   .column.is-8-desktop {
     flex: none;
-    width: 66.6666666667%;
+    width: 66.66666667%;
   }
 
   .column.is-offset-8-desktop {
-    margin-left: 66.6666666667%;
+    margin-left: 66.66666667%;
   }
 
   .column.is-9-desktop {
@@ -10040,20 +10038,20 @@ label.panel-block:hover {
 
   .column.is-10-desktop {
     flex: none;
-    width: 83.3333333333%;
+    width: 83.33333333%;
   }
 
   .column.is-offset-10-desktop {
-    margin-left: 83.3333333333%;
+    margin-left: 83.33333333%;
   }
 
   .column.is-11-desktop {
     flex: none;
-    width: 91.6666666667%;
+    width: 91.66666667%;
   }
 
   .column.is-offset-11-desktop {
-    margin-left: 91.6666666667%;
+    margin-left: 91.66666667%;
   }
 
   .column.is-12-desktop {
@@ -10168,20 +10166,20 @@ label.panel-block:hover {
 
   .column.is-1-widescreen {
     flex: none;
-    width: 8.3333333333%;
+    width: 8.33333333%;
   }
 
   .column.is-offset-1-widescreen {
-    margin-left: 8.3333333333%;
+    margin-left: 8.33333333%;
   }
 
   .column.is-2-widescreen {
     flex: none;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
 
   .column.is-offset-2-widescreen {
-    margin-left: 16.6666666667%;
+    margin-left: 16.66666667%;
   }
 
   .column.is-3-widescreen {
@@ -10195,20 +10193,20 @@ label.panel-block:hover {
 
   .column.is-4-widescreen {
     flex: none;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
 
   .column.is-offset-4-widescreen {
-    margin-left: 33.3333333333%;
+    margin-left: 33.33333333%;
   }
 
   .column.is-5-widescreen {
     flex: none;
-    width: 41.6666666667%;
+    width: 41.66666667%;
   }
 
   .column.is-offset-5-widescreen {
-    margin-left: 41.6666666667%;
+    margin-left: 41.66666667%;
   }
 
   .column.is-6-widescreen {
@@ -10222,20 +10220,20 @@ label.panel-block:hover {
 
   .column.is-7-widescreen {
     flex: none;
-    width: 58.3333333333%;
+    width: 58.33333333%;
   }
 
   .column.is-offset-7-widescreen {
-    margin-left: 58.3333333333%;
+    margin-left: 58.33333333%;
   }
 
   .column.is-8-widescreen {
     flex: none;
-    width: 66.6666666667%;
+    width: 66.66666667%;
   }
 
   .column.is-offset-8-widescreen {
-    margin-left: 66.6666666667%;
+    margin-left: 66.66666667%;
   }
 
   .column.is-9-widescreen {
@@ -10249,20 +10247,20 @@ label.panel-block:hover {
 
   .column.is-10-widescreen {
     flex: none;
-    width: 83.3333333333%;
+    width: 83.33333333%;
   }
 
   .column.is-offset-10-widescreen {
-    margin-left: 83.3333333333%;
+    margin-left: 83.33333333%;
   }
 
   .column.is-11-widescreen {
     flex: none;
-    width: 91.6666666667%;
+    width: 91.66666667%;
   }
 
   .column.is-offset-11-widescreen {
-    margin-left: 91.6666666667%;
+    margin-left: 91.66666667%;
   }
 
   .column.is-12-widescreen {
@@ -10377,20 +10375,20 @@ label.panel-block:hover {
 
   .column.is-1-fullhd {
     flex: none;
-    width: 8.3333333333%;
+    width: 8.33333333%;
   }
 
   .column.is-offset-1-fullhd {
-    margin-left: 8.3333333333%;
+    margin-left: 8.33333333%;
   }
 
   .column.is-2-fullhd {
     flex: none;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
 
   .column.is-offset-2-fullhd {
-    margin-left: 16.6666666667%;
+    margin-left: 16.66666667%;
   }
 
   .column.is-3-fullhd {
@@ -10404,20 +10402,20 @@ label.panel-block:hover {
 
   .column.is-4-fullhd {
     flex: none;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
 
   .column.is-offset-4-fullhd {
-    margin-left: 33.3333333333%;
+    margin-left: 33.33333333%;
   }
 
   .column.is-5-fullhd {
     flex: none;
-    width: 41.6666666667%;
+    width: 41.66666667%;
   }
 
   .column.is-offset-5-fullhd {
-    margin-left: 41.6666666667%;
+    margin-left: 41.66666667%;
   }
 
   .column.is-6-fullhd {
@@ -10431,20 +10429,20 @@ label.panel-block:hover {
 
   .column.is-7-fullhd {
     flex: none;
-    width: 58.3333333333%;
+    width: 58.33333333%;
   }
 
   .column.is-offset-7-fullhd {
-    margin-left: 58.3333333333%;
+    margin-left: 58.33333333%;
   }
 
   .column.is-8-fullhd {
     flex: none;
-    width: 66.6666666667%;
+    width: 66.66666667%;
   }
 
   .column.is-offset-8-fullhd {
-    margin-left: 66.6666666667%;
+    margin-left: 66.66666667%;
   }
 
   .column.is-9-fullhd {
@@ -10458,20 +10456,20 @@ label.panel-block:hover {
 
   .column.is-10-fullhd {
     flex: none;
-    width: 83.3333333333%;
+    width: 83.33333333%;
   }
 
   .column.is-offset-10-fullhd {
-    margin-left: 83.3333333333%;
+    margin-left: 83.33333333%;
   }
 
   .column.is-11-fullhd {
     flex: none;
-    width: 91.6666666667%;
+    width: 91.66666667%;
   }
 
   .column.is-offset-11-fullhd {
-    margin-left: 91.6666666667%;
+    margin-left: 91.66666667%;
   }
 
   .column.is-12-fullhd {
@@ -11126,12 +11124,12 @@ label.panel-block:hover {
 
   .tile.is-1 {
     flex: none;
-    width: 8.3333333333%;
+    width: 8.33333333%;
   }
 
   .tile.is-2 {
     flex: none;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
 
   .tile.is-3 {
@@ -11141,12 +11139,12 @@ label.panel-block:hover {
 
   .tile.is-4 {
     flex: none;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
 
   .tile.is-5 {
     flex: none;
-    width: 41.6666666667%;
+    width: 41.66666667%;
   }
 
   .tile.is-6 {
@@ -11156,12 +11154,12 @@ label.panel-block:hover {
 
   .tile.is-7 {
     flex: none;
-    width: 58.3333333333%;
+    width: 58.33333333%;
   }
 
   .tile.is-8 {
     flex: none;
-    width: 66.6666666667%;
+    width: 66.66666667%;
   }
 
   .tile.is-9 {
@@ -11171,12 +11169,12 @@ label.panel-block:hover {
 
   .tile.is-10 {
     flex: none;
-    width: 83.3333333333%;
+    width: 83.33333333%;
   }
 
   .tile.is-11 {
     flex: none;
-    width: 91.6666666667%;
+    width: 91.66666667%;
   }
 
   .tile.is-12 {
@@ -11275,12 +11273,12 @@ label.panel-block:hover {
 }
 
 .hero.is-white.is-bold {
-  background-image: linear-gradient(141deg, #e8e3e4 0%, white 71%, white 100%);
+  background-image: linear-gradient(141deg, #e6e5e5 0%, white 71%, white 100%);
 }
 
 @media screen and (max-width: 768px) {
   .hero.is-white.is-bold .navbar-menu {
-    background-image: linear-gradient(141deg, #e8e3e4 0%, white 71%, white 100%);
+    background-image: linear-gradient(141deg, #e6e5e5 0%, white 71%, white 100%);
   }
 }
 
@@ -13048,7 +13046,7 @@ label.panel-block:hover {
 
 .b-clockpicker-body .b-clockpicker-face-number.disabled {
   pointer-events: none;
-  opacity: 0.25;
+  opacity: .25;
 }
 
 .b-clockpicker-body .b-clockpicker-face-hand {
@@ -13256,11 +13254,11 @@ label.panel-block:hover {
 }
 
 .datepicker .datepicker-table .datepicker-body.has-events .datepicker-cell.has-event .events {
-  bottom: 0.425rem;
+  bottom: .425rem;
   display: flex;
   justify-content: center;
   left: 0;
-  padding: 0 0.35rem;
+  padding: 0 .35rem;
   position: absolute;
   width: 100%;
 }
@@ -13307,13 +13305,13 @@ label.panel-block:hover {
 
 .datepicker .datepicker-table .datepicker-body.has-events .datepicker-cell.has-event.dots .event {
   border-radius: 50%;
-  height: 0.35em;
-  margin: 0 0.1em;
-  width: 0.35em;
+  height: .35em;
+  margin: 0 .1em;
+  width: .35em;
 }
 
 .datepicker .datepicker-table .datepicker-body.has-events .datepicker-cell.has-event.bars .event {
-  height: 0.25em;
+  height: .25em;
   width: 100%;
 }
 
@@ -13572,7 +13570,7 @@ label.panel-block:hover {
 }
 
 .field.is-floating-label .label:before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   top: 0.775em;
@@ -15125,9 +15123,9 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .b-steps .steps .step-items .step-item .step-details {
   margin-top: 2rem;
-  margin-left: 0.5em;
-  margin-right: 0.5em;
-  padding-top: 0.2em;
+  margin-left: .5em;
+  margin-right: .5em;
+  padding-top: .2em;
 }
 
 .b-steps .steps .step-items .step-item .step-details .step-title {
@@ -15205,9 +15203,9 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .b-steps .steps.is-small .step-items .step-item .step-details {
   margin-top: 1.5rem;
-  margin-left: 0.5em;
-  margin-right: 0.5em;
-  padding-top: 0.2em;
+  margin-left: .5em;
+  margin-right: .5em;
+  padding-top: .2em;
 }
 
 .b-steps .steps.is-small .step-items .step-item .step-details .step-title {
@@ -15285,9 +15283,9 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .b-steps .steps.is-medium .step-items .step-item .step-details {
   margin-top: 2.5rem;
-  margin-left: 0.5em;
-  margin-right: 0.5em;
-  padding-top: 0.2em;
+  margin-left: .5em;
+  margin-right: .5em;
+  padding-top: .2em;
 }
 
 .b-steps .steps.is-medium .step-items .step-item .step-details .step-title {
@@ -15365,9 +15363,9 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .b-steps .steps.is-large .step-items .step-item .step-details {
   margin-top: 3rem;
-  margin-left: 0.5em;
-  margin-right: 0.5em;
-  padding-top: 0.2em;
+  margin-left: .5em;
+  margin-right: .5em;
+  padding-top: .2em;
 }
 
 .b-steps .steps.is-large .step-items .step-item .step-details .step-title {
@@ -15527,7 +15525,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 }
 
 .switch input[type=checkbox]:checked + .check.is-elastic:before {
-  transform: translate3d(36.3636363636%, 0, 0);
+  transform: translate3d(36.36363636%, 0, 0);
 }
 
 .switch input[type=checkbox]:focus {
@@ -15983,11 +15981,11 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
     margin-bottom: 1rem;
   }
 
-  .b-table .table.has-mobile-cards tr:not([class*=is-]) {
+  .b-table .table.has-mobile-cards tr:not([class*="is-"]) {
     background: inherit;
   }
 
-  .b-table .table.has-mobile-cards tr:not([class*=is-]):hover {
+  .b-table .table.has-mobile-cards tr:not([class*="is-"]):hover {
     background-color: inherit;
   }
 
@@ -17104,7 +17102,7 @@ section.section.is-title-bar ul li {
 
 section.section.is-title-bar ul li:after {
   display: inline-block;
-  content: "/";
+  content: '/';
   padding-left: 0.75rem;
 }
 
@@ -17424,7 +17422,7 @@ footer.footer .logo img {
 }
 
 .icon.has-update-mark:after {
-  content: "";
+  content: '';
   width: 0.5rem;
   height: 0.5rem;
   position: absolute;

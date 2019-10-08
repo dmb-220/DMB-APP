@@ -47,7 +47,9 @@ class PardavimaiController extends Controller
         $da = array();
         $i=0;
         foreach ( $group as $idx => $value ) {
-            //if(value[]){
+            //Lietuva
+            if($key[1] && $value[0]['salis'] == 1){
+                //skaiciuojam parduota viso
                 if (array_key_exists($idx, $group)) {
                 $sumDetail = 'kiekis';
                 $totalVAT = array_reduce($value,
@@ -56,6 +58,7 @@ class PardavimaiController extends Controller
                 return $runningTotal;
                 }, 0);
 
+                //skaiciuojam likutis viso
                 if (array_key_exists($idx, $group2)) {
                 $total = array_reduce($group2[$idx],
                 function($runningTotal, $record) use($sumDetail) {
@@ -74,7 +77,69 @@ class PardavimaiController extends Controller
                 }
                 $i++;
             }
-            //}
+        }
+            //Latvija
+            if($key[2] && $value[0]['salis'] == 2){
+                //skaiciuojam parduota viso
+                if (array_key_exists($idx, $group)) {
+                $sumDetail = 'kiekis';
+                $totalVAT = array_reduce($value,
+                function($runningTotal, $record) use($sumDetail) {
+                $runningTotal += $record[$sumDetail];
+                return $runningTotal;
+                }, 0);
+
+                //skaiciuojam likutis viso
+                if (array_key_exists($idx, $group2)) {
+                $total = array_reduce($group2[$idx],
+                function($runningTotal, $record) use($sumDetail) {
+                $runningTotal += $record[$sumDetail];
+                return $runningTotal;
+                }, 0);
+            }else{$total =0;}
+
+                $da[$i]['sandelis'] = $idx;
+                $da[$i]['parduota'] = $totalVAT;
+                $da[$i]['likutis'] = $total;
+                $da[$i]['viso'] = $total-($totalVAT*2);
+                $da[$i]['prekes'] = $value;
+                if (array_key_exists($idx, $group2)) {
+                    $da[$i]['likut'] = $group2[$idx];
+                }
+                $i++;
+            }
+            }
+            //Estija
+            if($key[3] && $value[0]['salis'] == 3){
+                //skaiciuojam parduota viso
+                if (array_key_exists($idx, $group)) {
+                $sumDetail = 'kiekis';
+                $totalVAT = array_reduce($value,
+                function($runningTotal, $record) use($sumDetail) {
+                $runningTotal += $record[$sumDetail];
+                return $runningTotal;
+                }, 0);
+
+                //skaiciuojam likutis viso
+                if (array_key_exists($idx, $group2)) {
+                $total = array_reduce($group2[$idx],
+                function($runningTotal, $record) use($sumDetail) {
+                $runningTotal += $record[$sumDetail];
+                return $runningTotal;
+                }, 0);
+            }else{$total =0;}
+
+                $da[$i]['sandelis'] = $idx;
+                $da[$i]['parduota'] = $totalVAT;
+                $da[$i]['likutis'] = $total;
+                $da[$i]['viso'] = $total-($totalVAT*2);
+                $da[$i]['prekes'] = $value;
+                if (array_key_exists($idx, $group2)) {
+                    $da[$i]['likut'] = $group2[$idx];
+                }
+                $i++;
+            }
+            }
         }
         $sumDetail = 'parduota';
         $viso_pard = array_reduce($da,
@@ -90,13 +155,14 @@ class PardavimaiController extends Controller
         return $runningTotal;
         }, 0);
 
-        
+        $arr = array("LT" => $key[1], "LV" => $key[2], "EE" => $key[3]);
         return response()->json([
             'status' => true,
             'data' => $da,
             'paieska' => $keyword,
             'viso_pard' => $viso_pard,
-            'viso_lik' => $viso_lik
+            'viso_lik' => $viso_lik,
+            'salis' =>  $arr,
         ]);
 
     }

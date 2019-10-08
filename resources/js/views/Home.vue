@@ -24,6 +24,7 @@
             </div>
         </div>
         <hr>
+        <div  id="printMe">
         <b-table
         bordered
         hoverable
@@ -124,6 +125,8 @@
             <th> </th>
         </template>
       </b-table>
+      </div>
+      <b-button type="is_dark" @click="print">Print</b-button>
       </card-component>
     </section>
 </template>
@@ -139,6 +142,7 @@ export default {
   components: { CardComponent },
   data () {
     return {
+      output: null,
       error: '',
      isLoading: false,
      defaultOpenedDetails: [1],
@@ -150,9 +154,10 @@ export default {
      viso_pard: '',
      viso_lik: '',
      //ka rodyti, o ko ne
-     rodyti_lt: false,
+     rodyti_lt: true,
      rodyti_lv: true,
      rodyti_ee: true,
+     salis: ''
     }
   },
   computed: {
@@ -163,6 +168,10 @@ export default {
   mounted () {
   },
   methods: {
+    print() {
+      // Pass the element id here
+      this.$htmlToPaper('printMe');
+    },
     change_lt(){
       this.rodyti_lt = !this.rodyti_lt
       this.ieskoti = this.paieska
@@ -216,12 +225,20 @@ export default {
         this.paieska = response.data.paieska;
         this.viso_pard = response.data.viso_pard;
         this.viso_lik = response.data.viso_lik;
-        //console.log(this.pardavimai);
+        //this.salis = response.data.salis.LT;
+        //if(reponse.data.salis.LT){this.rodyti_lt = true;}else{this.rodyti_lt = false;}
+        //if(reponse.data.salis.LV){this.rodyti_lv = true;}else{this.rodyti_lv = false;}
+        //if(reponse.data.salis.EE){this.rodyti_ee = true;}else{this.rodyti_ee = false;}
+        
+        this.rodyti_lt = response.data.salis.LT ? true : false
+        this.rodyti_lv = response.data.salis.LV ? true : false
+        this.rodyti_ee = response.data.salis.EE ? true : false
+        //console.log(reponse.data.salis);
       })
       .catch( err => {
             this.isLoading = false
             this.$buefy.toast.open({
-              message: `Error: ${e.message}`,
+              message: `Error: ${err.message}`,
               type: 'is-danger',
               queue: false
             })

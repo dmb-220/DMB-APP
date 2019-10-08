@@ -2665,6 +2665,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'home',
@@ -2673,6 +2676,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      output: null,
       error: '',
       isLoading: false,
       defaultOpenedDetails: [1],
@@ -2684,9 +2688,10 @@ __webpack_require__.r(__webpack_exports__);
       viso_pard: '',
       viso_lik: '',
       //ka rodyti, o ko ne
-      rodyti_lt: false,
+      rodyti_lt: true,
       rodyti_lv: true,
-      rodyti_ee: true
+      rodyti_ee: true,
+      salis: ''
     };
   },
   computed: {},
@@ -2695,6 +2700,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   methods: {
+    print: function print() {
+      // Pass the element id here
+      this.$htmlToPaper('printMe');
+    },
     change_lt: function change_lt() {
       this.rodyti_lt = !this.rodyti_lt;
       this.ieskoti = this.paieska;
@@ -2747,12 +2756,19 @@ __webpack_require__.r(__webpack_exports__);
         _this2.pardavimai = response.data.data;
         _this2.paieska = response.data.paieska;
         _this2.viso_pard = response.data.viso_pard;
-        _this2.viso_lik = response.data.viso_lik; //console.log(this.pardavimai);
+        _this2.viso_lik = response.data.viso_lik; //this.salis = response.data.salis.LT;
+        //if(reponse.data.salis.LT){this.rodyti_lt = true;}else{this.rodyti_lt = false;}
+        //if(reponse.data.salis.LV){this.rodyti_lv = true;}else{this.rodyti_lv = false;}
+        //if(reponse.data.salis.EE){this.rodyti_ee = true;}else{this.rodyti_ee = false;}
+
+        _this2.rodyti_lt = response.data.salis.LT ? true : false;
+        _this2.rodyti_lv = response.data.salis.LV ? true : false;
+        _this2.rodyti_ee = response.data.salis.EE ? true : false; //console.log(reponse.data.salis);
       })["catch"](function (err) {
         _this2.isLoading = false;
 
         _this2.$buefy.toast.open({
-          message: "Error: ".concat(e.message),
+          message: "Error: ".concat(err.message),
           type: 'is-danger',
           queue: false
         });
@@ -33085,6 +33101,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof="fun
 
 /***/ }),
 
+/***/ "./node_modules/vue-html-to-paper/dist/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/vue-html-to-paper/dist/index.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports=function(e){function t(r){if(n[r])return n[r].exports;var o=n[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,t),o.l=!0,o.exports}var n={};return t.m=e,t.c=n,t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=0)}([function(e,t,n){"use strict";function r(e,t){t.forEach(function(t){var n=e.document.createElement("link");n.setAttribute("rel","stylesheet"),n.setAttribute("type","text/css"),n.setAttribute("href",t),e.document.getElementsByTagName("head")[0].appendChild(n)})}Object.defineProperty(t,"__esModule",{value:!0}),t.default={install:function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};e.mixin({methods:{$htmlToPaper:function(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:function(){return!0},o=t.name,i=void 0===o?"_blank":o,u=t.specs,l=void 0===u?["fullscreen=yes","titlebar=yes","scrollbars=yes"]:u,c=t.replace,s=void 0===c||c,a=t.styles,d=void 0===a?[]:a;l=l.length?l.join(","):"";var f=document.getElementById(e);if(!f)return void alert("Element to print #"+e+" not found!");var m=window.open("",i,l,s);return m.document.write("\n            <html>\n              <head>\n                <title>"+document.title+"</title>\n              </head>\n              <body>\n                "+f.innerHTML+"\n              </body>\n            </html>\n          "),r(m,d),setTimeout(function(){m.document.close(),m.focus(),m.print(),m.close(),n()},1e3),!0}}})}}}]);
+
+/***/ }),
+
+/***/ "./node_modules/vue-html-to-paper/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/vue-html-to-paper/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! ./dist */ "./node_modules/vue-html-to-paper/dist/index.js");
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/App.vue?vue&type=template&id=f348271a&":
 /*!*******************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/App.vue?vue&type=template&id=f348271a& ***!
@@ -33870,362 +33909,383 @@ var render = function() {
           _c("hr"),
           _vm._v(" "),
           _c(
-            "b-table",
-            {
-              ref: "table",
-              attrs: {
-                bordered: "",
-                hoverable: "",
-                narrowed: _vm.isNarrowed,
-                data: _vm.pardavimai,
-                "opened-detailed": _vm.defaultOpenedDetails,
-                detailed: "",
-                "sort-icon": "arrow-up",
-                "detail-key": "sandelis",
-                loading: _vm.isLoading
-              },
-              on: {
-                "details-open": function(row, index) {
-                  return _vm.$buefy.toast.open(
-                    "Išskleistas " + row.sandelys + " sandelys!"
-                  )
-                }
-              },
-              scopedSlots: _vm._u([
-                {
-                  key: "default",
-                  fn: function(props) {
-                    return [
-                      props.row.prekes[0].salis == 1
-                        ? _c(
-                            "b-table-column",
-                            {
-                              style: { "background-color": "greenyellow" },
-                              attrs: {
-                                label: "Sandelis",
-                                width: "200",
-                                field: "sandelis"
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(props.row.sandelis) +
-                                  "\n      "
-                              )
-                            ]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      props.row.prekes[0].salis == 2
-                        ? _c(
-                            "b-table-column",
-                            {
-                              style: { "background-color": "gold" },
-                              attrs: {
-                                label: "Sandelis",
-                                width: "200",
-                                field: "sandelis"
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(props.row.sandelis) +
-                                  "\n      "
-                              )
-                            ]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      props.row.prekes[0].salis == 3
-                        ? _c(
-                            "b-table-column",
-                            {
-                              style: { "background-color": "tomato" },
-                              attrs: {
-                                label: "Sandelis",
-                                width: "200",
-                                field: "sandelis"
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(props.row.sandelis) +
-                                  "\n      "
-                              )
-                            ]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c(
-                        "b-table-column",
-                        {
-                          attrs: {
-                            label: "Likutis",
-                            field: "likutis",
-                            sortable: ""
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n        " +
-                              _vm._s(props.row.likutis) +
-                              "\n      "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-table-column",
-                        {
-                          attrs: {
-                            label: "Parduota",
-                            field: "parduota",
-                            sortable: ""
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n        " +
-                              _vm._s(props.row.parduota) +
-                              "\n      "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-table-column",
-                        {
-                          attrs: { label: "Viso", field: "viso", sortable: "" }
-                        },
-                        [_c("b", [_vm._v(_vm._s(props.row.viso))])]
-                      )
-                    ]
-                  }
-                },
-                {
-                  key: "detail",
-                  fn: function(props) {
-                    return [
-                      _c("div", { staticClass: "columns" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "column",
-                            style: { border: "1px solid" }
-                          },
-                          [
-                            _c("div", { staticClass: "has-text-centered" }, [
-                              _vm._v("Likučiai:")
-                            ]),
-                            _vm._v(" "),
-                            _c("b-table", {
-                              attrs: {
-                                data: props.row.likut,
-                                "default-sort-direction": "desc",
-                                "default-sort": "kiekis",
-                                bordered: "true",
-                                striped: "true",
-                                narrowed: "true"
-                              },
-                              scopedSlots: _vm._u(
-                                [
-                                  {
-                                    key: "default",
-                                    fn: function(props) {
-                                      return [
-                                        _c(
-                                          "b-table-column",
-                                          {
-                                            attrs: {
-                                              field: "preke",
-                                              label: "Prekė"
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                " +
-                                                _vm._s(props.row.preke) +
-                                                "\n            "
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-table-column",
-                                          {
-                                            attrs: {
-                                              field: "kiekis",
-                                              label: "Kiekis",
-                                              sortable: ""
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                " +
-                                                _vm._s(props.row.kiekis) +
-                                                "\n            "
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    }
-                                  }
-                                ],
-                                null,
-                                true
-                              )
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "column",
-                            style: { border: "1px solid" }
-                          },
-                          [
-                            _c("div", { staticClass: "has-text-centered" }, [
-                              _vm._v("Pardavimai:")
-                            ]),
-                            _vm._v(" "),
-                            _c("b-table", {
-                              attrs: {
-                                data: props.row.prekes,
-                                "default-sort-direction": "desc",
-                                "default-sort": "kiekis",
-                                bordered: "true",
-                                striped: "true",
-                                narrowed: "true"
-                              },
-                              scopedSlots: _vm._u(
-                                [
-                                  {
-                                    key: "default",
-                                    fn: function(props) {
-                                      return [
-                                        _c(
-                                          "b-table-column",
-                                          {
-                                            attrs: {
-                                              field: "preke",
-                                              label: "Prekė"
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                " +
-                                                _vm._s(props.row.preke) +
-                                                "\n            "
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-table-column",
-                                          {
-                                            attrs: {
-                                              field: "kiekis",
-                                              label: "Kiekis",
-                                              sortable: ""
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                " +
-                                                _vm._s(props.row.kiekis) +
-                                                "\n            "
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    }
-                                  }
-                                ],
-                                null,
-                                true
-                              )
-                            })
-                          ],
-                          1
-                        )
-                      ])
-                    ]
-                  }
-                }
-              ])
-            },
+            "div",
+            { attrs: { id: "printMe" } },
             [
-              _vm._v(" "),
-              _vm._v(" "),
               _c(
-                "section",
+                "b-table",
                 {
-                  staticClass: "section",
-                  attrs: { slot: "empty" },
-                  slot: "empty"
+                  ref: "table",
+                  attrs: {
+                    bordered: "",
+                    hoverable: "",
+                    narrowed: _vm.isNarrowed,
+                    data: _vm.pardavimai,
+                    "opened-detailed": _vm.defaultOpenedDetails,
+                    detailed: "",
+                    "sort-icon": "arrow-up",
+                    "detail-key": "sandelis",
+                    loading: _vm.isLoading
+                  },
+                  on: {
+                    "details-open": function(row, index) {
+                      return _vm.$buefy.toast.open(
+                        "Išskleistas " + row.sandelys + " sandelys!"
+                      )
+                    }
+                  },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "default",
+                      fn: function(props) {
+                        return [
+                          props.row.prekes[0].salis == 1
+                            ? _c(
+                                "b-table-column",
+                                {
+                                  style: { "background-color": "greenyellow" },
+                                  attrs: {
+                                    label: "Sandelis",
+                                    width: "200",
+                                    field: "sandelis"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n            " +
+                                      _vm._s(props.row.sandelis) +
+                                      "\n      "
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          props.row.prekes[0].salis == 2
+                            ? _c(
+                                "b-table-column",
+                                {
+                                  style: { "background-color": "gold" },
+                                  attrs: {
+                                    label: "Sandelis",
+                                    width: "200",
+                                    field: "sandelis"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n            " +
+                                      _vm._s(props.row.sandelis) +
+                                      "\n      "
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          props.row.prekes[0].salis == 3
+                            ? _c(
+                                "b-table-column",
+                                {
+                                  style: { "background-color": "tomato" },
+                                  attrs: {
+                                    label: "Sandelis",
+                                    width: "200",
+                                    field: "sandelis"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n            " +
+                                      _vm._s(props.row.sandelis) +
+                                      "\n      "
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                label: "Likutis",
+                                field: "likutis",
+                                sortable: ""
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n        " +
+                                  _vm._s(props.row.likutis) +
+                                  "\n      "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                label: "Parduota",
+                                field: "parduota",
+                                sortable: ""
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n        " +
+                                  _vm._s(props.row.parduota) +
+                                  "\n      "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                label: "Viso",
+                                field: "viso",
+                                sortable: ""
+                              }
+                            },
+                            [_c("b", [_vm._v(_vm._s(props.row.viso))])]
+                          )
+                        ]
+                      }
+                    },
+                    {
+                      key: "detail",
+                      fn: function(props) {
+                        return [
+                          _c("div", { staticClass: "columns" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "column",
+                                style: { border: "1px solid" }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "has-text-centered" },
+                                  [_vm._v("Likučiai:")]
+                                ),
+                                _vm._v(" "),
+                                _c("b-table", {
+                                  attrs: {
+                                    data: props.row.likut,
+                                    "default-sort-direction": "desc",
+                                    "default-sort": "kiekis",
+                                    bordered: "true",
+                                    striped: "true",
+                                    narrowed: "true"
+                                  },
+                                  scopedSlots: _vm._u(
+                                    [
+                                      {
+                                        key: "default",
+                                        fn: function(props) {
+                                          return [
+                                            _c(
+                                              "b-table-column",
+                                              {
+                                                attrs: {
+                                                  field: "preke",
+                                                  label: "Prekė"
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                " +
+                                                    _vm._s(props.row.preke) +
+                                                    "\n            "
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "b-table-column",
+                                              {
+                                                attrs: {
+                                                  field: "kiekis",
+                                                  label: "Kiekis",
+                                                  sortable: ""
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                " +
+                                                    _vm._s(props.row.kiekis) +
+                                                    "\n            "
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        }
+                                      }
+                                    ],
+                                    null,
+                                    true
+                                  )
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "column",
+                                style: { border: "1px solid" }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "has-text-centered" },
+                                  [_vm._v("Pardavimai:")]
+                                ),
+                                _vm._v(" "),
+                                _c("b-table", {
+                                  attrs: {
+                                    data: props.row.prekes,
+                                    "default-sort-direction": "desc",
+                                    "default-sort": "kiekis",
+                                    bordered: "true",
+                                    striped: "true",
+                                    narrowed: "true"
+                                  },
+                                  scopedSlots: _vm._u(
+                                    [
+                                      {
+                                        key: "default",
+                                        fn: function(props) {
+                                          return [
+                                            _c(
+                                              "b-table-column",
+                                              {
+                                                attrs: {
+                                                  field: "preke",
+                                                  label: "Prekė"
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                " +
+                                                    _vm._s(props.row.preke) +
+                                                    "\n            "
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "b-table-column",
+                                              {
+                                                attrs: {
+                                                  field: "kiekis",
+                                                  label: "Kiekis",
+                                                  sortable: ""
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                " +
+                                                    _vm._s(props.row.kiekis) +
+                                                    "\n            "
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        }
+                                      }
+                                    ],
+                                    null,
+                                    true
+                                  )
+                                })
+                              ],
+                              1
+                            )
+                          ])
+                        ]
+                      }
+                    }
+                  ])
                 },
                 [
+                  _vm._v(" "),
+                  _vm._v(" "),
                   _c(
-                    "div",
-                    { staticClass: "content has-text-centered" },
+                    "section",
+                    {
+                      staticClass: "section",
+                      attrs: { slot: "empty" },
+                      slot: "empty"
+                    },
                     [
-                      _vm.isLoading
-                        ? [
-                            _c(
-                              "p",
-                              [
-                                _c("b-icon", {
-                                  attrs: {
-                                    icon: "dots-horizontal",
-                                    size: "is-large"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Gaunami duomenys...")])
-                          ]
-                        : [
-                            _c(
-                              "p",
-                              [
-                                _c("b-icon", {
-                                  attrs: {
-                                    icon: "emoticon-sad",
-                                    size: "is-large"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Duomenų nerasta …")])
-                          ]
-                    ],
-                    2
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c("template", { slot: "footer" }, [
-                _c("th"),
-                _vm._v(" "),
-                _c("th"),
-                _vm._v(" "),
-                _c("th", [_vm._v(_vm._s(_vm.viso_lik))]),
-                _vm._v(" "),
-                _c("th", [_vm._v(_vm._s(_vm.viso_pard))]),
-                _vm._v(" "),
-                _c("th")
-              ])
+                      _c(
+                        "div",
+                        { staticClass: "content has-text-centered" },
+                        [
+                          _vm.isLoading
+                            ? [
+                                _c(
+                                  "p",
+                                  [
+                                    _c("b-icon", {
+                                      attrs: {
+                                        icon: "dots-horizontal",
+                                        size: "is-large"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c("p", [_vm._v("Gaunami duomenys...")])
+                              ]
+                            : [
+                                _c(
+                                  "p",
+                                  [
+                                    _c("b-icon", {
+                                      attrs: {
+                                        icon: "emoticon-sad",
+                                        size: "is-large"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c("p", [_vm._v("Duomenų nerasta …")])
+                              ]
+                        ],
+                        2
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("template", { slot: "footer" }, [
+                    _c("th"),
+                    _vm._v(" "),
+                    _c("th"),
+                    _vm._v(" "),
+                    _c("th", [_vm._v(_vm._s(_vm.viso_lik))]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v(_vm._s(_vm.viso_pard))]),
+                    _vm._v(" "),
+                    _c("th")
+                  ])
+                ],
+                2
+              )
             ],
-            2
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-button",
+            { attrs: { type: "is_dark" }, on: { click: _vm.print } },
+            [_vm._v("Print")]
           )
         ],
         1
@@ -50344,10 +50404,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
-/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
-/* harmony import */ var _components_AsideMenuList__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/AsideMenuList */ "./resources/js/components/AsideMenuList.vue");
+/* harmony import */ var vue_html_to_paper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-html-to-paper */ "./node_modules/vue-html-to-paper/index.js");
+/* harmony import */ var vue_html_to_paper__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_html_to_paper__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
+/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
+/* harmony import */ var _components_AsideMenuList__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/components/AsideMenuList */ "./resources/js/components/AsideMenuList.vue");
 // Axios & Echo global
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /* Core */
@@ -50358,6 +50420,15 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_2___default.a, axios__WEBPACK_IMPORTED_MODULE_3___default.a);
+
+var options = {
+  name: '_blank',
+  specs: ['fullscreen=yes', 'titlebar=yes', 'scrollbars=yes'],
+  styles: ['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', 'https://unpkg.com/kidlat-css/css/kidlat.css']
+}; //Vue.use(VueHtmlToPaper, options);
+// or, using the defaults with no stylesheet
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_html_to_paper__WEBPACK_IMPORTED_MODULE_4___default.a);
 /* Router & Store */
 
 
@@ -50370,26 +50441,26 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODUL
 
 /* Collapse mobile aside menu on route change */
 
-_router__WEBPACK_IMPORTED_MODULE_4__["default"].afterEach(function () {
-  _store__WEBPACK_IMPORTED_MODULE_5__["default"].commit('asideMobileStateToggle', false);
+_router__WEBPACK_IMPORTED_MODULE_5__["default"].afterEach(function () {
+  _store__WEBPACK_IMPORTED_MODULE_6__["default"].commit('asideMobileStateToggle', false);
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = false;
 /* These components are used in recursion algorithm */
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AsideMenuList', _components_AsideMenuList__WEBPACK_IMPORTED_MODULE_7__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AsideMenuList', _components_AsideMenuList__WEBPACK_IMPORTED_MODULE_8__["default"]);
 /* Main component */
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('App', _App_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('App', _App_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
 /* Buefy */
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(buefy__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* This is main entry point */
 
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  store: _store__WEBPACK_IMPORTED_MODULE_5__["default"],
-  router: _router__WEBPACK_IMPORTED_MODULE_4__["default"],
+  store: _store__WEBPACK_IMPORTED_MODULE_6__["default"],
+  router: _router__WEBPACK_IMPORTED_MODULE_5__["default"],
   render: function render(h) {
-    return h(_App_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
+    return h(_App_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
   },
   mounted: function mounted() {
     document.documentElement.classList.remove('has-spinner-active');

@@ -79,7 +79,8 @@ export default {
       isModalEdit: false,
       editObject: null,
       valstybe: '',
-      tipas: ''
+      tipas: '',
+      trinti: ''
       }
   },
   created() {
@@ -100,9 +101,11 @@ export default {
     },
   },
   methods: {
-    val(valstybe, tipas){
+    val(valstybe, tipas, trinti){
       this.valstybe = valstybe
       this.tipas = tipas
+      this.trinti = trinti
+      console.log(this.trinti)
     },
     file_info (value) {
       this.getData()
@@ -119,7 +122,7 @@ export default {
       .catch( err => {
             this.isLoading = false
             this.$buefy.toast.open({
-              message: `Error: ${e.message}`,
+              message: `Error: ${err.message}`,
               type: 'is-danger',
               queue: false
             })
