@@ -10,9 +10,6 @@
         </b-field>
         <hr>
         <div class="columns">
-          <div class="column has-text-centered has-text-weight-bold">{{ paieska }}</div>
-        </div>
-        <div class="columns">
           <div class="column has-text-centered" :style="{'background-color': 'greenyellow'}">
             <b-button :type="rodyti_lt ? 'is-primary' : 'is-dark'" @click="change_lt()">LIETUVA</b-button>
             </div>
@@ -25,6 +22,9 @@
         </div>
         <hr>
         <div  id="printMe">
+          <div class="columns">
+          <div class="column has-text-centered has-text-weight-bold">{{ paieska }}</div>
+        </div>
         <b-table
         bordered
         hoverable

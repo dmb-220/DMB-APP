@@ -1965,10 +1965,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 // @ is an alias to /src
 
 
@@ -2534,9 +2530,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
-//
-//
-//
 //
 //
 //
@@ -33832,14 +33825,6 @@ var render = function() {
           _c("div", { staticClass: "columns" }, [
             _c(
               "div",
-              { staticClass: "column has-text-centered has-text-weight-bold" },
-              [_vm._v(_vm._s(_vm.paieska))]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "columns" }, [
-            _c(
-              "div",
               {
                 staticClass: "column has-text-centered",
                 style: { "background-color": "greenyellow" }
@@ -33912,8 +33897,18 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { attrs: { id: "printMe" } },
+            { staticClass: "A4", attrs: { id: "printMe" } },
             [
+              _c("div", { staticClass: "columns" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "column has-text-centered has-text-weight-bold"
+                  },
+                  [_vm._v(_vm._s(_vm.paieska))]
+                )
+              ]),
+              _vm._v(" "),
               _c(
                 "b-table",
                 {
@@ -50426,11 +50421,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODUL
 var options = {
   name: '_blank',
   specs: [],
-<<<<<<< HEAD
-  styles: ['https://unpkg.com/gutenberg-css@0.4']
-=======
-  styles: ['https://unpkg.com/gutenberg-css@0.4', 'https://unpkg.com/gutenberg-css@0.4/dist/themes/oldstyle.min.css']
->>>>>>> dfb07437c71b8b5e13faf4c0514ff9e32fcc8082
+  styles: ['http://app.test/css/print.css']
 };
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_html_to_paper__WEBPACK_IMPORTED_MODULE_4___default.a, options); // or, using the defaults with no stylesheet
 //Vue.use(VueHtmlToPaper);

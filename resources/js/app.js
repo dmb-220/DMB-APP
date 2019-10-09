@@ -17,8 +17,7 @@ const options = {
   specs: [
   ],
   styles: [
-    'https://unpkg.com/gutenberg-css@0.4',
-    'https://unpkg.com/gutenberg-css@0.4/dist/themes/oldstyle.min.css'
+    'http://app.test/css/print.css',
   ]
 }
  
