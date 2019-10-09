@@ -18,6 +18,7 @@ const options = {
   ],
   styles: [
     'https://unpkg.com/gutenberg-css@0.4',
+    'https://unpkg.com/gutenberg-css@0.4/dist/themes/oldstyle.min.css'
   ]
 }
  

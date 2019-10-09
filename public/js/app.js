@@ -50426,7 +50426,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODUL
 var options = {
   name: '_blank',
   specs: [],
-  styles: ['https://unpkg.com/gutenberg-css@0.4']
+  styles: ['https://unpkg.com/gutenberg-css@0.4', 'https://unpkg.com/gutenberg-css@0.4/dist/themes/oldstyle.min.css']
 };
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_html_to_paper__WEBPACK_IMPORTED_MODULE_4___default.a, options); // or, using the defaults with no stylesheet
 //Vue.use(VueHtmlToPaper);
