@@ -34,6 +34,7 @@
     "dependencies": {
         "vee-validate": "^3.0.8",
         "vue-axios": "^2.1.4",
+        "vue-excel-export": "^0.1.3",
         "vue-html-to-paper": "^1.1.1",
         "vue-print-nb": "^1.4.0"
     }

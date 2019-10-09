@@ -50423,12 +50423,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODUL
 
 var options = {
   name: '_blank',
-  specs: ['fullscreen=yes', 'titlebar=yes', 'scrollbars=yes'],
-  styles: ['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', 'https://unpkg.com/kidlat-css/css/kidlat.css']
-}; //Vue.use(VueHtmlToPaper, options);
-// or, using the defaults with no stylesheet
+  specs: [],
+  styles: ['https://unpkg.com/gutenberg-css@0.4']
+};
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_html_to_paper__WEBPACK_IMPORTED_MODULE_4___default.a, options); // or, using the defaults with no stylesheet
+//Vue.use(VueHtmlToPaper);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_html_to_paper__WEBPACK_IMPORTED_MODULE_4___default.a);
 /* Router & Store */
 
 
@@ -51416,8 +51416,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\DMB-APP\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\DMB-APP\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\wamp64\www\vuejs-laravel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\wamp64\www\vuejs-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
