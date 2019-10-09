@@ -15,19 +15,15 @@ import VueHtmlToPaper from 'vue-html-to-paper';
 const options = {
   name: '_blank',
   specs: [
-    'fullscreen=yes',
-    'titlebar=yes',
-    'scrollbars=yes'
   ],
   styles: [
-    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-    'https://unpkg.com/kidlat-css/css/kidlat.css'
+    'https://unpkg.com/gutenberg-css@0.4',
   ]
 }
  
-//Vue.use(VueHtmlToPaper, options);
+Vue.use(VueHtmlToPaper, options);
 // or, using the defaults with no stylesheet
-Vue.use(VueHtmlToPaper);
+//Vue.use(VueHtmlToPaper);
 
 
 /* Router & Store */
