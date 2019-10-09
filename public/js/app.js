@@ -2751,11 +2751,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.pardavimai = response.data.data;
         _this2.paieska = response.data.paieska;
         _this2.viso_pard = response.data.viso_pard;
-        _this2.viso_lik = response.data.viso_lik; //this.salis = response.data.salis.LT;
-        //if(reponse.data.salis.LT){this.rodyti_lt = true;}else{this.rodyti_lt = false;}
-        //if(reponse.data.salis.LV){this.rodyti_lv = true;}else{this.rodyti_lv = false;}
-        //if(reponse.data.salis.EE){this.rodyti_ee = true;}else{this.rodyti_ee = false;}
-
+        _this2.viso_lik = response.data.viso_lik;
         _this2.rodyti_lt = response.data.salis.LT ? true : false;
         _this2.rodyti_lv = response.data.salis.LV ? true : false;
         _this2.rodyti_ee = response.data.salis.EE ? true : false; //console.log(reponse.data.salis);
@@ -33897,7 +33893,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "A4", attrs: { id: "printMe" } },
+            { attrs: { id: "printMe" } },
             [
               _c("div", { staticClass: "columns" }, [
                 _c(
@@ -33927,7 +33923,7 @@ var render = function() {
                   on: {
                     "details-open": function(row, index) {
                       return _vm.$buefy.toast.open(
-                        "Išskleistas " + row.sandelys + " sandelys!"
+                        "Išskleistas " + row.sandelis + " sandelys!"
                       )
                     }
                   },
@@ -33943,7 +33939,6 @@ var render = function() {
                                   style: { "background-color": "greenyellow" },
                                   attrs: {
                                     label: "Sandelis",
-                                    width: "200",
                                     field: "sandelis"
                                   }
                                 },
@@ -33964,7 +33959,6 @@ var render = function() {
                                   style: { "background-color": "gold" },
                                   attrs: {
                                     label: "Sandelis",
-                                    width: "200",
                                     field: "sandelis"
                                   }
                                 },
@@ -33985,7 +33979,6 @@ var render = function() {
                                   style: { "background-color": "tomato" },
                                   attrs: {
                                     label: "Sandelis",
-                                    width: "200",
                                     field: "sandelis"
                                   }
                                 },

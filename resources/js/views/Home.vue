@@ -35,16 +35,16 @@
         detailed
         sort-icon="arrow-up"
         detail-key="sandelis"
-        @details-open="(row, index) => $buefy.toast.open(`Išskleistas ${row.sandelys} sandelys!`)"
+        @details-open="(row, index) => $buefy.toast.open(`Išskleistas ${ row.sandelis } sandelys!`)"
         :loading="isLoading">
         <template slot-scope="props">
-          <b-table-column v-if="props.row.prekes[0].salis == 1" :style="{'background-color': 'greenyellow'}"  label="Sandelis" width="200" field="sandelis">
+          <b-table-column v-if="props.row.prekes[0].salis == 1" :style="{'background-color': 'greenyellow'}"  label="Sandelis"  field="sandelis">
                 {{ props.row.sandelis }}
           </b-table-column>
-          <b-table-column v-if="props.row.prekes[0].salis == 2" :style="{'background-color': 'gold'}"  label="Sandelis" width="200" field="sandelis">
+          <b-table-column v-if="props.row.prekes[0].salis == 2" :style="{'background-color': 'gold'}"  label="Sandelis"  field="sandelis">
                 {{ props.row.sandelis }}
           </b-table-column>
-          <b-table-column v-if="props.row.prekes[0].salis == 3" :style="{'background-color': 'tomato'}"  label="Sandelis" width="200" field="sandelis">
+          <b-table-column v-if="props.row.prekes[0].salis == 3" :style="{'background-color': 'tomato'}"  label="Sandelis"  field="sandelis">
                 {{ props.row.sandelis }}
           </b-table-column>
           <b-table-column label="Likutis" field="likutis" sortable>
@@ -221,10 +221,6 @@ export default {
         this.paieska = response.data.paieska;
         this.viso_pard = response.data.viso_pard;
         this.viso_lik = response.data.viso_lik;
-        //this.salis = response.data.salis.LT;
-        //if(reponse.data.salis.LT){this.rodyti_lt = true;}else{this.rodyti_lt = false;}
-        //if(reponse.data.salis.LV){this.rodyti_lv = true;}else{this.rodyti_lv = false;}
-        //if(reponse.data.salis.EE){this.rodyti_ee = true;}else{this.rodyti_ee = false;}
         
         this.rodyti_lt = response.data.salis.LT ? true : false
         this.rodyti_lv = response.data.salis.LV ? true : false
