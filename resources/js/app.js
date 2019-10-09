@@ -17,7 +17,12 @@ const options = {
   specs: [
   ],
   styles: [
+<<<<<<< HEAD
     'https://unpkg.com/gutenberg-css@0.4'
+=======
+    'https://unpkg.com/gutenberg-css@0.4',
+    'https://unpkg.com/gutenberg-css@0.4/dist/themes/oldstyle.min.css'
+>>>>>>> dfb07437c71b8b5e13faf4c0514ff9e32fcc8082
   ]
 }
  

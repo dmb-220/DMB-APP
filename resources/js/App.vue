@@ -7,6 +7,9 @@
   </div>
 </template>
 
+<style lang="css">
+</style>
+
 
 <script>
 // @ is an alias to /src

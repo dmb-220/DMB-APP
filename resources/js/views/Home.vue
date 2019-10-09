@@ -131,8 +131,7 @@
     </section>
 </template>
 
-<style lang="css">
-</style>
+
 
 
 <script>
