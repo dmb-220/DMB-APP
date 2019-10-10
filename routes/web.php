@@ -43,6 +43,17 @@ Route::prefix('/pardavimai')->group(function () {
 });
 
 /*
+ * Likutis
+ * */ 
+Route::prefix('/likutis')->group(function () {
+    Route::get('', 'LikutisController@index');
+    Route::get('{likutis}', 'LikutisController@show');
+    Route::post('store', 'LikutisController@store');
+    Route::patch('{likutis}', 'LikutisController@update');
+    Route::delete('{likutis}/destroy', 'LikutisController@destroy');
+});
+
+/*
  * Clients management
  * */
 Route::prefix('/clients')->group(function () {

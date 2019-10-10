@@ -134,7 +134,7 @@
 <script>
 import CardComponent from '@/components/CardComponent'
 export default {
-  name: 'home',
+  name: 'statistika',
   components: { CardComponent },
   data () {
     return {

@@ -34,10 +34,14 @@ export default {
         'DUOMENYS',
         [
           {
-            to: '/clients/index',
+            to: '/statistika',
+            label: 'Statistika',
+            icon: 'chart-bar',
+          },
+          {
+            to: '/prekes',
             label: 'Prekės',
-            icon: 'account-multiple',
-            updateMark: true
+            icon: 'buffer',
           },
         ],
         'VEIKSMAI',

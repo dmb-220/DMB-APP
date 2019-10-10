@@ -1,12 +1,5 @@
 {
-    "/js/app.js": "/js/app.js?id=29dab897c331dc5fc432",
-    "/css/app.css": "/css/app.css?id=1c9466da17ea791c2399",
-    "/client.js": "/client.js?id=97d4cb24880692af2df3",
-    "/client~forms~tables.js": "/client~forms~tables.js?id=869af9d3603f11624e14",
-    "/forms.js": "/forms.js?id=f6bf4d02d5ed930c990b",
-    "/profile.js": "/profile.js?id=70b01f012968918a8fc8",
-    "/tables.js": "/tables.js?id=bbc9b0c08ad4eef22253",
-    "/vendors~client.js": "/vendors~client.js?id=7c110ab6a141edb2d8b3",
-    "/vendors~client~forms~profile~tables.js": "/vendors~client~forms~profile~tables.js?id=a8ce9640df94ead56dce",
+    "/js/app.js": "/js/app.js?id=15324fd14599f8892cd4",
+    "/css/app.css": "/css/app.css?id=4d269a2d1bc3b118e951",
     "/css/vendor.css": "/css/vendor.css?id=d79135b31ec8f72bcaf7"
 }
