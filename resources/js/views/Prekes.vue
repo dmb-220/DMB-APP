@@ -26,19 +26,19 @@
         @details-open="(row, index) => $buefy.toast.open(`Išskleista ${ row.preke } prekė!`)"
         :loading="isLoading">
         <template slot-scope="props">
-          <b-table-column  label="Preke"  field="preke" sortable>
+          <b-table-column :style="{'border-bottom': 'dotted 1px black'}"  label="Preke"  field="preke" sortable>
                 {{ props.row.preke }}
           </b-table-column> 
-          <b-table-column  label="LIETUVA"  field="LT_viso" sortable>
+          <b-table-column :style="{'border-bottom': 'dotted 1px black'}" label="LIETUVA"  field="LT_viso" sortable>
                 {{ props.row.LT_viso }}
           </b-table-column>
-           <b-table-column  label="LATVIJA"  field="LV_viso" sortable >
+           <b-table-column :style="{'border-bottom': 'dotted 1px black'}" label="LATVIJA"  field="LV_viso" sortable >
                 {{ props.row.LV_viso }}
           </b-table-column>
-          <b-table-column  label="ESTIJA"  field="EE_viso" sortable>
+          <b-table-column :style="{'border-bottom': 'dotted 1px black'}" label="ESTIJA"  field="EE_viso" sortable>
                 {{ props.row.EE_viso }}
           </b-table-column>
-          <b-table-column  label="VISO" field="viso" sortable>
+          <b-table-column :style="{'border-bottom': 'dotted 1px black'}" label="VISO" field="viso" sortable>
                 {{ props.row.viso }}
           </b-table-column>
         </template> 

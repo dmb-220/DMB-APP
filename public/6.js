@@ -617,6 +617,7 @@ var render = function() {
                         _c(
                           "b-table-column",
                           {
+                            style: { "border-bottom": "dotted 1px black " },
                             attrs: {
                               label: "Preke",
                               field: "preke",
@@ -635,6 +636,7 @@ var render = function() {
                         _c(
                           "b-table-column",
                           {
+                            style: { "border-bottom": "dotted 1px black" },
                             attrs: {
                               label: "LIETUVA",
                               field: "LT_viso",
@@ -653,6 +655,7 @@ var render = function() {
                         _c(
                           "b-table-column",
                           {
+                            style: { "border-bottom": "dotted 1px black" },
                             attrs: {
                               label: "LATVIJA",
                               field: "LV_viso",
@@ -671,6 +674,7 @@ var render = function() {
                         _c(
                           "b-table-column",
                           {
+                            style: { "border-bottom": "dotted 1px black" },
                             attrs: {
                               label: "ESTIJA",
                               field: "EE_viso",
@@ -689,6 +693,7 @@ var render = function() {
                         _c(
                           "b-table-column",
                           {
+                            style: { "border-bottom": "dotted 1px black" },
                             attrs: {
                               label: "VISO",
                               field: "viso",
