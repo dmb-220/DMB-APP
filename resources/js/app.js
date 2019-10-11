@@ -18,6 +18,7 @@ const options = {
     'fullscreen=yes',
   ],
   styles: [
+    'https://unpkg.com/buefy/dist/buefy.min.css',
     'http://app.test/css/print.css',
   ]
 }

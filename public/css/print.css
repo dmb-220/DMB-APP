@@ -642,9 +642,6 @@ html {
   text-align: center;
 }
 
-.container {
-  width: 1170px;
-}
 
 a,
 button,
@@ -660,8 +657,6 @@ th,
 thead,
 tr {
   font-size: 9px;
-  padding: 0;
-  margin: 0;
 }
 h1,
 h2,
@@ -778,6 +773,9 @@ ul.inline li {
   display: inline;
   margin-left: 5px
 }
+
+
+
 table {
   box-sizing: border-box;
   max-width: 100%;
@@ -799,7 +797,7 @@ table thead tr th {
   vertical-align: bottom
 }
 table tbody tr td {
-  border-top: 1px solid #d9d9d8;
+  border-top: 1px solid #41403e;
   line-height: 1;
   padding: 2px;
   vertical-align: top
@@ -1230,13 +1228,7 @@ textarea[type=button][disabled] {
   cursor: not-allowed;
   opacity: .5
 }
-a {
-  background-image: linear-gradient(5deg,transparent 65%,#0071de 80%,transparent 90%),linear-gradient(165deg,transparent 5%,#0071de 15%,transparent 25%),linear-gradient(165deg,transparent 45%,#0071de 55%,transparent 65%),linear-gradient(15deg,transparent 25%,#0071de 35%,transparent 50%);
-  background-position: 0 90%;
-  background-repeat: repeat-x;
-  background-size: 4px 3px;
-  text-decoration: none
-}
+
 a:visited {
   color: #41403e;
   text-decoration: none

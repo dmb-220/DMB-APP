@@ -229,6 +229,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -240,6 +242,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      selected: [],
       isLoading: false,
       likutis: [],
       defaultOpenedDetails: [1],
@@ -612,8 +615,10 @@ var render = function() {
                 _c(
                   "b-table",
                   {
-                    ref: "table",
                     attrs: {
+                      "mobile-cards": false,
+                      selected: _vm.selected,
+                      focusable: "",
                       bordered: "",
                       hoverable: "",
                       narrowed: true,
@@ -625,6 +630,9 @@ var render = function() {
                       loading: _vm.isLoading
                     },
                     on: {
+                      "update:selected": function($event) {
+                        _vm.selected = $event
+                      },
                       "details-open": function(row, index) {
                         return _vm.$buefy.toast.open(
                           "Išskleista " + row.preke + " prekė!"
@@ -763,7 +771,7 @@ var render = function() {
                         key: "detail",
                         fn: function(props) {
                           return [
-                            _c("div", { staticClass: "columns is-desktop" }, [
+                            _c("div", { staticClass: "columns" }, [
                               _c(
                                 "div",
                                 {

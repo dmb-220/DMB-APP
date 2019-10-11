@@ -612,8 +612,8 @@ var render = function() {
                 _c(
                   "b-table",
                   {
-                    ref: "table",
                     attrs: {
+                      "mobile-cards": false,
                       bordered: "",
                       hoverable: "",
                       narrowed: true,

@@ -15,11 +15,13 @@
           <div class="column has-text-centered has-text-weight-bold">Rasta: {{likutis.length }} {{paieska}}</div>
         </div>
         <b-table
+        :mobile-cards="false"
+        :selected.sync="selected"
+        focusable
         bordered
         hoverable
         :narrowed="true"
         :data="likutis"
-        ref="table"
         :opened-detailed="defaultOpenedDetails"
         detailed
         sort-icon="arrow-up"
@@ -48,7 +50,7 @@
         </template> 
 
         <template slot="detail" slot-scope="props">
-          <div class="columns is-desktop">
+          <div class="columns">
           <div class="column" :style="{'border': '1px solid'}">
             <div class="has-text-centered">Lietuva:</div>
             <b-table
@@ -134,6 +136,7 @@ export default {
   components: {CardToolbar, CardComponent},
   data () {
     return {
+      selected: [],
       isLoading: false,
       likutis: [],
       defaultOpenedDetails: [1],

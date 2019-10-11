@@ -49543,7 +49543,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODUL
 var options = {
   name: '_blank',
   specs: ['fullscreen=yes'],
-  styles: ['http://app.test/css/print.css']
+  styles: ['https://unpkg.com/buefy/dist/buefy.min.css', 'http://app.test/css/print.css']
 };
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_html_to_paper__WEBPACK_IMPORTED_MODULE_4___default.a, options); // or, using the defaults with no stylesheet
 //Vue.use(VueHtmlToPaper);
@@ -50459,8 +50459,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\DMB-APP\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\DMB-APP\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\wamp64\www\vuejs-laravel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\wamp64\www\vuejs-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

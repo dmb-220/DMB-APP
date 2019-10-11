@@ -15,11 +15,11 @@
           <div class="column has-text-centered has-text-weight-bold">Rasta: {{likutis.length }} {{paieska}}</div>
         </div>
         <b-table
+        :mobile-cards="false"
         bordered
         hoverable
         :narrowed="true"
         :data="likutis"
-        ref="table"
         :opened-detailed="defaultOpenedDetails"
         detailed
         sort-icon="arrow-up"
