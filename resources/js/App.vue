@@ -39,9 +39,14 @@ export default {
             icon: 'chart-bar',
           },
           {
-            to: '/prekes',
-            label: 'Prekės',
+            to: '/likuciai',
+            label: 'Likučiai',
             icon: 'buffer',
+          },
+          {
+            to: '/pardavimai',
+            label: 'Pardavimai',
+            icon: 'currency-eur',
           },
         ],
         'VEIKSMAI',
@@ -51,22 +56,6 @@ export default {
             label: 'CSV failų įkėlimas',
             icon: 'view-list'
           },
-          {
-            to: '/tables',
-            label: 'Tables',
-            icon: 'table'
-          },
-          {
-            to: '/forms',
-            label: 'Forms',
-            icon: 'square-edit-outline'
-          },
-          {
-            to: '/profile',
-            label: 'Profile',
-            icon: 'account-circle'
-          },
-
         ]
       ]
     }

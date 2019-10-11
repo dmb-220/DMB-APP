@@ -15,18 +15,24 @@ export default new Router({
     {
       path: '/statistika',
       name: 'Statistika',
-      component: () => import('./views/Home.vue')
+      component: () => import('./views/Statistika.vue')
+    },
+    {
+      path: '/likuciai',
+      name: 'plikuciai',
+      component: () => import('./views/Likuciai.vue'),
+    },
+    {
+      path: '/pardavimai',
+      name: 'pardavimai',
+      component: () => import('./views/Pardavimai.vue')
     },
     {
       path: '/CSV_sarasas',
       name: 'CSV_sarasas',
       component: () => import('./views/CSV_Sarasas.vue')
     },
-    {
-      path: '/tables',
-      name: 'tables',
-      component: () => import('./views/Tables.vue')
-    },
+    
     {
       path: '/forms',
       name: 'forms',
@@ -37,11 +43,7 @@ export default new Router({
       name: 'profile',
       component: () => import('./views/Profile.vue')
     },
-    {
-      path: '/prekes',
-      name: 'prekes',
-      component: () => import('./views/Prekes.vue'),
-    },
+    
 
   ],
   scrollBehavior (to, from, savedPosition) {

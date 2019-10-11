@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="section is-main-section">
-      <card-component title="Prekės" icon="account-multiple">
+      <card-component title="LIKUČIAI" icon="account-multiple">
           <b-field horizontal>
             <b-input placeholder="Paieška..." type="search" @keyup.native.enter="paieska_post" 
             required v-model="ieskoti" icon="magnify"></b-input>    
@@ -26,7 +26,10 @@
         @details-open="(row, index) => $buefy.toast.open(`Išskleista ${ row.preke } prekė!`)"
         :loading="isLoading">
         <template slot-scope="props">
-          <b-table-column :style="{'border-bottom': 'dotted 1px black'}"  label="Preke"  field="preke" sortable>
+          <b-table-column v-if="props.row.pavadinimas == 'Liemenė'" :style="{'background-color': 'gold', 'border-bottom': 'dotted 1px black'}"  label="Preke"  field="preke" sortable>
+                {{ props.row.preke }} - ({{ props.row.pavadinimas }})
+          </b-table-column>
+          <b-table-column v-else :style="{'border-bottom': 'dotted 1px black'}"  label="Preke"  field="preke" sortable>
                 {{ props.row.preke }}
           </b-table-column> 
           <b-table-column :style="{'border-bottom': 'dotted 1px black'}" label="LIETUVA"  field="LT_viso" sortable>

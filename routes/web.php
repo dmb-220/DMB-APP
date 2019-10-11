@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::resource('photos', 'PhotoController');
+
 /*
  * CSV
  * */ 
@@ -29,6 +31,17 @@ Route::prefix('/csv')->group(function () {
     Route::post('CSV_store', 'CSVController@CSV_store');
     Route::patch('{csv}', 'CSVController@update');
     Route::delete('{csv}/destroy', 'CSVController@destroy');
+});
+
+/*
+ * Statistika
+ * */ 
+Route::prefix('/statistika')->group(function () {
+    Route::get('', 'StatistikaController@index');
+    Route::get('{statistika}', 'StatistikaController@show');
+    Route::post('store', 'StatistikaController@store');
+    Route::patch('{statistika}', 'StatistikaController@update');
+    Route::delete('{statistika}/destroy', 'StatistikaController@destroy');
 });
 
 /*

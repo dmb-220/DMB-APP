@@ -31,7 +31,7 @@ class LikutisController extends Controller
         ->where('preke', 'like', "{$keyword}%")->get();
 
         foreach ( $re as $value ) {
-            if($value['sandelis'] != "BROK" && $value['sandelis'] != "ESTI"){
+            if($value['sandelis'] != "BROK" && $value['sandelis'] != "ESTI" && $value['sandelis'] != "TELSIAI"){
                 $group2[$value['preke']][] = $value;
             }
         }
@@ -42,6 +42,7 @@ class LikutisController extends Controller
         $ee_viso = 0;
         foreach ( $group2 as $idx => $value ) {
             $group[$i]['preke'] = $idx;
+            $group[$i]['pavadinimas'] = $value[0]['pavadinimas'];
             foreach($value as $val){
                 if($val['salis'] == 1){
                     $group[$i]['LT'][] = $val;
