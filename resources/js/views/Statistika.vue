@@ -13,7 +13,7 @@
           <div class="column has-text-centered" :style="{'background-color': 'greenyellow'}">
             <b-button :type="rodyti_lt ? 'is-primary' : 'is-dark'" @click="change_lt()">LIETUVA</b-button>
             </div>
-          <div class="column has-text-centered" :style="{'background-color': 'gold'}">
+          <div class="column has-text-centered" :style="{'background-color': 'GoldenRod'}">
             <b-button :type="rodyti_lv ? 'is-warning' : 'is-dark'" @click="change_lv()">LATVIJA</b-button>
             </div>
           <div class="column has-text-centered" :style="{'background-color': 'tomato'}">
@@ -41,7 +41,7 @@
           <b-table-column v-if="props.row.prekes[0].salis == 1" :style="{'background-color': 'greenyellow'}"  label="Sandelis"  field="sandelis">
                 {{ props.row.sandelis }}
           </b-table-column>
-          <b-table-column v-if="props.row.prekes[0].salis == 2" :style="{'background-color': 'gold'}"  label="Sandelis"  field="sandelis">
+          <b-table-column v-if="props.row.prekes[0].salis == 2" :style="{'background-color': 'GoldenRod '}"  label="Sandelis"  field="sandelis">
                 {{ props.row.sandelis }}
           </b-table-column>
           <b-table-column v-if="props.row.prekes[0].salis == 3" :style="{'background-color': 'tomato'}"  label="Sandelis"  field="sandelis">

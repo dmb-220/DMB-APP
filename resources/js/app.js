@@ -15,6 +15,7 @@ import VueHtmlToPaper from 'vue-html-to-paper';
 const options = {
   name: '_blank',
   specs: [
+    'fullscreen=yes',
   ],
   styles: [
     'http://app.test/css/print.css',

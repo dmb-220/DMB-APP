@@ -10,8 +10,9 @@
           </div>
         </b-field>
         <hr>
+        <div  id="printMe">
         <div class="columns">
-          <div class="column has-text-centered has-text-weight-bold">{{paieska}}</div>
+          <div class="column has-text-centered has-text-weight-bold">Rasta: {{likutis.length }} {{paieska}}</div>
         </div>
         <b-table
         bordered
@@ -116,6 +117,8 @@
           </div>
         </section>
       </b-table>
+      </div>
+      <b-button type="is_dark" @click="print">Print</b-button>
       </card-component>
     </section>
   </div>
@@ -149,6 +152,10 @@ export default {
     this.getData()
   },
   methods: {
+      print() {
+      // Pass the element id here
+      this.$htmlToPaper('printMe');
+    },
     paieska_post(){
       if(this.ieskoti != ""){
         axios

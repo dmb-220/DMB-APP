@@ -470,7 +470,7 @@ var render = function() {
               "div",
               {
                 staticClass: "column has-text-centered",
-                style: { "background-color": "gold" }
+                style: { "background-color": "GoldenRod" }
               },
               [
                 _c(
@@ -580,7 +580,7 @@ var render = function() {
                             ? _c(
                                 "b-table-column",
                                 {
-                                  style: { "background-color": "gold" },
+                                  style: { "background-color": "GoldenRod " },
                                   attrs: {
                                     label: "Sandelis",
                                     field: "sandelis"

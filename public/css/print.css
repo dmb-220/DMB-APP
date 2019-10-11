@@ -241,16 +241,7 @@ html {
   position: relative;
   width: 100%
 }
-@media only screen and (max-width:992px) {
-  .container {
-    width: 85%
-  }
-}
-@media only screen and (max-width:480px) {
-  .container {
-    width: 90%
-  }
-}
+
 .section {
   margin-bottom: 3px;
   margin-top: 3px;
@@ -260,7 +251,7 @@ html {
   color: #8f8d89;
   content: '~~~';
   display: block;
-  font-size: 8px;
+  font-size: 12px;
   position: relative;
   text-align: center
 }
@@ -271,7 +262,7 @@ hr::after {
   color: #8f8d89;
   content: '~~~';
   display: block;
-  font-size: 8px;
+  font-size: 12px;
   position: relative;
   text-align: center;
   top: -.75rem
@@ -650,6 +641,11 @@ html {
   font-size: 12px;
   text-align: center;
 }
+
+.container {
+  width: 1170px;
+}
+
 a,
 button,
 input,
@@ -663,8 +659,9 @@ textarea,
 th,
 thead,
 tr {
-  font-family: Roboto;
-  font-size: 8px;
+  font-size: 9px;
+  padding: 0;
+  margin: 0;
 }
 h1,
 h2,

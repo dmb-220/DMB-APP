@@ -49542,7 +49542,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODUL
 
 var options = {
   name: '_blank',
-  specs: [],
+  specs: ['fullscreen=yes'],
   styles: ['http://app.test/css/print.css']
 };
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_html_to_paper__WEBPACK_IMPORTED_MODULE_4___default.a, options); // or, using the defaults with no stylesheet
