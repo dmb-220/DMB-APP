@@ -53,10 +53,10 @@
           <b-table-column :style="{'background-color': 'tomato'}" label="EE pardavimai" field="pardavimai.EE_viso" sortable>
                 {{props.row.pardavimai && props.row.pardavimai.EE_viso}}
           </b-table-column>
-          <b-table-column :style="{'border-bottom': 'dotted 1px black'}" label="LIKUČIAI" field="likutis.viso" sortable>
+          <b-table-column :style="{'background-color': 'WhiteSmoke '}" label="LIKUČIAI" field="likutis.viso" sortable>
                 {{props.row.likutis && props.row.likutis.viso}}
           </b-table-column>
-          <b-table-column :style="{'border-bottom': 'dotted 1px black'}" label="PARDAVIMAI" field="pardavimai.viso" sortable>
+          <b-table-column :style="{'background-color': 'WhiteSmoke '}" label="PARDAVIMAI" field="pardavimai.viso" sortable>
                 {{props.row.pardavimai && props.row.pardavimai.viso}}
           </b-table-column>
         </template> 

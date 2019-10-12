@@ -875,7 +875,7 @@ var render = function() {
                             _c(
                               "b-table-column",
                               {
-                                style: { "border-bottom": "dotted 1px black" },
+                                style: { "background-color": "WhiteSmoke " },
                                 attrs: {
                                   label: "LIKUČIAI",
                                   field: "likutis.viso",
@@ -897,7 +897,7 @@ var render = function() {
                             _c(
                               "b-table-column",
                               {
-                                style: { "border-bottom": "dotted 1px black" },
+                                style: { "background-color": "WhiteSmoke " },
                                 attrs: {
                                   label: "PARDAVIMAI",
                                   field: "pardavimai.viso",
