@@ -126,7 +126,10 @@
         </template>
       </b-table>
       </div>
-      <b-button type="is_dark" @click="print">Print</b-button>
+      <hr>
+      <div class="buttons">
+        <b-button size="is-medium" icon-left="printer" type="is-dark" @click="print">SPAUSDINTI</b-button>
+      </div>
       </card-component>
     </section>
 </template>

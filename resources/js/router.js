@@ -19,12 +19,12 @@ export default new Router({
     },
     {
       path: '/likuciai',
-      name: 'plikuciai',
+      name: 'Likuciai',
       component: () => import('./views/Likuciai.vue'),
     },
     {
       path: '/pardavimai',
-      name: 'pardavimai',
+      name: 'Pardavimai',
       component: () => import('./views/Pardavimai.vue')
     },
     {
@@ -34,9 +34,9 @@ export default new Router({
     },
     
     {
-      path: '/forms',
-      name: 'forms',
-      component: () => import('./views/Forms.vue')
+      path: '/prekes',
+      name: 'Prekes',
+      component: () => import('./views/Prekes.vue')
     },
     {
       path: '/profile',

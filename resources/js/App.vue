@@ -48,6 +48,11 @@ export default {
             label: 'Pardavimai',
             icon: 'currency-eur',
           },
+          {
+            to: '/prekes',
+            label: 'Prekes',
+            icon: 'cart',
+          },
         ],
         'VEIKSMAI',
         [

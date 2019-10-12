@@ -67,6 +67,17 @@ Route::prefix('/likutis')->group(function () {
 });
 
 /*
+ * Prekes
+ * */ 
+Route::prefix('/prekes')->group(function () {
+    Route::get('', 'PrekesController@index');
+    Route::get('{prekes}', 'PrekesController@show');
+    Route::post('store', 'PrekesController@store');
+    Route::patch('{prekes}', 'PrekesController@update');
+    Route::delete('{prekes}/destroy', 'PrekesController@destroy');
+});
+
+/*
  * Clients management
  * */
 Route::prefix('/clients')->group(function () {

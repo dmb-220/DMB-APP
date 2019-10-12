@@ -1,535 +1,1073 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[8],{
 
-/***/ "./node_modules/lodash/_arrayEach.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_arrayEach.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardComponent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/**
- * A specialized version of `_.forEach` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns `array`.
- */
-function arrayEach(array, iteratee) {
-  var index = -1,
-      length = array == null ? 0 : array.length;
-
-  while (++index < length) {
-    if (iteratee(array[index], index, array) === false) {
-      break;
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'CardComponent',
+  props: {
+    title: {
+      type: String,
+      "default": null
+    },
+    icon: {
+      type: String,
+      "default": null
+    },
+    headerIcon: {
+      type: String,
+      "default": null
+    }
+  },
+  methods: {
+    headerIconClick: function headerIconClick() {
+      this.$emit('header-icon-click');
     }
   }
-  return array;
-}
-
-module.exports = arrayEach;
-
+});
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_baseFilter.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_baseFilter.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Statistika.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Statistika.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var baseEach = __webpack_require__(/*! ./_baseEach */ "./node_modules/lodash/_baseEach.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/**
- * The base implementation of `_.filter` without support for iteratee shorthands.
- *
- * @private
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} predicate The function invoked per iteration.
- * @returns {Array} Returns the new filtered array.
- */
-function baseFilter(collection, predicate) {
-  var result = [];
-  baseEach(collection, function(value, index, collection) {
-    if (predicate(value, index, collection)) {
-      result.push(value);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'statistika',
+  components: {
+    CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      output: null,
+      error: '',
+      isLoading: false,
+      defaultOpenedDetails: [1],
+      showDetailIcon: false,
+      isNarrowed: true,
+      pardavimai: [],
+      ieskoti: '',
+      paieska: '',
+      viso_pard: '',
+      viso_lik: '',
+      //ka rodyti, o ko ne
+      rodyti_lt: true,
+      rodyti_lv: true,
+      rodyti_ee: true,
+      salis: ''
+    };
+  },
+  computed: {},
+  created: function created() {
+    this.getData();
+  },
+  mounted: function mounted() {},
+  methods: {
+    print: function print() {
+      // Pass the element id here
+      this.$htmlToPaper('printMe');
+    },
+    change_lt: function change_lt() {
+      this.rodyti_lt = !this.rodyti_lt;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
+    },
+    change_lv: function change_lv() {
+      this.rodyti_lv = !this.rodyti_lv;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
+    },
+    change_ee: function change_ee() {
+      this.rodyti_ee = !this.rodyti_ee;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
+    },
+    paieska_post: function paieska_post() {
+      var _this = this;
+
+      if (this.ieskoti != "") {
+        axios.post("/statistika/store", {
+          ieskoti: this.ieskoti,
+          lt: this.rodyti_lt,
+          lv: this.rodyti_lv,
+          ee: this.rodyti_ee
+        }).then(function (response) {
+          console.log(response.data.data);
+
+          _this.getData();
+        })["catch"](function (err) {
+          _this.$buefy.toast.open({
+            message: "Error: ".concat(err.message),
+            type: 'is-danger',
+            queue: false
+          });
+        });
+      } else {
+        this.$buefy.toast.open({
+          message: "KLAIDA: \u012Fveskite paie\u0161kos rakta\u017Eod\u012F!",
+          type: 'is-danger',
+          queue: false
+        });
+      }
+    },
+    getData: function getData() {
+      var _this2 = this;
+
+      this.isLoading = true;
+      this.axios.get('/statistika').then(function (response) {
+        _this2.isLoading = false;
+        _this2.pardavimai = response.data.data;
+        _this2.paieska = response.data.paieska;
+        _this2.viso_pard = response.data.viso_pard;
+        _this2.viso_lik = response.data.viso_lik;
+        _this2.rodyti_lt = response.data.salis.LT ? true : false;
+        _this2.rodyti_lv = response.data.salis.LV ? true : false;
+        _this2.rodyti_ee = response.data.salis.EE ? true : false; //console.log(reponse.data.salis);
+      })["catch"](function (err) {
+        _this2.isLoading = false;
+
+        _this2.$buefy.toast.open({
+          message: "Error: ".concat(err.message),
+          type: 'is-danger',
+          queue: false
+        });
+      });
     }
-  });
-  return result;
-}
+  }
+});
 
-module.exports = baseFilter;
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card" }, [
+    _vm.title
+      ? _c("header", { staticClass: "card-header" }, [
+          _c(
+            "p",
+            { staticClass: "card-header-title" },
+            [
+              _vm.icon
+                ? _c("b-icon", {
+                    attrs: { icon: _vm.icon, "custom-size": "default" }
+                  })
+                : _vm._e(),
+              _vm._v("\n      " + _vm._s(_vm.title) + "\n    ")
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm.headerIcon
+            ? _c(
+                "a",
+                {
+                  staticClass: "card-header-icon",
+                  attrs: { href: "#", "aria-label": "more options" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.headerIconClick($event)
+                    }
+                  }
+                },
+                [
+                  _c("b-icon", {
+                    attrs: { icon: _vm.headerIcon, "custom-size": "default" }
+                  })
+                ],
+                1
+              )
+            : _vm._e()
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-content" }, [_vm._t("default")], 2)
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
 
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_baseSlice.js":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Statistika.vue?vue&type=template&id=5f6443e8&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Statistika.vue?vue&type=template&id=5f6443e8& ***!
+  \********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "section",
+    { staticClass: "section is-main-section" },
+    [
+      _c(
+        "card-component",
+        { attrs: { title: "Statistika", icon: "finance" } },
+        [
+          _c(
+            "b-field",
+            { attrs: { horizontal: "" } },
+            [
+              _c("b-input", {
+                attrs: {
+                  placeholder: "Paieška...",
+                  type: "search",
+                  required: "",
+                  icon: "magnify"
+                },
+                nativeOn: {
+                  keyup: function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.paieska_post($event)
+                  }
+                },
+                model: {
+                  value: _vm.ieskoti,
+                  callback: function($$v) {
+                    _vm.ieskoti = $$v
+                  },
+                  expression: "ieskoti"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "control" },
+                [
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { "native-type": "submit", type: "is-primary" },
+                      on: { click: _vm.paieska_post }
+                    },
+                    [_vm._v("Ieškoti")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("div", { staticClass: "columns" }, [
+            _c(
+              "div",
+              {
+                staticClass: "column has-text-centered",
+                style: { "background-color": "greenyellow" }
+              },
+              [
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.rodyti_lt ? "is-primary" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_lt()
+                      }
+                    }
+                  },
+                  [_vm._v("LIETUVA")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "column has-text-centered",
+                style: { "background-color": "GoldenRod" }
+              },
+              [
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.rodyti_lv ? "is-warning" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_lv()
+                      }
+                    }
+                  },
+                  [_vm._v("LATVIJA")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "column has-text-centered",
+                style: { "background-color": "tomato" }
+              },
+              [
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.rodyti_ee ? "is-danger" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_ee()
+                      }
+                    }
+                  },
+                  [_vm._v("ESTIJA")]
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c(
+            "div",
+            { attrs: { id: "printMe" } },
+            [
+              _c("div", { staticClass: "columns" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "column has-text-centered has-text-weight-bold"
+                  },
+                  [_vm._v(_vm._s(_vm.paieska))]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-table",
+                {
+                  ref: "table",
+                  attrs: {
+                    bordered: "",
+                    hoverable: "",
+                    narrowed: _vm.isNarrowed,
+                    data: _vm.pardavimai,
+                    "opened-detailed": _vm.defaultOpenedDetails,
+                    detailed: "",
+                    "sort-icon": "arrow-up",
+                    "detail-key": "sandelis",
+                    loading: _vm.isLoading
+                  },
+                  on: {
+                    "details-open": function(row, index) {
+                      return _vm.$buefy.toast.open(
+                        "Išskleistas " + row.sandelis + " sandelys!"
+                      )
+                    }
+                  },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "default",
+                      fn: function(props) {
+                        return [
+                          props.row.prekes[0].salis == 1
+                            ? _c(
+                                "b-table-column",
+                                {
+                                  style: { "background-color": "greenyellow" },
+                                  attrs: {
+                                    label: "Sandelis",
+                                    field: "sandelis"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n            " +
+                                      _vm._s(props.row.sandelis) +
+                                      "\n      "
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          props.row.prekes[0].salis == 2
+                            ? _c(
+                                "b-table-column",
+                                {
+                                  style: { "background-color": "GoldenRod " },
+                                  attrs: {
+                                    label: "Sandelis",
+                                    field: "sandelis"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n            " +
+                                      _vm._s(props.row.sandelis) +
+                                      "\n      "
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          props.row.prekes[0].salis == 3
+                            ? _c(
+                                "b-table-column",
+                                {
+                                  style: { "background-color": "tomato" },
+                                  attrs: {
+                                    label: "Sandelis",
+                                    field: "sandelis"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n            " +
+                                      _vm._s(props.row.sandelis) +
+                                      "\n      "
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                label: "Likutis",
+                                field: "likutis",
+                                sortable: ""
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n        " +
+                                  _vm._s(props.row.likutis) +
+                                  "\n      "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                label: "Parduota",
+                                field: "parduota",
+                                sortable: ""
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n        " +
+                                  _vm._s(props.row.parduota) +
+                                  "\n      "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                label: "Viso",
+                                field: "viso",
+                                sortable: ""
+                              }
+                            },
+                            [_c("b", [_vm._v(_vm._s(props.row.viso))])]
+                          )
+                        ]
+                      }
+                    },
+                    {
+                      key: "detail",
+                      fn: function(props) {
+                        return [
+                          _c("div", { staticClass: "columns" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "column",
+                                style: { border: "1px solid" }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "has-text-centered" },
+                                  [_vm._v("Likučiai:")]
+                                ),
+                                _vm._v(" "),
+                                _c("b-table", {
+                                  attrs: {
+                                    data: props.row.likut,
+                                    "default-sort-direction": "desc",
+                                    "default-sort": "kiekis",
+                                    bordered: "true",
+                                    striped: "true",
+                                    narrowed: "true"
+                                  },
+                                  scopedSlots: _vm._u(
+                                    [
+                                      {
+                                        key: "default",
+                                        fn: function(props) {
+                                          return [
+                                            _c(
+                                              "b-table-column",
+                                              {
+                                                attrs: {
+                                                  field: "preke",
+                                                  label: "Prekė"
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                " +
+                                                    _vm._s(props.row.preke) +
+                                                    "\n            "
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "b-table-column",
+                                              {
+                                                attrs: {
+                                                  field: "kiekis",
+                                                  label: "Kiekis",
+                                                  sortable: ""
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                " +
+                                                    _vm._s(props.row.kiekis) +
+                                                    "\n            "
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        }
+                                      }
+                                    ],
+                                    null,
+                                    true
+                                  )
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "column",
+                                style: { border: "1px solid" }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "has-text-centered" },
+                                  [_vm._v("Pardavimai:")]
+                                ),
+                                _vm._v(" "),
+                                _c("b-table", {
+                                  attrs: {
+                                    data: props.row.prekes,
+                                    "default-sort-direction": "desc",
+                                    "default-sort": "kiekis",
+                                    bordered: "true",
+                                    striped: "true",
+                                    narrowed: "true"
+                                  },
+                                  scopedSlots: _vm._u(
+                                    [
+                                      {
+                                        key: "default",
+                                        fn: function(props) {
+                                          return [
+                                            _c(
+                                              "b-table-column",
+                                              {
+                                                attrs: {
+                                                  field: "preke",
+                                                  label: "Prekė"
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                " +
+                                                    _vm._s(props.row.preke) +
+                                                    "\n            "
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "b-table-column",
+                                              {
+                                                attrs: {
+                                                  field: "kiekis",
+                                                  label: "Kiekis",
+                                                  sortable: ""
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                " +
+                                                    _vm._s(props.row.kiekis) +
+                                                    "\n            "
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        }
+                                      }
+                                    ],
+                                    null,
+                                    true
+                                  )
+                                })
+                              ],
+                              1
+                            )
+                          ])
+                        ]
+                      }
+                    }
+                  ])
+                },
+                [
+                  _vm._v(" "),
+                  _vm._v(" "),
+                  _c(
+                    "section",
+                    {
+                      staticClass: "section",
+                      attrs: { slot: "empty" },
+                      slot: "empty"
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "content has-text-centered" },
+                        [
+                          _vm.isLoading
+                            ? [
+                                _c(
+                                  "p",
+                                  [
+                                    _c("b-icon", {
+                                      attrs: {
+                                        icon: "dots-horizontal",
+                                        size: "is-large"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c("p", [_vm._v("Gaunami duomenys...")])
+                              ]
+                            : [
+                                _c(
+                                  "p",
+                                  [
+                                    _c("b-icon", {
+                                      attrs: {
+                                        icon: "emoticon-sad",
+                                        size: "is-large"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c("p", [_vm._v("Duomenų nerasta …")])
+                              ]
+                        ],
+                        2
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("template", { slot: "footer" }, [
+                    _c("th"),
+                    _vm._v(" "),
+                    _c("th"),
+                    _vm._v(" "),
+                    _c("th", [_vm._v(_vm._s(_vm.viso_lik))]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v(_vm._s(_vm.viso_pard))]),
+                    _vm._v(" "),
+                    _c("th")
+                  ])
+                ],
+                2
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "buttons" },
+            [
+              _c(
+                "b-button",
+                {
+                  attrs: {
+                    size: "is-medium",
+                    "icon-left": "printer",
+                    type: "is-dark"
+                  },
+                  on: { click: _vm.print }
+                },
+                [_vm._v("SPAUSDINTI")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/CardComponent.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/CardComponent.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CardComponent_vue_vue_type_template_id_6e4da0f2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardComponent.vue?vue&type=template&id=6e4da0f2& */ "./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2&");
+/* harmony import */ var _CardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/CardComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CardComponent_vue_vue_type_template_id_6e4da0f2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CardComponent_vue_vue_type_template_id_6e4da0f2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/CardComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/CardComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/CardComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CardComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardComponent_vue_vue_type_template_id_6e4da0f2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CardComponent.vue?vue&type=template&id=6e4da0f2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardComponent_vue_vue_type_template_id_6e4da0f2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardComponent_vue_vue_type_template_id_6e4da0f2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/Statistika.vue":
 /*!*******************************************!*\
-  !*** ./node_modules/lodash/_baseSlice.js ***!
+  !*** ./resources/js/views/Statistika.vue ***!
   \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/**
- * The base implementation of `_.slice` without an iteratee call guard.
- *
- * @private
- * @param {Array} array The array to slice.
- * @param {number} [start=0] The start position.
- * @param {number} [end=array.length] The end position.
- * @returns {Array} Returns the slice of `array`.
- */
-function baseSlice(array, start, end) {
-  var index = -1,
-      length = array.length;
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Statistika_vue_vue_type_template_id_5f6443e8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Statistika.vue?vue&type=template&id=5f6443e8& */ "./resources/js/views/Statistika.vue?vue&type=template&id=5f6443e8&");
+/* harmony import */ var _Statistika_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Statistika.vue?vue&type=script&lang=js& */ "./resources/js/views/Statistika.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-  if (start < 0) {
-    start = -start > length ? 0 : (length + start);
-  }
-  end = end > length ? length : end;
-  if (end < 0) {
-    end += length;
-  }
-  length = start > end ? 0 : ((end - start) >>> 0);
-  start >>>= 0;
 
-  var result = Array(length);
-  while (++index < length) {
-    result[index] = array[index + start];
-  }
-  return result;
-}
 
-module.exports = baseSlice;
 
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Statistika_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Statistika_vue_vue_type_template_id_5f6443e8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Statistika_vue_vue_type_template_id_5f6443e8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/Statistika.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_castFunction.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_castFunction.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./resources/js/views/Statistika.vue?vue&type=script&lang=js&":
+/*!********************************************************************!*\
+  !*** ./resources/js/views/Statistika.vue?vue&type=script&lang=js& ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var identity = __webpack_require__(/*! ./identity */ "./node_modules/lodash/identity.js");
-
-/**
- * Casts `value` to `identity` if it's not a function.
- *
- * @private
- * @param {*} value The value to inspect.
- * @returns {Function} Returns cast function.
- */
-function castFunction(value) {
-  return typeof value == 'function' ? value : identity;
-}
-
-module.exports = castFunction;
-
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Statistika_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Statistika.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Statistika.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Statistika_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_isIterateeCall.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_isIterateeCall.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./resources/js/views/Statistika.vue?vue&type=template&id=5f6443e8&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/views/Statistika.vue?vue&type=template&id=5f6443e8& ***!
+  \**************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js"),
-    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js"),
-    isIndex = __webpack_require__(/*! ./_isIndex */ "./node_modules/lodash/_isIndex.js"),
-    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Statistika_vue_vue_type_template_id_5f6443e8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Statistika.vue?vue&type=template&id=5f6443e8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Statistika.vue?vue&type=template&id=5f6443e8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Statistika_vue_vue_type_template_id_5f6443e8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/**
- * Checks if the given arguments are from an iteratee call.
- *
- * @private
- * @param {*} value The potential iteratee value argument.
- * @param {*} index The potential iteratee index or key argument.
- * @param {*} object The potential iteratee object argument.
- * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
- *  else `false`.
- */
-function isIterateeCall(value, index, object) {
-  if (!isObject(object)) {
-    return false;
-  }
-  var type = typeof index;
-  if (type == 'number'
-        ? (isArrayLike(object) && isIndex(index, object.length))
-        : (type == 'string' && index in object)
-      ) {
-    return eq(object[index], value);
-  }
-  return false;
-}
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Statistika_vue_vue_type_template_id_5f6443e8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
-module.exports = isIterateeCall;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/chunk.js":
-/*!**************************************!*\
-  !*** ./node_modules/lodash/chunk.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseSlice = __webpack_require__(/*! ./_baseSlice */ "./node_modules/lodash/_baseSlice.js"),
-    isIterateeCall = __webpack_require__(/*! ./_isIterateeCall */ "./node_modules/lodash/_isIterateeCall.js"),
-    toInteger = __webpack_require__(/*! ./toInteger */ "./node_modules/lodash/toInteger.js");
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeCeil = Math.ceil,
-    nativeMax = Math.max;
-
-/**
- * Creates an array of elements split into groups the length of `size`.
- * If `array` can't be split evenly, the final chunk will be the remaining
- * elements.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category Array
- * @param {Array} array The array to process.
- * @param {number} [size=1] The length of each chunk
- * @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
- * @returns {Array} Returns the new array of chunks.
- * @example
- *
- * _.chunk(['a', 'b', 'c', 'd'], 2);
- * // => [['a', 'b'], ['c', 'd']]
- *
- * _.chunk(['a', 'b', 'c', 'd'], 3);
- * // => [['a', 'b', 'c'], ['d']]
- */
-function chunk(array, size, guard) {
-  if ((guard ? isIterateeCall(array, size, guard) : size === undefined)) {
-    size = 1;
-  } else {
-    size = nativeMax(toInteger(size), 0);
-  }
-  var length = array == null ? 0 : array.length;
-  if (!length || size < 1) {
-    return [];
-  }
-  var index = 0,
-      resIndex = 0,
-      result = Array(nativeCeil(length / size));
-
-  while (index < length) {
-    result[resIndex++] = baseSlice(array, index, (index += size));
-  }
-  return result;
-}
-
-module.exports = chunk;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/each.js":
-/*!*************************************!*\
-  !*** ./node_modules/lodash/each.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! ./forEach */ "./node_modules/lodash/forEach.js");
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/filter.js":
-/*!***************************************!*\
-  !*** ./node_modules/lodash/filter.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayFilter = __webpack_require__(/*! ./_arrayFilter */ "./node_modules/lodash/_arrayFilter.js"),
-    baseFilter = __webpack_require__(/*! ./_baseFilter */ "./node_modules/lodash/_baseFilter.js"),
-    baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js");
-
-/**
- * Iterates over elements of `collection`, returning an array of all elements
- * `predicate` returns truthy for. The predicate is invoked with three
- * arguments: (value, index|key, collection).
- *
- * **Note:** Unlike `_.remove`, this method returns a new array.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Collection
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} [predicate=_.identity] The function invoked per iteration.
- * @returns {Array} Returns the new filtered array.
- * @see _.reject
- * @example
- *
- * var users = [
- *   { 'user': 'barney', 'age': 36, 'active': true },
- *   { 'user': 'fred',   'age': 40, 'active': false }
- * ];
- *
- * _.filter(users, function(o) { return !o.active; });
- * // => objects for ['fred']
- *
- * // The `_.matches` iteratee shorthand.
- * _.filter(users, { 'age': 36, 'active': true });
- * // => objects for ['barney']
- *
- * // The `_.matchesProperty` iteratee shorthand.
- * _.filter(users, ['active', false]);
- * // => objects for ['fred']
- *
- * // The `_.property` iteratee shorthand.
- * _.filter(users, 'active');
- * // => objects for ['barney']
- */
-function filter(collection, predicate) {
-  var func = isArray(collection) ? arrayFilter : baseFilter;
-  return func(collection, baseIteratee(predicate, 3));
-}
-
-module.exports = filter;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/forEach.js":
-/*!****************************************!*\
-  !*** ./node_modules/lodash/forEach.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayEach = __webpack_require__(/*! ./_arrayEach */ "./node_modules/lodash/_arrayEach.js"),
-    baseEach = __webpack_require__(/*! ./_baseEach */ "./node_modules/lodash/_baseEach.js"),
-    castFunction = __webpack_require__(/*! ./_castFunction */ "./node_modules/lodash/_castFunction.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js");
-
-/**
- * Iterates over elements of `collection` and invokes `iteratee` for each element.
- * The iteratee is invoked with three arguments: (value, index|key, collection).
- * Iteratee functions may exit iteration early by explicitly returning `false`.
- *
- * **Note:** As with other "Collections" methods, objects with a "length"
- * property are iterated like arrays. To avoid this behavior use `_.forIn`
- * or `_.forOwn` for object iteration.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @alias each
- * @category Collection
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Array|Object} Returns `collection`.
- * @see _.forEachRight
- * @example
- *
- * _.forEach([1, 2], function(value) {
- *   console.log(value);
- * });
- * // => Logs `1` then `2`.
- *
- * _.forEach({ 'a': 1, 'b': 2 }, function(value, key) {
- *   console.log(key);
- * });
- * // => Logs 'a' then 'b' (iteration order is not guaranteed).
- */
-function forEach(collection, iteratee) {
-  var func = isArray(collection) ? arrayEach : baseEach;
-  return func(collection, castFunction(iteratee));
-}
-
-module.exports = forEach;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/toFinite.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/toFinite.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var toNumber = __webpack_require__(/*! ./toNumber */ "./node_modules/lodash/toNumber.js");
-
-/** Used as references for various `Number` constants. */
-var INFINITY = 1 / 0,
-    MAX_INTEGER = 1.7976931348623157e+308;
-
-/**
- * Converts `value` to a finite number.
- *
- * @static
- * @memberOf _
- * @since 4.12.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {number} Returns the converted number.
- * @example
- *
- * _.toFinite(3.2);
- * // => 3.2
- *
- * _.toFinite(Number.MIN_VALUE);
- * // => 5e-324
- *
- * _.toFinite(Infinity);
- * // => 1.7976931348623157e+308
- *
- * _.toFinite('3.2');
- * // => 3.2
- */
-function toFinite(value) {
-  if (!value) {
-    return value === 0 ? value : 0;
-  }
-  value = toNumber(value);
-  if (value === INFINITY || value === -INFINITY) {
-    var sign = (value < 0 ? -1 : 1);
-    return sign * MAX_INTEGER;
-  }
-  return value === value ? value : 0;
-}
-
-module.exports = toFinite;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/toInteger.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/toInteger.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var toFinite = __webpack_require__(/*! ./toFinite */ "./node_modules/lodash/toFinite.js");
-
-/**
- * Converts `value` to an integer.
- *
- * **Note:** This method is loosely based on
- * [`ToInteger`](http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger).
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {number} Returns the converted integer.
- * @example
- *
- * _.toInteger(3.2);
- * // => 3
- *
- * _.toInteger(Number.MIN_VALUE);
- * // => 0
- *
- * _.toInteger(Infinity);
- * // => 1.7976931348623157e+308
- *
- * _.toInteger('3.2');
- * // => 3
- */
-function toInteger(value) {
-  var result = toFinite(value),
-      remainder = result % 1;
-
-  return result === result ? (remainder ? result - remainder : result) : 0;
-}
-
-module.exports = toInteger;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/toNumber.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/toNumber.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
-    isSymbol = __webpack_require__(/*! ./isSymbol */ "./node_modules/lodash/isSymbol.js");
-
-/** Used as references for various `Number` constants. */
-var NAN = 0 / 0;
-
-/** Used to match leading and trailing whitespace. */
-var reTrim = /^\s+|\s+$/g;
-
-/** Used to detect bad signed hexadecimal string values. */
-var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
-
-/** Used to detect binary string values. */
-var reIsBinary = /^0b[01]+$/i;
-
-/** Used to detect octal string values. */
-var reIsOctal = /^0o[0-7]+$/i;
-
-/** Built-in method references without a dependency on `root`. */
-var freeParseInt = parseInt;
-
-/**
- * Converts `value` to a number.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to process.
- * @returns {number} Returns the number.
- * @example
- *
- * _.toNumber(3.2);
- * // => 3.2
- *
- * _.toNumber(Number.MIN_VALUE);
- * // => 5e-324
- *
- * _.toNumber(Infinity);
- * // => Infinity
- *
- * _.toNumber('3.2');
- * // => 3.2
- */
-function toNumber(value) {
-  if (typeof value == 'number') {
-    return value;
-  }
-  if (isSymbol(value)) {
-    return NAN;
-  }
-  if (isObject(value)) {
-    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
-    value = isObject(other) ? (other + '') : other;
-  }
-  if (typeof value != 'string') {
-    return value === 0 ? value : +value;
-  }
-  value = value.replace(reTrim, '');
-  var isBinary = reIsBinary.test(value);
-  return (isBinary || reIsOctal.test(value))
-    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
-    : (reIsBadHex.test(value) ? NAN : +value);
-}
-
-module.exports = toNumber;
 
 
 /***/ })
