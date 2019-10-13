@@ -116,14 +116,23 @@ class PrekesController extends Controller
             $ee_viso = 0;
             //$i++;
         }
+
+        //padaryti slepti liemeneles,
+        //arba liemenes
+        //reik ideti myktuka ka turi rodyti
         $i=0;
         foreach($sarasas as $valu){
             $new[$i]['preke'] = $valu;
+            $new[$i]['pavadinimas'] = '';
             if (array_key_exists($valu, $group)) {
                 $new[$i]['likutis'] = $group[$valu];
+                $new[$i]['pavadinimas'] = $group[$valu]['pavadinimas'];
             }else{$new[$i]['likutis'] = array();}
             if (array_key_exists($valu, $pardavimai)) {
                 $new[$i]['pardavimai'] = $pardavimai[$valu];
+                if($new[$i]['pavadinimas'] == ""){
+                    $new[$i]['pavadinimas'] = $pardavimai[$valu]['pavadinimas'];
+                }
             }else{$new[$i]['pardavimai'] = array();}
             $i++;
         }
