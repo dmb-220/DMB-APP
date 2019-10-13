@@ -641,7 +641,11 @@ var render = function() {
                     _c(
                       "b-button",
                       {
-                        attrs: { "native-type": "submit", type: "is-primary" },
+                        attrs: {
+                          "native-type": "submit",
+                          type: "is-primary",
+                          outlined: ""
+                        },
                         on: { click: _vm.paieska_post }
                       },
                       [_vm._v("Ieškoti")]

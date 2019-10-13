@@ -6,7 +6,7 @@
             <b-input placeholder="Paieška..." type="search" @keyup.native.enter="paieska_post" 
             required v-model="ieskoti" icon="magnify"></b-input>    
           <div class="control">
-            <b-button native-type="submit" type="is-primary" @click="paieska_post">Ieškoti</b-button>
+            <b-button native-type="submit" type="is-primary" @click="paieska_post" outlined>Ieškoti</b-button>
           </div>
         </b-field>
         <hr>
