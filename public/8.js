@@ -197,6 +197,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'statistika',
@@ -559,7 +562,7 @@ var render = function() {
                       key: "default",
                       fn: function(props) {
                         return [
-                          props.row.prekes[0].salis == 1
+                          props.row.salis == 1
                             ? _c(
                                 "b-table-column",
                                 {
@@ -577,9 +580,7 @@ var render = function() {
                                   )
                                 ]
                               )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          props.row.prekes[0].salis == 2
+                            : props.row.salis == 2
                             ? _c(
                                 "b-table-column",
                                 {
@@ -597,9 +598,7 @@ var render = function() {
                                   )
                                 ]
                               )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          props.row.prekes[0].salis == 3
+                            : props.row.salis == 3
                             ? _c(
                                 "b-table-column",
                                 {
@@ -617,21 +616,36 @@ var render = function() {
                                   )
                                 ]
                               )
-                            : _vm._e(),
+                            : _c(
+                                "b-table-column",
+                                {
+                                  attrs: {
+                                    label: "Sandelis",
+                                    field: "sandelis"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n            " +
+                                      _vm._s(props.row.sandelis) +
+                                      "\n      "
+                                  )
+                                ]
+                              ),
                           _vm._v(" "),
                           _c(
                             "b-table-column",
                             {
                               attrs: {
                                 label: "Likutis",
-                                field: "likutis",
+                                field: "likutis_sk",
                                 sortable: ""
                               }
                             },
                             [
                               _vm._v(
                                 "\n        " +
-                                  _vm._s(props.row.likutis) +
+                                  _vm._s(props.row.likutis_sk) +
                                   "\n      "
                               )
                             ]
@@ -642,14 +656,14 @@ var render = function() {
                             {
                               attrs: {
                                 label: "Parduota",
-                                field: "parduota",
+                                field: "pardavimai_sk",
                                 sortable: ""
                               }
                             },
                             [
                               _vm._v(
                                 "\n        " +
-                                  _vm._s(props.row.parduota) +
+                                  _vm._s(props.row.pardavimai_sk) +
                                   "\n      "
                               )
                             ]
@@ -689,7 +703,7 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("b-table", {
                                   attrs: {
-                                    data: props.row.likut,
+                                    data: props.row.likutis,
                                     "default-sort-direction": "desc",
                                     "default-sort": "kiekis",
                                     bordered: "true",
@@ -763,7 +777,7 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("b-table", {
                                   attrs: {
-                                    data: props.row.prekes,
+                                    data: props.row.pardavimai,
                                     "default-sort-direction": "desc",
                                     "default-sort": "kiekis",
                                     bordered: "true",

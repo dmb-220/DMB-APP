@@ -17,6 +17,14 @@ class StatistikaController extends Controller
     {
         //pasidaryt kintamuosius is VUE kad pateiktu tik nurodyta valstybe
         //$keyword = 'DMK-';
+
+         //$store = array(
+            $LT = array("MINS", "TELS", "MADA", "MARI", "UKME", "MOLA", "NORF", "BIGA", "BABI", "UTEN", "MANT", "VISA", "KEDA","AREN", "MAXI", "PANE", "KREV", "MAZE", "TAIK", "SAUL", "TAUB");
+            $LV = array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN","PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO");
+            $EE = array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera","Eden", "Haapsalu", "Kohtla Järve", "Kopli", "Parnu", "Riia Parnu");
+        //);
+
+
         $failas = "paieska.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
@@ -27,6 +35,15 @@ class StatistikaController extends Controller
 
         $key = explode("||", $key);
         $keyword = $key[0];
+
+        //nuo pasirinkimo priklauso ka rodyti.
+        if($key[1] && $key[2] && $key[3]){$store = array_merge($LT, $LV, $EE);}
+        if(!$key[1] && $key[2] && $key[3]){$store = array_merge($LV, $EE);}
+        if(!$key[1] && !$key[2] && $key[3]){$store = $EE;}
+        if($key[1] && !$key[2] && !$key[3]){$store = $LT;}
+        if(!$key[1] && $key[2] && !$key[3]){$store = $LV;}
+        if($key[1] && !$key[2] && $key[3]){$store = array_merge($LT, $EE);}
+        if($key[1] && $key[2] && !$key[3]){$store = array_merge($LT, $LV);}
 
         //Sudedam norimus likucius
         $re = Likutis::query()
@@ -39,37 +56,32 @@ class StatistikaController extends Controller
             }
         }
 
-        //$i=0;
         $lt_viso = 0;
         $lv_viso = 0;
         $ee_viso = 0;
+
         foreach ( $group2 as $idx => $value ) {
-            //$group[$idx]['preke'] = $idx;
-            $sarasas[] = $idx;
-            //$group[$idx]['pavadinimas'] = $value[0]['pavadinimas'];
             foreach($value as $val){
-                if($val['salis'] == 1){
-                    $group[$idx]['LT'][] = $val;
+                if($key[1] && $val['salis'] == 1){
+                    $group[$idx][] = $val;
                     $lt_viso = $lt_viso + $val['kiekis'];
-                    $gr[$idx]['LT_viso'] = $lt_viso;
+                    $gr[$idx]['likutis'] = $lt_viso;
                 }
-                if($val['salis'] == 2){
-                    $group[$idx]['LV'][] = $val;
+                if($key[2] && $val['salis'] == 2){
+                    $group[$idx][] = $val;
                     $lv_viso = $lv_viso + $val['kiekis'];
-                    $gr[$idx]['LV_viso'] = $lv_viso;
+                    $gr[$idx]['likutis'] = $lv_viso;
                 }
-                if($val['salis'] == 3){
-                    $group[$idx]['EE'][] = $val;
+                if($key[3] && $val['salis'] == 3){
+                    $group[$idx][] = $val;
                     $ee_viso = $ee_viso + $val['kiekis'];
-                    $gr[$idx]['EE_viso'] = $ee_viso;
+                    $gr[$idx]['likutis'] = $ee_viso;
                 }
             }
 
-            $gr[$idx]['viso'] = $ee_viso + $lv_viso + $lt_viso;
             $lt_viso = 0;
             $lv_viso = 0;
             $ee_viso = 0;
-            //$i++;
         }
 
         //Sudedam norimus pardavimus 
@@ -82,69 +94,71 @@ class StatistikaController extends Controller
             }
         }
 
-        //$i=0;
         $lt_viso = 0;
         $lv_viso = 0;
         $ee_viso = 0;
         foreach ( $pard as $idx => $value ) {
-            //$pardavimai[$idx]['preke'] = $idx;
-            if(!in_array($idx, $sarasas)) {
-                $sarasas[] = $idx;
-            }
-            //$pardavimai[$idx]['pavadinimas'] = $value[0]['pavadinimas'];
             foreach($value as $val){
-                if($val['salis'] == 1){
-                    $pardavimai[$idx]['LT'][] = $val;
+                if($key[1] && $val['salis'] == 1){
+                    $pardavimai[$idx][] = $val;
                     $lt_viso = $lt_viso + $val['kiekis'];
-                    $par[$idx]['LT_viso'] = $lt_viso;
+                    $par[$idx]['pardavimai'] = $lt_viso;
                 }
-                if($val['salis'] == 2){
-                    $pardavimai[$idx]['LV'][] = $val;
+                if($key[2] && $val['salis'] == 2){
+                    $pardavimai[$idx][] = $val;
                     $lv_viso = $lv_viso + $val['kiekis'];
-                    $par[$idx]['LV_viso'] = $lv_viso;
+                    $par[$idx]['pardavimai'] = $lv_viso;
                 }
-                if($val['salis'] == 3){
-                    $pardavimai[$idx]['EE'][] = $val;
+                if($key[3] && $val['salis'] == 3){
+                    $pardavimai[$idx][] = $val;
                     $ee_viso = $ee_viso + $val['kiekis'];
-                    $par[$idx]['EE_viso'] = $ee_viso;
+                    $par[$idx]['pardavimai'] = $ee_viso;
                 }
             }
 
-            $par[$idx]['viso'] = $ee_viso + $lv_viso + $lt_viso;
             $lt_viso = 0;
             $lv_viso = 0;
             $ee_viso = 0;
-            //$i++;
         }
 
-        //padaryti slepti liemeneles,
-        //arba liemenes
-        //reik ideti myktuka ka turi rodyti
+
         $i=0;
-        foreach($sarasas as $valu){
+        foreach($store as $valu){
             $new[$i]['sandelis'] = $valu;
-            //$new[$i]['pavadinimas'] = '';
+            $new[$i]['salis'] = '';
+            $liko = 0;
+            $parda = 0;
             if (array_key_exists($valu, $group)) {
                 $new[$i]['likutis'] = $group[$valu];
-                $new[$i]['viso'] = $gr[$valu]['viso'];
-                //$new[$i]['LT_viso'] = $gr[$valu]['LT_viso'];
-                //$new[$i]['LV_viso'] = $gr[$valu]['LV_viso'];
-                //$new[$i]['EE_viso'] = $gr[$valu]['EE_viso'];
-                //$new[$i]['pavadinimas'] = $group[$valu]['pavadinimas'];
+                $new[$i]['likutis_sk'] = $gr[$valu]['likutis'];
+                $liko = $gr[$valu]['likutis'];
+                $new[$i]['salis'] = $group[$valu][0]['salis'];
             }else{$new[$i]['likutis'] = array();}
+
             if (array_key_exists($valu, $pardavimai)) {
                 $new[$i]['pardavimai'] = $pardavimai[$valu];
-                $new[$i]['viso'] = $par[$valu]['viso'];
-                //$new[$i]['LT_viso'] = $par[$valu]['LT_viso'];
-                //$new[$i]['LV_viso'] = $par[$valu]['LV_viso'];
-                //$new[$i]['EE_viso'] = $par[$valu]['EE_viso'];
-                //if($new[$i]['pavadinimas'] == ""){
-                    //$new[$i]['pavadinimas'] = $pardavimai[$valu]['pavadinimas'];
-                //}
+                $new[$i]['pardavimai_sk'] = $par[$valu]['pardavimai'];
+                $parda = $par[$valu]['pardavimai'];
+                if($new[$i]['salis'] == ""){
+                    $new[$i]['salis'] = $pardavimai[$valu][0]['salis'];
+                }
             }else{$new[$i]['pardavimai'] = array();}
+
+            $new[$i]['viso'] = $liko - (2 * $parda);
             $i++;
         }
 
+        $viso_pard = 0;
+        $viso_lik = 0;
+
+        foreach($new as $val){
+            if(array_key_exists('pardavimai_sk', $val)){
+                $viso_pard = $viso_pard + $val['pardavimai_sk'];
+            }
+            if(array_key_exists('likutis_sk', $val)){
+                $viso_lik =  $viso_lik + $val['likutis_sk'];
+            }
+        }
 
         $arr = array("LT" => $key[1], "LV" => $key[2], "EE" => $key[3]);
         /*$store = array(
@@ -159,149 +173,11 @@ class StatistikaController extends Controller
             'status' => true,
             'paieska' => $keyword,
             'salis' =>  $arr,
-            'sarasas' => $gr,
-            //'parduotuves' => $store
-        ]);
-
-
-
-        /*$re1 = Pardavimai::query()
-        ->where('preke', 'like', "{$keyword}%")->get();
-        $group = array();
-        foreach ( $re1 as $value ) {
-            if($value['sandelis'] != "3333" && $value['sandelis'] != "Braak" && $value['sandelis'] != "TELSIAI"){
-            $group[$value['sandelis']][] = $value;
-            }
-        }
-
-        $re2 = Likutis::query()
-        ->where('preke', 'like', "{$keyword}%")->get();
-        $group2 = array();
-        foreach ( $re2 as $value ) {
-            $group2[$value['sandelis']][] = $value;
-        }
-
-        $da = array();
-        $i=0;
-        foreach ( $group as $idx => $value ) {
-            //Lietuva
-            if($key[1] && $value[0]['salis'] == 1){
-                //skaiciuojam parduota viso
-                if (array_key_exists($idx, $group)) {
-                $sumDetail = 'kiekis';
-                $totalVAT = array_reduce($value,
-                function($runningTotal, $record) use($sumDetail) {
-                $runningTotal += $record[$sumDetail];
-                return $runningTotal;
-                }, 0);
-
-                //skaiciuojam likutis viso
-                if (array_key_exists($idx, $group2)) {
-                $total = array_reduce($group2[$idx],
-                function($runningTotal, $record) use($sumDetail) {
-                $runningTotal += $record[$sumDetail];
-                return $runningTotal;
-                }, 0);
-            }else{$total =0;}
-
-                $da[$i]['sandelis'] = $idx;
-                $da[$i]['parduota'] = $totalVAT;
-                $da[$i]['likutis'] = $total;
-                $da[$i]['viso'] = $total-($totalVAT*2);
-                $da[$i]['prekes'] = $value;
-                if (array_key_exists($idx, $group2)) {
-                    $da[$i]['likut'] = $group2[$idx];
-                }
-                $i++;
-            }
-        }
-            //Latvija
-            if($key[2] && $value[0]['salis'] == 2){
-                //skaiciuojam parduota viso
-                if (array_key_exists($idx, $group)) {
-                $sumDetail = 'kiekis';
-                $totalVAT = array_reduce($value,
-                function($runningTotal, $record) use($sumDetail) {
-                $runningTotal += $record[$sumDetail];
-                return $runningTotal;
-                }, 0);
-
-                //skaiciuojam likutis viso
-                if (array_key_exists($idx, $group2)) {
-                $total = array_reduce($group2[$idx],
-                function($runningTotal, $record) use($sumDetail) {
-                $runningTotal += $record[$sumDetail];
-                return $runningTotal;
-                }, 0);
-            }else{$total =0;}
-
-                $da[$i]['sandelis'] = $idx;
-                $da[$i]['parduota'] = $totalVAT;
-                $da[$i]['likutis'] = $total;
-                $da[$i]['viso'] = $total-($totalVAT*2);
-                $da[$i]['prekes'] = $value;
-                if (array_key_exists($idx, $group2)) {
-                    $da[$i]['likut'] = $group2[$idx];
-                }
-                $i++;
-            }
-            }
-            //Estija
-            if($key[3] && $value[0]['salis'] == 3){
-                //skaiciuojam parduota viso
-                if (array_key_exists($idx, $group)) {
-                $sumDetail = 'kiekis';
-                $totalVAT = array_reduce($value,
-                function($runningTotal, $record) use($sumDetail) {
-                $runningTotal += $record[$sumDetail];
-                return $runningTotal;
-                }, 0);
-
-                //skaiciuojam likutis viso
-                if (array_key_exists($idx, $group2)) {
-                $total = array_reduce($group2[$idx],
-                function($runningTotal, $record) use($sumDetail) {
-                $runningTotal += $record[$sumDetail];
-                return $runningTotal;
-                }, 0);
-            }else{$total =0;}
-
-                $da[$i]['sandelis'] = $idx;
-                $da[$i]['parduota'] = $totalVAT;
-                $da[$i]['likutis'] = $total;
-                $da[$i]['viso'] = $total-($totalVAT*2);
-                $da[$i]['prekes'] = $value;
-                if (array_key_exists($idx, $group2)) {
-                    $da[$i]['likut'] = $group2[$idx];
-                }
-                $i++;
-            }
-            }
-        }
-        $sumDetail = 'parduota';
-        $viso_pard = array_reduce($da,
-        function($runningTotal, $record) use($sumDetail) {
-        $runningTotal += $record[$sumDetail];
-        return $runningTotal;
-        }, 0);
-
-        $sumDetail = 'likutis';
-        $viso_lik = array_reduce($da,
-        function($runningTotal, $record) use($sumDetail) {
-        $runningTotal += $record[$sumDetail];
-        return $runningTotal;
-        }, 0);
-
-        $arr = array("LT" => $key[1], "LV" => $key[2], "EE" => $key[3]);
-        return response()->json([
-            'status' => true,
-            'data' => $da,
-            'paieska' => $keyword,
             'viso_pard' => $viso_pard,
             'viso_lik' => $viso_lik,
-            'salis' =>  $arr,
-        ]);*/
-
+            'data' => $new,
+            //'parduotuves' => $sarasas
+        ]);
     }
 
     /**

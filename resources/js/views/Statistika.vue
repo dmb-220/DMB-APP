@@ -38,20 +38,23 @@
         @details-open="(row, index) => $buefy.toast.open(`Išskleistas ${ row.sandelis } sandelys!`)"
         :loading="isLoading">
         <template slot-scope="props">
-          <b-table-column v-if="props.row.prekes[0].salis == 1" :style="{'background-color': 'greenyellow'}"  label="Sandelis"  field="sandelis">
+          <b-table-column v-if="props.row.salis == 1" :style="{'background-color': 'greenyellow'}"  label="Sandelis"  field="sandelis">
                 {{ props.row.sandelis }}
           </b-table-column>
-          <b-table-column v-if="props.row.prekes[0].salis == 2" :style="{'background-color': 'GoldenRod '}"  label="Sandelis"  field="sandelis">
+          <b-table-column v-else-if="props.row.salis == 2" :style="{'background-color': 'GoldenRod '}"  label="Sandelis"  field="sandelis">
                 {{ props.row.sandelis }}
           </b-table-column>
-          <b-table-column v-if="props.row.prekes[0].salis == 3" :style="{'background-color': 'tomato'}"  label="Sandelis"  field="sandelis">
+          <b-table-column v-else-if="props.row.salis == 3" :style="{'background-color': 'tomato'}"  label="Sandelis"  field="sandelis">
                 {{ props.row.sandelis }}
           </b-table-column>
-          <b-table-column label="Likutis" field="likutis" sortable>
-            {{ props.row.likutis }}
+          <b-table-column v-else label="Sandelis"  field="sandelis">
+                {{ props.row.sandelis }}
           </b-table-column>
-          <b-table-column label="Parduota" field="parduota" sortable>
-            {{ props.row.parduota }}
+          <b-table-column label="Likutis" field="likutis_sk" sortable>
+            {{ props.row.likutis_sk }}
+          </b-table-column>
+          <b-table-column label="Parduota" field="pardavimai_sk" sortable>
+            {{ props.row.pardavimai_sk }}
           </b-table-column>
           <b-table-column label="Viso" field="viso" sortable>
             <b>{{ props.row.viso }}</b>
@@ -63,7 +66,7 @@
           <div class="column" :style="{'border': '1px solid'}">
             <div class="has-text-centered">Likučiai:</div>
             <b-table
-            :data="props.row.likut"
+            :data="props.row.likutis"
             default-sort-direction="desc"
             default-sort="kiekis"
             bordered="true"
@@ -82,7 +85,7 @@
           <div class="column" :style="{'border': '1px solid'}">
             <div class="has-text-centered">Pardavimai:</div>
             <b-table
-            :data="props.row.prekes"
+            :data="props.row.pardavimai"
             default-sort-direction="desc"
             default-sort="kiekis"
             bordered="true"
