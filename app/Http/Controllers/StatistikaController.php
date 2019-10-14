@@ -28,7 +28,144 @@ class StatistikaController extends Controller
         $key = explode("||", $key);
         $keyword = $key[0];
 
-        $re1 = Pardavimai::query()
+        //Sudedam norimus likucius
+        $re = Likutis::query()
+        ->where('preke', 'like', "{$keyword}%")->get();
+
+        foreach ( $re as $value ) {
+            if($value['sandelis'] != "BROK" && $value['sandelis'] != "ESTI" 
+            && $value['sandelis'] != "TELSIAI" && $value['sandelis'] != "4444" && $value['sandelis'] != "1111"){
+                $group2[$value['sandelis']][] = $value;
+            }
+        }
+
+        //$i=0;
+        $lt_viso = 0;
+        $lv_viso = 0;
+        $ee_viso = 0;
+        foreach ( $group2 as $idx => $value ) {
+            //$group[$idx]['preke'] = $idx;
+            $sarasas[] = $idx;
+            //$group[$idx]['pavadinimas'] = $value[0]['pavadinimas'];
+            foreach($value as $val){
+                if($val['salis'] == 1){
+                    $group[$idx]['LT'][] = $val;
+                    $lt_viso = $lt_viso + $val['kiekis'];
+                    $gr[$idx]['LT_viso'] = $lt_viso;
+                }
+                if($val['salis'] == 2){
+                    $group[$idx]['LV'][] = $val;
+                    $lv_viso = $lv_viso + $val['kiekis'];
+                    $gr[$idx]['LV_viso'] = $lv_viso;
+                }
+                if($val['salis'] == 3){
+                    $group[$idx]['EE'][] = $val;
+                    $ee_viso = $ee_viso + $val['kiekis'];
+                    $gr[$idx]['EE_viso'] = $ee_viso;
+                }
+            }
+
+            $gr[$idx]['viso'] = $ee_viso + $lv_viso + $lt_viso;
+            $lt_viso = 0;
+            $lv_viso = 0;
+            $ee_viso = 0;
+            //$i++;
+        }
+
+        //Sudedam norimus pardavimus 
+        $res = Pardavimai::query()
+        ->where('preke', 'like', "{$keyword}%")->get();
+
+        foreach ( $res as $value ) {
+            if($value['sandelis'] != "TELSIAI"){
+                $pard[$value['sandelis']][] = $value;
+            }
+        }
+
+        //$i=0;
+        $lt_viso = 0;
+        $lv_viso = 0;
+        $ee_viso = 0;
+        foreach ( $pard as $idx => $value ) {
+            //$pardavimai[$idx]['preke'] = $idx;
+            if(!in_array($idx, $sarasas)) {
+                $sarasas[] = $idx;
+            }
+            //$pardavimai[$idx]['pavadinimas'] = $value[0]['pavadinimas'];
+            foreach($value as $val){
+                if($val['salis'] == 1){
+                    $pardavimai[$idx]['LT'][] = $val;
+                    $lt_viso = $lt_viso + $val['kiekis'];
+                    $par[$idx]['LT_viso'] = $lt_viso;
+                }
+                if($val['salis'] == 2){
+                    $pardavimai[$idx]['LV'][] = $val;
+                    $lv_viso = $lv_viso + $val['kiekis'];
+                    $par[$idx]['LV_viso'] = $lv_viso;
+                }
+                if($val['salis'] == 3){
+                    $pardavimai[$idx]['EE'][] = $val;
+                    $ee_viso = $ee_viso + $val['kiekis'];
+                    $par[$idx]['EE_viso'] = $ee_viso;
+                }
+            }
+
+            $par[$idx]['viso'] = $ee_viso + $lv_viso + $lt_viso;
+            $lt_viso = 0;
+            $lv_viso = 0;
+            $ee_viso = 0;
+            //$i++;
+        }
+
+        //padaryti slepti liemeneles,
+        //arba liemenes
+        //reik ideti myktuka ka turi rodyti
+        $i=0;
+        foreach($sarasas as $valu){
+            $new[$i]['sandelis'] = $valu;
+            //$new[$i]['pavadinimas'] = '';
+            if (array_key_exists($valu, $group)) {
+                $new[$i]['likutis'] = $group[$valu];
+                $new[$i]['viso'] = $gr[$valu]['viso'];
+                //$new[$i]['LT_viso'] = $gr[$valu]['LT_viso'];
+                //$new[$i]['LV_viso'] = $gr[$valu]['LV_viso'];
+                //$new[$i]['EE_viso'] = $gr[$valu]['EE_viso'];
+                //$new[$i]['pavadinimas'] = $group[$valu]['pavadinimas'];
+            }else{$new[$i]['likutis'] = array();}
+            if (array_key_exists($valu, $pardavimai)) {
+                $new[$i]['pardavimai'] = $pardavimai[$valu];
+                $new[$i]['viso'] = $par[$valu]['viso'];
+                //$new[$i]['LT_viso'] = $par[$valu]['LT_viso'];
+                //$new[$i]['LV_viso'] = $par[$valu]['LV_viso'];
+                //$new[$i]['EE_viso'] = $par[$valu]['EE_viso'];
+                //if($new[$i]['pavadinimas'] == ""){
+                    //$new[$i]['pavadinimas'] = $pardavimai[$valu]['pavadinimas'];
+                //}
+            }else{$new[$i]['pardavimai'] = array();}
+            $i++;
+        }
+
+
+        $arr = array("LT" => $key[1], "LV" => $key[2], "EE" => $key[3]);
+        /*$store = array(
+            "LT" => array("MINS", "TELS", "MADA", "MARI", "UKME", "MOLA", "NORF", "BIGA", "BABI", "UTEN", "MANT", "VISA", "KEDA",
+                "AREN", "MAXI", "PANE", "KREV", "MAZE", "TAIK", "SAUL", "TAUB"),
+            "LV" => array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN",
+            "PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO"),
+            "EE" => array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera",
+            "Eden", "Haapsalu", "Kohtla Järve", "Kopli", "Parnu", "Riia Parnu"),
+        );*/
+        return response()->json([
+            'status' => true,
+            'paieska' => $keyword,
+            'salis' =>  $arr,
+            'sarasas' => $gr,
+            //'parduotuves' => $store
+        ]);
+
+
+
+        /*$re1 = Pardavimai::query()
         ->where('preke', 'like', "{$keyword}%")->get();
         $group = array();
         foreach ( $re1 as $value ) {
@@ -163,7 +300,7 @@ class StatistikaController extends Controller
             'viso_pard' => $viso_pard,
             'viso_lik' => $viso_lik,
             'salis' =>  $arr,
-        ]);
+        ]);*/
 
     }
 
