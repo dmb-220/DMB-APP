@@ -299,6 +299,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -320,7 +331,8 @@ __webpack_require__.r(__webpack_exports__);
       rodyti_lv: true,
       rodyti_ee: true,
       salis: '',
-      rikiuoti: false
+      rikiuoti: false,
+      viso: []
     };
   },
   computed: {},
@@ -396,7 +408,8 @@ __webpack_require__.r(__webpack_exports__);
         _this3.isLoading = false;
         _this3.rikiuoti = response.data.rikiuoti ? false : true;
         _this3.sarasas = response.data.sarasas;
-        _this3.paieska = response.data.paieska; //console.log(JSON.stringify(this.parduotuves));
+        _this3.paieska = response.data.paieska;
+        _this3.viso = response.data.viso; //console.log(JSON.stringify(this.parduotuves));
 
         _this3.rodyti_lt = response.data.salis.LT ? true : false;
         _this3.rodyti_lv = response.data.salis.LV ? true : false;
@@ -1107,8 +1120,6 @@ var render = function() {
                                                       _vm._s(
                                                         props.row.sandelis
                                                       ) +
-                                                      " - " +
-                                                      _vm._s(props.row.preke) +
                                                       "\n              "
                                                   )
                                                 ]
@@ -1508,8 +1519,29 @@ var render = function() {
                           2
                         )
                       ]
-                    )
-                  ]
+                    ),
+                    _vm._v(" "),
+                    _c("template", { slot: "footer" }, [
+                      _c("th"),
+                      _vm._v(" "),
+                      _c("th"),
+                      _vm._v(" "),
+                      _c("th", [_vm._v(_vm._s(_vm.viso.lt_lik))]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v(_vm._s(_vm.viso.lt_pard))]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v(_vm._s(_vm.viso.lv_lik))]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v(_vm._s(_vm.viso.lv_pard))]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v(_vm._s(_vm.viso.ee_lik))]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v(_vm._s(_vm.viso.ee_pard))]),
+                      _vm._v(" "),
+                      _c("th")
+                    ])
+                  ],
+                  2
                 )
               ],
               1

@@ -39,7 +39,7 @@ class PrekesController extends Controller
         ->where('preke', 'like', "{$keyword}%")->get();
 
         foreach ( $re as $value ) {
-            if($value['sandelis'] != "BROK" && $value['sandelis'] != "ESTI" 
+            if($value['sandelis'] != "BROK" && $value['sandelis'] != "ESTI" && $value['sandelis'] != "3333"
             && $value['sandelis'] != "TELSIAI" && $value['sandelis'] != "4444" && $value['sandelis'] != "1111"){
                 if($rikiuoti){
                     $group2[$value['preke']][] = $value;
@@ -155,6 +155,49 @@ class PrekesController extends Controller
             $i++;
         }
 
+        //Lietuva
+        //$lt_pard = 0;
+        //$lt_lik = 0;
+        //Latvija
+        //$lv_pard = 0;
+        //$lv_lik = 0;
+        //Estija
+        //$ee_pard = 0;
+        //$ee_lik = 0;
+        $viso = array(
+            'lt_pard' => 0,
+            'lt_lik' => 0,
+            'lv_pard' => 0,
+            'lv_lik' => 0,
+            'ee_pard' => 0,
+            'ee_lik' => 0
+        );
+
+        foreach($new as $val){
+            if(array_key_exists('pardavimai', $val)){
+                if(array_key_exists('LT_viso', $val['pardavimai'])){
+                    $viso['lt_pard'] += $val['pardavimai']['LT_viso'];
+                }
+                if(array_key_exists('LV_viso', $val['pardavimai'])){
+                    $viso['lv_pard'] += $val['pardavimai']['LV_viso'];
+                }
+                if(array_key_exists('EE_viso', $val['pardavimai'])){
+                    $viso['ee_pard'] += $val['pardavimai']['EE_viso'];
+                }
+            }
+            if(array_key_exists('likutis', $val)){
+                if(array_key_exists('LT_viso', $val['likutis'])){
+                    $viso['lt_lik'] += $val['likutis']['LT_viso'];
+                }
+                if(array_key_exists('LV_viso', $val['likutis'])){
+                    $viso['lv_lik'] += $val['likutis']['LV_viso'];
+                }
+                if(array_key_exists('EE_viso', $val['likutis'])){
+                    $viso['ee_lik'] += $val['likutis']['EE_viso'];
+                }
+            }
+        }
+
 
         $arr = array("LT" => $key[1], "LV" => $key[2], "EE" => $key[3]);
         /*$store = array(
@@ -170,7 +213,8 @@ class PrekesController extends Controller
             'paieska' => $keyword,
             'salis' =>  $arr,
             'sarasas' => $new,
-            'rikiuoti' => $rikiuoti
+            'rikiuoti' => $rikiuoti,
+            'viso' => $viso
         ]);
 
     }

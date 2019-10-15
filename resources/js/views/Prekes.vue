@@ -92,7 +92,7 @@
             default-sort="sandelis">
             <template slot-scope="props">
                 <b-table-column field="sandelis" label="Sandelis" sortable>
-                    {{ props.row.sandelis }} - {{ props.row.preke }}
+                    {{ props.row.sandelis }}
                 </b-table-column>
                 <b-table-column field="kiekis" label="Kiekis" sortable>
                     {{ props.row.kiekis }}
@@ -183,6 +183,17 @@
             </template>
           </div>
         </section>
+        <template slot="footer">
+            <th> </th>
+            <th> </th>
+            <th>{{ viso.lt_lik }}</th>
+            <th>{{ viso.lt_pard }}</th>
+            <th>{{ viso.lv_lik }}</th>
+            <th>{{ viso.lv_pard }}</th>
+            <th>{{ viso.ee_lik }}</th>
+            <th>{{ viso.ee_pard }}</th>
+            <th> </th>
+        </template>
       </b-table>
       </div>
       <hr>
@@ -214,7 +225,8 @@ export default {
      rodyti_lv: true,
      rodyti_ee: true,
      salis: '',
-     rikiuoti: false
+     rikiuoti: false,
+     viso: []
     }
   },
   computed: {
@@ -292,6 +304,7 @@ export default {
         this.rikiuoti = response.data.rikiuoti ? false : true;
         this.sarasas = response.data.sarasas;
         this.paieska = response.data.paieska;
+        this.viso = response.data.viso;
         //console.log(JSON.stringify(this.parduotuves));
 
         this.rodyti_lt = response.data.salis.LT ? true : false
