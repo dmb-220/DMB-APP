@@ -2,13 +2,18 @@
   <div>
     <section class="section is-main-section">
       <card-component title="PREKES" icon="account-multiple">
-          <b-field horizontal>
+          <b-field label="PAIEŠKA:" horizontal>
             <b-input placeholder="Paieška..." type="search" @keyup.native.enter="paieska_post" 
             required v-model="ieskoti" icon="magnify"></b-input>    
           <div class="control">
             <b-button native-type="submit" type="is-primary" @click="paieska_post" outlined>Ieškoti</b-button>
           </div>
         </b-field>
+        <b-field label="GRUPAVIMAS:" horizontal>
+      <b-switch v-model="rikiuoti" @click.native="switch_post">
+        Veikia TIK su mūsų GAM gaminiais! 
+      </b-switch>
+    </b-field>
         <hr>
         <div  id="printMe">
         <div class="columns">
@@ -87,7 +92,7 @@
             default-sort="sandelis">
             <template slot-scope="props">
                 <b-table-column field="sandelis" label="Sandelis" sortable>
-                    {{ props.row.sandelis }}
+                    {{ props.row.sandelis }} - {{ props.row.preke }}
                 </b-table-column>
                 <b-table-column field="kiekis" label="Kiekis" sortable>
                     {{ props.row.kiekis }}
@@ -208,7 +213,8 @@ export default {
       rodyti_lt: true,
      rodyti_lv: true,
      rodyti_ee: true,
-     salis: ''
+     salis: '',
+     rikiuoti: false
     }
   },
   computed: {
@@ -222,6 +228,31 @@ export default {
       // Pass the element id here
       this.$htmlToPaper('printMe');
     },
+    switch_post(){
+      //this.rikiuotic = !this.rikiuoti;
+      if(this.ieskoti == ""){
+        this.ieskoti = this.paieska;
+      }
+        axios
+          .post(`/prekes/store`, {
+            ieskoti: this.ieskoti,
+            lt: this.rodyti_lt,
+            lv: this.rodyti_lv,
+            ee: this.rodyti_ee,
+            rikiuoti: this.rikiuoti
+            })
+          .then(response => {
+            console.log(response.data)
+            this.getData()
+        })
+          .catch( err => {
+            this.$buefy.toast.open({
+              message: `Error: ${err.message}`,
+              type: 'is-danger',
+              queue: false
+            })
+          })
+    },
     paieska_post(){
       if(this.ieskoti != ""){
         axios
@@ -230,9 +261,11 @@ export default {
             lt: this.rodyti_lt,
             lv: this.rodyti_lv,
             ee: this.rodyti_ee,
+            rikiuoti: "1"
             })
           .then(response => {
             console.log(response.data.data)
+            this.rikiuoti = false;
             this.getData()
         })
           .catch( err => {
@@ -256,7 +289,7 @@ export default {
       .get('/prekes')
       .then(response => {
         this.isLoading = false
-        //this.parduotuves = response.data.parduotuves;
+        this.rikiuoti = response.data.rikiuoti ? false : true;
         this.sarasas = response.data.sarasas;
         this.paieska = response.data.paieska;
         //console.log(JSON.stringify(this.parduotuves));

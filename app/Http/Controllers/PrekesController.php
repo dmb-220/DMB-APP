@@ -18,6 +18,10 @@ class PrekesController extends Controller
     {
         //pasidaryt kintamuosius is VUE kad pateiktu tik nurodyta valstybe
         //$keyword = 'DMK-';
+
+        // 0 - sugrupuoja
+        // 1- standartiskai
+        //$rikiuoti = 0;
         $failas = "prekes.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
@@ -28,6 +32,8 @@ class PrekesController extends Controller
 
         $key = explode("||", $key);
         $keyword = $key[0];
+
+        $rikiuoti = $key[4];
         //Sudedam norimus likucius
         $re = Likutis::query()
         ->where('preke', 'like', "{$keyword}%")->get();
@@ -35,7 +41,13 @@ class PrekesController extends Controller
         foreach ( $re as $value ) {
             if($value['sandelis'] != "BROK" && $value['sandelis'] != "ESTI" 
             && $value['sandelis'] != "TELSIAI" && $value['sandelis'] != "4444" && $value['sandelis'] != "1111"){
-                $group2[$value['preke']][] = $value;
+                if($rikiuoti){
+                    $group2[$value['preke']][] = $value;
+                }else{
+                    $a = explode("-", $value['preke']);
+                    $ne = $a[0]."-".$a[1]."-";
+                    $group2[$ne][] = $value;
+                }
             }
         }
 
@@ -78,7 +90,13 @@ class PrekesController extends Controller
 
         foreach ( $res as $value ) {
             if($value['sandelis'] != "TELSIAI"){
-                $pard[$value['preke']][] = $value;
+                if($rikiuoti){
+                    $pard[$value['preke']][] = $value;
+                }else{
+                    $a = explode("-", $value['preke']);
+                    $ne = $a[0]."-".$a[1]."-";
+                    $pard[$ne][] = $value;
+                }
             }
         }
 
@@ -152,7 +170,7 @@ class PrekesController extends Controller
             'paieska' => $keyword,
             'salis' =>  $arr,
             'sarasas' => $new,
-            //'parduotuves' => $store
+            'rikiuoti' => $rikiuoti
         ]);
 
     }
@@ -180,12 +198,13 @@ class PrekesController extends Controller
         $lt = $data['lt'];
         $lv = $data['lv'];
         $ee = $data['ee'];
+        $rikiuoti = $data['rikiuoti'];
 
         $failas = "prekes.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
 
-        $eilute = strtoupper($ieskoti)."||".$lt."||".$lv."||".$ee;
+        $eilute = strtoupper($ieskoti)."||".$lt."||".$lv."||".$ee."||".$rikiuoti;
 
         $myfile = fopen(storage_path($failas), "w");
         fwrite($myfile, $eilute);
@@ -193,7 +212,8 @@ class PrekesController extends Controller
 
         return response()->json([
             'status' => true,
-            'data' => $ieskoti
+            'data' => $ieskoti,
+            'rikiuoti' => $rikiuoti
         ]);
     }
 

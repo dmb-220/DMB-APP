@@ -294,6 +294,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -314,7 +319,8 @@ __webpack_require__.r(__webpack_exports__);
       rodyti_lt: true,
       rodyti_lv: true,
       rodyti_ee: true,
-      salis: ''
+      salis: '',
+      rikiuoti: false
     };
   },
   computed: {},
@@ -326,21 +332,49 @@ __webpack_require__.r(__webpack_exports__);
       // Pass the element id here
       this.$htmlToPaper('printMe');
     },
-    paieska_post: function paieska_post() {
+    switch_post: function switch_post() {
       var _this = this;
+
+      //this.rikiuotic = !this.rikiuoti;
+      if (this.ieskoti == "") {
+        this.ieskoti = this.paieska;
+      }
+
+      axios.post("/prekes/store", {
+        ieskoti: this.ieskoti,
+        lt: this.rodyti_lt,
+        lv: this.rodyti_lv,
+        ee: this.rodyti_ee,
+        rikiuoti: this.rikiuoti
+      }).then(function (response) {
+        console.log(response.data);
+
+        _this.getData();
+      })["catch"](function (err) {
+        _this.$buefy.toast.open({
+          message: "Error: ".concat(err.message),
+          type: 'is-danger',
+          queue: false
+        });
+      });
+    },
+    paieska_post: function paieska_post() {
+      var _this2 = this;
 
       if (this.ieskoti != "") {
         axios.post("/prekes/store", {
           ieskoti: this.ieskoti,
           lt: this.rodyti_lt,
           lv: this.rodyti_lv,
-          ee: this.rodyti_ee
+          ee: this.rodyti_ee,
+          rikiuoti: "1"
         }).then(function (response) {
           console.log(response.data.data);
+          _this2.rikiuoti = false;
 
-          _this.getData();
+          _this2.getData();
         })["catch"](function (err) {
-          _this.$buefy.toast.open({
+          _this2.$buefy.toast.open({
             message: "Error: ".concat(err.message),
             type: 'is-danger',
             queue: false
@@ -355,22 +389,22 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     getData: function getData() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.isLoading = true;
       this.axios.get('/prekes').then(function (response) {
-        _this2.isLoading = false; //this.parduotuves = response.data.parduotuves;
+        _this3.isLoading = false;
+        _this3.rikiuoti = response.data.rikiuoti ? false : true;
+        _this3.sarasas = response.data.sarasas;
+        _this3.paieska = response.data.paieska; //console.log(JSON.stringify(this.parduotuves));
 
-        _this2.sarasas = response.data.sarasas;
-        _this2.paieska = response.data.paieska; //console.log(JSON.stringify(this.parduotuves));
-
-        _this2.rodyti_lt = response.data.salis.LT ? true : false;
-        _this2.rodyti_lv = response.data.salis.LV ? true : false;
-        _this2.rodyti_ee = response.data.salis.EE ? true : false;
+        _this3.rodyti_lt = response.data.salis.LT ? true : false;
+        _this3.rodyti_lv = response.data.salis.LV ? true : false;
+        _this3.rodyti_ee = response.data.salis.EE ? true : false;
       })["catch"](function (err) {
-        _this2.isLoading = false;
+        _this3.isLoading = false;
 
-        _this2.$buefy.toast.open({
+        _this3.$buefy.toast.open({
           message: "Error: ".concat(err.message),
           type: 'is-danger',
           queue: false
@@ -605,7 +639,7 @@ var render = function() {
           [
             _c(
               "b-field",
-              { attrs: { horizontal: "" } },
+              { attrs: { label: "PAIEŠKA:", horizontal: "" } },
               [
                 _c("b-input", {
                   attrs: {
@@ -652,6 +686,32 @@ var render = function() {
                     )
                   ],
                   1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "GRUPAVIMAS:", horizontal: "" } },
+              [
+                _c(
+                  "b-switch",
+                  {
+                    nativeOn: {
+                      click: function($event) {
+                        return _vm.switch_post($event)
+                      }
+                    },
+                    model: {
+                      value: _vm.rikiuoti,
+                      callback: function($$v) {
+                        _vm.rikiuoti = $$v
+                      },
+                      expression: "rikiuoti"
+                    }
+                  },
+                  [_vm._v("\n      Veikia TIK su mūsų GAM gaminiais! \n    ")]
                 )
               ],
               1
@@ -1047,6 +1107,8 @@ var render = function() {
                                                       _vm._s(
                                                         props.row.sandelis
                                                       ) +
+                                                      " - " +
+                                                      _vm._s(props.row.preke) +
                                                       "\n              "
                                                   )
                                                 ]
