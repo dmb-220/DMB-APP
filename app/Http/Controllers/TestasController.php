@@ -3,20 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use SoapClient;
 
-use Artisaninweb\SoapWrapper\SoapWrapper;
-use App\Soap\Request\GetConversionAmount;
-use App\Soap\Response\GetConversionAmountResponse;
 
 class TestasController extends Controller
 {
-
-    protected $soapWrapper;
-
-    public function __construct(SoapWrapper $soapWrapper)
-    {
-      $this->soapWrapper = $soapWrapper;
-    }
 
     /**
      * Display a listing of the resource.
@@ -25,33 +16,14 @@ class TestasController extends Controller
      */
     public function index()
     {
-            $this->soapWrapper->add('Currency', function ($service) {
-      $service
-        ->wsdl('http://currencyconverter.kowabunga.net/converter.asmx?WSDL')
-        ->trace(true)
-        ->classmap([
-          GetConversionAmount::class,
-          GetConversionAmountResponse::class,
-        ]);
-    });
+      //$client = new \SoapClient('http://soap.amazon.com/schemas3/AmazonWebServices.wsdl');
+      //$client = new \SoapClient('http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl', ['trace' => true, 'cache_wsdl' => WSDL_CACHE_MEMORY]);
+      //$client = new SoapClient('http://soap.amazon.com/schemas3/AmazonWebServices.wsdl');
+      //var_dump($client->__getFunctions());
+      $client = new \SoapClient('http://lt4.dineta.eu/xxxxx/ws/export/ws.php?wsdl');
+      print_r($client->hello("Testas"));
 
-    // Without classmap
-    $response = $this->soapWrapper->call('Currency.GetConversionAmount', [
-      'CurrencyFrom' => 'USD', 
-      'CurrencyTo'   => 'EUR', 
-      'RateDate'     => '2014-06-05', 
-      'Amount'       => '1000',
-    ]);
-
-    var_dump($response);
-
-    // With classmap
-    $response = $this->soapWrapper->call('Currency.GetConversionAmount', [
-      new GetConversionAmount('USD', 'EUR', '2014-06-05', '1000')
-    ]);
-
-    var_dump($response);
-    exit;
+      //https://webmobtuts.com/backend-development/manipulating-soap-web-services-with-php-and-laravel/
   }
 
     /**
