@@ -72,9 +72,9 @@
                   :data="props.row.likutis"
                   default-sort-direction="desc"
                   default-sort="kiekis"
-                  bordered="true"
-                  striped="true"
-                  narrowed="true">
+                  :bordered="true"
+                  :striped="true"
+                  :narrowed="true">
                   <template slot-scope="props">
                       <b-table-column field="preke" label="Prekė">
                           {{ props.row.preke }}
@@ -91,9 +91,9 @@
                   :data="props.row.pardavimai"
                   default-sort-direction="desc"
                   default-sort="kiekis"
-                  bordered="true"
-                  striped="true"
-                  narrowed="true">
+                  :bordered="true"
+                  :striped="true"
+                  :narrowed="true">
                   <template slot-scope="props">
                       <b-table-column field="preke" label="Prekė">
                           {{ props.row.preke }}
@@ -180,9 +180,9 @@
                   :data="props.row.likutis"
                   default-sort-direction="desc"
                   default-sort="kiekis"
-                  bordered="true"
-                  striped="true"
-                  narrowed="true">
+                  :bordered="true"
+                  :striped="true"
+                  :narrowed="true">
                   <template slot-scope="props">
                       <b-table-column field="preke" label="Prekė">
                           {{ props.row.preke }}
@@ -199,9 +199,9 @@
                   :data="props.row.pardavimai"
                   default-sort-direction="desc"
                   default-sort="kiekis"
-                  bordered="true"
-                  striped="true"
-                  narrowed="true">
+                  :bordered="true"
+                  :striped="true"
+                  :narrowed="true">
                   <template slot-scope="props">
                       <b-table-column field="preke" label="Prekė">
                           {{ props.row.preke }}

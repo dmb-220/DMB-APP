@@ -827,9 +827,9 @@ var render = function() {
                                         data: props.row.likutis,
                                         "default-sort-direction": "desc",
                                         "default-sort": "kiekis",
-                                        bordered: "true",
-                                        striped: "true",
-                                        narrowed: "true"
+                                        bordered: true,
+                                        striped: true,
+                                        narrowed: true
                                       },
                                       scopedSlots: _vm._u(
                                         [
@@ -905,9 +905,9 @@ var render = function() {
                                         data: props.row.pardavimai,
                                         "default-sort-direction": "desc",
                                         "default-sort": "kiekis",
-                                        bordered: "true",
-                                        striped: "true",
-                                        narrowed: "true"
+                                        bordered: true,
+                                        striped: true,
+                                        narrowed: true
                                       },
                                       scopedSlots: _vm._u(
                                         [
@@ -1242,9 +1242,9 @@ var render = function() {
                                         data: props.row.likutis,
                                         "default-sort-direction": "desc",
                                         "default-sort": "kiekis",
-                                        bordered: "true",
-                                        striped: "true",
-                                        narrowed: "true"
+                                        bordered: true,
+                                        striped: true,
+                                        narrowed: true
                                       },
                                       scopedSlots: _vm._u(
                                         [
@@ -1320,9 +1320,9 @@ var render = function() {
                                         data: props.row.pardavimai,
                                         "default-sort-direction": "desc",
                                         "default-sort": "kiekis",
-                                        bordered: "true",
-                                        striped: "true",
-                                        narrowed: "true"
+                                        bordered: true,
+                                        striped: true,
+                                        narrowed: true
                                       },
                                       scopedSlots: _vm._u(
                                         [
