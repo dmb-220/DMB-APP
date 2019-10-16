@@ -23,111 +23,224 @@
         <hr>
         <div  id="printMe">
           <div class="columns">
-          <div class="column has-text-centered has-text-weight-bold">{{ paieska }}</div>
-        </div>
-        <b-table
-        bordered
-        hoverable
-        :narrowed="isNarrowed"
-        :data="pardavimai"
-        ref="table"
-        :opened-detailed="defaultOpenedDetails"
-        detailed
-        sort-icon="arrow-up"
-        detail-key="sandelis"
-        @details-open="(row, index) => $buefy.toast.open(`Išskleistas ${ row.sandelis } sandelys!`)"
-        :loading="isLoading">
-        <template slot-scope="props">
-          <b-table-column v-if="props.row.salis == 1" :style="{'background-color': 'greenyellow'}"  label="Sandelis"  field="sandelis">
-                {{ props.row.sandelis }}
-          </b-table-column>
-          <b-table-column v-else-if="props.row.salis == 2" :style="{'background-color': 'GoldenRod '}"  label="Sandelis"  field="sandelis">
-                {{ props.row.sandelis }}
-          </b-table-column>
-          <b-table-column v-else-if="props.row.salis == 3" :style="{'background-color': 'tomato'}"  label="Sandelis"  field="sandelis">
-                {{ props.row.sandelis }}
-          </b-table-column>
-          <b-table-column v-else label="Sandelis"  field="sandelis">
-                {{ props.row.sandelis }}
-          </b-table-column>
-          <b-table-column label="Likutis" field="likutis_sk" sortable>
-            {{ props.row.likutis_sk }}
-          </b-table-column>
-          <b-table-column label="Parduota" field="pardavimai_sk" sortable>
-            {{ props.row.pardavimai_sk }}
-          </b-table-column>
-          <b-table-column label="Viso" field="viso" sortable>
-            <b>{{ props.row.viso }}</b>
-          </b-table-column>
-        </template>  
+            <div class="column">
 
-        <template slot="detail" slot-scope="props">
-          <div class="columns">
-          <div class="column" :style="{'border': '1px solid'}">
-            <div class="has-text-centered">Likučiai:</div>
-            <b-table
-            :data="props.row.likutis"
-            default-sort-direction="desc"
-            default-sort="kiekis"
-            bordered="true"
-            striped="true"
-            narrowed="true">
-            <template slot-scope="props">
-                <b-table-column field="preke" label="Prekė">
-                    {{ props.row.preke }}
+              <div class="columns">
+                <div class="column has-text-centered has-text-weight-bold">{{ paieska }}</div>
+              </div>
+              <b-table
+              bordered
+              hoverable
+              :narrowed="isNarrowed"
+              :data="pardavimai"
+              ref="table"
+              :opened-detailed="defaultOpenedDetails"
+              detailed
+              sort-icon="arrow-up"
+              detail-key="sandelis"
+              @details-open="(row, index) => $buefy.toast.open(`Išskleistas ${ row.sandelis } sandelys!`)"
+              :loading="isLoading">
+              <template slot-scope="props">
+                <b-table-column v-if="props.row.salis == 1" :style="{'background-color': 'greenyellow'}"  label="Sandelis"  field="sandelis">
+                      {{ props.row.sandelis }}
                 </b-table-column>
-                <b-table-column field="kiekis" label="Kiekis" sortable>
-                    {{ props.row.kiekis }}
+                <b-table-column v-else-if="props.row.salis == 2" :style="{'background-color': 'GoldenRod '}"  label="Sandelis"  field="sandelis">
+                      {{ props.row.sandelis }}
                 </b-table-column>
-            </template>
-            </b-table>
-          </div>
-          <div class="column" :style="{'border': '1px solid'}">
-            <div class="has-text-centered">Pardavimai:</div>
-            <b-table
-            :data="props.row.pardavimai"
-            default-sort-direction="desc"
-            default-sort="kiekis"
-            bordered="true"
-            striped="true"
-            narrowed="true">
-            <template slot-scope="props">
-                <b-table-column field="preke" label="Prekė">
-                    {{ props.row.preke }}
+                <b-table-column v-else-if="props.row.salis == 3" :style="{'background-color': 'tomato'}"  label="Sandelis"  field="sandelis">
+                      {{ props.row.sandelis }}
                 </b-table-column>
-                <b-table-column field="kiekis" label="Kiekis" sortable>
-                    {{ props.row.kiekis }}
+                <b-table-column v-else label="Sandelis"  field="sandelis">
+                      {{ props.row.sandelis }}
                 </b-table-column>
-            </template>
-            </b-table>
-          </div>
-        </div>
-        </template>
+                <b-table-column label="Likutis" field="likutis_sk" sortable>
+                  {{ props.row.likutis_sk }}
+                </b-table-column>
+                <b-table-column label="Parduota" field="pardavimai_sk" sortable>
+                  {{ props.row.pardavimai_sk }}
+                </b-table-column>
+                <b-table-column label="Viso" field="viso" sortable>
+                  <b>{{ props.row.viso }}</b>
+                </b-table-column>
+              </template>  
 
-        <section class="section" slot="empty">
-          <div class="content has-text-centered">
-            <template v-if="isLoading">
-              <p>
-                <b-icon icon="dots-horizontal" size="is-large"/>
-              </p>
-              <p>Gaunami duomenys...</p>
-            </template>
-            <template v-else>
-              <p>
-                <b-icon icon="emoticon-sad" size="is-large"/>
-              </p>
-              <p>Duomenų nerasta &hellip;</p>
-            </template>
+              <template slot="detail" slot-scope="props">
+                <div class="columns">
+                <div class="column" :style="{'border': '1px solid'}">
+                  <div class="has-text-centered">Likučiai:</div>
+                  <b-table
+                  :data="props.row.likutis"
+                  default-sort-direction="desc"
+                  default-sort="kiekis"
+                  bordered="true"
+                  striped="true"
+                  narrowed="true">
+                  <template slot-scope="props">
+                      <b-table-column field="preke" label="Prekė">
+                          {{ props.row.preke }}
+                      </b-table-column>
+                      <b-table-column field="kiekis" label="Kiekis" sortable>
+                          {{ props.row.kiekis }}
+                      </b-table-column>
+                  </template>
+                  </b-table>
+                </div>
+                <div class="column" :style="{'border': '1px solid'}">
+                  <div class="has-text-centered">Pardavimai:</div>
+                  <b-table
+                  :data="props.row.pardavimai"
+                  default-sort-direction="desc"
+                  default-sort="kiekis"
+                  bordered="true"
+                  striped="true"
+                  narrowed="true">
+                  <template slot-scope="props">
+                      <b-table-column field="preke" label="Prekė">
+                          {{ props.row.preke }}
+                      </b-table-column>
+                      <b-table-column field="kiekis" label="Kiekis" sortable>
+                          {{ props.row.kiekis }}
+                      </b-table-column>
+                  </template>
+                  </b-table>
+                </div>
+              </div>
+              </template>
+
+              <section class="section" slot="empty">
+                <div class="content has-text-centered">
+                  <template v-if="isLoading">
+                    <p>
+                      <b-icon icon="dots-horizontal" size="is-large"/>
+                    </p>
+                    <p>Gaunami duomenys...</p>
+                  </template>
+                  <template v-else>
+                    <p>
+                      <b-icon icon="emoticon-sad" size="is-large"/>
+                    </p>
+                    <p>Duomenų nerasta &hellip;</p>
+                  </template>
+                </div>
+              </section>
+              <template slot="footer">
+                  <th> </th>
+                  <th> </th>
+                  <th>{{ viso_lik }}</th>
+                  <th>{{ viso_pard }}</th>
+                  <th> </th>
+              </template>
+            </b-table>
+            </div>
+            <div v-show="antras_stulpas" class="column">
+              <div class="columns">
+                <div class="column has-text-centered has-text-weight-bold">{{ paieska }}</div>
+              </div>
+              <b-table
+              bordered
+              hoverable
+              :narrowed="isNarrowed"
+              :data="pardavimai"
+              ref="table"
+              :opened-detailed="defaultOpenedDetails"
+              detailed
+              sort-icon="arrow-up"
+              detail-key="sandelis"
+              @details-open="(row, index) => $buefy.toast.open(`Išskleistas ${ row.sandelis } sandelys!`)"
+              :loading="isLoading">
+              <template slot-scope="props">
+                <b-table-column v-if="props.row.salis == 1" :style="{'background-color': 'greenyellow'}"  label="Sandelis"  field="sandelis">
+                      {{ props.row.sandelis }}
+                </b-table-column>
+                <b-table-column v-else-if="props.row.salis == 2" :style="{'background-color': 'GoldenRod '}"  label="Sandelis"  field="sandelis">
+                      {{ props.row.sandelis }}
+                </b-table-column>
+                <b-table-column v-else-if="props.row.salis == 3" :style="{'background-color': 'tomato'}"  label="Sandelis"  field="sandelis">
+                      {{ props.row.sandelis }}
+                </b-table-column>
+                <b-table-column v-else label="Sandelis"  field="sandelis">
+                      {{ props.row.sandelis }}
+                </b-table-column>
+                <b-table-column label="Likutis" field="likutis_sk" sortable>
+                  {{ props.row.likutis_sk }}
+                </b-table-column>
+                <b-table-column label="Parduota" field="pardavimai_sk" sortable>
+                  {{ props.row.pardavimai_sk }}
+                </b-table-column>
+                <b-table-column label="Viso" field="viso" sortable>
+                  <b>{{ props.row.viso }}</b>
+                </b-table-column>
+              </template>  
+
+              <template slot="detail" slot-scope="props">
+                <div class="columns">
+                <div class="column" :style="{'border': '1px solid'}">
+                  <div class="has-text-centered">Likučiai:</div>
+                  <b-table
+                  :data="props.row.likutis"
+                  default-sort-direction="desc"
+                  default-sort="kiekis"
+                  bordered="true"
+                  striped="true"
+                  narrowed="true">
+                  <template slot-scope="props">
+                      <b-table-column field="preke" label="Prekė">
+                          {{ props.row.preke }}
+                      </b-table-column>
+                      <b-table-column field="kiekis" label="Kiekis" sortable>
+                          {{ props.row.kiekis }}
+                      </b-table-column>
+                  </template>
+                  </b-table>
+                </div>
+                <div class="column" :style="{'border': '1px solid'}">
+                  <div class="has-text-centered">Pardavimai:</div>
+                  <b-table
+                  :data="props.row.pardavimai"
+                  default-sort-direction="desc"
+                  default-sort="kiekis"
+                  bordered="true"
+                  striped="true"
+                  narrowed="true">
+                  <template slot-scope="props">
+                      <b-table-column field="preke" label="Prekė">
+                          {{ props.row.preke }}
+                      </b-table-column>
+                      <b-table-column field="kiekis" label="Kiekis" sortable>
+                          {{ props.row.kiekis }}
+                      </b-table-column>
+                  </template>
+                  </b-table>
+                </div>
+              </div>
+              </template>
+
+              <section class="section" slot="empty">
+                <div class="content has-text-centered">
+                  <template v-if="isLoading">
+                    <p>
+                      <b-icon icon="dots-horizontal" size="is-large"/>
+                    </p>
+                    <p>Gaunami duomenys...</p>
+                  </template>
+                  <template v-else>
+                    <p>
+                      <b-icon icon="emoticon-sad" size="is-large"/>
+                    </p>
+                    <p>Duomenų nerasta &hellip;</p>
+                  </template>
+                </div>
+              </section>
+              <template slot="footer">
+                  <th> </th>
+                  <th> </th>
+                  <th>{{ viso_lik }}</th>
+                  <th>{{ viso_pard }}</th>
+                  <th> </th>
+              </template>
+            </b-table>
+            </div>
           </div>
-        </section>
-        <template slot="footer">
-            <th> </th>
-            <th> </th>
-            <th>{{ viso_lik }}</th>
-            <th>{{ viso_pard }}</th>
-            <th> </th>
-        </template>
-      </b-table>
       </div>
       <hr>
       <div class="buttons">
@@ -159,7 +272,8 @@ export default {
      rodyti_lt: true,
      rodyti_lv: true,
      rodyti_ee: true,
-     salis: ''
+     salis: '',
+     antras_stulpas: false
     }
   },
   computed: {
