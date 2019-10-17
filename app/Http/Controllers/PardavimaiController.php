@@ -27,53 +27,86 @@ class PardavimaiController extends Controller
         $key = explode("||", $key);
         $keyword = $key[0];
 
+        $rikiuoti = $key[4];
+
         $re = Pardavimai::query()
         ->where('preke', 'like', "{$keyword}%")->get();
 
         foreach ( $re as $value ) {
             if($value['sandelis'] != "TELSIAI"){
-                $group2[$value['preke']][] = $value;
+                if($rikiuoti){
+                    $pardavimas[$value['preke']][] = $value;
+                }else{
+                    $a = explode("-", $value['preke']);
+                    $ne = $a[0]."-".$a[1]."-";
+                    $pardavimas[$ne][] = $value;
+                }
             }
         }
 
-        $i=0;
+        //$i=0;
         $lt_viso = 0;
         $lv_viso = 0;
         $ee_viso = 0;
-        foreach ( $group2 as $idx => $value ) {
-            $group[$i]['preke'] = $idx;
-            $group[$i]['pavadinimas'] = $value[0]['pavadinimas'];
+        foreach ( $pardavimas as $idx => $value ) {
+            $pardavimai[$idx]['preke'] = $idx;
+            $pardavimai[$idx]['pavadinimas'] = $value[0]['pavadinimas'];
+
+            $pardavimai[$idx]['LT'] = array();
+            $pardavimai[$idx]['LV'] = array();
+            $pardavimai[$idx]['EE'] = array();
             foreach($value as $val){
                 if($val['salis'] == 1){
-                    $group[$i]['LT'][] = $val;
+                    if(array_key_exists($val['sandelis'], $pardavimai[$idx]['LT'])){
+                        $kiek = $pardavimai[$idx]['LT'][$val['sandelis']]['kiekis'];
+                    }else{
+                        $kiek = 0;
+                    }
+                    $pardavimai[$idx]['LT'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $lt_viso = $lt_viso + $val['kiekis'];
-                    $group[$i]['LT_viso'] = $lt_viso;
+                    $pardavimai[$idx]['LT_viso'] = $lt_viso;
                 }
                 if($val['salis'] == 2){
-                    $group[$i]['LV'][] = $val;
+                    if(array_key_exists($val['sandelis'], $pardavimai[$idx]['LV'])){
+                        $kiek = $pardavimai[$idx]['LV'][$val['sandelis']]['kiekis'];
+                    }else{
+                        $kiek = 0;
+                    }
+                    $pardavimai[$idx]['LV'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $lv_viso = $lv_viso + $val['kiekis'];
-                    $group[$i]['LV_viso'] = $lv_viso;
+                    $pardavimai[$idx]['LV_viso'] = $lv_viso;
                 }
                 if($val['salis'] == 3){
-                    $group[$i]['EE'][] = $val;
+                    if(array_key_exists($val['sandelis'], $pardavimai[$idx]['EE'])){
+                        $kiek = $pardavimai[$idx]['EE'][$val['sandelis']]['kiekis'];
+                    }else{
+                        $kiek = 0;
+                    }
+                    $pardavimai[$idx]['EE'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $ee_viso = $ee_viso + $val['kiekis'];
-                    $group[$i]['EE_viso'] = $ee_viso;
+                    $pardavimai[$idx]['EE_viso'] = $ee_viso;
                 }
             }
+            $pardavimai[$idx]['LT'] = array_values($pardavimai[$idx]['LT']);
+            $pardavimai[$idx]['LV'] = array_values($pardavimai[$idx]['LV']);
+            $pardavimai[$idx]['EE'] = array_values($pardavimai[$idx]['EE']);
 
-            $group[$i]['viso'] = $ee_viso + $lv_viso + $lt_viso;
+            $pardavimai[$idx]['viso'] = $ee_viso + $lv_viso + $lt_viso;
             $lt_viso = 0;
             $lv_viso = 0;
             $ee_viso = 0;
-            $i++;
+            //$i++;
         }
+
+        $pardavimai = array_values($pardavimai);
 
 
         $arr = array("LT" => $key[1], "LV" => $key[2], "EE" => $key[3]);
         return response()->json([
             'status' => true,
-            'prekes' => $group,
+            'prekes' => $pardavimai,
             'paieska' => $keyword,
+            'rikiuoti' => $rikiuoti,
             'salis' =>  $arr,
         ]);
 
@@ -102,12 +135,13 @@ class PardavimaiController extends Controller
         $lt = $data['lt'];
         $lv = $data['lv'];
         $ee = $data['ee'];
+        $rikiuoti = $data['rikiuoti'];
 
         $failas = "pardavimai.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
 
-        $eilute = strtoupper($ieskoti)."||".$lt."||".$lv."||".$ee;
+        $eilute = strtoupper($ieskoti)."||".$lt."||".$lv."||".$ee."||".$rikiuoti;
 
         $myfile = fopen(storage_path($failas), "w");
         fwrite($myfile, $eilute);
@@ -115,7 +149,8 @@ class PardavimaiController extends Controller
 
         return response()->json([
             'status' => true,
-            'data' => $ieskoti
+            'data' => $ieskoti,
+            'rikiuoti' => $rikiuoti
         ]);
     }
 

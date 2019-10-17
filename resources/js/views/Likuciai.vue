@@ -9,14 +9,18 @@
             <b-button native-type="submit" type="is-primary" @click="paieska_post">Ieškoti</b-button>
           </div>
         </b-field>
+        <b-field label="GRUPAVIMAS:" horizontal>
+          <b-switch v-model="rikiuoti" @click.native="switch_post">
+            Veikia su mūsų GAM gaminiais! 
+          </b-switch>
+        </b-field>
         <hr>
         <div  id="printMe">
         <div class="columns">
-          <div class="column has-text-centered has-text-weight-bold">Rasta: {{likutis.length }} {{paieska}}</div>
+          <div class="column has-text-centered has-text-weight-bold">Rasta: {{likutis.length }}<br>{{paieska}}</div>
         </div>
         <b-table
         :mobile-cards="false"
-        :selected.sync="selected"
         focusable
         bordered
         hoverable
@@ -29,29 +33,29 @@
         @details-open="(row, index) => $buefy.toast.open(`Išskleista ${ row.preke } prekė!`)"
         :loading="isLoading">
         <template slot-scope="props">
-          <b-table-column v-if="props.row.pavadinimas == 'Liemenė'" :style="{'background-color': 'gold', 'border-bottom': 'dotted 1px black'}"  label="Preke"  field="preke" sortable>
+          <b-table-column v-if="props.row.pavadinimas == 'Liemenė'" :style="{'background-color': 'gold'}"  label="Preke"  field="preke" sortable>
                 {{ props.row.preke }} - ({{ props.row.pavadinimas }})
           </b-table-column>
-          <b-table-column v-else :style="{'border-bottom': 'dotted 1px black'}"  label="Preke"  field="preke" sortable>
+          <b-table-column v-else label="Preke"  field="preke" sortable>
                 {{ props.row.preke }}
           </b-table-column> 
-          <b-table-column :style="{'border-bottom': 'dotted 1px black'}" label="LIETUVA"  field="LT_viso" sortable>
+          <b-table-column :style="{'background-color': 'greenyellow'}" label="LIETUVA"  field="LT_viso" sortable>
                 {{ props.row.LT_viso }}
           </b-table-column>
-           <b-table-column :style="{'border-bottom': 'dotted 1px black'}" label="LATVIJA"  field="LV_viso" sortable >
+           <b-table-column :style="{'background-color': 'GoldenRod'}" label="LATVIJA"  field="LV_viso" sortable >
                 {{ props.row.LV_viso }}
           </b-table-column>
-          <b-table-column :style="{'border-bottom': 'dotted 1px black'}" label="ESTIJA"  field="EE_viso" sortable>
+          <b-table-column :style="{'background-color': 'tomato'}" label="ESTIJA"  field="EE_viso" sortable>
                 {{ props.row.EE_viso }}
           </b-table-column>
-          <b-table-column :style="{'border-bottom': 'dotted 1px black'}" label="VISO" field="viso" sortable>
+          <b-table-column :style="{'background-color': 'WhiteSmoke'}" label="VISO" field="viso" sortable>
                 {{ props.row.viso }}
           </b-table-column>
         </template> 
 
         <template slot="detail" slot-scope="props">
           <div class="columns">
-          <div class="column" :style="{'border': '1px solid'}">
+          <div class="column" :style="{'border': '1px solid', 'background-color': 'greenyellow'}">
             <div class="has-text-centered">Lietuva:</div>
             <b-table
             :data="props.row.LT"
@@ -67,7 +71,7 @@
             </template>
             </b-table>
           </div>
-          <div class="column" :style="{'border': '1px solid'}">
+          <div class="column" :style="{'border': '1px solid', 'background-color': 'GoldenRod'}">
             <div class="has-text-centered">Latvija:</div>
             <b-table
             :data="props.row.LV"
@@ -83,7 +87,7 @@
             </template>
             </b-table>
           </div>
-          <div class="column" :style="{'border': '1px solid'}">
+          <div class="column" :style="{'border': '1px solid', 'background-color': 'tomato'}">
             <div class="has-text-centered">Estija:</div>
             <b-table
             :data="props.row.EE"
@@ -139,7 +143,6 @@ export default {
   components: {CardToolbar, CardComponent},
   data () {
     return {
-      selected: [],
       isLoading: false,
       likutis: [],
       defaultOpenedDetails: [1],
@@ -148,7 +151,8 @@ export default {
       rodyti_lt: true,
      rodyti_lv: true,
      rodyti_ee: true,
-     salis: ''
+     salis: '',
+     rikiuoti: false,
     }
   },
   computed: {
@@ -162,6 +166,31 @@ export default {
       // Pass the element id here
       this.$htmlToPaper('printMe');
     },
+    switch_post(){
+      //this.rikiuotic = !this.rikiuoti;
+      if(this.ieskoti == ""){
+        this.ieskoti = this.paieska;
+      }
+        axios
+          .post(`/likutis/store`, {
+            ieskoti: this.ieskoti,
+            lt: this.rodyti_lt,
+            lv: this.rodyti_lv,
+            ee: this.rodyti_ee,
+            rikiuoti: this.rikiuoti
+            })
+          .then(response => {
+            console.log(response.data)
+            this.getData()
+        })
+          .catch( err => {
+            this.$buefy.toast.open({
+              message: `Error: ${err.message}`,
+              type: 'is-danger',
+              queue: false
+            })
+          })
+    },
     paieska_post(){
       if(this.ieskoti != ""){
         axios
@@ -170,9 +199,11 @@ export default {
             lt: this.rodyti_lt,
             lv: this.rodyti_lv,
             ee: this.rodyti_ee,
+            rikiuoti: "1"
             })
           .then(response => {
             console.log(response.data.data)
+            this.rikiuoti = false;
             this.getData()
         })
           .catch( err => {
@@ -196,6 +227,7 @@ export default {
       .get('/likutis')
       .then(response => {
         this.isLoading = false
+        this.rikiuoti = response.data.rikiuoti ? false : true;
         this.likutis = response.data.prekes;
         this.paieska = response.data.paieska;
         

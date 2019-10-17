@@ -156,12 +156,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -176,7 +170,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       valstybe: '',
       tipas: '',
-      trinti: ''
+      set: []
     };
   },
   props: {
@@ -190,8 +184,15 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    form_set: function form_set() {
+      this.set = this.editSubject.split("-");
+
+      if (this.set[0] == "lietuva") {
+        this.valstybe = 1;
+      }
+    },
     edit_data: function edit_data() {
-      this.$emit('edit', this.valstybe, this.tipas, this.trinti);
+      this.$emit('edit', this.valstybe, this.tipas);
     },
     cancel: function cancel() {
       this.$emit('cancel');
@@ -430,11 +431,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    val: function val(valstybe, tipas, trinti) {
+    val: function val(valstybe, tipas) {
       this.valstybe = valstybe;
       this.tipas = tipas;
-      this.trinti = trinti;
-      console.log(this.trinti);
     },
     file_info: function file_info(value) {
       this.getData();
@@ -498,7 +497,7 @@ __webpack_require__.r(__webpack_exports__);
         valstybe: this.valstybe,
         tipas: this.tipas
       }).then(function (response) {
-        console.log(response.data.data);
+        console.log(response.data.ats);
         _this3.isLoading = false;
 
         _this3.getData();
@@ -962,34 +961,6 @@ var render = function() {
               expression: "tipas"
             }
           })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c(
-        "b-field",
-        { attrs: { label: "Switch", horizontal: "" } },
-        [
-          _c(
-            "b-switch",
-            {
-              on: { input: _vm.edit_data },
-              model: {
-                value: _vm.trinti,
-                callback: function($$v) {
-                  _vm.trinti = $$v
-                },
-                expression: "trinti"
-              }
-            },
-            [
-              _vm._v(
-                "\n      Ištrinti senus duomenis iš DB, ir ikelti naujus?\n    "
-              )
-            ]
-          )
         ],
         1
       )

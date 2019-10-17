@@ -101,11 +101,9 @@ export default {
     },
   },
   methods: {
-    val(valstybe, tipas, trinti){
+    val(valstybe, tipas){
       this.valstybe = valstybe
       this.tipas = tipas
-      this.trinti = trinti
-      console.log(this.trinti)
     },
     file_info (value) {
       this.getData()
@@ -171,7 +169,7 @@ export default {
           tipas: this.tipas
           })
         .then(response => {
-          console.log(response.data.data)
+          console.log(response.data.ats)
           this.isLoading = false
           this.getData()
           this.$buefy.snackbar.open({

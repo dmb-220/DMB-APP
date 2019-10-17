@@ -9,12 +9,6 @@
     <b-field label="Pasirinkite:" class="has-check" horizontal>
       <radio-picker @input="edit_data" :options="{1:'PARDAVIMAI', 2:'LIKUTIS'}" v-model="tipas"></radio-picker>
     </b-field>
-    <br>
-    <b-field label="Switch" horizontal>
-      <b-switch v-model="trinti" @input="edit_data">
-        Ištrinti senus duomenis iš DB, ir ikelti naujus?
-      </b-switch>
-    </b-field>
   </modal-box>
 </template>
 
@@ -30,7 +24,7 @@ export default {
     return{
       valstybe: '',
       tipas: '',
-      trinti: ''
+      set: [],
     }
   },
   props:{
@@ -43,10 +37,13 @@ export default {
       default: null
     }
   },
-
   methods: {
+    form_set(){
+      this.set = this.editSubject.split("-");
+      if(this.set[0] == "lietuva"){this.valstybe = 1;}
+    },
     edit_data(){
-      this.$emit('edit', this.valstybe, this.tipas, this.trinti)
+      this.$emit('edit', this.valstybe, this.tipas)
     },
     cancel () {
       this.$emit('cancel')

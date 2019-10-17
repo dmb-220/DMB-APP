@@ -106,6 +106,12 @@ class CSVController extends Controller
         if($tipas == 1){
             //Uzkelime LIETUVOS ir LATVIJOS duomenis
             if($valstybe == 1 || $valstybe == 2){
+                if($valstybe == 1){
+                    DB::table('pardavimais')->where('salis', 1)->delete();
+                }
+                if($valstybe == 2){
+                    DB::table('pardavimais')->where('salis', 2)->delete();
+                }
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                     $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
@@ -129,9 +135,12 @@ class CSVController extends Controller
                 }
                 fclose($handle);
                 }
+                
             }
             //uzkeliame ESTIJOS pardavimusduomenis
             if($valstybe == 3){
+                DB::table('pardavimais')->where('salis', 3)->delete();
+
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                         $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
@@ -160,6 +169,12 @@ class CSVController extends Controller
         if($tipas == 2){
             //Uzkelime LIETUVOS ir LATVIJOS duomenis
             if($valstybe == 1 || $valstybe == 2){
+                if($valstybe == 1){
+                    DB::table('likutis')->where('salis', 1)->delete();
+                }
+                if($valstybe == 2){
+                    DB::table('likutis')->where('salis', 2)->delete();
+                }
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                     $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
@@ -180,6 +195,8 @@ class CSVController extends Controller
             }
             //uzkeliame ESTIJOS duomenis
             if($valstybe == 3){
+                DB::table('likutis')->where('salis', 3)->delete();
+
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                         $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
@@ -198,8 +215,12 @@ class CSVController extends Controller
             }
         }
 
+        //$ats = Storage::delete($failas);
+        $ats = unlink(storage_path($failas));
+        
         return response()->json([
             'status' => true,
+            'ats' => $ats,
             'data' => $message
         ]);
     }

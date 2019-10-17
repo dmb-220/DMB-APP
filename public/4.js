@@ -234,6 +234,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -245,7 +249,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      selected: [],
       isLoading: false,
       likutis: [],
       defaultOpenedDetails: [1],
@@ -254,7 +257,8 @@ __webpack_require__.r(__webpack_exports__);
       rodyti_lt: true,
       rodyti_lv: true,
       rodyti_ee: true,
-      salis: ''
+      salis: '',
+      rikiuoti: false
     };
   },
   computed: {},
@@ -266,21 +270,49 @@ __webpack_require__.r(__webpack_exports__);
       // Pass the element id here
       this.$htmlToPaper('printMe');
     },
-    paieska_post: function paieska_post() {
+    switch_post: function switch_post() {
       var _this = this;
+
+      //this.rikiuotic = !this.rikiuoti;
+      if (this.ieskoti == "") {
+        this.ieskoti = this.paieska;
+      }
+
+      axios.post("/likutis/store", {
+        ieskoti: this.ieskoti,
+        lt: this.rodyti_lt,
+        lv: this.rodyti_lv,
+        ee: this.rodyti_ee,
+        rikiuoti: this.rikiuoti
+      }).then(function (response) {
+        console.log(response.data);
+
+        _this.getData();
+      })["catch"](function (err) {
+        _this.$buefy.toast.open({
+          message: "Error: ".concat(err.message),
+          type: 'is-danger',
+          queue: false
+        });
+      });
+    },
+    paieska_post: function paieska_post() {
+      var _this2 = this;
 
       if (this.ieskoti != "") {
         axios.post("/likutis/store", {
           ieskoti: this.ieskoti,
           lt: this.rodyti_lt,
           lv: this.rodyti_lv,
-          ee: this.rodyti_ee
+          ee: this.rodyti_ee,
+          rikiuoti: "1"
         }).then(function (response) {
           console.log(response.data.data);
+          _this2.rikiuoti = false;
 
-          _this.getData();
+          _this2.getData();
         })["catch"](function (err) {
-          _this.$buefy.toast.open({
+          _this2.$buefy.toast.open({
             message: "Error: ".concat(err.message),
             type: 'is-danger',
             queue: false
@@ -295,20 +327,21 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     getData: function getData() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.isLoading = true;
       this.axios.get('/likutis').then(function (response) {
-        _this2.isLoading = false;
-        _this2.likutis = response.data.prekes;
-        _this2.paieska = response.data.paieska;
-        _this2.rodyti_lt = response.data.salis.LT ? true : false;
-        _this2.rodyti_lv = response.data.salis.LV ? true : false;
-        _this2.rodyti_ee = response.data.salis.EE ? true : false;
+        _this3.isLoading = false;
+        _this3.rikiuoti = response.data.rikiuoti ? false : true;
+        _this3.likutis = response.data.prekes;
+        _this3.paieska = response.data.paieska;
+        _this3.rodyti_lt = response.data.salis.LT ? true : false;
+        _this3.rodyti_lv = response.data.salis.LV ? true : false;
+        _this3.rodyti_ee = response.data.salis.EE ? true : false;
       })["catch"](function (err) {
-        _this2.isLoading = false;
+        _this3.isLoading = false;
 
-        _this2.$buefy.toast.open({
+        _this3.$buefy.toast.open({
           message: "Error: ".concat(err.message),
           type: 'is-danger',
           queue: false
@@ -591,6 +624,36 @@ var render = function() {
               1
             ),
             _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "GRUPAVIMAS:", horizontal: "" } },
+              [
+                _c(
+                  "b-switch",
+                  {
+                    nativeOn: {
+                      click: function($event) {
+                        return _vm.switch_post($event)
+                      }
+                    },
+                    model: {
+                      value: _vm.rikiuoti,
+                      callback: function($$v) {
+                        _vm.rikiuoti = $$v
+                      },
+                      expression: "rikiuoti"
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n          Veikia su mūsų GAM gaminiais! \n        "
+                    )
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
             _c("hr"),
             _vm._v(" "),
             _c(
@@ -605,12 +668,9 @@ var render = function() {
                         "column has-text-centered has-text-weight-bold"
                     },
                     [
-                      _vm._v(
-                        "Rasta: " +
-                          _vm._s(_vm.likutis.length) +
-                          " " +
-                          _vm._s(_vm.paieska)
-                      )
+                      _vm._v("Rasta: " + _vm._s(_vm.likutis.length)),
+                      _c("br"),
+                      _vm._v(_vm._s(_vm.paieska))
                     ]
                   )
                 ]),
@@ -620,7 +680,6 @@ var render = function() {
                   {
                     attrs: {
                       "mobile-cards": false,
-                      selected: _vm.selected,
                       focusable: "",
                       bordered: "",
                       hoverable: "",
@@ -633,9 +692,6 @@ var render = function() {
                       loading: _vm.isLoading
                     },
                     on: {
-                      "update:selected": function($event) {
-                        _vm.selected = $event
-                      },
                       "details-open": function(row, index) {
                         return _vm.$buefy.toast.open(
                           "Išskleista " + row.preke + " prekė!"
@@ -651,10 +707,7 @@ var render = function() {
                               ? _c(
                                   "b-table-column",
                                   {
-                                    style: {
-                                      "background-color": "gold",
-                                      "border-bottom": "dotted 1px black"
-                                    },
+                                    style: { "background-color": "gold" },
                                     attrs: {
                                       label: "Preke",
                                       field: "preke",
@@ -674,9 +727,6 @@ var render = function() {
                               : _c(
                                   "b-table-column",
                                   {
-                                    style: {
-                                      "border-bottom": "dotted 1px black"
-                                    },
                                     attrs: {
                                       label: "Preke",
                                       field: "preke",
@@ -695,7 +745,7 @@ var render = function() {
                             _c(
                               "b-table-column",
                               {
-                                style: { "border-bottom": "dotted 1px black" },
+                                style: { "background-color": "greenyellow" },
                                 attrs: {
                                   label: "LIETUVA",
                                   field: "LT_viso",
@@ -714,7 +764,7 @@ var render = function() {
                             _c(
                               "b-table-column",
                               {
-                                style: { "border-bottom": "dotted 1px black" },
+                                style: { "background-color": "GoldenRod" },
                                 attrs: {
                                   label: "LATVIJA",
                                   field: "LV_viso",
@@ -733,7 +783,7 @@ var render = function() {
                             _c(
                               "b-table-column",
                               {
-                                style: { "border-bottom": "dotted 1px black" },
+                                style: { "background-color": "tomato" },
                                 attrs: {
                                   label: "ESTIJA",
                                   field: "EE_viso",
@@ -752,7 +802,7 @@ var render = function() {
                             _c(
                               "b-table-column",
                               {
-                                style: { "border-bottom": "dotted 1px black" },
+                                style: { "background-color": "WhiteSmoke" },
                                 attrs: {
                                   label: "VISO",
                                   field: "viso",
@@ -779,7 +829,10 @@ var render = function() {
                                 "div",
                                 {
                                   staticClass: "column",
-                                  style: { border: "1px solid" }
+                                  style: {
+                                    border: "1px solid",
+                                    "background-color": "greenyellow"
+                                  }
                                 },
                                 [
                                   _c(
@@ -852,7 +905,10 @@ var render = function() {
                                 "div",
                                 {
                                   staticClass: "column",
-                                  style: { border: "1px solid" }
+                                  style: {
+                                    border: "1px solid",
+                                    "background-color": "GoldenRod"
+                                  }
                                 },
                                 [
                                   _c(
@@ -925,7 +981,10 @@ var render = function() {
                                 "div",
                                 {
                                   staticClass: "column",
-                                  style: { border: "1px solid" }
+                                  style: {
+                                    border: "1px solid",
+                                    "background-color": "tomato"
+                                  }
                                 },
                                 [
                                   _c(
