@@ -73,6 +73,7 @@ class PrekesController extends Controller
                     $group[$idx]['LT'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $lt_viso = $lt_viso + $val['kiekis'];
                     $group[$idx]['LT_viso'] = $lt_viso;
+                    //reik susikelti sandeliu sarasa
                 }
                 if($val['salis'] == 2){
                     if(array_key_exists($val['sandelis'], $group[$idx]['LV'])){
@@ -96,6 +97,7 @@ class PrekesController extends Controller
                 }
             }
 
+            $key_lt_likutis = array_keys($group[$idx]['LT']);
             $group[$idx]['LT'] = array_values($group[$idx]['LT']);
             $group[$idx]['LV'] = array_values($group[$idx]['LV']);
             $group[$idx]['EE'] = array_values($group[$idx]['EE']);
@@ -170,6 +172,8 @@ class PrekesController extends Controller
                     $pardavimai[$idx]['EE_viso'] = $ee_viso;
                 }
             }
+            $key_lt_pardavimai = array_keys($pardavimai[$idx]['LT']);
+
             $pardavimai[$idx]['LT'] = array_values($pardavimai[$idx]['LT']);
             $pardavimai[$idx]['LV'] = array_values($pardavimai[$idx]['LV']);
             $pardavimai[$idx]['EE'] = array_values($pardavimai[$idx]['EE']);
