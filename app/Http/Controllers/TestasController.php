@@ -16,12 +16,31 @@ class TestasController extends Controller
      */
     public function index()
     {
-      //$client = new \SoapClient('http://soap.amazon.com/schemas3/AmazonWebServices.wsdl');
-      //$client = new \SoapClient('http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl', ['trace' => true, 'cache_wsdl' => WSDL_CACHE_MEMORY]);
-      //$client = new SoapClient('http://soap.amazon.com/schemas3/AmazonWebServices.wsdl');
+      /*$client = new SoapClient('https://lt2.dineta.eu/sidonas/ws/export/ws.php?wsdll');
+      // parametru padavimas
+      $p['param'][0]['name'] = 'docdate_from';
+      $p['param'][0]['value'] = "2019-09-01";
+      $p['param'][1]['name'] = 'op';
+      $p['param'][1]['value'] = 'I';
+      $response = $client->get_operations($p);
+      print_r ($response);*/
+
+      $client = new SoapClient('https://lt2.dineta.eu/sidonas/ws/export/ws.php?wsdll');
+
       //var_dump($client->__getFunctions());
-      $client = new \SoapClient('http://lt4.dineta.eu/xxxxx/ws/export/ws.php?wsdl');
-      print_r($client->hello("Testas"));
+
+      $p['param'][0]['name'] = 'date';
+      $p['param'][0]['value'] = "2019-10-17";
+      
+      $p['param'][1]['name'] = 'storeid';
+      $p['param'][1]['value'] = "BIGA";   // cia sandelio kodas Dineta.web'e
+
+      $p['param'][2]['name'] = 'null_quant';
+      $p['param'][2]['value'] = "1";
+      
+      $response = $client->get_stock_quant($p);
+      var_dump($response);
+
 
       //https://webmobtuts.com/backend-development/manipulating-soap-web-services-with-php-and-laravel/
   }

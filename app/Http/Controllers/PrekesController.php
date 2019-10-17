@@ -59,23 +59,46 @@ class PrekesController extends Controller
             //$group[$idx]['preke'] = $idx;
             $sarasas[] = $idx;
             $group[$idx]['pavadinimas'] = $value[0]['pavadinimas'];
+            //aprasom kintamaji, kad galetu patikrinti ar jau yra viduje sandelis
+            $group[$idx]['LT'] = array();
+            $group[$idx]['LV'] = array();
+            $group[$idx]['EE'] = array();
             foreach($value as $val){
                 if($val['salis'] == 1){
-                    $group[$idx]['LT'][] = $val;
+                    if(array_key_exists($val['sandelis'], $group[$idx]['LT'])){
+                        $kiek = $group[$idx]['LT'][$val['sandelis']]['kiekis'];
+                    }else{
+                        $kiek = 0;
+                    }
+                    $group[$idx]['LT'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $lt_viso = $lt_viso + $val['kiekis'];
                     $group[$idx]['LT_viso'] = $lt_viso;
                 }
                 if($val['salis'] == 2){
-                    $group[$idx]['LV'][] = $val;
+                    if(array_key_exists($val['sandelis'], $group[$idx]['LV'])){
+                        $kiek = $group[$idx]['LV'][$val['sandelis']]['kiekis'];
+                    }else{
+                        $kiek = 0;
+                    }
+                    $group[$idx]['LV'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $lv_viso = $lv_viso + $val['kiekis'];
                     $group[$idx]['LV_viso'] = $lv_viso;
                 }
                 if($val['salis'] == 3){
-                    $group[$idx]['EE'][] = $val;
+                    if(array_key_exists($val['sandelis'], $group[$idx]['EE'])){
+                        $kiek = $group[$idx]['EE'][$val['sandelis']]['kiekis'];
+                    }else{
+                        $kiek = 0;
+                    }
+                    $group[$idx]['EE'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $ee_viso = $ee_viso + $val['kiekis'];
                     $group[$idx]['EE_viso'] = $ee_viso;
                 }
             }
+
+            $group[$idx]['LT'] = array_values($group[$idx]['LT']);
+            $group[$idx]['LV'] = array_values($group[$idx]['LV']);
+            $group[$idx]['EE'] = array_values($group[$idx]['EE']);
 
             $group[$idx]['viso'] = $ee_viso + $lv_viso + $lt_viso;
             $lt_viso = 0;
@@ -90,12 +113,14 @@ class PrekesController extends Controller
 
         foreach ( $res as $value ) {
             if($value['sandelis'] != "TELSIAI"){
-                if($rikiuoti){
-                    $pard[$value['preke']][] = $value;
-                }else{
-                    $a = explode("-", $value['preke']);
-                    $ne = $a[0]."-".$a[1]."-";
-                    $pard[$ne][] = $value;
+                if($value['kiekis'] > 0){
+                    if($rikiuoti){
+                        $pard[$value['preke']][] = $value;
+                    }else{
+                        $a = explode("-", $value['preke']);
+                        $ne = $a[0]."-".$a[1]."-";
+                        $pard[$ne][] = $value;
+                    }
                 }
             }
         }
@@ -110,23 +135,44 @@ class PrekesController extends Controller
                 $sarasas[] = $idx;
             }
             $pardavimai[$idx]['pavadinimas'] = $value[0]['pavadinimas'];
+            $pardavimai[$idx]['LT'] = array();
+            $pardavimai[$idx]['LV'] = array();
+            $pardavimai[$idx]['EE'] = array();
             foreach($value as $val){
                 if($val['salis'] == 1){
-                    $pardavimai[$idx]['LT'][] = $val;
+                    if(array_key_exists($val['sandelis'], $pardavimai[$idx]['LT'])){
+                        $kiek = $pardavimai[$idx]['LT'][$val['sandelis']]['kiekis'];
+                    }else{
+                        $kiek = 0;
+                    }
+                    $pardavimai[$idx]['LT'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $lt_viso = $lt_viso + $val['kiekis'];
                     $pardavimai[$idx]['LT_viso'] = $lt_viso;
                 }
                 if($val['salis'] == 2){
-                    $pardavimai[$idx]['LV'][] = $val;
+                    if(array_key_exists($val['sandelis'], $pardavimai[$idx]['LV'])){
+                        $kiek = $pardavimai[$idx]['LV'][$val['sandelis']]['kiekis'];
+                    }else{
+                        $kiek = 0;
+                    }
+                    $pardavimai[$idx]['LV'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $lv_viso = $lv_viso + $val['kiekis'];
                     $pardavimai[$idx]['LV_viso'] = $lv_viso;
                 }
                 if($val['salis'] == 3){
-                    $pardavimai[$idx]['EE'][] = $val;
+                    if(array_key_exists($val['sandelis'], $pardavimai[$idx]['EE'])){
+                        $kiek = $pardavimai[$idx]['EE'][$val['sandelis']]['kiekis'];
+                    }else{
+                        $kiek = 0;
+                    }
+                    $pardavimai[$idx]['EE'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $ee_viso = $ee_viso + $val['kiekis'];
                     $pardavimai[$idx]['EE_viso'] = $ee_viso;
                 }
             }
+            $pardavimai[$idx]['LT'] = array_values($pardavimai[$idx]['LT']);
+            $pardavimai[$idx]['LV'] = array_values($pardavimai[$idx]['LV']);
+            $pardavimai[$idx]['EE'] = array_values($pardavimai[$idx]['EE']);
 
             $pardavimai[$idx]['viso'] = $ee_viso + $lv_viso + $lt_viso;
             $lt_viso = 0;
@@ -155,15 +201,6 @@ class PrekesController extends Controller
             $i++;
         }
 
-        //Lietuva
-        //$lt_pard = 0;
-        //$lt_lik = 0;
-        //Latvija
-        //$lv_pard = 0;
-        //$lv_lik = 0;
-        //Estija
-        //$ee_pard = 0;
-        //$ee_lik = 0;
         $viso = array(
             'lt_pard' => 0,
             'lt_lik' => 0,
