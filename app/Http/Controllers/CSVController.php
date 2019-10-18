@@ -17,6 +17,7 @@ class CSVController extends Controller
      */
     public function index()
     {
+        $data = array();
         $directory  = "CSV_DATA";
         $files = Storage::files($directory);
         for($i = 0; $i < count($files); $i++){
