@@ -27,6 +27,7 @@ class CreatePardavimaisTable extends Migration
             $table->string('pvm_suma');
             $table->string('suma');
             $table->string('grupes_pavadinimas');
+            $table->string('registras');
 	        $table->string('salis');
             $table->timestamps();
         });

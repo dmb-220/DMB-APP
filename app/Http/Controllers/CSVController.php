@@ -115,21 +115,22 @@ class CSVController extends Controller
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                     $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-                    $kiek = explode(",", $duomenys[7]);
+                    $kiek = explode(",", $duomenys[5]);
                     $kiek = $kiek[0];
                     DB::table('pardavimais')->insert([
-                        'preke' => $duomenys[0],
-                        'pavadinimas' => $duomenys[1],
-                        'barkodas' => $duomenys[2],
+                        'preke' => $duomenys[2],
+                        'pavadinimas' => $duomenys[3],
+                        'barkodas' => $duomenys[1],
                         'grupe' => $duomenys[3],
-                        'sandelis' => $duomenys[6],
+                        'sandelis' => $duomenys[0],
                         'kiekis' => $kiek,
-                        'pardavimo_kaina' => $duomenys[8],
-                        'pardavimo_suma' => $duomenys[9],
-                        'pvm' => $duomenys[10],
-                        'pvm_suma' => $duomenys[11],
-                        'suma' => $duomenys[12],
-                        'grupes_pavadinimas' => $duomenys[13],
+                        'pardavimo_kaina' => $duomenys[6],
+                        'pardavimo_suma' => $duomenys[6],
+                        'pvm' => $duomenys[7],
+                        'pvm_suma' => $duomenys[8],
+                        'suma' => $duomenys[9],
+                        'grupes_pavadinimas' => $duomenys[3],
+                        'registras' => " - ",
                         'salis' => $valstybe,
                         ]);
                 }
@@ -140,7 +141,7 @@ class CSVController extends Controller
             //uzkeliame ESTIJOS pardavimusduomenis
             if($valstybe == 3){
                 DB::table('pardavimais')->where('salis', 3)->delete();
-
+                //reikia EST Gamyba irasant pakeisti i GAM, o Pirkimas i PIRK
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                         $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
@@ -157,6 +158,7 @@ class CSVController extends Controller
                             'pvm_suma' => 0,
                             'suma' => 0,
                             'grupes_pavadinimas' => 0,
+                            'registras' => $duomenys[0],
                             'salis' => $valstybe,
                             ]);
                     }
@@ -187,6 +189,7 @@ class CSVController extends Controller
                         'kiekis' => $kiek,
                         'suma' => $duomenys[5],
                         'sandelis' => $duomenys[6],
+                        'registras' => $duomenys[7],
                         'salis' => $valstybe,
                         ]);
                 }
@@ -196,7 +199,7 @@ class CSVController extends Controller
             //uzkeliame ESTIJOS duomenis
             if($valstybe == 3){
                 DB::table('likutis')->where('salis', 3)->delete();
-
+                //reikia EST Gamyba irasant pakeisti i GAM, o Pirkimas i PIRK
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                         $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
@@ -207,6 +210,7 @@ class CSVController extends Controller
                             'kiekis' => $duomenys[7],
                             'suma' => $duomenys[8],
                             'sandelis' => $duomenys[5],
+                            'registras' => $duomenys[2],
                             'salis' => $valstybe,
                             ]);
                     }

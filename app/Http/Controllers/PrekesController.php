@@ -115,8 +115,8 @@ class PrekesController extends Controller
         ->where('preke', 'like', "{$keyword}%")->get();
 
         foreach ( $re as $value ) {
-            if($value['sandelis'] != "BROK" && $value['sandelis'] != "ESTI" && $value['sandelis'] != "3333"
-            && $value['sandelis'] != "TELSIAI" && $value['sandelis'] != "4444" && $value['sandelis'] != "1111"){
+            if($value['sandelis'] != "BROK" && $value['sandelis'] != "ESTI" && $value['sandelis'] != "3333" && $value['sandelis'] != "SAND"
+            && $value['sandelis'] != "TELSIAI" && $value['sandelis'] != "4444" && $value['sandelis'] != "1111" && $value['sandelis'] != "ZILT"){
                 if($rikiuoti){
                     $likutis[$value['preke']][] = $value;
                 }else{

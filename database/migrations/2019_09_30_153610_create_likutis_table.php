@@ -22,6 +22,7 @@ class CreateLikutisTable extends Migration
             $table->integer('kiekis');
             $table->string('suma');
             $table->string('sandelis');
+            $table->string('registras');
             $table->string('salis');
             $table->timestamps();
         });
