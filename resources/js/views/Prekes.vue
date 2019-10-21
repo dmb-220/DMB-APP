@@ -70,6 +70,7 @@
           <div class="columns">
           <div class="column" :style="{'border': '1px dotted', 'background-color': 'greenyellow'}">
             <div class="has-text-centered">LIETUVA:</div>
+            <br>
             <b-table
             :data="props.row.list.LT"
             default-sort-direction="asc"
@@ -78,10 +79,10 @@
                 <b-table-column field="sandelis" label="Sandelis" sortable>
                     {{ props.row.sandelis }}
                 </b-table-column>
-                <b-table-column field="likutis.kiekis" label="Likuciai">
+                <b-table-column :style="{'background-color': 'LightGray'}" field="likutis.kiekis" label="Likuciai">
                     {{ props.row.likutis && props.row.likutis.kiekis }}
                 </b-table-column>
-                <b-table-column field="pardavimai.kiekis" label="Pardavimai">
+                <b-table-column :style="{'background-color': 'LightGray'}" field="pardavimai.kiekis" label="Pardavimai">
                     {{ props.row.pardavimai && props.row.pardavimai.kiekis }}
                 </b-table-column>
             </template>
@@ -89,6 +90,7 @@
           </div>
           <div class="column" :style="{'border': '1px dotted', 'background-color': 'GoldenRod'}">
             <div class="has-text-centered">LATVIJA:</div>
+            <br>
             <b-table
             :data="props.row.list.LV"
             default-sort-direction="asc"
@@ -97,10 +99,10 @@
                 <b-table-column field="sandelis" label="Sandelis" sortable>
                     {{ props.row.sandelis }}
                 </b-table-column>
-                <b-table-column field="likutis.kiekis" label="Likuciai">
+                <b-table-column :style="{'background-color': 'LightGray'}" field="likutis.kiekis" label="Likuciai">
                     {{ props.row.likutis && props.row.likutis.kiekis }}
                 </b-table-column>
-                <b-table-column field="pardavimai.kiekis" label="Pardavimai">
+                <b-table-column :style="{'background-color': 'LightGray'}" field="pardavimai.kiekis" label="Pardavimai">
                     {{ props.row.pardavimai && props.row.pardavimai.kiekis }}
                 </b-table-column>
             </template>
@@ -108,6 +110,7 @@
           </div>
           <div class="column" :style="{'border': '1px dotted', 'background-color': 'tomato'}">
             <div class="has-text-centered">ESTIJA:</div>
+            <br>
             <b-table
             :data="props.row.list.EE"
             default-sort-direction="asc"
@@ -116,10 +119,10 @@
                 <b-table-column field="sandelis" label="Sandelis" sortable>
                     {{ props.row.sandelis }}
                 </b-table-column>
-                <b-table-column field="likutis.kiekis" label="Likuciai">
+                <b-table-column :style="{'background-color': 'LightGray'}" field="likutis.kiekis" label="Likuciai">
                     {{ props.row.likutis && props.row.likutis.kiekis }}
                 </b-table-column>
-                <b-table-column field="pardavimai.kiekis" label="Pardavimai">
+                <b-table-column :style="{'background-color': 'LightGray'}" field="pardavimai.kiekis" label="Pardavimai">
                     {{ props.row.pardavimai && props.row.pardavimai.kiekis }}
                 </b-table-column>
             </template>

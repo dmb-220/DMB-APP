@@ -271,6 +271,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -977,6 +980,8 @@ var render = function() {
                                     [_vm._v("LIETUVA:")]
                                   ),
                                   _vm._v(" "),
+                                  _c("br"),
+                                  _vm._v(" "),
                                   _c("b-table", {
                                     attrs: {
                                       data: props.row.list.LT,
@@ -1012,6 +1017,10 @@ var render = function() {
                                               _c(
                                                 "b-table-column",
                                                 {
+                                                  style: {
+                                                    "background-color":
+                                                      "LightGray"
+                                                  },
                                                   attrs: {
                                                     field: "likutis.kiekis",
                                                     label: "Likuciai"
@@ -1033,6 +1042,10 @@ var render = function() {
                                               _c(
                                                 "b-table-column",
                                                 {
+                                                  style: {
+                                                    "background-color":
+                                                      "LightGray"
+                                                  },
                                                   attrs: {
                                                     field: "pardavimai.kiekis",
                                                     label: "Pardavimai"
@@ -1078,6 +1091,8 @@ var render = function() {
                                     [_vm._v("LATVIJA:")]
                                   ),
                                   _vm._v(" "),
+                                  _c("br"),
+                                  _vm._v(" "),
                                   _c("b-table", {
                                     attrs: {
                                       data: props.row.list.LV,
@@ -1113,6 +1128,10 @@ var render = function() {
                                               _c(
                                                 "b-table-column",
                                                 {
+                                                  style: {
+                                                    "background-color":
+                                                      "LightGray"
+                                                  },
                                                   attrs: {
                                                     field: "likutis.kiekis",
                                                     label: "Likuciai"
@@ -1134,6 +1153,10 @@ var render = function() {
                                               _c(
                                                 "b-table-column",
                                                 {
+                                                  style: {
+                                                    "background-color":
+                                                      "LightGray"
+                                                  },
                                                   attrs: {
                                                     field: "pardavimai.kiekis",
                                                     label: "Pardavimai"
@@ -1179,6 +1202,8 @@ var render = function() {
                                     [_vm._v("ESTIJA:")]
                                   ),
                                   _vm._v(" "),
+                                  _c("br"),
+                                  _vm._v(" "),
                                   _c("b-table", {
                                     attrs: {
                                       data: props.row.list.EE,
@@ -1214,6 +1239,10 @@ var render = function() {
                                               _c(
                                                 "b-table-column",
                                                 {
+                                                  style: {
+                                                    "background-color":
+                                                      "LightGray"
+                                                  },
                                                   attrs: {
                                                     field: "likutis.kiekis",
                                                     label: "Likuciai"
@@ -1235,6 +1264,10 @@ var render = function() {
                                               _c(
                                                 "b-table-column",
                                                 {
+                                                  style: {
+                                                    "background-color":
+                                                      "LightGray"
+                                                  },
                                                   attrs: {
                                                     field: "pardavimai.kiekis",
                                                     label: "Pardavimai"
