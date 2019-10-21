@@ -297,19 +297,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -1013,12 +1000,12 @@ var render = function() {
                                   _c(
                                     "div",
                                     { staticClass: "has-text-centered" },
-                                    [_vm._v("LT likučiai:")]
+                                    [_vm._v("LIETUVA:")]
                                   ),
                                   _vm._v(" "),
                                   _c("b-table", {
                                     attrs: {
-                                      data: props.row.likutis.LT,
+                                      data: props.row.list.LT,
                                       "default-sort-direction": "asc",
                                       "default-sort": "sandelis"
                                     },
@@ -1052,65 +1039,8 @@ var render = function() {
                                                 "b-table-column",
                                                 {
                                                   attrs: {
-                                                    field: "kiekis",
-                                                    label: "Kiekis",
-                                                    sortable: ""
-                                                  }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                  " +
-                                                      _vm._s(props.row.kiekis) +
-                                                      "\n              "
-                                                  )
-                                                ]
-                                              )
-                                            ]
-                                          }
-                                        }
-                                      ],
-                                      null,
-                                      true
-                                    )
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "column",
-                                  style: {
-                                    border: "1px dotted",
-                                    "background-color": "greenyellow"
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "div",
-                                    { staticClass: "has-text-centered" },
-                                    [_vm._v("LT pardavimai:")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("b-table", {
-                                    attrs: {
-                                      data: props.row.pardavimai.LT,
-                                      "default-sort-direction": "asc",
-                                      "default-sort": "sandelis"
-                                    },
-                                    scopedSlots: _vm._u(
-                                      [
-                                        {
-                                          key: "default",
-                                          fn: function(props) {
-                                            return [
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  attrs: {
-                                                    field: "sandelis",
-                                                    label: "Sandelis",
+                                                    field: "likutis.kiekis",
+                                                    label: "Likuciai",
                                                     sortable: ""
                                                   }
                                                 },
@@ -1118,7 +1048,9 @@ var render = function() {
                                                   _vm._v(
                                                     "\n                  " +
                                                       _vm._s(
-                                                        props.row.sandelis
+                                                        props.row.likutis &&
+                                                          props.row.likutis
+                                                            .kiekis
                                                       ) +
                                                       "\n              "
                                                   )
@@ -1129,15 +1061,19 @@ var render = function() {
                                                 "b-table-column",
                                                 {
                                                   attrs: {
-                                                    field: "kiekis",
-                                                    label: "Kiekis",
+                                                    field: "pardavimai.kiekis",
+                                                    label: "Pardavimai",
                                                     sortable: ""
                                                   }
                                                 },
                                                 [
                                                   _vm._v(
                                                     "\n                  " +
-                                                      _vm._s(props.row.kiekis) +
+                                                      _vm._s(
+                                                        props.row.pardavimai &&
+                                                          props.row.pardavimai
+                                                            .kiekis
+                                                      ) +
                                                       "\n              "
                                                   )
                                                 ]

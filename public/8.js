@@ -575,9 +575,9 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                  " +
+                                    "\n              " +
                                       _vm._s(props.row.sandelis) +
-                                      "\n            "
+                                      "\n        "
                                   )
                                 ]
                               )
@@ -593,9 +593,9 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                  " +
+                                    "\n              " +
                                       _vm._s(props.row.sandelis) +
-                                      "\n            "
+                                      "\n        "
                                   )
                                 ]
                               )
@@ -611,9 +611,9 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                  " +
+                                    "\n              " +
                                       _vm._s(props.row.sandelis) +
-                                      "\n            "
+                                      "\n        "
                                   )
                                 ]
                               )
@@ -627,9 +627,9 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                  " +
+                                    "\n              " +
                                       _vm._s(props.row.sandelis) +
-                                      "\n            "
+                                      "\n        "
                                   )
                                 ]
                               ),
@@ -645,9 +645,9 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n              " +
+                                "\n          " +
                                   _vm._s(props.row.likutis_sk) +
-                                  "\n            "
+                                  "\n        "
                               )
                             ]
                           ),
@@ -663,9 +663,9 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n              " +
+                                "\n          " +
                                   _vm._s(props.row.pardavimai_sk) +
-                                  "\n            "
+                                  "\n        "
                               )
                             ]
                           ),
@@ -727,9 +727,9 @@ var render = function() {
                                               },
                                               [
                                                 _vm._v(
-                                                  "\n                      " +
+                                                  "\n                  " +
                                                     _vm._s(props.row.preke) +
-                                                    "\n                  "
+                                                    "\n              "
                                                 )
                                               ]
                                             ),
@@ -745,9 +745,9 @@ var render = function() {
                                               },
                                               [
                                                 _vm._v(
-                                                  "\n                      " +
+                                                  "\n                  " +
                                                     _vm._s(props.row.kiekis) +
-                                                    "\n                  "
+                                                    "\n              "
                                                 )
                                               ]
                                             )
@@ -801,9 +801,9 @@ var render = function() {
                                               },
                                               [
                                                 _vm._v(
-                                                  "\n                      " +
+                                                  "\n                  " +
                                                     _vm._s(props.row.preke) +
-                                                    "\n                  "
+                                                    "\n              "
                                                 )
                                               ]
                                             ),
@@ -819,9 +819,9 @@ var render = function() {
                                               },
                                               [
                                                 _vm._v(
-                                                  "\n                      " +
+                                                  "\n                  " +
                                                     _vm._s(props.row.kiekis) +
-                                                    "\n                  "
+                                                    "\n              "
                                                 )
                                               ]
                                             )
