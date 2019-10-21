@@ -1,6 +1,6 @@
 <template>
     <section class="section is-main-section">
-      Pagrindinis langas
+      Duomenys atnaujinti<br>2019-10-21
     </section>
 </template>
 
