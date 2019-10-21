@@ -33423,7 +33423,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "section is-main-section" }, [
-      _vm._v("\n  Duomenys atnaujinti:"),
+      _vm._v("\n  Duomenys atnaujinti"),
       _c("br"),
       _vm._v("\n  Likučiai: 2019-10-21"),
       _c("br"),

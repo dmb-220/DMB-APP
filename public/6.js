@@ -296,6 +296,7 @@ __webpack_require__.r(__webpack_exports__);
       rodyti_ee: true,
       salis: '',
       rikiuoti: false,
+      mobile_card: true,
       viso: []
     };
   },
@@ -306,6 +307,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     print: function print() {
       // Pass the element id here
+      this.mobile_card = false;
       this.$htmlToPaper('printMe');
     },
     switch_post: function switch_post() {
@@ -721,7 +723,7 @@ var render = function() {
                   "b-table",
                   {
                     attrs: {
-                      "mobile-cards": false,
+                      "mobile-cards": _vm.mobile_card,
                       bordered: "",
                       hoverable: "",
                       narrowed: true,

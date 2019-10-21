@@ -22,7 +22,7 @@
             </div>
         </div>
         <b-table
-        :mobile-cards="false"
+        :mobile-cards="mobile_card"
         bordered
         hoverable
         :narrowed="true"
@@ -190,6 +190,7 @@ export default {
      rodyti_ee: true,
      salis: '',
      rikiuoti: false,
+     mobile_card: true,
      viso: []
     }
   },
@@ -202,6 +203,7 @@ export default {
   methods: {
       print() {
       // Pass the element id here
+      this.mobile_card = false;
       this.$htmlToPaper('printMe');
     },
     switch_post(){
