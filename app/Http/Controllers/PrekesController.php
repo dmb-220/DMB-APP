@@ -37,7 +37,7 @@ class PrekesController extends Controller
 
                 //Sudedam norimus pardavimus 
                 $res = Pardavimai::query()
-                ->where('preke', 'like', "{$keyword}%")->get();
+                ->where('preke', 'like', "%{$keyword}%")->get();
         
                 foreach ( $res as $value ) {
                     if($value['sandelis'] != "TELSIAI"){
@@ -112,7 +112,7 @@ class PrekesController extends Controller
 
         //Sudedam norimus likucius
         $re = Likutis::query()
-        ->where('preke', 'like', "{$keyword}%")->get();
+        ->where('preke', 'like', "%{$keyword}%")->get();
 
         foreach ( $re as $value ) {
             if($value['sandelis'] != "BROK" && $value['sandelis'] != "ESTI" && $value['sandelis'] != "3333" && $value['sandelis'] != "SAND"
