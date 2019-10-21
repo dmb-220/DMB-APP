@@ -88,65 +88,39 @@
             </b-table>
           </div>
           <div class="column" :style="{'border': '1px dotted', 'background-color': 'GoldenRod'}">
-            <div class="has-text-centered">LV likučiai:</div>
+            <div class="has-text-centered">LATVIJA:</div>
             <b-table
-            :data="props.row.likutis.LV"
+            :data="props.row.list.LV"
             default-sort-direction="asc"
             default-sort="sandelis">
             <template slot-scope="props">
                 <b-table-column field="sandelis" label="Sandelis" sortable>
                     {{ props.row.sandelis }}
                 </b-table-column>
-                <b-table-column field="kiekis" label="Kiekis" sortable>
-                    {{ props.row.kiekis }}
+                <b-table-column field="likutis.kiekis" label="Likuciai">
+                    {{ props.row.likutis && props.row.likutis.kiekis }}
                 </b-table-column>
-            </template>
-            </b-table>
-          </div>
-          <div class="column" :style="{'border': '1px dotted', 'background-color': 'GoldenRod'}">
-            <div class="has-text-centered">LV pardavimai:</div>
-            <b-table
-            :data="props.row.pardavimai.LV"
-            default-sort-direction="asc"
-            default-sort="sandelis">
-            <template slot-scope="props">
-                <b-table-column field="sandelis" label="Sandelis" sortable>
-                    {{ props.row.sandelis }}
-                </b-table-column>
-                <b-table-column field="kiekis" label="Kiekis" sortable>
-                    {{ props.row.kiekis }}
+                <b-table-column field="pardavimai.kiekis" label="Pardavimai">
+                    {{ props.row.pardavimai && props.row.pardavimai.kiekis }}
                 </b-table-column>
             </template>
             </b-table>
           </div>
           <div class="column" :style="{'border': '1px dotted', 'background-color': 'tomato'}">
-            <div class="has-text-centered">EE likučiai:</div>
+            <div class="has-text-centered">ESTIJA:</div>
             <b-table
-            :data="props.row.likutis.EE"
+            :data="props.row.list.EE"
             default-sort-direction="asc"
             default-sort="sandelis">
             <template slot-scope="props">
                 <b-table-column field="sandelis" label="Sandelis" sortable>
                     {{ props.row.sandelis }}
                 </b-table-column>
-                <b-table-column field="kiekis" label="Kiekis" sortable>
-                    {{ props.row.kiekis }}
+                <b-table-column field="likutis.kiekis" label="Likuciai">
+                    {{ props.row.likutis && props.row.likutis.kiekis }}
                 </b-table-column>
-            </template>
-            </b-table>
-          </div>
-          <div class="column" :style="{'border': '1px dotted', 'background-color': 'tomato'}">
-            <div class="has-text-centered">EE pardavimai:</div>
-            <b-table
-            :data="props.row.pardavimai.EE"
-            default-sort-direction="asc"
-            default-sort="sandelis">
-            <template slot-scope="props">
-                <b-table-column field="sandelis" label="Sandelis" sortable>
-                    {{ props.row.sandelis }}
-                </b-table-column>
-                <b-table-column field="kiekis" label="Kiekis" sortable>
-                    {{ props.row.kiekis }}
+                <b-table-column field="pardavimai.kiekis" label="Pardavimai">
+                    {{ props.row.pardavimai && props.row.pardavimai.kiekis }}
                 </b-table-column>
             </template>
             </b-table>
