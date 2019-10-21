@@ -210,6 +210,8 @@ class PrekesController extends Controller
                 }
             }
 
+            
+
             //$key_lt_likutis = array_keys($likuciai[$idx]['LT']);
 
             /*foreach($likuciai[$idx]['LT'] as $key => $va){
