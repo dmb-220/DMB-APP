@@ -40,7 +40,7 @@ class PrekesController extends Controller
                 ->where('preke', 'like', "%{$keyword}%")->get();
         
                 foreach ( $res as $value ) {
-                    if($value['sandelis'] != "TELSIAI"){
+                    if($value['sandelis'] != "TELSIAI" && $value['sandelis'] != "3333"){
                         if($value['kiekis'] > 0){
                             if($rikiuoti){
                                 $pardavimas[$value['preke']][] = $value;
@@ -210,7 +210,7 @@ class PrekesController extends Controller
                 }
             }
 
-            
+
 
             //$key_lt_likutis = array_keys($likuciai[$idx]['LT']);
 
