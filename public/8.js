@@ -183,7 +183,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'statistika',
@@ -680,12 +679,6 @@ var render = function() {
                                 style: { border: "1px solid" }
                               },
                               [
-                                _c(
-                                  "div",
-                                  { staticClass: "has-text-centered" },
-                                  [_vm._v("...")]
-                                ),
-                                _vm._v(" "),
                                 _c("b-table", {
                                   attrs: {
                                     data: props.row.list,
@@ -722,7 +715,7 @@ var render = function() {
                                               "b-table-column",
                                               {
                                                 attrs: {
-                                                  field: "kiekis",
+                                                  field: "likutis.kiekis",
                                                   label: "Likučiai",
                                                   sortable: ""
                                                 }
@@ -743,7 +736,7 @@ var render = function() {
                                               "b-table-column",
                                               {
                                                 attrs: {
-                                                  field: "kiekis",
+                                                  field: "pardavimai.kiekis",
                                                   label: "Pardavimai",
                                                   sortable: ""
                                                 }
