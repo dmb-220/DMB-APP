@@ -142,7 +142,9 @@ class StatistikaController extends Controller
             $lv_viso = 0;
             $ee_viso = 0;
         }
+    }
 
+    
 
         $i=0;
         foreach($store as $valu){
