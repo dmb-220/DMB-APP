@@ -14,6 +14,18 @@
         Veikia TIK su mūsų GAM gaminiais! 
       </b-switch>
     </b-field>
+    <hr>
+        <div class="columns">
+          <div class="column has-text-centered" :style="{'background-color': 'greenyellow'}">
+            <b-button :type="rodyti_lt ? 'is-primary' : 'is-dark'" @click="change_lt()">LIETUVA</b-button>
+            </div>
+          <div class="column has-text-centered" :style="{'background-color': 'GoldenRod'}">
+            <b-button :type="rodyti_lv ? 'is-warning' : 'is-dark'" @click="change_lv()">LATVIJA</b-button>
+            </div>
+          <div class="column has-text-centered" :style="{'background-color': 'tomato'}">
+            <b-button :type="rodyti_ee ? 'is-danger' : 'is-dark'" @click="change_ee()">ESTIJA</b-button>
+            </div>
+        </div>
         <hr>
         <div  id="printMe">
         <div class="columns">
@@ -40,22 +52,22 @@
           <b-table-column v-else  label="Preke"  field="preke" sortable>
                 {{ props.row.preke }}
           </b-table-column> 
-          <b-table-column :style="{'background-color': 'greenyellow'}" label="LT likučiai" field="likutis.LT_viso" sortable>
+          <b-table-column :visible='rodyti_lt' :style="{'background-color': 'greenyellow'}" label="LT likučiai" field="likutis.LT_viso" sortable>
                 {{props.row.likutis && props.row.likutis.LT_viso}}
           </b-table-column>
-          <b-table-column :style="{'background-color': 'greenyellow'}" label="LT pardavimai" field="pardavimai.LT_viso" sortable>
+          <b-table-column :visible='rodyti_lt' :style="{'background-color': 'greenyellow'}" label="LT pardavimai" field="pardavimai.LT_viso" sortable>
                 {{props.row.pardavimai && props.row.pardavimai.LT_viso}}
           </b-table-column>
-          <b-table-column :style="{'background-color': 'GoldenRod'}" label="LV likučiai" field="likutis.LV_viso" sortable>
+          <b-table-column :visible='rodyti_lv' :style="{'background-color': 'GoldenRod'}" label="LV likučiai" field="likutis.LV_viso" sortable>
                 {{props.row.likutis && props.row.likutis.LV_viso}}
           </b-table-column>
-          <b-table-column :style="{'background-color': 'GoldenRod'}" label="LV pardavimai" field="pardavimai.LV_viso" sortable>
+          <b-table-column :visible='rodyti_lv' :style="{'background-color': 'GoldenRod'}" label="LV pardavimai" field="pardavimai.LV_viso" sortable>
                  {{props.row.pardavimai && props.row.pardavimai.LV_viso}}
           </b-table-column>
-          <b-table-column :style="{'background-color': 'tomato'}" label="EE likučiai" field="likutis.EE_viso" sortable>
+          <b-table-column :visible='rodyti_ee' :style="{'background-color': 'tomato'}" label="EE likučiai" field="likutis.EE_viso" sortable>
                 {{props.row.likutis && props.row.likutis.EE_viso}}
           </b-table-column>
-          <b-table-column :style="{'background-color': 'tomato'}" label="EE pardavimai" field="pardavimai.EE_viso" sortable>
+          <b-table-column :visible='rodyti_ee' :style="{'background-color': 'tomato'}" label="EE pardavimai" field="pardavimai.EE_viso" sortable>
                 {{props.row.pardavimai && props.row.pardavimai.EE_viso}}
           </b-table-column>
           <b-table-column :style="{'background-color': 'WhiteSmoke '}" label="LIKUČIAI" field="likutis.viso" sortable>
@@ -67,7 +79,7 @@
         </template> 
 
         <template slot="detail" slot-scope="props">
-          <div class="columns">
+          <div v-show='rodyti_lt' class="columns">
           <div class="column" :style="{'border': '1px dotted', 'background-color': 'greenyellow'}">
             <div class="has-text-centered">LIETUVA:</div>
             <br>
@@ -88,7 +100,7 @@
             </template>
             </b-table>
           </div>
-          <div class="column" :style="{'border': '1px dotted', 'background-color': 'GoldenRod'}">
+          <div v-show='rodyti_lv' class="column" :style="{'border': '1px dotted', 'background-color': 'GoldenRod'}">
             <div class="has-text-centered">LATVIJA:</div>
             <br>
             <b-table
@@ -108,7 +120,7 @@
             </template>
             </b-table>
           </div>
-          <div class="column" :style="{'border': '1px dotted', 'background-color': 'tomato'}">
+          <div v-show='rodyti_ee' class="column" :style="{'border': '1px dotted', 'background-color': 'tomato'}">
             <div class="has-text-centered">ESTIJA:</div>
             <br>
             <b-table
@@ -180,7 +192,9 @@ export default {
   data () {
     return {
       isLoading: false,
-      //parduotuves: [],
+      rodyti_lt: true,
+     rodyti_lv: true,
+     rodyti_ee: true,
       sarasas: [],
       defaultOpenedDetails: [1],
       ieskoti: '',
@@ -205,6 +219,21 @@ export default {
       // Pass the element id here
       this.mobile_card = false;
       this.$htmlToPaper('printMe');
+    },
+    change_lt(){
+      this.rodyti_lt = !this.rodyti_lt
+      this.ieskoti = this.paieska
+      this.paieska_post()
+    },
+    change_lv(){
+      this.rodyti_lv = !this.rodyti_lv
+     this.ieskoti = this.paieska
+      this.paieska_post()
+    },
+    change_ee(){
+      this.rodyti_ee = !this.rodyti_ee
+      this.ieskoti = this.paieska
+      this.paieska_post()
     },
     switch_post(){
       //this.rikiuotic = !this.rikiuoti;

@@ -72,7 +72,7 @@ class PrekesController extends Controller
                     $pardavimai[$idx]['EE'] = array();
 
                     foreach($value as $val){
-                        if($val['salis'] == 1){
+                        if($key[1] && $val['salis'] == 1){
                             if(array_key_exists($val['sandelis'], $pardavimai[$idx]['LT'])){
                                 $kiek = $pardavimai[$idx]['LT'][$val['sandelis']]['kiekis'];
                             }else{
@@ -85,7 +85,7 @@ class PrekesController extends Controller
                             $list[$idx]['LT'][$val['sandelis']]['pardavimai'] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                             $list[$idx]['LT'][$val['sandelis']]['sandelis'] = $val['sandelis'];
                         }
-                        if($val['salis'] == 2){
+                        if($key[2] && $val['salis'] == 2){
                             if(array_key_exists($val['sandelis'], $pardavimai[$idx]['LV'])){
                                 $kiek = $pardavimai[$idx]['LV'][$val['sandelis']]['kiekis'];
                             }else{
@@ -98,7 +98,7 @@ class PrekesController extends Controller
                             $list[$idx]['LV'][$val['sandelis']]['pardavimai'] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                             $list[$idx]['LV'][$val['sandelis']]['sandelis'] = $val['sandelis'];
                         }
-                        if($val['salis'] == 3){
+                        if($key[3] && $val['salis'] == 3){
                             if(array_key_exists($val['sandelis'], $pardavimai[$idx]['EE'])){
                                 $kiek = $pardavimai[$idx]['EE'][$val['sandelis']]['kiekis'];
                             }else{
@@ -167,7 +167,7 @@ class PrekesController extends Controller
             }
 
             foreach($value as $val){
-                if($val['salis'] == 1){
+                if($key[1] && $val['salis'] == 1){
                     if(array_key_exists($val['sandelis'], $likuciai[$idx]['LT'])){
                         $kiek = $likuciai[$idx]['LT'][$val['sandelis']]['kiekis'];
                     }else{
@@ -180,7 +180,7 @@ class PrekesController extends Controller
                     $list[$idx]['LT'][$val['sandelis']]['likutis'] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $list[$idx]['LT'][$val['sandelis']]['sandelis'] = $val['sandelis'];
                 }
-                if($val['salis'] == 2){
+                if($key[2] && $val['salis'] == 2){
                     if(array_key_exists($val['sandelis'], $likuciai[$idx]['LV'])){
                         $kiek = $likuciai[$idx]['LV'][$val['sandelis']]['kiekis'];
                     }else{
@@ -194,7 +194,7 @@ class PrekesController extends Controller
                     $list[$idx]['LV'][$val['sandelis']]['likutis'] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $list[$idx]['LV'][$val['sandelis']]['sandelis'] = $val['sandelis'];
                 }
-                if($val['salis'] == 3){
+                if($key[3] && $val['salis'] == 3){
                     if(array_key_exists($val['sandelis'], $likuciai[$idx]['EE'])){
                         $kiek = $likuciai[$idx]['EE'][$val['sandelis']]['kiekis'];
                     }else{
