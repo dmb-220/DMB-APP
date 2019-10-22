@@ -1492,17 +1492,95 @@ var render = function() {
                       _vm._v(" "),
                       _c("th"),
                       _vm._v(" "),
-                      _c("th", [_vm._v(_vm._s(_vm.viso.lt_lik))]),
+                      _c(
+                        "th",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.rodyti_lt,
+                              expression: "rodyti_lt"
+                            }
+                          ]
+                        },
+                        [_vm._v(_vm._s(_vm.viso.lt_lik))]
+                      ),
                       _vm._v(" "),
-                      _c("th", [_vm._v(_vm._s(_vm.viso.lt_pard))]),
+                      _c(
+                        "th",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.rodyti_lt,
+                              expression: "rodyti_lt"
+                            }
+                          ]
+                        },
+                        [_vm._v(_vm._s(_vm.viso.lt_pard))]
+                      ),
                       _vm._v(" "),
-                      _c("th", [_vm._v(_vm._s(_vm.viso.lv_lik))]),
+                      _c(
+                        "th",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.rodyti_lv,
+                              expression: "rodyti_lv"
+                            }
+                          ]
+                        },
+                        [_vm._v(_vm._s(_vm.viso.lv_lik))]
+                      ),
                       _vm._v(" "),
-                      _c("th", [_vm._v(_vm._s(_vm.viso.lv_pard))]),
+                      _c(
+                        "th",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.rodyti_lv,
+                              expression: "rodyti_lv"
+                            }
+                          ]
+                        },
+                        [_vm._v(_vm._s(_vm.viso.lv_pard))]
+                      ),
                       _vm._v(" "),
-                      _c("th", [_vm._v(_vm._s(_vm.viso.ee_lik))]),
+                      _c(
+                        "th",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.rodyti_ee,
+                              expression: "rodyti_ee"
+                            }
+                          ]
+                        },
+                        [_vm._v(_vm._s(_vm.viso.ee_lik))]
+                      ),
                       _vm._v(" "),
-                      _c("th", [_vm._v(_vm._s(_vm.viso.ee_pard))]),
+                      _c(
+                        "th",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.rodyti_ee,
+                              expression: "rodyti_ee"
+                            }
+                          ]
+                        },
+                        [_vm._v(_vm._s(_vm.viso.ee_pard))]
+                      ),
                       _vm._v(" "),
                       _c("th")
                     ])

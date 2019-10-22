@@ -162,12 +162,12 @@
         <template slot="footer">
             <th> </th>
             <th> </th>
-            <th>{{ viso.lt_lik }}</th>
-            <th>{{ viso.lt_pard }}</th>
-            <th>{{ viso.lv_lik }}</th>
-            <th>{{ viso.lv_pard }}</th>
-            <th>{{ viso.ee_lik }}</th>
-            <th>{{ viso.ee_pard }}</th>
+            <th v-show='rodyti_lt'>{{ viso.lt_lik }}</th>
+            <th v-show='rodyti_lt'>{{ viso.lt_pard }}</th>
+            <th v-show='rodyti_lv'>{{ viso.lv_lik }}</th>
+            <th v-show='rodyti_lv'>{{ viso.lv_pard }}</th>
+            <th v-show='rodyti_ee'>{{ viso.ee_lik }}</th>
+            <th v-show='rodyti_ee'>{{ viso.ee_pard }}</th>
             <th> </th>
         </template>
       </b-table>

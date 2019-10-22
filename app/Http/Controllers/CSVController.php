@@ -116,7 +116,7 @@ class CSVController extends Controller
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                     $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-                    $kiek = explode(",", $duomenys[5]);
+                    $kiek = explode(",", $duomenys[6]);
                     $kiek = $kiek[0];
                     DB::table('pardavimais')->insert([
                         'preke' => $duomenys[2],
@@ -125,13 +125,13 @@ class CSVController extends Controller
                         'grupe' => $duomenys[3],
                         'sandelis' => $duomenys[0],
                         'kiekis' => $kiek,
-                        'pardavimo_kaina' => $duomenys[6],
-                        'pardavimo_suma' => $duomenys[6],
-                        'pvm' => $duomenys[7],
-                        'pvm_suma' => $duomenys[8],
-                        'suma' => $duomenys[9],
+                        'pardavimo_kaina' => $duomenys[7],
+                        'pardavimo_suma' => $duomenys[7],
+                        'pvm' => $duomenys[8],
+                        'pvm_suma' => $duomenys[9],
+                        'suma' => $duomenys[10],
                         'grupes_pavadinimas' => $duomenys[3],
-                        'registras' => " - ",
+                        'registras' => $duomenys[4],,
                         'salis' => $valstybe,
                         ]);
                 }
