@@ -721,16 +721,14 @@ var render = function() {
                                                 },
                                                 attrs: {
                                                   label: "Likučiai",
-                                                  field: "likutis.kiekis"
+                                                  field: "likutis",
+                                                  sortable: ""
                                                 }
                                               },
                                               [
                                                 _vm._v(
                                                   "\n                  " +
-                                                    _vm._s(
-                                                      props.row.likutis &&
-                                                        props.row.likutis.kiekis
-                                                    ) +
+                                                    _vm._s(props.row.likutis) +
                                                     "\n              "
                                                 )
                                               ]
@@ -745,16 +743,15 @@ var render = function() {
                                                 },
                                                 attrs: {
                                                   label: "Pardavimai",
-                                                  field: "pardavimai.kiekis"
+                                                  field: "pardavimai",
+                                                  sortable: ""
                                                 }
                                               },
                                               [
                                                 _vm._v(
                                                   "\n                  " +
                                                     _vm._s(
-                                                      props.row.pardavimai &&
-                                                        props.row.pardavimai
-                                                          .kiekis
+                                                      props.row.pardavimai
                                                     ) +
                                                     "\n              "
                                                 )

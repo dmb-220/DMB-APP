@@ -68,7 +68,7 @@ class StatistikaController extends Controller
                     $lt_viso = $lt_viso + $val['kiekis'];
                     $gr[$idx]['likutis'] = $lt_viso;
 
-                    $list[$idx][$val['preke']]['likutis'] = array('preke' => $val['preke'], 'kiekis' => $val['kiekis']);
+                    $list[$idx][$val['preke']]['likutis'] = $val['kiekis'];
                     $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
                 if($key[2] && $val['salis'] == 2){
@@ -76,7 +76,7 @@ class StatistikaController extends Controller
                     $lv_viso = $lv_viso + $val['kiekis'];
                     $gr[$idx]['likutis'] = $lv_viso;
 
-                    $list[$idx][$val['preke']]['likutis'] = array('preke' => $val['preke'], 'kiekis' => $val['kiekis']);
+                    $list[$idx][$val['preke']]['likutis'] = $val['kiekis'];
                     $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
                 if($key[3] && $val['salis'] == 3){
@@ -84,7 +84,7 @@ class StatistikaController extends Controller
                     $ee_viso = $ee_viso + $val['kiekis'];
                     $gr[$idx]['likutis'] = $ee_viso;
 
-                    $list[$idx][$val['preke']]['likutis'] = array('preke' => $val['preke'], 'kiekis' => $val['kiekis']);
+                    $list[$idx][$val['preke']]['likutis'] = $val['kiekis'];
                     $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
             }
@@ -115,7 +115,7 @@ class StatistikaController extends Controller
                     $lt_viso = $lt_viso + $val['kiekis'];
                     $par[$idx]['pardavimai'] = $lt_viso;
 
-                    $list[$idx][$val['preke']]['pardavimai'] = array('preke' => $val['preke'], 'kiekis' => $val['kiekis']);
+                    $list[$idx][$val['preke']]['pardavimai'] = $val['kiekis'];
                     $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
                 if($key[2] && $val['salis'] == 2){
@@ -123,7 +123,7 @@ class StatistikaController extends Controller
                     $lv_viso = $lv_viso + $val['kiekis'];
                     $par[$idx]['pardavimai'] = $lv_viso;
 
-                    $list[$idx][$val['preke']]['pardavimai'] = array('preke' => $val['preke'], 'kiekis' => $val['kiekis']);
+                    $list[$idx][$val['preke']]['pardavimai'] = $val['kiekis'];
                     $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
                 if($key[3] && $val['salis'] == 3){
@@ -131,7 +131,7 @@ class StatistikaController extends Controller
                     $ee_viso = $ee_viso + $val['kiekis'];
                     $par[$idx]['pardavimai'] = $ee_viso;
 
-                    $list[$idx][$val['preke']]['pardavimai'] = array('preke' => $val['preke'], 'kiekis' => $val['kiekis']);
+                    $list[$idx][$val['preke']]['pardavimai'] = $val['kiekis'];
                     $list[$idx][$val['preke']]['preke'] = $val['preke'];
             }
 

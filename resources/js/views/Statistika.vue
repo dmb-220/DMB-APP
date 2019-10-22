@@ -75,11 +75,11 @@
                   <b-table-column field="preke" label="Prekė" sortable>
                       {{ props.row.preke }}
                   </b-table-column>
-                  <b-table-column :style="{'background-color': 'LightGray'}" label="Likučiai" field="likutis.kiekis">
-                      {{ props.row.likutis && props.row.likutis.kiekis}}
+                  <b-table-column :style="{'background-color': 'LightGray'}" label="Likučiai" field="likutis" sortable >
+                      {{ props.row.likutis }}
                   </b-table-column>
-                  <b-table-column :style="{'background-color': 'LightGray'}" label="Pardavimai" field="pardavimai.kiekis">
-                      {{ props.row.pardavimai && props.row.pardavimai.kiekis}}
+                  <b-table-column :style="{'background-color': 'LightGray'}" label="Pardavimai" field="pardavimai" sortable>
+                      {{ props.row.pardavimai }}
                   </b-table-column>
               </template>
               </b-table>
