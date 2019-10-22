@@ -62,7 +62,6 @@ class StatistikaController extends Controller
 
         foreach ( $group2 as $idx => $value ) {
 
-
             foreach($value as $val){
                 if($key[1] && $val['salis'] == 1){
                     $group[$idx][] = $val;
@@ -109,7 +108,7 @@ class StatistikaController extends Controller
         $lv_viso = 0;
         $ee_viso = 0;
         foreach ( $pard as $idx => $value ) {
-
+            //echo $idx." - ".count($value)."<br>";
             foreach($value as $val){
                 if($key[1] && $val['salis'] == 1){
                     $pardavimai[$idx][] = $val;
@@ -136,7 +135,7 @@ class StatistikaController extends Controller
                     $list[$idx][$val['preke']]['preke'] = $val['preke'];
             }
 
-            $list[$idx] = array_values($list[$idx]);
+           
 
             $lt_viso = 0;
             $lv_viso = 0;
@@ -144,7 +143,11 @@ class StatistikaController extends Controller
         }
     }
 
-    
+    foreach($list as $idx => $value){
+        $list[$idx] = array_values($list[$idx]);
+    }
+
+
 
         $i=0;
         foreach($store as $valu){
