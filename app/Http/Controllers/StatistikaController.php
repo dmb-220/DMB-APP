@@ -61,9 +61,7 @@ class StatistikaController extends Controller
         $ee_viso = 0;
 
         foreach ( $group2 as $idx => $value ) {
-            $list[$idx]['LT'] = array();
-            $list[$idx]['LV'] = array();
-            $list[$idx]['EE'] = array();
+
 
             foreach($value as $val){
                 if($key[1] && $val['salis'] == 1){
@@ -71,24 +69,24 @@ class StatistikaController extends Controller
                     $lt_viso = $lt_viso + $val['kiekis'];
                     $gr[$idx]['likutis'] = $lt_viso;
 
-                    $list[$idx]['LT'][$val['preke']]['likutis'] = $val;
-                    $list[$idx]['LT'][$val['preke']]['preke'] = $val['preke'];
+                    $list[$idx][$val['preke']]['likutis'] = array('preke' => $val['preke'], 'kiekis' => $val['kiekis']);
+                    $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
                 if($key[2] && $val['salis'] == 2){
                     $group[$idx][] = $val;
                     $lv_viso = $lv_viso + $val['kiekis'];
                     $gr[$idx]['likutis'] = $lv_viso;
 
-                    $list[$idx]['LV'][$val['preke']]['likutis'] = $val;
-                    $list[$idx]['LV'][$val['preke']]['preke'] = $val['preke'];
+                    $list[$idx][$val['preke']]['likutis'] = array('preke' => $val['preke'], 'kiekis' => $val['kiekis']);
+                    $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
                 if($key[3] && $val['salis'] == 3){
                     $group[$idx][] = $val;
                     $ee_viso = $ee_viso + $val['kiekis'];
                     $gr[$idx]['likutis'] = $ee_viso;
 
-                    $list[$idx]['EE'][$val['preke']]['likutis'] = $val;
-                    $list[$idx]['EE'][$val['preke']]['preke'] = $val['preke'];
+                    $list[$idx][$val['preke']]['likutis'] = array('preke' => $val['preke'], 'kiekis' => $val['kiekis']);
+                    $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
             }
 
@@ -111,11 +109,6 @@ class StatistikaController extends Controller
         $lv_viso = 0;
         $ee_viso = 0;
         foreach ( $pard as $idx => $value ) {
-            if(!array_key_exists($idx, $list)){
-                $list[$idx]['LT'] = array();
-                $list[$idx]['LV'] = array();
-                $list[$idx]['EE'] = array();
-            }
 
             foreach($value as $val){
                 if($key[1] && $val['salis'] == 1){
@@ -123,8 +116,8 @@ class StatistikaController extends Controller
                     $lt_viso = $lt_viso + $val['kiekis'];
                     $par[$idx]['pardavimai'] = $lt_viso;
 
-                    $list[$idx]['LT'][$val['preke']]['pardavimai'] = $val;
-                    $list[$idx]['LT'][$val['preke']]['preke'] = $val['preke'];
+                    $list[$idx][$val['preke']]['pardavimai'] = array('preke' => $val['preke'], 'kiekis' => $val['kiekis']);
+                    $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
                 }
                 if($key[2] && $val['salis'] == 2){
@@ -132,21 +125,19 @@ class StatistikaController extends Controller
                     $lv_viso = $lv_viso + $val['kiekis'];
                     $par[$idx]['pardavimai'] = $lv_viso;
 
-                    $list[$idx]['LV'][$val['preke']]['pardavimai'] = $val;
-                    $list[$idx]['LV'][$val['preke']]['preke'] = $val['preke'];
+                    $list[$idx][$val['preke']]['pardavimai'] = array('preke' => $val['preke'], 'kiekis' => $val['kiekis']);
+                    $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
                 if($key[3] && $val['salis'] == 3){
                     $pardavimai[$idx][] = $val;
                     $ee_viso = $ee_viso + $val['kiekis'];
                     $par[$idx]['pardavimai'] = $ee_viso;
 
-                    $list[$idx]['EE'][$val['preke']]['pardavimai'] = $val;
-                    $list[$idx]['EE'][$val['preke']]['preke'] = $val['preke'];
+                    $list[$idx][$val['preke']]['pardavimai'] = array('preke' => $val['preke'], 'kiekis' => $val['kiekis']);
+                    $list[$idx][$val['preke']]['preke'] = $val['preke'];
             }
 
-            //$list[$idx]['LT'] = array_values($list[$idx]['LT']);
-            //$list[$idx]['LV'] = array_values($list[$idx]['LV']);
-            //$list[$idx]['EE'] = array_values($list[$idx]['EE']);
+            $list[$idx] = array_values($list[$idx]);
 
             $lt_viso = 0;
             $lv_viso = 0;

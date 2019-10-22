@@ -64,9 +64,8 @@
           <template slot="detail" slot-scope="props">
             <div class="columns">
             <div class="column" :style="{'border': '1px solid'}">
-              <div class="has-text-centered">Likučiai:</div>
               <b-table
-              :data="props.row.likutis"
+              :data="props.row.list"
               default-sort-direction="desc"
               default-sort="kiekis"
               :bordered="true"
@@ -76,27 +75,11 @@
                   <b-table-column field="preke" label="Prekė">
                       {{ props.row.preke }}
                   </b-table-column>
-                  <b-table-column field="kiekis" label="Kiekis" sortable>
-                      {{ props.row.kiekis }}
+                  <b-table-column field="likutis.kiekis" label="Likučiai" sortable>
+                      {{ props.row.likutis && props.row.likutis.kiekis}}
                   </b-table-column>
-              </template>
-              </b-table>
-            </div>
-            <div class="column" :style="{'border': '1px solid'}">
-              <div class="has-text-centered">Pardavimai:</div>
-              <b-table
-              :data="props.row.pardavimai"
-              default-sort-direction="desc"
-              default-sort="kiekis"
-              :bordered="true"
-              :striped="true"
-              :narrowed="true">
-              <template slot-scope="props">
-                  <b-table-column field="preke" label="Prekė">
-                      {{ props.row.preke }}
-                  </b-table-column>
-                  <b-table-column field="kiekis" label="Kiekis" sortable>
-                      {{ props.row.kiekis }}
+                  <b-table-column field="likutis.kiekis" label="Pardavimai" sortable>
+                      {{ props.row.pardavimai && props.row.pardavimai.kiekis}}
                   </b-table-column>
               </template>
               </b-table>

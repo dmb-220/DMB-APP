@@ -184,22 +184,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'statistika',
@@ -699,12 +683,12 @@ var render = function() {
                                 _c(
                                   "div",
                                   { staticClass: "has-text-centered" },
-                                  [_vm._v("Likučiai:")]
+                                  [_vm._v("...")]
                                 ),
                                 _vm._v(" "),
                                 _c("b-table", {
                                   attrs: {
-                                    data: props.row.likutis,
+                                    data: props.row.list,
                                     "default-sort-direction": "desc",
                                     "default-sort": "kiekis",
                                     bordered: true,
@@ -739,70 +723,17 @@ var render = function() {
                                               {
                                                 attrs: {
                                                   field: "kiekis",
-                                                  label: "Kiekis",
+                                                  label: "Likučiai",
                                                   sortable: ""
                                                 }
                                               },
                                               [
                                                 _vm._v(
                                                   "\n                  " +
-                                                    _vm._s(props.row.kiekis) +
-                                                    "\n              "
-                                                )
-                                              ]
-                                            )
-                                          ]
-                                        }
-                                      }
-                                    ],
-                                    null,
-                                    true
-                                  )
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass: "column",
-                                style: { border: "1px solid" }
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "has-text-centered" },
-                                  [_vm._v("Pardavimai:")]
-                                ),
-                                _vm._v(" "),
-                                _c("b-table", {
-                                  attrs: {
-                                    data: props.row.pardavimai,
-                                    "default-sort-direction": "desc",
-                                    "default-sort": "kiekis",
-                                    bordered: true,
-                                    striped: true,
-                                    narrowed: true
-                                  },
-                                  scopedSlots: _vm._u(
-                                    [
-                                      {
-                                        key: "default",
-                                        fn: function(props) {
-                                          return [
-                                            _c(
-                                              "b-table-column",
-                                              {
-                                                attrs: {
-                                                  field: "preke",
-                                                  label: "Prekė"
-                                                }
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\n                  " +
-                                                    _vm._s(props.row.preke) +
+                                                    _vm._s(
+                                                      props.row.likutis &&
+                                                        props.row.likutis.kiekis
+                                                    ) +
                                                     "\n              "
                                                 )
                                               ]
@@ -813,14 +744,18 @@ var render = function() {
                                               {
                                                 attrs: {
                                                   field: "kiekis",
-                                                  label: "Kiekis",
+                                                  label: "Pardavimai",
                                                   sortable: ""
                                                 }
                                               },
                                               [
                                                 _vm._v(
                                                   "\n                  " +
-                                                    _vm._s(props.row.kiekis) +
+                                                    _vm._s(
+                                                      props.row.pardavimai &&
+                                                        props.row.pardavimai
+                                                          .kiekis
+                                                    ) +
                                                     "\n              "
                                                 )
                                               ]
