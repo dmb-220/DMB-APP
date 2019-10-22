@@ -1070,376 +1070,364 @@ var render = function() {
                         key: "detail",
                         fn: function(props) {
                           return [
-                            _c(
-                              "div",
-                              {
-                                directives: [
-                                  {
-                                    name: "show",
-                                    rawName: "v-show",
-                                    value: _vm.rodyti_lt,
-                                    expression: "rodyti_lt"
+                            _c("div", { staticClass: "columns" }, [
+                              _c(
+                                "div",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.rodyti_lt,
+                                      expression: "rodyti_lt"
+                                    }
+                                  ],
+                                  staticClass: "column",
+                                  style: {
+                                    border: "1px dotted",
+                                    "background-color": "greenyellow"
                                   }
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "has-text-centered" },
+                                    [_vm._v("LIETUVA:")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("br"),
+                                  _vm._v(" "),
+                                  _c("b-table", {
+                                    attrs: {
+                                      data: props.row.list.LT,
+                                      "default-sort-direction": "asc",
+                                      "default-sort": "sandelis"
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function(props) {
+                                            return [
+                                              _c(
+                                                "b-table-column",
+                                                {
+                                                  attrs: {
+                                                    field: "sandelis",
+                                                    label: "Sandelis",
+                                                    sortable: ""
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                  " +
+                                                      _vm._s(
+                                                        props.row.sandelis
+                                                      ) +
+                                                      "\n              "
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-table-column",
+                                                {
+                                                  style: {
+                                                    "background-color":
+                                                      "LightGray"
+                                                  },
+                                                  attrs: {
+                                                    field: "likutis.kiekis",
+                                                    label: "Likuciai"
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                  " +
+                                                      _vm._s(
+                                                        props.row.likutis &&
+                                                          props.row.likutis
+                                                            .kiekis
+                                                      ) +
+                                                      "\n              "
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-table-column",
+                                                {
+                                                  style: {
+                                                    "background-color":
+                                                      "LightGray"
+                                                  },
+                                                  attrs: {
+                                                    field: "pardavimai.kiekis",
+                                                    label: "Pardavimai"
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                  " +
+                                                      _vm._s(
+                                                        props.row.pardavimai &&
+                                                          props.row.pardavimai
+                                                            .kiekis
+                                                      ) +
+                                                      "\n              "
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      null,
+                                      true
+                                    )
+                                  })
                                 ],
-                                staticClass: "columns"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass: "column",
-                                    style: {
-                                      border: "1px dotted",
-                                      "background-color": "greenyellow"
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.rodyti_lv,
+                                      expression: "rodyti_lv"
                                     }
-                                  },
-                                  [
-                                    _c(
-                                      "div",
-                                      { staticClass: "has-text-centered" },
-                                      [_vm._v("LIETUVA:")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("br"),
-                                    _vm._v(" "),
-                                    _c("b-table", {
-                                      attrs: {
-                                        data: props.row.list.LT,
-                                        "default-sort-direction": "asc",
-                                        "default-sort": "sandelis"
-                                      },
-                                      scopedSlots: _vm._u(
-                                        [
-                                          {
-                                            key: "default",
-                                            fn: function(props) {
-                                              return [
-                                                _c(
-                                                  "b-table-column",
-                                                  {
-                                                    attrs: {
-                                                      field: "sandelis",
-                                                      label: "Sandelis",
-                                                      sortable: ""
-                                                    }
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "\n                  " +
-                                                        _vm._s(
-                                                          props.row.sandelis
-                                                        ) +
-                                                        "\n              "
-                                                    )
-                                                  ]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-table-column",
-                                                  {
-                                                    style: {
-                                                      "background-color":
-                                                        "LightGray"
-                                                    },
-                                                    attrs: {
-                                                      field: "likutis.kiekis",
-                                                      label: "Likuciai"
-                                                    }
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "\n                  " +
-                                                        _vm._s(
-                                                          props.row.likutis &&
-                                                            props.row.likutis
-                                                              .kiekis
-                                                        ) +
-                                                        "\n              "
-                                                    )
-                                                  ]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-table-column",
-                                                  {
-                                                    style: {
-                                                      "background-color":
-                                                        "LightGray"
-                                                    },
-                                                    attrs: {
-                                                      field:
-                                                        "pardavimai.kiekis",
-                                                      label: "Pardavimai"
-                                                    }
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "\n                  " +
-                                                        _vm._s(
-                                                          props.row
-                                                            .pardavimai &&
-                                                            props.row.pardavimai
-                                                              .kiekis
-                                                        ) +
-                                                        "\n              "
-                                                    )
-                                                  ]
-                                                )
-                                              ]
-                                            }
-                                          }
-                                        ],
-                                        null,
-                                        true
-                                      )
-                                    })
                                   ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value: _vm.rodyti_lv,
-                                        expression: "rodyti_lv"
-                                      }
-                                    ],
-                                    staticClass: "column",
-                                    style: {
-                                      border: "1px dotted",
-                                      "background-color": "GoldenRod"
+                                  staticClass: "column",
+                                  style: {
+                                    border: "1px dotted",
+                                    "background-color": "GoldenRod"
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "has-text-centered" },
+                                    [_vm._v("LATVIJA:")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("br"),
+                                  _vm._v(" "),
+                                  _c("b-table", {
+                                    attrs: {
+                                      data: props.row.list.LV,
+                                      "default-sort-direction": "asc",
+                                      "default-sort": "sandelis"
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function(props) {
+                                            return [
+                                              _c(
+                                                "b-table-column",
+                                                {
+                                                  attrs: {
+                                                    field: "sandelis",
+                                                    label: "Sandelis",
+                                                    sortable: ""
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                  " +
+                                                      _vm._s(
+                                                        props.row.sandelis
+                                                      ) +
+                                                      "\n              "
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-table-column",
+                                                {
+                                                  style: {
+                                                    "background-color":
+                                                      "LightGray"
+                                                  },
+                                                  attrs: {
+                                                    field: "likutis.kiekis",
+                                                    label: "Likuciai"
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                  " +
+                                                      _vm._s(
+                                                        props.row.likutis &&
+                                                          props.row.likutis
+                                                            .kiekis
+                                                      ) +
+                                                      "\n              "
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-table-column",
+                                                {
+                                                  style: {
+                                                    "background-color":
+                                                      "LightGray"
+                                                  },
+                                                  attrs: {
+                                                    field: "pardavimai.kiekis",
+                                                    label: "Pardavimai"
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                  " +
+                                                      _vm._s(
+                                                        props.row.pardavimai &&
+                                                          props.row.pardavimai
+                                                            .kiekis
+                                                      ) +
+                                                      "\n              "
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      null,
+                                      true
+                                    )
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.rodyti_ee,
+                                      expression: "rodyti_ee"
                                     }
-                                  },
-                                  [
-                                    _c(
-                                      "div",
-                                      { staticClass: "has-text-centered" },
-                                      [_vm._v("LATVIJA:")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("br"),
-                                    _vm._v(" "),
-                                    _c("b-table", {
-                                      attrs: {
-                                        data: props.row.list.LV,
-                                        "default-sort-direction": "asc",
-                                        "default-sort": "sandelis"
-                                      },
-                                      scopedSlots: _vm._u(
-                                        [
-                                          {
-                                            key: "default",
-                                            fn: function(props) {
-                                              return [
-                                                _c(
-                                                  "b-table-column",
-                                                  {
-                                                    attrs: {
-                                                      field: "sandelis",
-                                                      label: "Sandelis",
-                                                      sortable: ""
-                                                    }
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "\n                  " +
-                                                        _vm._s(
-                                                          props.row.sandelis
-                                                        ) +
-                                                        "\n              "
-                                                    )
-                                                  ]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-table-column",
-                                                  {
-                                                    style: {
-                                                      "background-color":
-                                                        "LightGray"
-                                                    },
-                                                    attrs: {
-                                                      field: "likutis.kiekis",
-                                                      label: "Likuciai"
-                                                    }
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "\n                  " +
-                                                        _vm._s(
-                                                          props.row.likutis &&
-                                                            props.row.likutis
-                                                              .kiekis
-                                                        ) +
-                                                        "\n              "
-                                                    )
-                                                  ]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-table-column",
-                                                  {
-                                                    style: {
-                                                      "background-color":
-                                                        "LightGray"
-                                                    },
-                                                    attrs: {
-                                                      field:
-                                                        "pardavimai.kiekis",
-                                                      label: "Pardavimai"
-                                                    }
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "\n                  " +
-                                                        _vm._s(
-                                                          props.row
-                                                            .pardavimai &&
-                                                            props.row.pardavimai
-                                                              .kiekis
-                                                        ) +
-                                                        "\n              "
-                                                    )
-                                                  ]
-                                                )
-                                              ]
-                                            }
-                                          }
-                                        ],
-                                        null,
-                                        true
-                                      )
-                                    })
                                   ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value: _vm.rodyti_ee,
-                                        expression: "rodyti_ee"
-                                      }
-                                    ],
-                                    staticClass: "column",
-                                    style: {
-                                      border: "1px dotted",
-                                      "background-color": "tomato"
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "div",
-                                      { staticClass: "has-text-centered" },
-                                      [_vm._v("ESTIJA:")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("br"),
-                                    _vm._v(" "),
-                                    _c("b-table", {
-                                      attrs: {
-                                        data: props.row.list.EE,
-                                        "default-sort-direction": "asc",
-                                        "default-sort": "sandelis"
-                                      },
-                                      scopedSlots: _vm._u(
-                                        [
-                                          {
-                                            key: "default",
-                                            fn: function(props) {
-                                              return [
-                                                _c(
-                                                  "b-table-column",
-                                                  {
-                                                    attrs: {
-                                                      field: "sandelis",
-                                                      label: "Sandelis",
-                                                      sortable: ""
-                                                    }
+                                  staticClass: "column",
+                                  style: {
+                                    border: "1px dotted",
+                                    "background-color": "tomato"
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "has-text-centered" },
+                                    [_vm._v("ESTIJA:")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("br"),
+                                  _vm._v(" "),
+                                  _c("b-table", {
+                                    attrs: {
+                                      data: props.row.list.EE,
+                                      "default-sort-direction": "asc",
+                                      "default-sort": "sandelis"
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function(props) {
+                                            return [
+                                              _c(
+                                                "b-table-column",
+                                                {
+                                                  attrs: {
+                                                    field: "sandelis",
+                                                    label: "Sandelis",
+                                                    sortable: ""
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                  " +
+                                                      _vm._s(
+                                                        props.row.sandelis
+                                                      ) +
+                                                      "\n              "
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-table-column",
+                                                {
+                                                  style: {
+                                                    "background-color":
+                                                      "LightGray"
                                                   },
-                                                  [
-                                                    _vm._v(
-                                                      "\n                  " +
-                                                        _vm._s(
-                                                          props.row.sandelis
-                                                        ) +
-                                                        "\n              "
-                                                    )
-                                                  ]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-table-column",
-                                                  {
-                                                    style: {
-                                                      "background-color":
-                                                        "LightGray"
-                                                    },
-                                                    attrs: {
-                                                      field: "likutis.kiekis",
-                                                      label: "Likuciai"
-                                                    }
+                                                  attrs: {
+                                                    field: "likutis.kiekis",
+                                                    label: "Likuciai"
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                  " +
+                                                      _vm._s(
+                                                        props.row.likutis &&
+                                                          props.row.likutis
+                                                            .kiekis
+                                                      ) +
+                                                      "\n              "
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-table-column",
+                                                {
+                                                  style: {
+                                                    "background-color":
+                                                      "LightGray"
                                                   },
-                                                  [
-                                                    _vm._v(
-                                                      "\n                  " +
-                                                        _vm._s(
-                                                          props.row.likutis &&
-                                                            props.row.likutis
-                                                              .kiekis
-                                                        ) +
-                                                        "\n              "
-                                                    )
-                                                  ]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-table-column",
-                                                  {
-                                                    style: {
-                                                      "background-color":
-                                                        "LightGray"
-                                                    },
-                                                    attrs: {
-                                                      field:
-                                                        "pardavimai.kiekis",
-                                                      label: "Pardavimai"
-                                                    }
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "\n                  " +
-                                                        _vm._s(
-                                                          props.row
-                                                            .pardavimai &&
-                                                            props.row.pardavimai
-                                                              .kiekis
-                                                        ) +
-                                                        "\n              "
-                                                    )
-                                                  ]
-                                                )
-                                              ]
-                                            }
+                                                  attrs: {
+                                                    field: "pardavimai.kiekis",
+                                                    label: "Pardavimai"
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                  " +
+                                                      _vm._s(
+                                                        props.row.pardavimai &&
+                                                          props.row.pardavimai
+                                                            .kiekis
+                                                      ) +
+                                                      "\n              "
+                                                  )
+                                                ]
+                                              )
+                                            ]
                                           }
-                                        ],
-                                        null,
-                                        true
-                                      )
-                                    })
-                                  ],
-                                  1
-                                )
-                              ]
-                            )
+                                        }
+                                      ],
+                                      null,
+                                      true
+                                    )
+                                  })
+                                ],
+                                1
+                              )
+                            ])
                           ]
                         }
                       }

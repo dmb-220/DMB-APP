@@ -79,8 +79,8 @@
         </template> 
 
         <template slot="detail" slot-scope="props">
-          <div v-show='rodyti_lt' class="columns">
-          <div class="column" :style="{'border': '1px dotted', 'background-color': 'greenyellow'}">
+          <div  class="columns">
+          <div v-show='rodyti_lt' class="column" :style="{'border': '1px dotted', 'background-color': 'greenyellow'}">
             <div class="has-text-centered">LIETUVA:</div>
             <br>
             <b-table
