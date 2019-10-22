@@ -78,7 +78,7 @@
                   <b-table-column field="likutis.kiekis" label="Likučiai" sortable>
                       {{ props.row.likutis && props.row.likutis.kiekis}}
                   </b-table-column>
-                  <b-table-column field="likutis.kiekis" label="Pardavimai" sortable>
+                  <b-table-column field="pardavimai.kiekis" label="Pardavimai" sortable>
                       {{ props.row.pardavimai && props.row.pardavimai.kiekis}}
                   </b-table-column>
               </template>
