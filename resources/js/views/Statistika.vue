@@ -72,13 +72,13 @@
               :striped="true"
               :narrowed="true">
               <template slot-scope="props">
-                  <b-table-column field="preke" label="Prekė">
+                  <b-table-column field="preke" label="Prekė" sortable>
                       {{ props.row.preke }}
                   </b-table-column>
-                  <b-table-column field="likutis.kiekis" label="Likučiai" sortable>
+                  <b-table-column :style="{'background-color': 'LightGray'}" label="Likučiai" field="likutis.kiekis">
                       {{ props.row.likutis && props.row.likutis.kiekis}}
                   </b-table-column>
-                  <b-table-column field="pardavimai.kiekis" label="Pardavimai" sortable>
+                  <b-table-column :style="{'background-color': 'LightGray'}" label="Pardavimai" field="pardavimai.kiekis">
                       {{ props.row.pardavimai && props.row.pardavimai.kiekis}}
                   </b-table-column>
               </template>

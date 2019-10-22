@@ -699,7 +699,8 @@ var render = function() {
                                               {
                                                 attrs: {
                                                   field: "preke",
-                                                  label: "Prekė"
+                                                  label: "Prekė",
+                                                  sortable: ""
                                                 }
                                               },
                                               [
@@ -714,10 +715,13 @@ var render = function() {
                                             _c(
                                               "b-table-column",
                                               {
+                                                style: {
+                                                  "background-color":
+                                                    "LightGray"
+                                                },
                                                 attrs: {
-                                                  field: "likutis.kiekis",
                                                   label: "Likučiai",
-                                                  sortable: ""
+                                                  field: "likutis.kiekis"
                                                 }
                                               },
                                               [
@@ -735,10 +739,13 @@ var render = function() {
                                             _c(
                                               "b-table-column",
                                               {
+                                                style: {
+                                                  "background-color":
+                                                    "LightGray"
+                                                },
                                                 attrs: {
-                                                  field: "pardavimai.kiekis",
                                                   label: "Pardavimai",
-                                                  sortable: ""
+                                                  field: "pardavimai.kiekis"
                                                 }
                                               },
                                               [

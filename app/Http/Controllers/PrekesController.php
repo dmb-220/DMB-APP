@@ -226,15 +226,18 @@ class PrekesController extends Controller
             $likuciai[$idx]['LV'] = array_values($likuciai[$idx]['LV']);
             $likuciai[$idx]['EE'] = array_values($likuciai[$idx]['EE']);
 
-            $list[$idx]['LT'] = array_values($list[$idx]['LT']);
-            $list[$idx]['LV'] = array_values($list[$idx]['LV']);
-            $list[$idx]['EE'] = array_values($list[$idx]['EE']);
 
             $likuciai[$idx]['viso'] = $ee_viso + $lv_viso + $lt_viso;
             $lt_viso = 0;
             $lv_viso = 0;
             $ee_viso = 0;
             //$i++;
+        }
+
+        foreach($list as $idx => $value){
+            $list[$idx]['LT'] = array_values($list[$idx]['LT']);
+            $list[$idx]['LV'] = array_values($list[$idx]['LV']);
+            $list[$idx]['EE'] = array_values($list[$idx]['EE']);
         }
 
         //reikia sukti cikla ir islyginti eilutes prie prekiu

@@ -135,12 +135,11 @@ class StatistikaController extends Controller
                     $list[$idx][$val['preke']]['preke'] = $val['preke'];
             }
 
-           
+        }
 
             $lt_viso = 0;
             $lv_viso = 0;
             $ee_viso = 0;
-        }
     }
 
     foreach($list as $idx => $value){
