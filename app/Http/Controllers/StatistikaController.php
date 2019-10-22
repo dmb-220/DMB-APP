@@ -119,7 +119,6 @@ class StatistikaController extends Controller
                     $list[$idx][$val['preke']]['pardavimai'] = array('preke' => $val['preke'], 'kiekis' => $val['kiekis']);
                     $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
-                }
                 if($key[2] && $val['salis'] == 2){
                     $pardavimai[$idx][] = $val;
                     $lv_viso = $lv_viso + $val['kiekis'];
