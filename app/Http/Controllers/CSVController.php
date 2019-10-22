@@ -131,7 +131,7 @@ class CSVController extends Controller
                         'pvm_suma' => $duomenys[9],
                         'suma' => $duomenys[10],
                         'grupes_pavadinimas' => $duomenys[3],
-                        'registras' => $duomenys[4],,
+                        'registras' => $duomenys[4],
                         'salis' => $valstybe,
                         ]);
                 }
