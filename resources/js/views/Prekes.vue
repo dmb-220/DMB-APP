@@ -219,11 +219,10 @@
 import map from 'lodash/map'
 import CardComponent from '@/components/CardComponent'
 import CardToolbar from '@/components/CardToolbar'
-import ModalInfoBox from '@/components/ModalInfoBox'
 
 export default {
   name: "Prekes",
-  components: {CardToolbar, CardComponent, ModalInfoBox},
+  components: {CardToolbar, CardComponent},
   data () {
     return {
       isLoading: false,
