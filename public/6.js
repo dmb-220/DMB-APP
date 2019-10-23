@@ -284,6 +284,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -657,7 +658,7 @@ var render = function() {
       [
         _c(
           "card-component",
-          { attrs: { title: "PREKES", icon: "account-multiple" } },
+          { attrs: { title: "VALDYMAS", icon: "account-multiple" } },
           [
             _c(
               "b-field",
@@ -713,7 +714,7 @@ var render = function() {
                 _c(
                   "b-checkbox",
                   {
-                    attrs: { value: false, type: "is-danger" },
+                    attrs: { value: false, type: "is-info" },
                     model: {
                       value: _vm.paieska_big,
                       callback: function($$v) {
@@ -814,6 +815,7 @@ var render = function() {
                 _c(
                   "b-switch",
                   {
+                    attrs: { type: "is-info" },
                     nativeOn: {
                       click: function($event) {
                         return _vm.switch_post($event)
@@ -835,10 +837,15 @@ var render = function() {
                 )
               ],
               1
-            ),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "card-component",
+          { attrs: { title: "PREKIŲ SĄRAŠAS", icon: "account-multiple" } },
+          [
             _c(
               "div",
               { attrs: { id: "printMe" } },
@@ -1654,8 +1661,7 @@ var render = function() {
               ],
               1
             )
-          ],
-          1
+          ]
         )
       ],
       1

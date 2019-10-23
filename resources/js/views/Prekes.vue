@@ -1,14 +1,14 @@
 <template>
   <div>
     <section class="section is-main-section">
-      <card-component title="PREKES" icon="account-multiple">
+      <card-component title="VALDYMAS" icon="account-multiple">
           <b-field label="PAIEŠKA:" horizontal>
             <b-input placeholder="Paieška..." type="search" @keyup.native.enter="paieska_post" 
             required v-model="ieskoti" icon="magnify"></b-input> 
             <b-button native-type="submit" type="is-primary" @click="paieska_post" outlined>Ieškoti</b-button>
         </b-field>
         <b-field label=" " horizontal>
-            <b-checkbox :value="false" v-model="paieska_big" type="is-danger">Aktivuoti išplėstinę paieška</b-checkbox>
+            <b-checkbox :value="false" v-model="paieska_big" type="is-info">Aktivuoti išplėstinę paieška</b-checkbox>
         </b-field>
         <b-field label="RODYTI:" horizontal>
           <b-button :type="rodyti_lt ? 'is-primary' : 'is-dark'" @click="change_lt()">LIETUVA</b-button>
@@ -20,11 +20,12 @@
           <b-button :type="pirk ? 'is-info' : 'is-dark'" @click="change_pirk()">PIRKIMAI</b-button>
         </b-field>
         <b-field label="GRUPAVIMAS:" horizontal>
-          <b-switch v-model="rikiuoti" @click.native="switch_post">
+          <b-switch type="is-info" v-model="rikiuoti" @click.native="switch_post">
             Veikia TIK su mūsų GAM gaminiais! 
           </b-switch>
         </b-field>
-        <hr>
+        </card-component>
+        <card-component title="PREKIŲ SĄRAŠAS" icon="account-multiple">
         <div  id="printMe">
         <div class="columns">
           <div class="column has-text-centered has-text-weight-bold">

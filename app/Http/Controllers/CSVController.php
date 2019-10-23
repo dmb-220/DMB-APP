@@ -96,13 +96,6 @@ class CSVController extends Controller
         $directory  = "app/CSV_DATA/";
         $failas = $directory.$failas;
 
-        //patikrinti ar yra tai valstybei ikelti duomenys,
-        //jei yra neleisti ikelti, pranesti kad istrintu senus duomenis, 
-        //arba pazymeti varnele, kad seni isitrintu
-        //perkelti is CIA i pardavimai Controller
-        //jei duomenys sukrito i duomenu base
-        //pasidaryti to failo istrinima, kad nesimaisytu
-
         //daromas pardavimu užkėlimas
         if($tipas == 1){
             //Uzkelime LIETUVOS ir LATVIJOS duomenis
@@ -139,13 +132,19 @@ class CSVController extends Controller
                 }
                 
             }
-            //uzkeliame ESTIJOS pardavimusduomenis
+            //uzkeliame ESTIJOS pardavimu duomenis
             if($valstybe == 3){
                 DB::table('pardavimais')->where('salis', 3)->delete();
                 //reikia EST Gamyba irasant pakeisti i GAM, o Pirkimas i PIRK
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                         $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                        if($duomenys[0] == "Gamyba"){
+                            $reg = "GAM";
+                        }
+                        if($duomenys[0] == "Pirk"){
+                            $reg = "PIRK";
+                        }
                         DB::table('pardavimais')->insert([
                             'preke' => $duomenys[8],
                             'pavadinimas' => $duomenys[3],
@@ -159,7 +158,7 @@ class CSVController extends Controller
                             'pvm_suma' => 0,
                             'suma' => 0,
                             'grupes_pavadinimas' => 0,
-                            'registras' => $duomenys[0],
+                            'registras' => $reg,
                             'salis' => $valstybe,
                             ]);
                     }
@@ -204,6 +203,13 @@ class CSVController extends Controller
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                         $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                        if($duomenys[2] == "Gamyba"){
+                            $reg = "GAM";
+                        }
+                        if($duomenys[2] == "Pirk"){
+                            $reg = "PIRK";
+                        }
+                        
                         DB::table('likutis')->insert([
                             'preke' => $duomenys[6],
                             'pavadinimas' => $duomenys[1],
@@ -211,7 +217,7 @@ class CSVController extends Controller
                             'kiekis' => $duomenys[7],
                             'suma' => $duomenys[8],
                             'sandelis' => $duomenys[5],
-                            'registras' => $duomenys[2],
+                            'registras' => $reg,
                             'salis' => $valstybe,
                             ]);
                     }
