@@ -26,7 +26,7 @@
             <div class="column has-text-centered has-text-weight-bold">{{ paieska }}</div>
           </div>
           <b-table
-          :mobile-cards="false"
+          :mobile-cards="mobile_card"
           bordered
           hoverable
           :narrowed="isNarrowed"
@@ -143,7 +143,7 @@ export default {
      rodyti_lv: true,
      rodyti_ee: true,
      salis: '',
-     antras_stulpas: false
+     mobile_card: true,
     }
   },
   computed: {
@@ -156,6 +156,7 @@ export default {
   methods: {
     print() {
       // Pass the element id here
+      this.mobile_card = false;
       this.$htmlToPaper('printMe');
     },
     change_lt(){
