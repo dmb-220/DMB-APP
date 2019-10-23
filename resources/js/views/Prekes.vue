@@ -98,7 +98,7 @@
                 </b-table-column>
             </template>
             </b-table>
-            <br>
+            <br v-if="props.row.akcija_lt.length > 0">
             <b-table
             :data="props.row.list.LT"
             default-sort-direction="asc"
@@ -135,7 +135,7 @@
                 </b-table-column>
             </template>
             </b-table>
-            <br>
+            <br v-if="props.row.akcija_lv.length > 0">
             <b-table
             :data="props.row.list.LV"
             default-sort-direction="asc"
