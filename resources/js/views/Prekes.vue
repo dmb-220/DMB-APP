@@ -26,7 +26,6 @@
         </b-field>
         </card-component>
         <card-component title="PREKIŲ SĄRAŠAS" icon="account-multiple">
-          <modal-info-box :is-active="isModalInfo" :info-subject="infoObjectName" @confirm="infoConfirm" @cancel="infoCancel"/>
         <div  id="printMe">
         <div class="columns">
           <div class="column has-text-centered has-text-weight-bold">
@@ -227,8 +226,6 @@ export default {
   components: {CardToolbar, CardComponent, ModalInfoBox},
   data () {
     return {
-      isModalInfo: false,
-      infoObject: null,
       isLoading: false,
       rodyti_lt: true,
      rodyti_lv: true,
@@ -247,12 +244,6 @@ export default {
     }
   },
   computed: {
-    infoObjectName () {
-      if (this.infoObject) {
-        return this.infoObject
-      }
-      return null
-    },
   },
   created () {
     this.getData()
@@ -377,18 +368,6 @@ export default {
               queue: false
             })
           })
-    },
-    //Modal info
-    infoModal (infoObject) {
-      this.infoObject = infoObject
-      this.isModalInfo = true
-    },
-    infoConfirm () {
-      this.isModalInfo = false
-    },
-
-    infoCancel () {
-      this.isModalInfo = false
     },
   }
 }

@@ -443,7 +443,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -457,8 +456,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      isModalInfo: false,
-      infoObject: null,
       isLoading: false,
       rodyti_lt: true,
       rodyti_lv: true,
@@ -476,15 +473,7 @@ __webpack_require__.r(__webpack_exports__);
       viso: []
     };
   },
-  computed: {
-    infoObjectName: function infoObjectName() {
-      if (this.infoObject) {
-        return this.infoObject;
-      }
-
-      return null;
-    }
-  },
+  computed: {},
   created: function created() {
     this.getData();
   },
@@ -604,17 +593,6 @@ __webpack_require__.r(__webpack_exports__);
           queue: false
         });
       });
-    },
-    //Modal info
-    infoModal: function infoModal(infoObject) {
-      this.infoObject = infoObject;
-      this.isModalInfo = true;
-    },
-    infoConfirm: function infoConfirm() {
-      this.isModalInfo = false;
-    },
-    infoCancel: function infoCancel() {
-      this.isModalInfo = false;
     }
   }
 });
@@ -1149,14 +1127,6 @@ var render = function() {
           "card-component",
           { attrs: { title: "PREKIŲ SĄRAŠAS", icon: "account-multiple" } },
           [
-            _c("modal-info-box", {
-              attrs: {
-                "is-active": _vm.isModalInfo,
-                "info-subject": _vm.infoObjectName
-              },
-              on: { confirm: _vm.infoConfirm, cancel: _vm.infoCancel }
-            }),
-            _vm._v(" "),
             _c(
               "div",
               { attrs: { id: "printMe" } },
@@ -2134,8 +2104,7 @@ var render = function() {
               ],
               1
             )
-          ],
-          1
+          ]
         )
       ],
       1
