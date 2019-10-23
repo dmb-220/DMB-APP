@@ -226,6 +226,63 @@ class CSVController extends Controller
             }
         }
 
+         //daromas AKCIJU uzkelimas
+         if($tipas == 3){
+            //Uzkelime LIETUVOS ir LATVIJOS duomenis
+            if($valstybe == 1 || $valstybe == 2){
+                if($valstybe == 1){
+                    DB::table('akcijos')->where('salis', 1)->delete();
+                }
+                if($valstybe == 2){
+                    DB::table('akcijos')->where('salis', 2)->delete();
+                }
+                if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                    DB::table('akcijos')->insert([
+                        'akcija' => $duomenys[0],
+                        'galioja_nuo' => $duomenys[1],
+                        'galioja_iki' => $duomenys[2],
+                        'pavadinimas' => $duomenys[4],
+                        'preke' => $duomenys[3],
+                        'sandelis' => $duomenys[8],
+                        'kaina' => $duomenys[5],
+                        'salis' => $valstybe,
+                        ]);
+                }
+                fclose($handle);
+                }
+            }
+            //uzkeliame ESTIJOS duomenis
+            /*if($valstybe == 3){
+                DB::table('likutis')->where('salis', 3)->delete();
+                //reikia EST Gamyba irasant pakeisti i GAM, o Pirkimas i PIRK
+                if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
+                    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                        $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                        if($duomenys[2] == "Gamyba"){
+                            $reg = "GAM";
+                        }
+                        if($duomenys[2] == "Pirk"){
+                            $reg = "PIRK";
+                        }
+                        
+                        DB::table('likutis')->insert([
+                            'preke' => $duomenys[6],
+                            'pavadinimas' => $duomenys[1],
+                            'kaina' => 0,
+                            'kiekis' => $duomenys[7],
+                            'suma' => $duomenys[8],
+                            'sandelis' => $duomenys[5],
+                            'registras' => $reg,
+                            'salis' => $valstybe,
+                            ]);
+                    }
+                    fclose($handle);
+                }
+            }*/
+        }
+
         //$ats = Storage::delete($failas);
         $ats = unlink(storage_path($failas));
         

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Pardavimai;
 use App\Likutis;
+use App\Akcijos;
 
 class PrekesController extends Controller
 {
@@ -51,110 +52,128 @@ class PrekesController extends Controller
             $pa = "{$keyword}%";
         }
 
-                //Sudedam norimus pardavimus
-                if($gam && $pirk){
-                    $res = Pardavimai::query()
-                    ->where('preke', 'like', $pa)->get();
-                }else if($gam && !$pirk){
-                    $res = Pardavimai::query()
-                    ->where('preke', 'like', $pa)
-                    ->where('registras', 'GAM')->get();
-                }else if(!$gam && $pirk){
-                    $res = Pardavimai::query()
-                    ->where('preke', 'like', $pa)
-                    ->where('registras', 'PIRK')->get();
-                }else{
-                    $res = array();
+        //Akciju sukelimas i masyva
+        $akc = Akcijos::query()
+            ->where('preke', 'like', $pa)->get();
+        
+        foreach ( $akc as $value ) {
+            //sudeti i masyva tik tuos kurie galioja
+            //$metai = explode(" ", $value['galioja_iki']);
+            if(strtotime($value['galioja_iki']) > strtotime(date("Y-m-d H:i:s"))){
+                if($value['salis'] == "1"){
+                    $akcija['lietuva'][$value['preke']][] = $value;
                 }
+                if($value['salis'] == "2"){
+                    $akcija['latvija'][$value['preke']][] = $value;
+                }
+            }
+        }
 
-                $pardavimas = array();
-                foreach ( $res as $value ) {
-                    if($value['sandelis'] != "TELSIAI" && $value['sandelis'] != "3333"){
-                        if($value['kiekis'] > 0){
-                            if($rikiuoti){
-                                $pardavimas[$value['preke']][] = $value;
-                            }else{
-                                $a = explode("-", $value['preke']);
-                                $ne = $a[0]."-".$a[1]."-";
-                                $pardavimas[$ne][] = $value;
-                            }
-                        }
+
+        //Sudedam norimus pardavimus
+        if($gam && $pirk){
+            $res = Pardavimai::query()
+            ->where('preke', 'like', $pa)->get();
+        }else if($gam && !$pirk){
+            $res = Pardavimai::query()
+            ->where('preke', 'like', $pa)
+            ->where('registras', 'GAM')->get();
+        }else if(!$gam && $pirk){
+            $res = Pardavimai::query()
+            ->where('preke', 'like', $pa)
+            ->where('registras', 'PIRK')->get();
+        }else{
+            $res = array();
+        }
+
+        $pardavimas = array();
+        foreach ( $res as $value ) {
+            if($value['sandelis'] != "TELSIAI" && $value['sandelis'] != "3333"){
+                if($value['kiekis'] > 0){
+                    if($rikiuoti){
+                        $pardavimas[$value['preke']][] = $value;
+                    }else{
+                        $a = explode("-", $value['preke']);
+                        $ne = $a[0]."-".$a[1]."-";
+                        $pardavimas[$ne][] = $value;
                     }
                 }
-        
-                //$i=0;
-                $lt_viso = 0;
-                $lv_viso = 0;
-                $ee_viso = 0;
+            }
+        }
 
-                foreach ( $pardavimas as $idx => $value ) {
-                    //$pardavimai[$idx]['preke'] = $idx;
-                    $sarasas[] = $idx;
+        //$i=0;
+        $lt_viso = 0;
+        $lv_viso = 0;
+        $ee_viso = 0;
 
-                $list[$idx]['LT'] = array();
-                $list[$idx]['LV'] = array();
-                $list[$idx]['EE'] = array();
-                    
-                    $pardavimai[$idx]['pavadinimas'] = $value[0]['pavadinimas'];
-                    $pardavimai[$idx]['LT'] = array();
-                    $pardavimai[$idx]['LV'] = array();
-                    $pardavimai[$idx]['EE'] = array();
+        foreach ( $pardavimas as $idx => $value ) {
+            //$pardavimai[$idx]['preke'] = $idx;
+            $sarasas[] = $idx;
 
-                    foreach($value as $val){
-                        if($key[1] && $val['salis'] == 1){
-                            if(array_key_exists($val['sandelis'], $pardavimai[$idx]['LT'])){
-                                $kiek = $pardavimai[$idx]['LT'][$val['sandelis']]['kiekis'];
-                            }else{
-                                $kiek = 0;
-                            }
-                            //$pardavimai[$idx]['LT'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
-                            $lt_viso = $lt_viso + $val['kiekis'];
-                            $pardavimai[$idx]['LT_viso'] = $lt_viso;
+        $list[$idx]['LT'] = array();
+        $list[$idx]['LV'] = array();
+        $list[$idx]['EE'] = array();
+            
+            $pardavimai[$idx]['pavadinimas'] = $value[0]['pavadinimas'];
+            $pardavimai[$idx]['LT'] = array();
+            $pardavimai[$idx]['LV'] = array();
+            $pardavimai[$idx]['EE'] = array();
 
-                            $list[$idx]['LT'][$val['sandelis']]['pardavimai'] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
-                            $list[$idx]['LT'][$val['sandelis']]['sandelis'] = $val['sandelis'];
-                        }
-                        if($key[2] && $val['salis'] == 2){
-                            if(array_key_exists($val['sandelis'], $pardavimai[$idx]['LV'])){
-                                $kiek = $pardavimai[$idx]['LV'][$val['sandelis']]['kiekis'];
-                            }else{
-                                $kiek = 0;
-                            }
-                            //$pardavimai[$idx]['LV'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
-                            $lv_viso = $lv_viso + $val['kiekis'];
-                            $pardavimai[$idx]['LV_viso'] = $lv_viso;
-
-                            $list[$idx]['LV'][$val['sandelis']]['pardavimai'] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
-                            $list[$idx]['LV'][$val['sandelis']]['sandelis'] = $val['sandelis'];
-                        }
-                        if($key[3] && $val['salis'] == 3){
-                            if(array_key_exists($val['sandelis'], $pardavimai[$idx]['EE'])){
-                                $kiek = $pardavimai[$idx]['EE'][$val['sandelis']]['kiekis'];
-                            }else{
-                                $kiek = 0;
-                            }
-                            //$pardavimai[$idx]['EE'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
-                            $ee_viso = $ee_viso + $val['kiekis'];
-                            $pardavimai[$idx]['EE_viso'] = $ee_viso;
-
-                            $list[$idx]['EE'][$val['sandelis']]['pardavimai'] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
-                            $list[$idx]['EE'][$val['sandelis']]['sandelis'] = $val['sandelis'];
-                        }
+            foreach($value as $val){
+                if($key[1] && $val['salis'] == 1){
+                    if(array_key_exists($val['sandelis'], $pardavimai[$idx]['LT'])){
+                        $kiek = $pardavimai[$idx]['LT'][$val['sandelis']]['kiekis'];
+                    }else{
+                        $kiek = 0;
                     }
-                    //$key_lt_pardavimai = array_keys($pardavimai[$idx]['LT']);
-        
-                    $pardavimai[$idx]['LT'] = array_values($pardavimai[$idx]['LT']);
-                    $pardavimai[$idx]['LV'] = array_values($pardavimai[$idx]['LV']);
-                    $pardavimai[$idx]['EE'] = array_values($pardavimai[$idx]['EE']);
+                    //$pardavimai[$idx]['LT'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
+                    $lt_viso = $lt_viso + $val['kiekis'];
+                    $pardavimai[$idx]['LT_viso'] = $lt_viso;
 
-                    //$list[$idx]['LT'] = array_values($list[$idx]['LT']);
-        
-                    $pardavimai[$idx]['viso'] = $ee_viso + $lv_viso + $lt_viso;
-                    $lt_viso = 0;
-                    $lv_viso = 0;
-                    $ee_viso = 0;
-                    //$i++;
+                    $list[$idx]['LT'][$val['sandelis']]['pardavimai'] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
+                    $list[$idx]['LT'][$val['sandelis']]['sandelis'] = $val['sandelis'];
                 }
+                if($key[2] && $val['salis'] == 2){
+                    if(array_key_exists($val['sandelis'], $pardavimai[$idx]['LV'])){
+                        $kiek = $pardavimai[$idx]['LV'][$val['sandelis']]['kiekis'];
+                    }else{
+                        $kiek = 0;
+                    }
+                    //$pardavimai[$idx]['LV'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
+                    $lv_viso = $lv_viso + $val['kiekis'];
+                    $pardavimai[$idx]['LV_viso'] = $lv_viso;
+
+                    $list[$idx]['LV'][$val['sandelis']]['pardavimai'] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
+                    $list[$idx]['LV'][$val['sandelis']]['sandelis'] = $val['sandelis'];
+                }
+                if($key[3] && $val['salis'] == 3){
+                    if(array_key_exists($val['sandelis'], $pardavimai[$idx]['EE'])){
+                        $kiek = $pardavimai[$idx]['EE'][$val['sandelis']]['kiekis'];
+                    }else{
+                        $kiek = 0;
+                    }
+                    //$pardavimai[$idx]['EE'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
+                    $ee_viso = $ee_viso + $val['kiekis'];
+                    $pardavimai[$idx]['EE_viso'] = $ee_viso;
+
+                    $list[$idx]['EE'][$val['sandelis']]['pardavimai'] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
+                    $list[$idx]['EE'][$val['sandelis']]['sandelis'] = $val['sandelis'];
+                }
+            }
+            //$key_lt_pardavimai = array_keys($pardavimai[$idx]['LT']);
+
+            $pardavimai[$idx]['LT'] = array_values($pardavimai[$idx]['LT']);
+            $pardavimai[$idx]['LV'] = array_values($pardavimai[$idx]['LV']);
+            $pardavimai[$idx]['EE'] = array_values($pardavimai[$idx]['EE']);
+
+            //$list[$idx]['LT'] = array_values($list[$idx]['LT']);
+
+            $pardavimai[$idx]['viso'] = $ee_viso + $lv_viso + $lt_viso;
+            $lt_viso = 0;
+            $lv_viso = 0;
+            $ee_viso = 0;
+            //$i++;
+        }
 
         //Sudedam norimus likucius
         if($gam && $pirk){
@@ -302,6 +321,11 @@ class PrekesController extends Controller
             if (array_key_exists($valu, $list)) {
                 $new[$i]['list'] = $list[$valu];
             }
+            if (array_key_exists($valu, $akcija)) {
+                $new[$i]['akcija'] = $akcija[$valu];
+            }else{
+                $new[$i]['akcija'] = array();
+            }
             $i++;
         }
 
@@ -359,6 +383,7 @@ class PrekesController extends Controller
             'pirk' => $pirk,
             'paieska_big' => $key[7],
             'viso' => $viso,
+            'akcijos' => $akcija
         ]);
 
     }
