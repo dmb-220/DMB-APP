@@ -322,11 +322,19 @@ class PrekesController extends Controller
             if (array_key_exists($valu, $list)) {
                 $new[$i]['list'] = $list[$valu];
             }
-            if (array_key_exists($valu, $akcija)) {
-                $new[$i]['akcija'] = $akcija[$valu];
+            //akciju uzkelimas
+            if (array_key_exists($valu, $akcija['lietuva'])) {
+                $new[$i]['akcija_lt'] = $akcija['lietuva'][$valu];
             }else{
-                $new[$i]['akcija'] = array();
+                $new[$i]['akcija_lt'] = array();
             }
+
+            if (array_key_exists($valu, $akcija['latvija'])) {
+                $new[$i]['akcija_lv'] = $akcija['latvija'][$valu];
+            }else{
+                $new[$i]['akcija_lv'] = array();
+            }
+
             $i++;
         }
 
@@ -384,7 +392,6 @@ class PrekesController extends Controller
             'pirk' => $pirk,
             'paieska_big' => $key[7],
             'viso' => $viso,
-            'akcijos' => $akcija
         ]);
 
     }

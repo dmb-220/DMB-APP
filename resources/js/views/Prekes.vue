@@ -26,6 +26,7 @@
         </b-field>
         </card-component>
         <card-component title="PREKIŲ SĄRAŠAS" icon="account-multiple">
+          <modal-info-box :is-active="isModalInfo" :info-subject="infoObjectName" @confirm="infoConfirm" @cancel="infoCancel"/>
         <div  id="printMe">
         <div class="columns">
           <div class="column has-text-centered has-text-weight-bold">
@@ -58,7 +59,7 @@
                 {{props.row.pardavimai && props.row.pardavimai.LT_viso}}
           </b-table-column>
           <b-table-column :visible='rodyti_lv' :style="{'background-color': 'GoldenRod'}" label="LV likučiai" field="likutis.LV_viso" sortable>
-                {{props.row.likutis && props.row.likutis.LV_viso}}
+            {{props.row.likutis && props.row.likutis.LV_viso}}
           </b-table-column>
           <b-table-column :visible='rodyti_lv' :style="{'background-color': 'GoldenRod'}" label="LV pardavimai" field="pardavimai.LV_viso" sortable>
                  {{props.row.pardavimai && props.row.pardavimai.LV_viso}}
@@ -82,19 +83,36 @@
           <div v-show='rodyti_lt' class="column" :style="{'border': '1px dotted', 'background-color': 'greenyellow'}">
             <div class="has-text-centered">LIETUVA:</div>
             <br>
+            <b-table v-if="props.row.akcija_lt.length > 0"
+            :data="props.row.akcija_lt"
+            default-sort-direction="asc"
+            default-sort="sandelis">
+            <template slot-scope="props">
+                <b-table-column label="Akcija">
+                    <small>{{ props.row.akcija }}</small>
+                </b-table-column>
+                <b-table-column :style="{'background-color': 'LightGray'}" label="Kaina">
+                    <small>{{ props.row.kaina }} &euro;</small>
+                </b-table-column>
+                <b-table-column :style="{'background-color': 'LightGray'}" label="Galioja IKI">
+                    <small>{{ props.row.galioja_iki.split(" ")[0] }}</small>
+                </b-table-column>
+            </template>
+            </b-table>
+            <br>
             <b-table
             :data="props.row.list.LT"
             default-sort-direction="asc"
             default-sort="sandelis">
             <template slot-scope="props">
                 <b-table-column field="sandelis" label="Sandelis" sortable>
-                    {{ props.row.sandelis }}
+                    <small>{{ props.row.sandelis }}</small>
                 </b-table-column>
                 <b-table-column :style="{'background-color': 'LightGray'}" field="likutis.kiekis" label="Likuciai">
-                    {{ props.row.likutis && props.row.likutis.kiekis }}
+                    <small>{{ props.row.likutis && props.row.likutis.kiekis }}</small>
                 </b-table-column>
                 <b-table-column :style="{'background-color': 'LightGray'}" field="pardavimai.kiekis" label="Pardavimai">
-                    {{ props.row.pardavimai && props.row.pardavimai.kiekis }}
+                    <small>{{ props.row.pardavimai && props.row.pardavimai.kiekis }}</small>
                 </b-table-column>
             </template>
             </b-table>
@@ -102,19 +120,36 @@
           <div v-show='rodyti_lv' class="column" :style="{'border': '1px dotted', 'background-color': 'GoldenRod'}">
             <div class="has-text-centered">LATVIJA:</div>
             <br>
+            <b-table v-if="props.row.akcija_lv.length > 0"
+            :data="props.row.akcija_lv"
+            default-sort-direction="asc"
+            default-sort="sandelis">
+            <template slot-scope="props">
+                <b-table-column label="Akcija">
+                    <small>{{ props.row.akcija }}</small>
+                </b-table-column>
+                <b-table-column :style="{'background-color': 'LightGray'}" label="Kaina">
+                    <small>{{ props.row.kaina }} &euro;</small>
+                </b-table-column>
+                <b-table-column :style="{'background-color': 'LightGray'}" label="Galioja IKI">
+                    <small>{{ props.row.galioja_iki.split(" ")[0] }}</small>
+                </b-table-column>
+            </template>
+            </b-table>
+            <br>
             <b-table
             :data="props.row.list.LV"
             default-sort-direction="asc"
             default-sort="sandelis">
             <template slot-scope="props">
                 <b-table-column field="sandelis" label="Sandelis" sortable>
-                    {{ props.row.sandelis }}
+                    <small>{{ props.row.sandelis }}</small>
                 </b-table-column>
                 <b-table-column :style="{'background-color': 'LightGray'}" field="likutis.kiekis" label="Likuciai">
-                    {{ props.row.likutis && props.row.likutis.kiekis }}
+                    <small>{{ props.row.likutis && props.row.likutis.kiekis }}</small>
                 </b-table-column>
                 <b-table-column :style="{'background-color': 'LightGray'}" field="pardavimai.kiekis" label="Pardavimai">
-                    {{ props.row.pardavimai && props.row.pardavimai.kiekis }}
+                    <small>{{ props.row.pardavimai && props.row.pardavimai.kiekis }}</small>
                 </b-table-column>
             </template>
             </b-table>
@@ -128,13 +163,13 @@
             default-sort="sandelis">
             <template slot-scope="props">
                 <b-table-column field="sandelis" label="Sandelis" sortable>
-                    {{ props.row.sandelis }}
+                    <small>{{ props.row.sandelis }}</small>
                 </b-table-column>
                 <b-table-column :style="{'background-color': 'LightGray'}" field="likutis.kiekis" label="Likuciai">
-                    {{ props.row.likutis && props.row.likutis.kiekis }}
+                    <small>{{ props.row.likutis && props.row.likutis.kiekis }}</small>
                 </b-table-column>
                 <b-table-column :style="{'background-color': 'LightGray'}" field="pardavimai.kiekis" label="Pardavimai">
-                    {{ props.row.pardavimai && props.row.pardavimai.kiekis }}
+                    <small>{{ props.row.pardavimai && props.row.pardavimai.kiekis }}</small>
                 </b-table-column>
             </template>
             </b-table>
@@ -185,11 +220,15 @@
 import map from 'lodash/map'
 import CardComponent from '@/components/CardComponent'
 import CardToolbar from '@/components/CardToolbar'
+import ModalInfoBox from '@/components/ModalInfoBox'
+
 export default {
   name: "Prekes",
-  components: {CardToolbar, CardComponent},
+  components: {CardToolbar, CardComponent, ModalInfoBox},
   data () {
     return {
+      isModalInfo: false,
+      infoObject: null,
       isLoading: false,
       rodyti_lt: true,
      rodyti_lv: true,
@@ -208,7 +247,12 @@ export default {
     }
   },
   computed: {
-
+    infoObjectName () {
+      if (this.infoObject) {
+        return this.infoObject
+      }
+      return null
+    },
   },
   created () {
     this.getData()
@@ -333,6 +377,18 @@ export default {
               queue: false
             })
           })
+    },
+    //Modal info
+    infoModal (infoObject) {
+      this.infoObject = infoObject
+      this.isModalInfo = true
+    },
+    infoConfirm () {
+      this.isModalInfo = false
+    },
+
+    infoCancel () {
+      this.isModalInfo = false
     },
   }
 }

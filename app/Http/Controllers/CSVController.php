@@ -239,6 +239,7 @@ class CSVController extends Controller
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                     $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                    if(strtotime($duomenys[2]) > strtotime(date("Y-m-d H:i:s"))){
                     DB::table('akcijos')->insert([
                         'akcija' => $duomenys[0],
                         'galioja_nuo' => $duomenys[1],
@@ -249,6 +250,7 @@ class CSVController extends Controller
                         'kaina' => $duomenys[5],
                         'salis' => $valstybe,
                         ]);
+                    }
                 }
                 fclose($handle);
                 }
