@@ -102,10 +102,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_map__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_map__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
 /* harmony import */ var _components_CardToolbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/CardToolbar */ "./resources/js/components/CardToolbar.vue");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
 //
 //
 //
@@ -298,9 +294,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
-    var _ref;
-
-    return _ref = {
+    return {
       isLoading: false,
       rodyti_lt: true,
       rodyti_lv: true,
@@ -308,8 +302,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       sarasas: [],
       defaultOpenedDetails: [1],
       ieskoti: '',
-      paieska: ''
-    }, _defineProperty(_ref, "rodyti_lt", true), _defineProperty(_ref, "rodyti_lv", true), _defineProperty(_ref, "rodyti_ee", true), _defineProperty(_ref, "salis", ''), _defineProperty(_ref, "rikiuoti", false), _defineProperty(_ref, "mobile_card", true), _defineProperty(_ref, "viso", []), _ref;
+      paieska: '',
+      salis: '',
+      rikiuoti: false,
+      gam: true,
+      pirk: true,
+      mobile_card: true,
+      paieska_big: false,
+      viso: []
+    };
   },
   computed: {},
   created: function created() {
@@ -320,6 +321,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       // Pass the element id here
       this.mobile_card = false;
       this.$htmlToPaper('printMe');
+    },
+    change_gam: function change_gam() {
+      this.gam = !this.gam;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
+    },
+    change_pirk: function change_pirk() {
+      this.pirk = !this.pirk;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
     },
     change_lt: function change_lt() {
       this.rodyti_lt = !this.rodyti_lt;
@@ -349,10 +360,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         lt: this.rodyti_lt,
         lv: this.rodyti_lv,
         ee: this.rodyti_ee,
-        rikiuoti: this.rikiuoti
+        rikiuoti: this.rikiuoti,
+        gam: this.gam,
+        pirk: this.pirk,
+        paieska_big: this.paieska_big
       }).then(function (response) {
-        console.log(response.data);
-
         _this.getData();
       })["catch"](function (err) {
         _this.$buefy.toast.open({
@@ -371,7 +383,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           lt: this.rodyti_lt,
           lv: this.rodyti_lv,
           ee: this.rodyti_ee,
-          rikiuoti: "1"
+          rikiuoti: "1",
+          gam: this.gam,
+          pirk: this.pirk,
+          paieska_big: this.paieska_big
         }).then(function (response) {
           console.log(response.data.data);
           _this2.rikiuoti = false;
@@ -398,11 +413,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.isLoading = true;
       this.axios.get('/prekes').then(function (response) {
         _this3.isLoading = false;
-        _this3.rikiuoti = response.data.rikiuoti ? false : true;
         _this3.sarasas = response.data.sarasas;
         _this3.paieska = response.data.paieska;
-        _this3.viso = response.data.viso; //console.log(JSON.stringify(this.parduotuves));
-
+        _this3.viso = response.data.viso;
+        _this3.rikiuoti = response.data.rikiuoti ? false : true;
+        _this3.gam = response.data.gam ? true : false;
+        _this3.pirk = response.data.pirk ? true : false;
+        _this3.paieska_big = response.data.paieska_big ? true : false;
         _this3.rodyti_lt = response.data.salis.LT ? true : false;
         _this3.rodyti_lv = response.data.salis.LV ? true : false;
         _this3.rodyti_ee = response.data.salis.EE ? true : false;
@@ -674,23 +691,117 @@ var render = function() {
                 }),
                 _vm._v(" "),
                 _c(
-                  "div",
-                  { staticClass: "control" },
-                  [
-                    _c(
-                      "b-button",
-                      {
-                        attrs: {
-                          "native-type": "submit",
-                          type: "is-primary",
-                          outlined: ""
-                        },
-                        on: { click: _vm.paieska_post }
+                  "b-button",
+                  {
+                    attrs: {
+                      "native-type": "submit",
+                      type: "is-primary",
+                      outlined: ""
+                    },
+                    on: { click: _vm.paieska_post }
+                  },
+                  [_vm._v("Ieškoti")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: " ", horizontal: "" } },
+              [
+                _c(
+                  "b-checkbox",
+                  {
+                    attrs: { value: false, type: "is-danger" },
+                    model: {
+                      value: _vm.paieska_big,
+                      callback: function($$v) {
+                        _vm.paieska_big = $$v
                       },
-                      [_vm._v("Ieškoti")]
-                    )
-                  ],
-                  1
+                      expression: "paieska_big"
+                    }
+                  },
+                  [_vm._v("Aktivuoti išplėstinę paieška")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "RODYTI:", horizontal: "" } },
+              [
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.rodyti_lt ? "is-primary" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_lt()
+                      }
+                    }
+                  },
+                  [_vm._v("LIETUVA")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.rodyti_lv ? "is-warning" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_lv()
+                      }
+                    }
+                  },
+                  [_vm._v("LATVIJA")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.rodyti_ee ? "is-danger" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_ee()
+                      }
+                    }
+                  },
+                  [_vm._v("ESTIJA")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "PREKĖS:", horizontal: "" } },
+              [
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.gam ? "is-info" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_gam()
+                      }
+                    }
+                  },
+                  [_vm._v("GAMYBA")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.pirk ? "is-info" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_pirk()
+                      }
+                    }
+                  },
+                  [_vm._v("PIRKIMAI")]
                 )
               ],
               1
@@ -716,84 +827,15 @@ var render = function() {
                       expression: "rikiuoti"
                     }
                   },
-                  [_vm._v("\n      Veikia TIK su mūsų GAM gaminiais! \n    ")]
+                  [
+                    _vm._v(
+                      "\n          Veikia TIK su mūsų GAM gaminiais! \n        "
+                    )
+                  ]
                 )
               ],
               1
             ),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("div", { staticClass: "columns" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "column has-text-centered",
-                  style: { "background-color": "greenyellow" }
-                },
-                [
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { type: _vm.rodyti_lt ? "is-primary" : "is-dark" },
-                      on: {
-                        click: function($event) {
-                          return _vm.change_lt()
-                        }
-                      }
-                    },
-                    [_vm._v("LIETUVA")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "column has-text-centered",
-                  style: { "background-color": "GoldenRod" }
-                },
-                [
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { type: _vm.rodyti_lv ? "is-warning" : "is-dark" },
-                      on: {
-                        click: function($event) {
-                          return _vm.change_lv()
-                        }
-                      }
-                    },
-                    [_vm._v("LATVIJA")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "column has-text-centered",
-                  style: { "background-color": "tomato" }
-                },
-                [
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { type: _vm.rodyti_ee ? "is-danger" : "is-dark" },
-                      on: {
-                        click: function($event) {
-                          return _vm.change_ee()
-                        }
-                      }
-                    },
-                    [_vm._v("ESTIJA")]
-                  )
-                ],
-                1
-              )
-            ]),
             _vm._v(" "),
             _c("hr"),
             _vm._v(" "),

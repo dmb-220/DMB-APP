@@ -33425,9 +33425,9 @@ var staticRenderFns = [
     return _c("section", { staticClass: "section is-main-section" }, [
       _vm._v("\n  Duomenys atnaujinti"),
       _c("br"),
-      _vm._v("\n  Likučiai: 2019-10-21"),
+      _vm._v("\n  Likučiai: 2019-10-23"),
       _c("br"),
-      _vm._v("\n  Pardavimai: 2019-09-21 --- 2019-10-21\n")
+      _vm._v("\n  Pardavimai: 2019-09-23 --- 2019-10-23\n")
     ])
   }
 ]
@@ -50476,8 +50476,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\wamp64\www\vuejs-laravel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\wamp64\www\vuejs-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\DMB-APP\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\DMB-APP\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

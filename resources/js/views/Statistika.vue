@@ -20,6 +20,7 @@
             <b-button :type="rodyti_ee ? 'is-danger' : 'is-dark'" @click="change_ee()">ESTIJA</b-button>
             </div>
         </div>
+
         <hr>
         <div  id="printMe">
           <div class="columns">

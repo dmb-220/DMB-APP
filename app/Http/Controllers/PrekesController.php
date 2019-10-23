@@ -34,11 +34,40 @@ class PrekesController extends Controller
         $keyword = $key[0];
 
         $rikiuoti = $key[4];
+        $gam = $key[5];
+        $pirk = $key[6];
 
-                //Sudedam norimus pardavimus 
-                $res = Pardavimai::query()
-                ->where('preke', 'like', "%{$keyword}%")->get();
-        
+        //aprasom tuscius masyvus
+        $list = array();
+        $new = array();
+        $sarasas = array();
+        $pardavimai = array();
+        $likuciai = array();
+
+        //paieska
+        if($key[7]){
+            $pa = "%{$keyword}%";
+        }else{
+            $pa = "{$keyword}%";
+        }
+
+                //Sudedam norimus pardavimus
+                if($gam && $pirk){
+                    $res = Pardavimai::query()
+                    ->where('preke', 'like', $pa)->get();
+                }else if($gam && !$pirk){
+                    $res = Pardavimai::query()
+                    ->where('preke', 'like', $pa)
+                    ->where('registras', 'GAM')->get();
+                }else if(!$gam && $pirk){
+                    $res = Pardavimai::query()
+                    ->where('preke', 'like', $pa)
+                    ->where('registras', 'PIRK')->get();
+                }else{
+                    $res = array();
+                }
+
+                $pardavimas = array();
                 foreach ( $res as $value ) {
                     if($value['sandelis'] != "TELSIAI" && $value['sandelis'] != "3333"){
                         if($value['kiekis'] > 0){
@@ -128,9 +157,22 @@ class PrekesController extends Controller
                 }
 
         //Sudedam norimus likucius
-        $re = Likutis::query()
-        ->where('preke', 'like', "%{$keyword}%")->get();
+        if($gam && $pirk){
+            $re = Likutis::query()
+            ->where('preke', 'like', $pa)->get();
+        }else if($gam && !$pirk){
+            $re = Likutis::query()
+            ->where('preke', 'like', $pa)
+            ->where('registras', 'GAM')->get();
+        }else if(!$gam && $pirk){
+            $re = Likutis::query()
+            ->where('preke', 'like', $pa)
+            ->where('registras', 'PIRK')->get();
+        }else{
+            $re = array();
+        }
 
+        $likutis = array();
         foreach ( $re as $value ) {
             if($value['sandelis'] != "BROK" && $value['sandelis'] != "ESTI" && $value['sandelis'] != "3333" && $value['sandelis'] != "SAND"
             && $value['sandelis'] != "TELSIAI" && $value['sandelis'] != "4444" && $value['sandelis'] != "1111" && $value['sandelis'] != "ZILT"){
@@ -240,14 +282,6 @@ class PrekesController extends Controller
             $list[$idx]['EE'] = array_values($list[$idx]['EE']);
         }
 
-        //reikia sukti cikla ir islyginti eilutes prie prekiu
-        /*foreach($likuciai as $k => $sand){
-            //var_dump($sand);
-            foreach($sand['LT'] as $san){
-                echo $k." - ".$san['sandelis']."<br>";
-            }
-        }*/
-
         //padaryti slepti liemeneles,
         //arba liemenes
         //reik ideti myktuka ka turi rodyti
@@ -321,6 +355,9 @@ class PrekesController extends Controller
             'salis' =>  $arr,
             'sarasas' => $new,
             'rikiuoti' => $rikiuoti,
+            'gam' => $gam,
+            'pirk' => $pirk,
+            'paieska_big' => $key[7],
             'viso' => $viso,
         ]);
 
@@ -350,12 +387,15 @@ class PrekesController extends Controller
         $lv = $data['lv'];
         $ee = $data['ee'];
         $rikiuoti = $data['rikiuoti'];
+        $gam = $data['gam'];
+        $pirk = $data['pirk'];
+        $paieska_big= $data['paieska_big'];
 
         $failas = "prekes.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
 
-        $eilute = strtoupper($ieskoti)."||".$lt."||".$lv."||".$ee."||".$rikiuoti;
+        $eilute = strtoupper($ieskoti)."||".$lt."||".$lv."||".$ee."||".$rikiuoti."||".$gam."||".$pirk."||".$paieska_big;
 
         $myfile = fopen(storage_path($failas), "w");
         fwrite($myfile, $eilute);
@@ -364,7 +404,9 @@ class PrekesController extends Controller
         return response()->json([
             'status' => true,
             'data' => $ieskoti,
-            'rikiuoti' => $rikiuoti
+            'rikiuoti' => $rikiuoti,
+            'gam' => $gam,
+            'pirk' => $pirk
         ]);
     }
 

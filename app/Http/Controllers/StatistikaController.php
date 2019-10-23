@@ -36,7 +36,14 @@ class StatistikaController extends Controller
         $key = explode("||", $key);
         $keyword = $key[0];
 
+        //aprasom tuscius masyvus
+        $list = array();
+        $new = array();
+
         //nuo pasirinkimo priklauso ka rodyti.
+        //nustatom tuscia masyva
+        $store = array();
+
         if($key[1] && $key[2] && $key[3]){$store = array_merge($LT, $LV, $EE);}
         if(!$key[1] && $key[2] && $key[3]){$store = array_merge($LV, $EE);}
         if(!$key[1] && !$key[2] && $key[3]){$store = $EE;}
@@ -55,6 +62,7 @@ class StatistikaController extends Controller
                 $group2[$value['sandelis']][] = $value;
             }
         }
+
 
         $lt_viso = 0;
         $lv_viso = 0;

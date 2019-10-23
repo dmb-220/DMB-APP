@@ -183,6 +183,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'statistika',
@@ -207,7 +208,7 @@ __webpack_require__.r(__webpack_exports__);
       rodyti_lv: true,
       rodyti_ee: true,
       salis: '',
-      antras_stulpas: false
+      mobile_card: true
     };
   },
   computed: {},
@@ -218,6 +219,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     print: function print() {
       // Pass the element id here
+      this.mobile_card = false;
       this.$htmlToPaper('printMe');
     },
     change_lt: function change_lt() {
@@ -523,7 +525,7 @@ var render = function() {
                 "b-table",
                 {
                   attrs: {
-                    "mobile-cards": false,
+                    "mobile-cards": _vm.mobile_card,
                     bordered: "",
                     hoverable: "",
                     narrowed: _vm.isNarrowed,

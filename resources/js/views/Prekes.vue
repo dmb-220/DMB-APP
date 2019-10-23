@@ -4,28 +4,26 @@
       <card-component title="PREKES" icon="account-multiple">
           <b-field label="PAIEŠKA:" horizontal>
             <b-input placeholder="Paieška..." type="search" @keyup.native.enter="paieska_post" 
-            required v-model="ieskoti" icon="magnify"></b-input>    
-          <div class="control">
+            required v-model="ieskoti" icon="magnify"></b-input> 
             <b-button native-type="submit" type="is-primary" @click="paieska_post" outlined>Ieškoti</b-button>
-          </div>
+        </b-field>
+        <b-field label=" " horizontal>
+            <b-checkbox :value="false" v-model="paieska_big" type="is-danger">Aktivuoti išplėstinę paieška</b-checkbox>
+        </b-field>
+        <b-field label="RODYTI:" horizontal>
+          <b-button :type="rodyti_lt ? 'is-primary' : 'is-dark'" @click="change_lt()">LIETUVA</b-button>
+          <b-button :type="rodyti_lv ? 'is-warning' : 'is-dark'" @click="change_lv()">LATVIJA</b-button>
+          <b-button :type="rodyti_ee ? 'is-danger' : 'is-dark'" @click="change_ee()">ESTIJA</b-button>
+        </b-field>
+        <b-field label="PREKĖS:" horizontal>
+          <b-button :type="gam ? 'is-info' : 'is-dark'" @click="change_gam()">GAMYBA</b-button>
+          <b-button :type="pirk ? 'is-info' : 'is-dark'" @click="change_pirk()">PIRKIMAI</b-button>
         </b-field>
         <b-field label="GRUPAVIMAS:" horizontal>
-      <b-switch v-model="rikiuoti" @click.native="switch_post">
-        Veikia TIK su mūsų GAM gaminiais! 
-      </b-switch>
-    </b-field>
-    <hr>
-        <div class="columns">
-          <div class="column has-text-centered" :style="{'background-color': 'greenyellow'}">
-            <b-button :type="rodyti_lt ? 'is-primary' : 'is-dark'" @click="change_lt()">LIETUVA</b-button>
-            </div>
-          <div class="column has-text-centered" :style="{'background-color': 'GoldenRod'}">
-            <b-button :type="rodyti_lv ? 'is-warning' : 'is-dark'" @click="change_lv()">LATVIJA</b-button>
-            </div>
-          <div class="column has-text-centered" :style="{'background-color': 'tomato'}">
-            <b-button :type="rodyti_ee ? 'is-danger' : 'is-dark'" @click="change_ee()">ESTIJA</b-button>
-            </div>
-        </div>
+          <b-switch v-model="rikiuoti" @click.native="switch_post">
+            Veikia TIK su mūsų GAM gaminiais! 
+          </b-switch>
+        </b-field>
         <hr>
         <div  id="printMe">
         <div class="columns">
@@ -199,12 +197,12 @@ export default {
       defaultOpenedDetails: [1],
       ieskoti: '',
       paieska: '',
-      rodyti_lt: true,
-     rodyti_lv: true,
-     rodyti_ee: true,
      salis: '',
      rikiuoti: false,
+     gam: true,
+     pirk: true,
      mobile_card: true,
+     paieska_big: false,
      viso: []
     }
   },
@@ -219,6 +217,16 @@ export default {
       // Pass the element id here
       this.mobile_card = false;
       this.$htmlToPaper('printMe');
+    },
+    change_gam(){
+      this.gam = !this.gam
+      this.ieskoti = this.paieska
+      this.paieska_post()
+    },
+    change_pirk(){
+      this.pirk = !this.pirk
+      this.ieskoti = this.paieska
+      this.paieska_post()
     },
     change_lt(){
       this.rodyti_lt = !this.rodyti_lt
@@ -246,10 +254,12 @@ export default {
             lt: this.rodyti_lt,
             lv: this.rodyti_lv,
             ee: this.rodyti_ee,
-            rikiuoti: this.rikiuoti
+            rikiuoti: this.rikiuoti,
+            gam: this.gam,
+            pirk: this.pirk,
+            paieska_big: this.paieska_big
             })
           .then(response => {
-            console.log(response.data)
             this.getData()
         })
           .catch( err => {
@@ -268,7 +278,10 @@ export default {
             lt: this.rodyti_lt,
             lv: this.rodyti_lv,
             ee: this.rodyti_ee,
-            rikiuoti: "1"
+            rikiuoti: "1",
+            gam: this.gam,
+            pirk: this.pirk,
+            paieska_big: this.paieska_big
             })
           .then(response => {
             console.log(response.data.data)
@@ -296,11 +309,16 @@ export default {
       .get('/prekes')
       .then(response => {
         this.isLoading = false
-        this.rikiuoti = response.data.rikiuoti ? false : true;
         this.sarasas = response.data.sarasas;
         this.paieska = response.data.paieska;
         this.viso = response.data.viso;
-        //console.log(JSON.stringify(this.parduotuves));
+
+        this.rikiuoti = response.data.rikiuoti ? false : true;
+
+        this.gam = response.data.gam ? true : false
+        this.pirk = response.data.pirk ? true : false
+
+        this.paieska_big = response.data.paieska_big? true : false
 
         this.rodyti_lt = response.data.salis.LT ? true : false
         this.rodyti_lv = response.data.salis.LV ? true : false
