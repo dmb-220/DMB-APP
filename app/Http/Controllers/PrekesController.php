@@ -17,12 +17,6 @@ class PrekesController extends Controller
      */
     public function index()
     {
-        //pasidaryt kintamuosius is VUE kad pateiktu tik nurodyta valstybe
-        //$keyword = 'DMK-';
-
-        // 0 - sugrupuoja
-        // 1- standartiskai
-        //$rikiuoti = 0;
         $failas = "prekes.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
@@ -47,7 +41,9 @@ class PrekesController extends Controller
         $akcija['lietuva'] = array();
         $akcija['latvija'] = array();
 
-        //paieska
+        $pardavimas = array();
+
+        //paieska, paprasta, isplestine
         if($key[7]){
             $pa = "%{$keyword}%";
         }else{
@@ -60,7 +56,7 @@ class PrekesController extends Controller
         
         foreach ( $akc as $value ) {
             //sudeti i masyva tik tuos kurie galioja
-            //$metai = explode(" ", $value['galioja_iki']);
+            //Ikeliant atfiltruojku, tai cia kaip ir nebereiketu
             if(strtotime($value['galioja_iki']) > strtotime(date("Y-m-d H:i:s"))){
                 if($value['salis'] == "1"){
                     $akcija['lietuva'][$value['preke']][] = $value;
@@ -88,7 +84,6 @@ class PrekesController extends Controller
             $res = array();
         }
 
-        $pardavimas = array();
         foreach ( $res as $value ) {
             if($value['sandelis'] != "TELSIAI" && $value['sandelis'] != "3333"){
                 if($value['kiekis'] > 0){
@@ -109,12 +104,12 @@ class PrekesController extends Controller
         $ee_viso = 0;
 
         foreach ( $pardavimas as $idx => $value ) {
-            //$pardavimai[$idx]['preke'] = $idx;
+            //prekiu sarasas
             $sarasas[] = $idx;
-
-        $list[$idx]['LT'] = array();
-        $list[$idx]['LV'] = array();
-        $list[$idx]['EE'] = array();
+            //kokiose parduotuvese yra
+            $list[$idx]['LT'] = array();
+            $list[$idx]['LV'] = array();
+            $list[$idx]['EE'] = array();
             
             $pardavimai[$idx]['pavadinimas'] = $value[0]['pavadinimas'];
             $pardavimai[$idx]['LT'] = array();
@@ -128,7 +123,7 @@ class PrekesController extends Controller
                     }else{
                         $kiek = 0;
                     }
-                    //$pardavimai[$idx]['LT'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
+                    $pardavimai[$idx]['LT'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $lt_viso = $lt_viso + $val['kiekis'];
                     $pardavimai[$idx]['LT_viso'] = $lt_viso;
 
@@ -141,7 +136,7 @@ class PrekesController extends Controller
                     }else{
                         $kiek = 0;
                     }
-                    //$pardavimai[$idx]['LV'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
+                    $pardavimai[$idx]['LV'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $lv_viso = $lv_viso + $val['kiekis'];
                     $pardavimai[$idx]['LV_viso'] = $lv_viso;
 
@@ -154,7 +149,7 @@ class PrekesController extends Controller
                     }else{
                         $kiek = 0;
                     }
-                    //$pardavimai[$idx]['EE'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
+                    $pardavimai[$idx]['EE'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $ee_viso = $ee_viso + $val['kiekis'];
                     $pardavimai[$idx]['EE_viso'] = $ee_viso;
 
@@ -162,13 +157,11 @@ class PrekesController extends Controller
                     $list[$idx]['EE'][$val['sandelis']]['sandelis'] = $val['sandelis'];
                 }
             }
-            //$key_lt_pardavimai = array_keys($pardavimai[$idx]['LT']);
 
             $pardavimai[$idx]['LT'] = array_values($pardavimai[$idx]['LT']);
             $pardavimai[$idx]['LV'] = array_values($pardavimai[$idx]['LV']);
             $pardavimai[$idx]['EE'] = array_values($pardavimai[$idx]['EE']);
 
-            //$list[$idx]['LT'] = array_values($list[$idx]['LT']);
 
             $pardavimai[$idx]['viso'] = $ee_viso + $lv_viso + $lt_viso;
             $lt_viso = 0;
@@ -236,7 +229,7 @@ class PrekesController extends Controller
                     }else{
                         $kiek = 0;
                     }
-                    //$likuciai[$idx]['LT'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
+                    $likuciai[$idx]['LT'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $lt_viso = $lt_viso + $val['kiekis'];
                     $likuciai[$idx]['LT_viso'] = $lt_viso;
 
@@ -249,7 +242,7 @@ class PrekesController extends Controller
                     }else{
                         $kiek = 0;
                     }
-                    //$likuciai[$idx]['LV'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
+                    $likuciai[$idx]['LV'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $lv_viso = $lv_viso + $val['kiekis'];
                     $likuciai[$idx]['LV_viso'] = $lv_viso;
 
@@ -263,7 +256,7 @@ class PrekesController extends Controller
                     }else{
                         $kiek = 0;
                     }
-                    //$likuciai[$idx]['EE'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
+                    $likuciai[$idx]['EE'][$val['sandelis']] = array('sandelis' => $val['sandelis'], 'kiekis' => $val['kiekis'] + $kiek);
                     $ee_viso = $ee_viso + $val['kiekis'];
                     $likuciai[$idx]['EE_viso'] = $ee_viso;
 
@@ -272,18 +265,6 @@ class PrekesController extends Controller
                     $list[$idx]['EE'][$val['sandelis']]['sandelis'] = $val['sandelis'];
                 }
             }
-
-
-
-            //$key_lt_likutis = array_keys($likuciai[$idx]['LT']);
-
-            /*foreach($likuciai[$idx]['LT'] as $key => $va){
-                if(array_key_exists($idx, $pardavimai)){
-                    if(array_key_exists($key, $pardavimai[$idx]['LT'])){
-                        $likuciai[$idx]['LT'][$key] = array('sandelis' => $key, 'kiekis' => 0);
-                    }
-                }
-            }*/
 
             $likuciai[$idx]['LT'] = array_values($likuciai[$idx]['LT']);
             $likuciai[$idx]['LV'] = array_values($likuciai[$idx]['LV']);
@@ -303,23 +284,28 @@ class PrekesController extends Controller
             $list[$idx]['EE'] = array_values($list[$idx]['EE']);
         }
 
-        //padaryti slepti liemeneles,
-        //arba liemenes
-        //reik ideti myktuka ka turi rodyti
         $i=0;
         foreach($sarasas as $valu){
+            //pradiniai duomenys
             $new[$i]['preke'] = $valu;
             $new[$i]['pavadinimas'] = '';
+            //likuciu duomenys, skaiciai
             if (array_key_exists($valu, $likuciai)) {
                 $new[$i]['likutis'] = $likuciai[$valu];
                 $new[$i]['pavadinimas'] = $likuciai[$valu]['pavadinimas'];
-            }else{$new[$i]['likutis'] = array();}
+            }else{
+                $new[$i]['likutis'] = array();
+            }
+            //pardavimu duomenys, skaiciai
             if (array_key_exists($valu, $pardavimai)) {
                 $new[$i]['pardavimai'] = $pardavimai[$valu];
                 if($new[$i]['pavadinimas'] == ""){
                     $new[$i]['pavadinimas'] = $pardavimai[$valu]['pavadinimas'];
                 }
-            }else{$new[$i]['pardavimai'] = array();}
+            }else{
+                $new[$i]['pardavimai'] = array();
+            }
+            //bendras sandeliu sarasas su pirkimu pardavimu
             if (array_key_exists($valu, $list)) {
                 $new[$i]['list'] = $list[$valu];
             }
@@ -329,7 +315,6 @@ class PrekesController extends Controller
             }else{
                 $new[$i]['akcija_lt'] = array();
             }
-
             if (array_key_exists($valu, $akcija['latvija'])) {
                 $new[$i]['akcija_lv'] = $akcija['latvija'][$valu];
             }else{
@@ -339,6 +324,7 @@ class PrekesController extends Controller
             $i++;
         }
 
+        //Viso
         $viso = array(
             'lt_pard' => 0,
             'lt_lik' => 0,
@@ -440,7 +426,7 @@ class PrekesController extends Controller
             'data' => $ieskoti,
             'rikiuoti' => $rikiuoti,
             'gam' => $gam,
-            'pirk' => $pirk
+            'pirk' => $pirk,
         ]);
     }
 
