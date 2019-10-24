@@ -17,26 +17,68 @@ class SandeliaiController extends Controller
      */
     public function index()
     {
+        $duomenys = array();
+        $list = array();
+
         $rikiuoti = 0;
         $sandelis = "TELS";
+
         $pardavimai = Pardavimai::query()
             ->where('sandelis', $sandelis)
             ->where('kiekis','>','0')->get();
 
-            foreach ( $pardavimai as $value ) {
+        $likuciai = Likutis::query()
+            ->where('sandelis', $sandelis)
+            ->where('kiekis','>','0')->get();
+
+            /*foreach ( $pardavimai as $value ) {
                 if($rikiuoti){
                     $pardavimas[$value['preke']] = $value;
                 }else{
                     $a = explode("-", $value['preke']);
-                    $ne = $a[0]."-";
+                    if(count($a) == 3){$ne = $a[0]."-".$a[1]."-";}
+                    if(count($a) == 2){$ne = $a[0]."-";}
+                    //turi veikti tik su BROK
+                    if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
+                    //$ne = $a[0]."-";
                     $pardavimas[$ne][] = $value;
                 }
+            }*/
+
+            //sudejom i grupes
+            foreach ( $pardavimai as $value ) {
+                $pardavimas[$value['pavadinimas']][] = $value;
             }
+
+            foreach ( $likuciai as $value ) {
+                $likutis[$value['pavadinimas']][] = $value;
+            }
+
+            foreach ( $pardavimas as $idx => $val ){
+                $duomenys[$idx]['pavadinimas'] = $pardavimas[$idx][0]['pavadinimas'];
+                $duomenys[$idx]['pardavimai'] = $pardavimas[$idx];
+
+                /*foreach($val as $res){
+                    $duomenys[$idx]['pardavimas'][] = array('preke' => $res['preke'], 'kiekis' => $res['kiekis']);
+                }*/
+            }
+
+            foreach ( $likutis as $idx => $val ){
+                $duomenys[$idx]['pavadinimas'] = $likutis[$idx][0]['pavadinimas'];
+                $duomenys[$idx]['likuciai'] = $likutis[$idx];
+
+                /*foreach($val as $res){
+                    $duomenys[$idx]['likutis'][] = array('preke' => $res['preke'], 'kiekis' => $res['kiekis']);
+                }*/
+            }
+
+
+            $duomenys = array_values($duomenys);
 
             return response()->json([
                 'status' => true,
-                'pardavimai' => $pardavimai,
-                'pardavimas' => $pardavimas,
+                'duomenys' => $duomenys,
+                'list' => $list
             ]);
     }
 
