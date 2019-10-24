@@ -32,7 +32,22 @@
 
         <template slot="detail" slot-scope="props">
           <div class="columns">
-          detaliai
+          <b-table
+              :data="props.row.lik_grupe"
+              default-sort-direction="desc"
+              default-sort="kiekis"
+              :bordered="true"
+              :striped="true"
+              :narrowed="true">
+              <template slot-scope="props">
+                  <b-table-column field="preke" label="Prekė" sortable>
+                      {{ props.row.preke }}
+                  </b-table-column>
+                  <b-table-column :style="{'background-color': 'LightGray'}" label="Likučiai" field="likutis" sortable >
+                      {{ props.row.kiekis }}
+                  </b-table-column>
+              </template>
+              </b-table>
         </div>
         </template>
 

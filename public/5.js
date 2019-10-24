@@ -124,6 +124,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -462,9 +477,74 @@ var render = function() {
                     key: "detail",
                     fn: function(props) {
                       return [
-                        _c("div", { staticClass: "columns" }, [
-                          _vm._v("\n        detaliai\n      ")
-                        ])
+                        _c(
+                          "div",
+                          { staticClass: "columns" },
+                          [
+                            _c("b-table", {
+                              attrs: {
+                                data: props.row.lik_grupe,
+                                "default-sort-direction": "desc",
+                                "default-sort": "kiekis",
+                                bordered: true,
+                                striped: true,
+                                narrowed: true
+                              },
+                              scopedSlots: _vm._u(
+                                [
+                                  {
+                                    key: "default",
+                                    fn: function(props) {
+                                      return [
+                                        _c(
+                                          "b-table-column",
+                                          {
+                                            attrs: {
+                                              field: "preke",
+                                              label: "Prekė",
+                                              sortable: ""
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                    " +
+                                                _vm._s(props.row.preke) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-table-column",
+                                          {
+                                            style: {
+                                              "background-color": "LightGray"
+                                            },
+                                            attrs: {
+                                              label: "Likučiai",
+                                              field: "likutis",
+                                              sortable: ""
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                    " +
+                                                _vm._s(props.row.kiekis) +
+                                                "\n                "
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    }
+                                  }
+                                ],
+                                null,
+                                true
+                              )
+                            })
+                          ],
+                          1
+                        )
                       ]
                     }
                   }

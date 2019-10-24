@@ -17,7 +17,17 @@ class SandeliaiController extends Controller
      */
     public function index()
     {
+        $store = array(
+            "LT" => array("MINS", "TELS", "MADA", "MARI", "UKME", "MOLA", "NORF", "BIGA", "BABI", "UTEN", "MANT", "VISA", "KEDA",
+             "AREN", "MAXI", "PANE", "KREV", "MAZE", "TAIK", "SAUL", "TAUB"),
+            "LV" => array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN",
+            "PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO"),
+            "EE" => array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera",
+            "Eden", "Haapsalu", "Kohtla Järve", "Kopli", "Parnu", "Riia Parnu"),
+        );
+
         $duomenys = array();
+        $sandeliai = array();
 
         //$rikiuoti = 0;
         $sandelis = "BIGA";
@@ -57,32 +67,46 @@ class SandeliaiController extends Controller
 
             foreach ( $pardavimas as $idx => $val ){
                 $duomenys[$idx]['pavadinimas'] = $pardavimas[$idx][0]['pavadinimas'];
-                $duomenys[$idx]['pardavimai'] = $pardavimas[$idx];
+                //$duomenys[$idx]['pardavimai'] = $pardavimas[$idx];
 
                 $duomenys[$idx]['pardavimai_sk'] = 0;
                 //skaiciuojam kiek is viso yra
                 foreach($val as $res){
                     $duomenys[$idx]['pardavimai_sk'] = $duomenys[$idx]['pardavimai_sk'] + $res['kiekis'];
+                    $a = explode("-", $res['preke']);
+                    if(count($a) == 3){$ne = $a[0]."-".$a[1]."-";}
+                    if(count($a) == 2){$ne = $a[0]."-";}
+                    //turi veikti tik su BROK
+                    if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
+                    $duomenys[$idx]['pard_grupe'][$ne][] = $res;
                 }
             }
 
             foreach ( $likutis as $idx => $val ){
                 $duomenys[$idx]['pavadinimas'] = $likutis[$idx][0]['pavadinimas'];
-                $duomenys[$idx]['likuciai'] = $likutis[$idx];
+                //$duomenys[$idx]['likuciai'] = $likutis[$idx];
                 
                 $duomenys[$idx]['likutis_sk'] = 0;
                 //skaiciuojam kiek is viso yra
                 foreach($val as $res){
                     $duomenys[$idx]['likutis_sk'] = $duomenys[$idx]['likutis_sk'] + $res['kiekis'];
+                    $a = explode("-", $res['preke']);
+                    if(count($a) == 3){$ne = $a[0]."-".$a[1]."-";}
+                    if(count($a) == 2){$ne = $a[0]."-";}
+                    //turi veikti tik su BROK
+                    if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
+                    $duomenys[$idx]['lik_grupe'][$ne][] = $res;
                 }
             }
 
+            //
 
             $duomenys = array_values($duomenys);
 
             return response()->json([
                 'status' => true,
                 'duomenys' => $duomenys,
+                'store' => $store
             ]);
     }
 
