@@ -22,11 +22,11 @@
           <b-table-column label="Pavadinimas"  field="pavadinimas" sortable>
                 {{ props.row.pavadinimas }}
           </b-table-column>
-          <b-table-column :style="{'background-color': 'silver'}" label="Likuciai"  field="likuciai" sortable>
-                {{ props.row.likuciai && props.row.likuciai.length }}
+          <b-table-column :style="{'background-color': 'silver'}" label="Likuciai"  field="likutis_sk" sortable>
+                {{ props.row.likutis_sk }}
           </b-table-column>
-          <b-table-column :style="{'background-color': 'silver'}" label="Pardavimai"  field="pardavimai" sortable>
-                {{ props.row.pardavimai && props.row.pardavimai.length }}
+          <b-table-column :style="{'background-color': 'silver'}" label="Pardavimai"  field="pardavimai_sk" sortable>
+                {{ props.row.pardavimai_sk }}
           </b-table-column>
         </template> 
 

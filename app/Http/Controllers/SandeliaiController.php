@@ -19,8 +19,8 @@ class SandeliaiController extends Controller
     {
         $duomenys = array();
 
-        $rikiuoti = 0;
-        $sandelis = "TELS";
+        //$rikiuoti = 0;
+        $sandelis = "BIGA";
 
         $pardavimai = Pardavimai::query()
             ->where('sandelis', $sandelis)
@@ -46,7 +46,9 @@ class SandeliaiController extends Controller
 
             //sudejom i grupes
             foreach ( $pardavimai as $value ) {
-                $pardavimas[$value['pavadinimas']][] = $value;
+                if($value['registras'] != "PERS"){
+                    $pardavimas[$value['pavadinimas']][] = $value;
+                }
             }
 
             foreach ( $likuciai as $value ) {
@@ -57,17 +59,21 @@ class SandeliaiController extends Controller
                 $duomenys[$idx]['pavadinimas'] = $pardavimas[$idx][0]['pavadinimas'];
                 $duomenys[$idx]['pardavimai'] = $pardavimas[$idx];
 
+                $duomenys[$idx]['pardavimai_sk'] = 0;
+                //skaiciuojam kiek is viso yra
                 foreach($val as $res){
-                    $duomenys[$idx]['pardavimas'][] = array('preke' => $res['preke'], 'kiekis' => $res['kiekis']);
+                    $duomenys[$idx]['pardavimai_sk'] = $duomenys[$idx]['pardavimai_sk'] + $res['kiekis'];
                 }
             }
 
             foreach ( $likutis as $idx => $val ){
                 $duomenys[$idx]['pavadinimas'] = $likutis[$idx][0]['pavadinimas'];
                 $duomenys[$idx]['likuciai'] = $likutis[$idx];
-
+                
+                $duomenys[$idx]['likutis_sk'] = 0;
+                //skaiciuojam kiek is viso yra
                 foreach($val as $res){
-                    $duomenys[$idx]['likutis'][] = array('preke' => $res['preke'], 'kiekis' => $res['kiekis']);
+                    $duomenys[$idx]['likutis_sk'] = $duomenys[$idx]['likutis_sk'] + $res['kiekis'];
                 }
             }
 

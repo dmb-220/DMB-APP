@@ -424,17 +424,14 @@ var render = function() {
                             style: { "background-color": "silver" },
                             attrs: {
                               label: "Likuciai",
-                              field: "likuciai",
+                              field: "likutis_sk",
                               sortable: ""
                             }
                           },
                           [
                             _vm._v(
                               "\n              " +
-                                _vm._s(
-                                  props.row.likuciai &&
-                                    props.row.likuciai.length
-                                ) +
+                                _vm._s(props.row.likutis_sk) +
                                 "\n        "
                             )
                           ]
@@ -446,17 +443,14 @@ var render = function() {
                             style: { "background-color": "silver" },
                             attrs: {
                               label: "Pardavimai",
-                              field: "pardavimai",
+                              field: "pardavimai_sk",
                               sortable: ""
                             }
                           },
                           [
                             _vm._v(
                               "\n              " +
-                                _vm._s(
-                                  props.row.pardavimai &&
-                                    props.row.pardavimai.length
-                                ) +
+                                _vm._s(props.row.pardavimai_sk) +
                                 "\n        "
                             )
                           ]
