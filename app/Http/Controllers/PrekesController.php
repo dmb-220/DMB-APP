@@ -44,7 +44,8 @@ class PrekesController extends Controller
         $sarasas = array();
         $pardavimai = array();
         $likuciai = array();
-        $akcija = array();
+        $akcija['lietuva'] = array();
+        $akcija['latvija'] = array();
 
         //paieska
         if($key[7]){
