@@ -18,7 +18,6 @@ class SandeliaiController extends Controller
     public function index()
     {
         $duomenys = array();
-        $list = array();
 
         $rikiuoti = 0;
         $sandelis = "TELS";
@@ -58,18 +57,18 @@ class SandeliaiController extends Controller
                 $duomenys[$idx]['pavadinimas'] = $pardavimas[$idx][0]['pavadinimas'];
                 $duomenys[$idx]['pardavimai'] = $pardavimas[$idx];
 
-                /*foreach($val as $res){
+                foreach($val as $res){
                     $duomenys[$idx]['pardavimas'][] = array('preke' => $res['preke'], 'kiekis' => $res['kiekis']);
-                }*/
+                }
             }
 
             foreach ( $likutis as $idx => $val ){
                 $duomenys[$idx]['pavadinimas'] = $likutis[$idx][0]['pavadinimas'];
                 $duomenys[$idx]['likuciai'] = $likutis[$idx];
 
-                /*foreach($val as $res){
+                foreach($val as $res){
                     $duomenys[$idx]['likutis'][] = array('preke' => $res['preke'], 'kiekis' => $res['kiekis']);
-                }*/
+                }
             }
 
 
@@ -78,7 +77,6 @@ class SandeliaiController extends Controller
             return response()->json([
                 'status' => true,
                 'duomenys' => $duomenys,
-                'list' => $list
             ]);
     }
 
