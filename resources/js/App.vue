@@ -53,6 +53,11 @@ export default {
             label: 'Prekes',
             icon: 'cart',
           },
+          {
+            to: '/sandeliai',
+            label: 'Sandeliai',
+            icon: 'cart',
+          },
         ],
         'VEIKSMAI',
         [

@@ -89,10 +89,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Pardavimai.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Pardavimai.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Sandeliai.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Sandeliai.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -102,126 +102,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_map__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_map__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
 /* harmony import */ var _components_CardToolbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/CardToolbar */ "./resources/js/components/CardToolbar.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -261,86 +141,29 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {},
-  created: function created() {
-    this.getData();
+  created: function created() {//this.getData()
   },
   methods: {
-    print: function print() {
-      // Pass the element id here
-      this.$htmlToPaper('printMe');
-    },
-    switch_post: function switch_post() {
+    //print() {
+    // Pass the element id here
+    // this.$htmlToPaper('printMe');
+    //},
+    getData: function getData() {
       var _this = this;
 
-      //this.rikiuotic = !this.rikiuoti;
-      if (this.ieskoti == "") {
-        this.ieskoti = this.paieska;
-      }
-
-      axios.post("/pardavimai/store", {
-        ieskoti: this.ieskoti,
-        lt: this.rodyti_lt,
-        lv: this.rodyti_lv,
-        ee: this.rodyti_ee,
-        rikiuoti: this.rikiuoti
-      }).then(function (response) {
-        console.log(response.data);
-
-        _this.getData();
-      })["catch"](function (err) {
-        _this.$buefy.toast.open({
-          message: "Error: ".concat(err.message),
-          type: 'is-danger',
-          queue: false
-        });
-      });
-    },
-    paieska_post: function paieska_post() {
-      var _this2 = this;
-
-      if (this.ieskoti != "") {
-        axios.post("/pardavimai/store", {
-          ieskoti: this.ieskoti,
-          lt: this.rodyti_lt,
-          lv: this.rodyti_lv,
-          ee: this.rodyti_ee,
-          rikiuoti: "1"
-        }).then(function (response) {
-          console.log(response.data.data);
-          _this2.rikiuoti = false;
-
-          _this2.getData();
-        })["catch"](function (err) {
-          _this2.$buefy.toast.open({
-            message: "Error: ".concat(err.message),
-            type: 'is-danger',
-            queue: false
-          });
-        });
-      } else {
-        this.$buefy.toast.open({
-          message: "KLAIDA: \u012Fveskite paie\u0161kos rakta\u017Eod\u012F!",
-          type: 'is-danger',
-          queue: false
-        });
-      }
-    },
-    getData: function getData() {
-      var _this3 = this;
-
       this.isLoading = true;
-      this.axios.get('/pardavimai').then(function (response) {
-        _this3.isLoading = false;
-        _this3.rikiuoti = response.data.rikiuoti ? false : true;
-        _this3.likutis = response.data.prekes;
-        _this3.paieska = response.data.paieska;
-        _this3.rodyti_lt = response.data.salis.LT ? true : false;
-        _this3.rodyti_lv = response.data.salis.LV ? true : false;
-        _this3.rodyti_ee = response.data.salis.EE ? true : false;
+      this.axios.get('/likutis').then(function (response) {
+        _this.isLoading = false;
+        _this.rikiuoti = response.data.rikiuoti ? false : true;
+        _this.likutis = response.data.prekes;
+        _this.paieska = response.data.paieska;
+        _this.rodyti_lt = response.data.salis.LT ? true : false;
+        _this.rodyti_lv = response.data.salis.LV ? true : false;
+        _this.rodyti_ee = response.data.salis.EE ? true : false;
       })["catch"](function (err) {
-        _this3.isLoading = false;
+        _this.isLoading = false;
 
-        _this3.$buefy.toast.open({
+        _this.$buefy.toast.open({
           message: "Error: ".concat(err.message),
           type: 'is-danger',
           queue: false
@@ -549,10 +372,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Pardavimai.vue?vue&type=template&id=bd3f77fa&":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Pardavimai.vue?vue&type=template&id=bd3f77fa& ***!
-  \********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Sandeliai.vue?vue&type=template&id=3ff2e537&":
+/*!*******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Sandeliai.vue?vue&type=template&id=3ff2e537& ***!
+  \*******************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -571,573 +394,14 @@ var render = function() {
       [
         _c(
           "card-component",
-          { attrs: { title: "PARDAVIMAI", icon: "account-multiple" } },
-          [
-            _c(
-              "b-field",
-              { attrs: { horizontal: "" } },
-              [
-                _c("b-input", {
-                  attrs: {
-                    placeholder: "Paieška...",
-                    type: "search",
-                    required: "",
-                    icon: "magnify"
-                  },
-                  nativeOn: {
-                    keyup: function($event) {
-                      if (
-                        !$event.type.indexOf("key") &&
-                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                      ) {
-                        return null
-                      }
-                      return _vm.paieska_post($event)
-                    }
-                  },
-                  model: {
-                    value: _vm.ieskoti,
-                    callback: function($$v) {
-                      _vm.ieskoti = $$v
-                    },
-                    expression: "ieskoti"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "control" },
-                  [
-                    _c(
-                      "b-button",
-                      {
-                        attrs: { "native-type": "submit", type: "is-primary" },
-                        on: { click: _vm.paieska_post }
-                      },
-                      [_vm._v("Ieškoti")]
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-field",
-              { attrs: { label: "GRUPAVIMAS:", horizontal: "" } },
-              [
-                _c(
-                  "b-switch",
-                  {
-                    nativeOn: {
-                      click: function($event) {
-                        return _vm.switch_post($event)
-                      }
-                    },
-                    model: {
-                      value: _vm.rikiuoti,
-                      callback: function($$v) {
-                        _vm.rikiuoti = $$v
-                      },
-                      expression: "rikiuoti"
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n          Veikia TIK su mūsų GAM gaminiais! \n        "
-                    )
-                  ]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { attrs: { id: "printMe" } },
-              [
-                _c("div", { staticClass: "columns" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "column has-text-centered has-text-weight-bold"
-                    },
-                    [
-                      _vm._v("Rasta: " + _vm._s(_vm.likutis.length)),
-                      _c("br"),
-                      _vm._v(_vm._s(_vm.paieska))
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "b-table",
-                  {
-                    attrs: {
-                      "mobile-cards": false,
-                      bordered: "",
-                      hoverable: "",
-                      narrowed: true,
-                      data: _vm.likutis,
-                      "opened-detailed": _vm.defaultOpenedDetails,
-                      detailed: "",
-                      "sort-icon": "arrow-up",
-                      "detail-key": "preke",
-                      loading: _vm.isLoading
-                    },
-                    on: {
-                      "details-open": function(row, index) {
-                        return _vm.$buefy.toast.open(
-                          "Išskleista " + row.preke + " prekė!"
-                        )
-                      }
-                    },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "default",
-                        fn: function(props) {
-                          return [
-                            props.row.pavadinimas == "Liemenė"
-                              ? _c(
-                                  "b-table-column",
-                                  {
-                                    style: { "background-color": "gold" },
-                                    attrs: {
-                                      label: "Preke",
-                                      field: "preke",
-                                      sortable: ""
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(props.row.preke) +
-                                        " - (" +
-                                        _vm._s(props.row.pavadinimas) +
-                                        ")\n        "
-                                    )
-                                  ]
-                                )
-                              : _c(
-                                  "b-table-column",
-                                  {
-                                    attrs: {
-                                      label: "Preke",
-                                      field: "preke",
-                                      sortable: ""
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(props.row.preke) +
-                                        "\n        "
-                                    )
-                                  ]
-                                ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                style: { "background-color": "greenyellow" },
-                                attrs: {
-                                  label: "LIETUVA",
-                                  field: "LT_viso",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(props.row.LT_viso) +
-                                    "\n        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                style: { "background-color": "GoldenRod" },
-                                attrs: {
-                                  label: "LATVIJA",
-                                  field: "LV_viso",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(props.row.LV_viso) +
-                                    "\n        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                style: { "background-color": "tomato" },
-                                attrs: {
-                                  label: "ESTIJA",
-                                  field: "EE_viso",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(props.row.EE_viso) +
-                                    "\n        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                style: { "background-color": "WhiteSmoke" },
-                                attrs: {
-                                  label: "VISO",
-                                  field: "viso",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(props.row.viso) +
-                                    "\n        "
-                                )
-                              ]
-                            )
-                          ]
-                        }
-                      },
-                      {
-                        key: "detail",
-                        fn: function(props) {
-                          return [
-                            _c("div", { staticClass: "columns" }, [
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "column",
-                                  style: {
-                                    border: "1px solid",
-                                    "background-color": "greenyellow"
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "div",
-                                    { staticClass: "has-text-centered" },
-                                    [_vm._v("Lietuva:")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("b-table", {
-                                    attrs: {
-                                      data: props.row.LT,
-                                      "default-sort-direction": "desc",
-                                      "default-sort": "kiekis"
-                                    },
-                                    scopedSlots: _vm._u(
-                                      [
-                                        {
-                                          key: "default",
-                                          fn: function(props) {
-                                            return [
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  attrs: {
-                                                    field: "sandelis",
-                                                    label: "Sandelis"
-                                                  }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                  " +
-                                                      _vm._s(
-                                                        props.row.sandelis
-                                                      ) +
-                                                      "\n              "
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  attrs: {
-                                                    field: "kiekis",
-                                                    label: "Kiekis",
-                                                    sortable: ""
-                                                  }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                  " +
-                                                      _vm._s(props.row.kiekis) +
-                                                      "\n              "
-                                                  )
-                                                ]
-                                              )
-                                            ]
-                                          }
-                                        }
-                                      ],
-                                      null,
-                                      true
-                                    )
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "column",
-                                  style: {
-                                    border: "1px solid",
-                                    "background-color": "GoldenRod"
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "div",
-                                    { staticClass: "has-text-centered" },
-                                    [_vm._v("Latvija:")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("b-table", {
-                                    attrs: {
-                                      data: props.row.LV,
-                                      "default-sort-direction": "desc",
-                                      "default-sort": "kiekis"
-                                    },
-                                    scopedSlots: _vm._u(
-                                      [
-                                        {
-                                          key: "default",
-                                          fn: function(props) {
-                                            return [
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  attrs: {
-                                                    field: "sandelis",
-                                                    label: "Sandelis"
-                                                  }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                  " +
-                                                      _vm._s(
-                                                        props.row.sandelis
-                                                      ) +
-                                                      "\n              "
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  attrs: {
-                                                    field: "kiekis",
-                                                    label: "Kiekis",
-                                                    sortable: ""
-                                                  }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                  " +
-                                                      _vm._s(props.row.kiekis) +
-                                                      "\n              "
-                                                  )
-                                                ]
-                                              )
-                                            ]
-                                          }
-                                        }
-                                      ],
-                                      null,
-                                      true
-                                    )
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "column",
-                                  style: {
-                                    border: "1px solid",
-                                    "background-color": "tomato"
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "div",
-                                    { staticClass: "has-text-centered" },
-                                    [_vm._v("Estija:")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("b-table", {
-                                    attrs: {
-                                      data: props.row.EE,
-                                      "default-sort-direction": "desc",
-                                      "default-sort": "kiekis"
-                                    },
-                                    scopedSlots: _vm._u(
-                                      [
-                                        {
-                                          key: "default",
-                                          fn: function(props) {
-                                            return [
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  attrs: {
-                                                    field: "sandelis",
-                                                    label: "Sandelis"
-                                                  }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                  " +
-                                                      _vm._s(
-                                                        props.row.sandelis
-                                                      ) +
-                                                      "\n              "
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  attrs: {
-                                                    field: "kiekis",
-                                                    label: "Kiekis",
-                                                    sortable: ""
-                                                  }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                  " +
-                                                      _vm._s(props.row.kiekis) +
-                                                      "\n              "
-                                                  )
-                                                ]
-                                              )
-                                            ]
-                                          }
-                                        }
-                                      ],
-                                      null,
-                                      true
-                                    )
-                                  })
-                                ],
-                                1
-                              )
-                            ])
-                          ]
-                        }
-                      }
-                    ])
-                  },
-                  [
-                    _vm._v(" "),
-                    _vm._v(" "),
-                    _c(
-                      "section",
-                      {
-                        staticClass: "section",
-                        attrs: { slot: "empty" },
-                        slot: "empty"
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "content has-text-centered" },
-                          [
-                            _vm.isLoading
-                              ? [
-                                  _c(
-                                    "p",
-                                    [
-                                      _c("b-icon", {
-                                        attrs: {
-                                          icon: "dots-horizontal",
-                                          size: "is-large"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("p", [_vm._v("Gaunami duomenys...")])
-                                ]
-                              : [
-                                  _c(
-                                    "p",
-                                    [
-                                      _c("b-icon", {
-                                        attrs: {
-                                          icon: "emoticon-sad",
-                                          size: "is-large"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("p", [_vm._v("Duomenų nerasta …")])
-                                ]
-                          ],
-                          2
-                        )
-                      ]
-                    )
-                  ]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "buttons" },
-              [
-                _c(
-                  "b-button",
-                  {
-                    attrs: {
-                      size: "is-medium",
-                      "icon-left": "printer",
-                      type: "is-dark"
-                    },
-                    on: { click: _vm.print }
-                  },
-                  [_vm._v("SPAUSDINTI")]
-                )
-              ],
-              1
-            )
-          ],
-          1
+          { attrs: { title: "VALDYMAS", icon: "account-multiple" } },
+          [_vm._v("\n        Valdymas\n    ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "card-component",
+          { attrs: { title: "SANDELIS", icon: "account-multiple" } },
+          [_vm._v("\n        Sandelis\n    ")]
         )
       ],
       1
@@ -1289,17 +553,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/Pardavimai.vue":
-/*!*******************************************!*\
-  !*** ./resources/js/views/Pardavimai.vue ***!
-  \*******************************************/
+/***/ "./resources/js/views/Sandeliai.vue":
+/*!******************************************!*\
+  !*** ./resources/js/views/Sandeliai.vue ***!
+  \******************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Pardavimai_vue_vue_type_template_id_bd3f77fa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pardavimai.vue?vue&type=template&id=bd3f77fa& */ "./resources/js/views/Pardavimai.vue?vue&type=template&id=bd3f77fa&");
-/* harmony import */ var _Pardavimai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pardavimai.vue?vue&type=script&lang=js& */ "./resources/js/views/Pardavimai.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Sandeliai_vue_vue_type_template_id_3ff2e537___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Sandeliai.vue?vue&type=template&id=3ff2e537& */ "./resources/js/views/Sandeliai.vue?vue&type=template&id=3ff2e537&");
+/* harmony import */ var _Sandeliai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Sandeliai.vue?vue&type=script&lang=js& */ "./resources/js/views/Sandeliai.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1309,9 +573,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Pardavimai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Pardavimai_vue_vue_type_template_id_bd3f77fa___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Pardavimai_vue_vue_type_template_id_bd3f77fa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Sandeliai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Sandeliai_vue_vue_type_template_id_3ff2e537___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Sandeliai_vue_vue_type_template_id_3ff2e537___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1321,38 +585,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/Pardavimai.vue"
+component.options.__file = "resources/js/views/Sandeliai.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/Pardavimai.vue?vue&type=script&lang=js&":
-/*!********************************************************************!*\
-  !*** ./resources/js/views/Pardavimai.vue?vue&type=script&lang=js& ***!
-  \********************************************************************/
+/***/ "./resources/js/views/Sandeliai.vue?vue&type=script&lang=js&":
+/*!*******************************************************************!*\
+  !*** ./resources/js/views/Sandeliai.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pardavimai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Pardavimai.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Pardavimai.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pardavimai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Sandeliai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Sandeliai.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Sandeliai.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Sandeliai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/Pardavimai.vue?vue&type=template&id=bd3f77fa&":
-/*!**************************************************************************!*\
-  !*** ./resources/js/views/Pardavimai.vue?vue&type=template&id=bd3f77fa& ***!
-  \**************************************************************************/
+/***/ "./resources/js/views/Sandeliai.vue?vue&type=template&id=3ff2e537&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/views/Sandeliai.vue?vue&type=template&id=3ff2e537& ***!
+  \*************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pardavimai_vue_vue_type_template_id_bd3f77fa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Pardavimai.vue?vue&type=template&id=bd3f77fa& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Pardavimai.vue?vue&type=template&id=bd3f77fa&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pardavimai_vue_vue_type_template_id_bd3f77fa___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sandeliai_vue_vue_type_template_id_3ff2e537___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Sandeliai.vue?vue&type=template&id=3ff2e537& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Sandeliai.vue?vue&type=template&id=3ff2e537&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sandeliai_vue_vue_type_template_id_3ff2e537___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pardavimai_vue_vue_type_template_id_bd3f77fa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sandeliai_vue_vue_type_template_id_3ff2e537___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

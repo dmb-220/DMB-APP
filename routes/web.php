@@ -21,6 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('testas', 'TestasController');
 
+Route::resource('sandeliai', 'SandeliaiController');
 
 /*
  * CSV

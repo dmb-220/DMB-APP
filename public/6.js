@@ -51,15 +51,16 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardToolbar.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardToolbar.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Statistika.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Statistika.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
 //
 //
 //
@@ -77,31 +78,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'CardToolbar',
-  props: {
-    isMobile: {
-      type: Boolean,
-      "default": false
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Prekes.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Prekes.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash_map__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/map */ "./node_modules/lodash/map.js");
-/* harmony import */ var lodash_map__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_map__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
-/* harmony import */ var _components_CardToolbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/CardToolbar */ "./resources/js/components/CardToolbar.vue");
 //
 //
 //
@@ -208,164 +184,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Prekes",
+  name: 'statistika',
   components: {
-    CardToolbar: _components_CardToolbar__WEBPACK_IMPORTED_MODULE_2__["default"],
-    CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
+    CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
+      output: null,
+      error: '',
       isLoading: false,
+      defaultOpenedDetails: [1],
+      showDetailIcon: false,
+      isNarrowed: true,
+      pardavimai: [],
+      ieskoti: '',
+      paieska: '',
+      viso_pard: '',
+      viso_lik: '',
+      //ka rodyti, o ko ne
       rodyti_lt: true,
       rodyti_lv: true,
       rodyti_ee: true,
-      sarasas: [],
-      defaultOpenedDetails: [1],
-      ieskoti: '',
-      paieska: '',
       salis: '',
-      rikiuoti: false,
-      gam: true,
-      pirk: true,
-      mobile_card: true,
-      paieska_big: false,
-      viso: []
+      mobile_card: true
     };
   },
   computed: {},
   created: function created() {
     this.getData();
   },
+  mounted: function mounted() {},
   methods: {
     print: function print() {
       // Pass the element id here
       this.mobile_card = false;
       this.$htmlToPaper('printMe');
-    },
-    change_gam: function change_gam() {
-      this.gam = !this.gam;
-      this.ieskoti = this.paieska;
-      this.paieska_post();
-    },
-    change_pirk: function change_pirk() {
-      this.pirk = !this.pirk;
-      this.ieskoti = this.paieska;
-      this.paieska_post();
     },
     change_lt: function change_lt() {
       this.rodyti_lt = !this.rodyti_lt;
@@ -382,53 +237,21 @@ __webpack_require__.r(__webpack_exports__);
       this.ieskoti = this.paieska;
       this.paieska_post();
     },
-    switch_post: function switch_post() {
+    paieska_post: function paieska_post() {
       var _this = this;
 
-      //this.rikiuotic = !this.rikiuoti;
-      if (this.ieskoti == "") {
-        this.ieskoti = this.paieska;
-      }
-
-      axios.post("/prekes/store", {
-        ieskoti: this.ieskoti,
-        lt: this.rodyti_lt,
-        lv: this.rodyti_lv,
-        ee: this.rodyti_ee,
-        rikiuoti: this.rikiuoti,
-        gam: this.gam,
-        pirk: this.pirk,
-        paieska_big: this.paieska_big
-      }).then(function (response) {
-        _this.getData();
-      })["catch"](function (err) {
-        _this.$buefy.toast.open({
-          message: "Error: ".concat(err.message),
-          type: 'is-danger',
-          queue: false
-        });
-      });
-    },
-    paieska_post: function paieska_post() {
-      var _this2 = this;
-
       if (this.ieskoti != "") {
-        axios.post("/prekes/store", {
+        axios.post("/statistika/store", {
           ieskoti: this.ieskoti,
           lt: this.rodyti_lt,
           lv: this.rodyti_lv,
-          ee: this.rodyti_ee,
-          rikiuoti: "1",
-          gam: this.gam,
-          pirk: this.pirk,
-          paieska_big: this.paieska_big
+          ee: this.rodyti_ee
         }).then(function (response) {
           console.log(response.data.data);
-          _this2.rikiuoti = false;
 
-          _this2.getData();
+          _this.getData();
         })["catch"](function (err) {
-          _this2.$buefy.toast.open({
+          _this.$buefy.toast.open({
             message: "Error: ".concat(err.message),
             type: 'is-danger',
             queue: false
@@ -443,25 +266,22 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     getData: function getData() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.isLoading = true;
-      this.axios.get('/prekes').then(function (response) {
-        _this3.isLoading = false;
-        _this3.sarasas = response.data.sarasas;
-        _this3.paieska = response.data.paieska;
-        _this3.viso = response.data.viso;
-        _this3.rikiuoti = response.data.rikiuoti ? false : true;
-        _this3.gam = response.data.gam ? true : false;
-        _this3.pirk = response.data.pirk ? true : false;
-        _this3.paieska_big = response.data.paieska_big ? true : false;
-        _this3.rodyti_lt = response.data.salis.LT ? true : false;
-        _this3.rodyti_lv = response.data.salis.LV ? true : false;
-        _this3.rodyti_ee = response.data.salis.EE ? true : false;
+      this.axios.get('/statistika').then(function (response) {
+        _this2.isLoading = false;
+        _this2.pardavimai = response.data.data;
+        _this2.paieska = response.data.paieska;
+        _this2.viso_pard = response.data.viso_pard;
+        _this2.viso_lik = response.data.viso_lik;
+        _this2.rodyti_lt = response.data.salis.LT ? true : false;
+        _this2.rodyti_lv = response.data.salis.LV ? true : false;
+        _this2.rodyti_ee = response.data.salis.EE ? true : false; //console.log(reponse.data.salis);
       })["catch"](function (err) {
-        _this3.isLoading = false;
+        _this2.isLoading = false;
 
-        _this3.$buefy.toast.open({
+        _this2.$buefy.toast.open({
           message: "Error: ".concat(err.message),
           type: 'is-danger',
           queue: false
@@ -470,103 +290,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   }
 });
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseMap.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_baseMap.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseEach = __webpack_require__(/*! ./_baseEach */ "./node_modules/lodash/_baseEach.js"),
-    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js");
-
-/**
- * The base implementation of `_.map` without support for iteratee shorthands.
- *
- * @private
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
- */
-function baseMap(collection, iteratee) {
-  var index = -1,
-      result = isArrayLike(collection) ? Array(collection.length) : [];
-
-  baseEach(collection, function(value, key, collection) {
-    result[++index] = iteratee(value, key, collection);
-  });
-  return result;
-}
-
-module.exports = baseMap;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/map.js":
-/*!************************************!*\
-  !*** ./node_modules/lodash/map.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayMap = __webpack_require__(/*! ./_arrayMap */ "./node_modules/lodash/_arrayMap.js"),
-    baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js"),
-    baseMap = __webpack_require__(/*! ./_baseMap */ "./node_modules/lodash/_baseMap.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js");
-
-/**
- * Creates an array of values by running each element in `collection` thru
- * `iteratee`. The iteratee is invoked with three arguments:
- * (value, index|key, collection).
- *
- * Many lodash methods are guarded to work as iteratees for methods like
- * `_.every`, `_.filter`, `_.map`, `_.mapValues`, `_.reject`, and `_.some`.
- *
- * The guarded methods are:
- * `ary`, `chunk`, `curry`, `curryRight`, `drop`, `dropRight`, `every`,
- * `fill`, `invert`, `parseInt`, `random`, `range`, `rangeRight`, `repeat`,
- * `sampleSize`, `slice`, `some`, `sortBy`, `split`, `take`, `takeRight`,
- * `template`, `trim`, `trimEnd`, `trimStart`, and `words`
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Collection
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
- * @example
- *
- * function square(n) {
- *   return n * n;
- * }
- *
- * _.map([4, 8], square);
- * // => [16, 64]
- *
- * _.map({ 'a': 4, 'b': 8 }, square);
- * // => [16, 64] (iteration order is not guaranteed)
- *
- * var users = [
- *   { 'user': 'barney' },
- *   { 'user': 'fred' }
- * ];
- *
- * // The `_.property` iteratee shorthand.
- * _.map(users, 'user');
- * // => ['barney', 'fred']
- */
-function map(collection, iteratee) {
-  var func = isArray(collection) ? arrayMap : baseMap;
-  return func(collection, baseIteratee(iteratee, 3));
-}
-
-module.exports = map;
-
 
 /***/ }),
 
@@ -636,10 +359,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0&":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0& ***!
-  \**************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Statistika.vue?vue&type=template&id=5f6443e8&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Statistika.vue?vue&type=template&id=5f6443e8& ***!
+  \********************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -651,121 +374,73 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "notification is-card-toolbar" }, [
-    _c("div", { staticClass: "level", class: { "is-mobile": _vm.isMobile } }, [
-      _c("div", { staticClass: "level-left" }, [
-        _c("div", { staticClass: "level-item" }, [_vm._t("left")], 2)
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "level-right" }, [
-        _c("div", { staticClass: "level-item" }, [_vm._t("right")], 2)
-      ])
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Prekes.vue?vue&type=template&id=67ff23b5&":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Prekes.vue?vue&type=template&id=67ff23b5& ***!
-  \****************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "section",
-      { staticClass: "section is-main-section" },
-      [
-        _c(
-          "card-component",
-          { attrs: { title: "VALDYMAS", icon: "account-multiple" } },
-          [
-            _c(
-              "b-field",
-              { attrs: { label: "PAIEŠKA:", horizontal: "" } },
-              [
-                _c("b-input", {
-                  attrs: {
-                    placeholder: "Paieška...",
-                    type: "search",
-                    required: "",
-                    icon: "magnify"
-                  },
-                  nativeOn: {
-                    keyup: function($event) {
-                      if (
-                        !$event.type.indexOf("key") &&
-                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                      ) {
-                        return null
-                      }
-                      return _vm.paieska_post($event)
+  return _c(
+    "section",
+    { staticClass: "section is-main-section" },
+    [
+      _c(
+        "card-component",
+        { attrs: { title: "Statistika", icon: "finance" } },
+        [
+          _c(
+            "b-field",
+            { attrs: { horizontal: "" } },
+            [
+              _c("b-input", {
+                attrs: {
+                  placeholder: "Paieška...",
+                  type: "search",
+                  required: "",
+                  icon: "magnify"
+                },
+                nativeOn: {
+                  keyup: function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
                     }
-                  },
-                  model: {
-                    value: _vm.ieskoti,
-                    callback: function($$v) {
-                      _vm.ieskoti = $$v
-                    },
-                    expression: "ieskoti"
+                    return _vm.paieska_post($event)
                   }
-                }),
-                _vm._v(" "),
-                _c(
-                  "b-button",
-                  {
-                    attrs: {
-                      "native-type": "submit",
-                      type: "is-primary",
-                      outlined: ""
+                },
+                model: {
+                  value: _vm.ieskoti,
+                  callback: function($$v) {
+                    _vm.ieskoti = $$v
+                  },
+                  expression: "ieskoti"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "control" },
+                [
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { "native-type": "submit", type: "is-primary" },
+                      on: { click: _vm.paieska_post }
                     },
-                    on: { click: _vm.paieska_post }
-                  },
-                  [_vm._v("Ieškoti")]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
+                    [_vm._v("Ieškoti")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("div", { staticClass: "columns" }, [
             _c(
-              "b-field",
-              { attrs: { label: " ", horizontal: "" } },
-              [
-                _c(
-                  "b-checkbox",
-                  {
-                    attrs: { value: false, type: "is-info" },
-                    model: {
-                      value: _vm.paieska_big,
-                      callback: function($$v) {
-                        _vm.paieska_big = $$v
-                      },
-                      expression: "paieska_big"
-                    }
-                  },
-                  [_vm._v("Aktivuoti išplėstinę paieška")]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-field",
-              { attrs: { label: "RODYTI:", horizontal: "" } },
+              "div",
+              {
+                staticClass: "column has-text-centered",
+                style: { "background-color": "greenyellow" }
+              },
               [
                 _c(
                   "b-button",
@@ -778,8 +453,18 @@ var render = function() {
                     }
                   },
                   [_vm._v("LIETUVA")]
-                ),
-                _vm._v(" "),
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "column has-text-centered",
+                style: { "background-color": "GoldenRod" }
+              },
+              [
                 _c(
                   "b-button",
                   {
@@ -791,8 +476,18 @@ var render = function() {
                     }
                   },
                   [_vm._v("LATVIJA")]
-                ),
-                _vm._v(" "),
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "column has-text-centered",
+                style: { "background-color": "tomato" }
+              },
+              [
                 _c(
                   "b-button",
                   {
@@ -807,1066 +502,379 @@ var render = function() {
                 )
               ],
               1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-field",
-              { attrs: { label: "PREKĖS:", horizontal: "" } },
-              [
+            )
+          ]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c(
+            "div",
+            { attrs: { id: "printMe" } },
+            [
+              _c("div", { staticClass: "columns" }, [
                 _c(
-                  "b-button",
+                  "div",
                   {
-                    attrs: { type: _vm.gam ? "is-info" : "is-dark" },
-                    on: {
-                      click: function($event) {
-                        return _vm.change_gam()
-                      }
-                    }
+                    staticClass: "column has-text-centered has-text-weight-bold"
                   },
-                  [_vm._v("GAMYBA")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-button",
-                  {
-                    attrs: { type: _vm.pirk ? "is-info" : "is-dark" },
-                    on: {
-                      click: function($event) {
-                        return _vm.change_pirk()
-                      }
-                    }
-                  },
-                  [_vm._v("PIRKIMAI")]
+                  [_vm._v(_vm._s(_vm.paieska))]
                 )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-field",
-              { attrs: { label: "GRUPAVIMAS:", horizontal: "" } },
-              [
-                _c(
-                  "b-switch",
-                  {
-                    attrs: { type: "is-info" },
-                    nativeOn: {
-                      click: function($event) {
-                        return _vm.switch_post($event)
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-table",
+                {
+                  attrs: {
+                    "mobile-cards": _vm.mobile_card,
+                    bordered: "",
+                    hoverable: "",
+                    narrowed: _vm.isNarrowed,
+                    data: _vm.pardavimai,
+                    "opened-detailed": _vm.defaultOpenedDetails,
+                    detailed: "",
+                    "sort-icon": "arrow-up",
+                    "detail-key": "sandelis",
+                    loading: _vm.isLoading
+                  },
+                  on: {
+                    "details-open": function(row, index) {
+                      return _vm.$buefy.toast.open(
+                        "Išskleistas " + row.sandelis + " sandelys!"
+                      )
+                    }
+                  },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "default",
+                      fn: function(props) {
+                        return [
+                          props.row.salis == 1
+                            ? _c(
+                                "b-table-column",
+                                {
+                                  style: { "background-color": "greenyellow" },
+                                  attrs: {
+                                    label: "Sandelis",
+                                    field: "sandelis"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n              " +
+                                      _vm._s(props.row.sandelis) +
+                                      "\n        "
+                                  )
+                                ]
+                              )
+                            : props.row.salis == 2
+                            ? _c(
+                                "b-table-column",
+                                {
+                                  style: { "background-color": "GoldenRod " },
+                                  attrs: {
+                                    label: "Sandelis",
+                                    field: "sandelis"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n              " +
+                                      _vm._s(props.row.sandelis) +
+                                      "\n        "
+                                  )
+                                ]
+                              )
+                            : props.row.salis == 3
+                            ? _c(
+                                "b-table-column",
+                                {
+                                  style: { "background-color": "tomato" },
+                                  attrs: {
+                                    label: "Sandelis",
+                                    field: "sandelis"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n              " +
+                                      _vm._s(props.row.sandelis) +
+                                      "\n        "
+                                  )
+                                ]
+                              )
+                            : _c(
+                                "b-table-column",
+                                {
+                                  attrs: {
+                                    label: "Sandelis",
+                                    field: "sandelis"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n              " +
+                                      _vm._s(props.row.sandelis) +
+                                      "\n        "
+                                  )
+                                ]
+                              ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                label: "Likutis",
+                                field: "likutis_sk",
+                                sortable: ""
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n          " +
+                                  _vm._s(props.row.likutis_sk) +
+                                  "\n        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                label: "Parduota",
+                                field: "pardavimai_sk",
+                                sortable: ""
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n          " +
+                                  _vm._s(props.row.pardavimai_sk) +
+                                  "\n        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              attrs: {
+                                label: "Viso",
+                                field: "viso",
+                                sortable: ""
+                              }
+                            },
+                            [_c("b", [_vm._v(_vm._s(props.row.viso))])]
+                          )
+                        ]
                       }
                     },
-                    model: {
-                      value: _vm.rikiuoti,
-                      callback: function($$v) {
-                        _vm.rikiuoti = $$v
-                      },
-                      expression: "rikiuoti"
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n          Veikia TIK su mūsų GAM gaminiais! \n        "
-                    )
-                  ]
-                )
-              ],
-              1
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "card-component",
-          { attrs: { title: "PREKIŲ SĄRAŠAS", icon: "account-multiple" } },
-          [
-            _c(
-              "div",
-              { attrs: { id: "printMe" } },
-              [
-                _c("div", { staticClass: "columns" }, [
-                  _c(
-                    "div",
                     {
-                      staticClass:
-                        "column has-text-centered has-text-weight-bold"
+                      key: "detail",
+                      fn: function(props) {
+                        return [
+                          _c("div", { staticClass: "columns" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "column",
+                                style: { border: "1px solid" }
+                              },
+                              [
+                                _c("b-table", {
+                                  attrs: {
+                                    data: props.row.list,
+                                    "default-sort-direction": "desc",
+                                    "default-sort": "kiekis",
+                                    bordered: true,
+                                    striped: true,
+                                    narrowed: true
+                                  },
+                                  scopedSlots: _vm._u(
+                                    [
+                                      {
+                                        key: "default",
+                                        fn: function(props) {
+                                          return [
+                                            _c(
+                                              "b-table-column",
+                                              {
+                                                attrs: {
+                                                  field: "preke",
+                                                  label: "Prekė",
+                                                  sortable: ""
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                  " +
+                                                    _vm._s(props.row.preke) +
+                                                    "\n              "
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "b-table-column",
+                                              {
+                                                style: {
+                                                  "background-color":
+                                                    "LightGray"
+                                                },
+                                                attrs: {
+                                                  label: "Likučiai",
+                                                  field: "likutis",
+                                                  sortable: ""
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                  " +
+                                                    _vm._s(props.row.likutis) +
+                                                    "\n              "
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "b-table-column",
+                                              {
+                                                style: {
+                                                  "background-color":
+                                                    "LightGray"
+                                                },
+                                                attrs: {
+                                                  label: "Pardavimai",
+                                                  field: "pardavimai",
+                                                  sortable: ""
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                  " +
+                                                    _vm._s(
+                                                      props.row.pardavimai
+                                                    ) +
+                                                    "\n              "
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        }
+                                      }
+                                    ],
+                                    null,
+                                    true
+                                  )
+                                })
+                              ],
+                              1
+                            )
+                          ])
+                        ]
+                      }
+                    }
+                  ])
+                },
+                [
+                  _vm._v(" "),
+                  _vm._v(" "),
+                  _c(
+                    "section",
+                    {
+                      staticClass: "section",
+                      attrs: { slot: "empty" },
+                      slot: "empty"
                     },
                     [
-                      _vm._v(
-                        "\n          Rasta: " + _vm._s(_vm.sarasas.length)
-                      ),
-                      _c("br"),
-                      _vm._v(_vm._s(_vm.paieska) + "\n          ")
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "b-table",
-                  {
-                    attrs: {
-                      "mobile-cards": _vm.mobile_card,
-                      bordered: "",
-                      hoverable: "",
-                      narrowed: true,
-                      data: _vm.sarasas,
-                      "opened-detailed": _vm.defaultOpenedDetails,
-                      detailed: "",
-                      "sort-icon": "arrow-up",
-                      "detail-key": "preke",
-                      loading: _vm.isLoading
-                    },
-                    on: {
-                      "details-open": function(row, index) {
-                        return _vm.$buefy.toast.open(
-                          "Išskleista " + row.preke + " prekė!"
-                        )
-                      }
-                    },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "default",
-                        fn: function(props) {
-                          return [
-                            props.row.pavadinimas == "Liemenė"
-                              ? _c(
-                                  "b-table-column",
-                                  {
-                                    style: { "background-color": "gold" },
-                                    attrs: {
-                                      label: "Preke",
-                                      field: "preke",
-                                      sortable: ""
-                                    }
-                                  },
+                      _c(
+                        "div",
+                        { staticClass: "content has-text-centered" },
+                        [
+                          _vm.isLoading
+                            ? [
+                                _c(
+                                  "p",
                                   [
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(props.row.preke) +
-                                        "\n        "
-                                    )
-                                  ]
-                                )
-                              : _c(
-                                  "b-table-column",
-                                  {
-                                    attrs: {
-                                      label: "Preke",
-                                      field: "preke",
-                                      sortable: ""
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(props.row.preke) +
-                                        "\n        "
-                                    )
-                                  ]
+                                    _c("b-icon", {
+                                      attrs: {
+                                        icon: "dots-horizontal",
+                                        size: "is-large"
+                                      }
+                                    })
+                                  ],
+                                  1
                                 ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                style: { "background-color": "greenyellow" },
-                                attrs: {
-                                  visible: _vm.rodyti_lt,
-                                  label: "LT likučiai",
-                                  field: "likutis.LT_viso",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(
-                                      props.row.likutis &&
-                                        props.row.likutis.LT_viso
-                                    ) +
-                                    "\n        "
-                                )
+                                _vm._v(" "),
+                                _c("p", [_vm._v("Gaunami duomenys...")])
                               ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                style: { "background-color": "greenyellow" },
-                                attrs: {
-                                  visible: _vm.rodyti_lt,
-                                  label: "LT pardavimai",
-                                  field: "pardavimai.LT_viso",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(
-                                      props.row.pardavimai &&
-                                        props.row.pardavimai.LT_viso
-                                    ) +
-                                    "\n        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                style: { "background-color": "GoldenRod" },
-                                attrs: {
-                                  visible: _vm.rodyti_lv,
-                                  label: "LV likučiai",
-                                  field: "likutis.LV_viso",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n          " +
-                                    _vm._s(
-                                      props.row.likutis &&
-                                        props.row.likutis.LV_viso
-                                    ) +
-                                    "\n        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                style: { "background-color": "GoldenRod" },
-                                attrs: {
-                                  visible: _vm.rodyti_lv,
-                                  label: "LV pardavimai",
-                                  field: "pardavimai.LV_viso",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n               " +
-                                    _vm._s(
-                                      props.row.pardavimai &&
-                                        props.row.pardavimai.LV_viso
-                                    ) +
-                                    "\n        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                style: { "background-color": "tomato" },
-                                attrs: {
-                                  visible: _vm.rodyti_ee,
-                                  label: "EE likučiai",
-                                  field: "likutis.EE_viso",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(
-                                      props.row.likutis &&
-                                        props.row.likutis.EE_viso
-                                    ) +
-                                    "\n        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                style: { "background-color": "tomato" },
-                                attrs: {
-                                  visible: _vm.rodyti_ee,
-                                  label: "EE pardavimai",
-                                  field: "pardavimai.EE_viso",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(
-                                      props.row.pardavimai &&
-                                        props.row.pardavimai.EE_viso
-                                    ) +
-                                    "\n        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                style: { "background-color": "WhiteSmoke " },
-                                attrs: {
-                                  label: "LIKUČIAI",
-                                  field: "likutis.viso",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(
-                                      props.row.likutis &&
-                                        props.row.likutis.viso
-                                    ) +
-                                    "\n        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                style: { "background-color": "WhiteSmoke " },
-                                attrs: {
-                                  label: "PARDAVIMAI",
-                                  field: "pardavimai.viso",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(
-                                      props.row.pardavimai &&
-                                        props.row.pardavimai.viso
-                                    ) +
-                                    "\n        "
-                                )
-                              ]
-                            )
-                          ]
-                        }
-                      },
-                      {
-                        key: "detail",
-                        fn: function(props) {
-                          return [
-                            _c("div", { staticClass: "columns" }, [
-                              _c(
-                                "div",
-                                {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: _vm.rodyti_lt,
-                                      expression: "rodyti_lt"
-                                    }
+                            : [
+                                _c(
+                                  "p",
+                                  [
+                                    _c("b-icon", {
+                                      attrs: {
+                                        icon: "emoticon-sad",
+                                        size: "is-large"
+                                      }
+                                    })
                                   ],
-                                  staticClass: "column",
-                                  style: {
-                                    border: "1px dotted",
-                                    "background-color": "greenyellow"
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "div",
-                                    { staticClass: "has-text-centered" },
-                                    [_vm._v("LIETUVA:")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("br"),
-                                  _vm._v(" "),
-                                  props.row.akcija_lt.length > 0
-                                    ? _c("b-table", {
-                                        attrs: {
-                                          data: props.row.akcija_lt,
-                                          "default-sort-direction": "asc",
-                                          "default-sort": "sandelis"
-                                        },
-                                        scopedSlots: _vm._u(
-                                          [
-                                            {
-                                              key: "default",
-                                              fn: function(props) {
-                                                return [
-                                                  _c(
-                                                    "b-table-column",
-                                                    {
-                                                      attrs: { label: "Akcija" }
-                                                    },
-                                                    [
-                                                      _c("small", [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            props.row.akcija
-                                                          )
-                                                        )
-                                                      ])
-                                                    ]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "b-table-column",
-                                                    {
-                                                      style: {
-                                                        "background-color":
-                                                          "LightGray"
-                                                      },
-                                                      attrs: { label: "Kaina" }
-                                                    },
-                                                    [
-                                                      _c("small", [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            props.row.kaina
-                                                          ) + " €"
-                                                        )
-                                                      ])
-                                                    ]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "b-table-column",
-                                                    {
-                                                      style: {
-                                                        "background-color":
-                                                          "LightGray"
-                                                      },
-                                                      attrs: {
-                                                        label: "Galioja IKI"
-                                                      }
-                                                    },
-                                                    [
-                                                      _c("small", [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            props.row.galioja_iki.split(
-                                                              " "
-                                                            )[0]
-                                                          )
-                                                        )
-                                                      ])
-                                                    ]
-                                                  )
-                                                ]
-                                              }
-                                            }
-                                          ],
-                                          null,
-                                          true
-                                        )
-                                      })
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  props.row.akcija_lt.length > 0
-                                    ? _c("br")
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _c("b-table", {
-                                    attrs: {
-                                      data: props.row.list.LT,
-                                      "default-sort-direction": "asc",
-                                      "default-sort": "sandelis"
-                                    },
-                                    scopedSlots: _vm._u(
-                                      [
-                                        {
-                                          key: "default",
-                                          fn: function(props) {
-                                            return [
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  attrs: {
-                                                    field: "sandelis",
-                                                    label: "Sandelis",
-                                                    sortable: ""
-                                                  }
-                                                },
-                                                [
-                                                  _c("small", [
-                                                    _vm._v(
-                                                      _vm._s(props.row.sandelis)
-                                                    )
-                                                  ])
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  style: {
-                                                    "background-color":
-                                                      "LightGray"
-                                                  },
-                                                  attrs: {
-                                                    field: "likutis.kiekis",
-                                                    label: "Likuciai"
-                                                  }
-                                                },
-                                                [
-                                                  _c("small", [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        props.row.likutis &&
-                                                          props.row.likutis
-                                                            .kiekis
-                                                      )
-                                                    )
-                                                  ])
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  style: {
-                                                    "background-color":
-                                                      "LightGray"
-                                                  },
-                                                  attrs: {
-                                                    field: "pardavimai.kiekis",
-                                                    label: "Pardavimai"
-                                                  }
-                                                },
-                                                [
-                                                  _c("small", [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        props.row.pardavimai &&
-                                                          props.row.pardavimai
-                                                            .kiekis
-                                                      )
-                                                    )
-                                                  ])
-                                                ]
-                                              )
-                                            ]
-                                          }
-                                        }
-                                      ],
-                                      null,
-                                      true
-                                    )
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: _vm.rodyti_lv,
-                                      expression: "rodyti_lv"
-                                    }
-                                  ],
-                                  staticClass: "column",
-                                  style: {
-                                    border: "1px dotted",
-                                    "background-color": "GoldenRod"
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "div",
-                                    { staticClass: "has-text-centered" },
-                                    [_vm._v("LATVIJA:")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("br"),
-                                  _vm._v(" "),
-                                  props.row.akcija_lv.length > 0
-                                    ? _c("b-table", {
-                                        attrs: {
-                                          data: props.row.akcija_lv,
-                                          "default-sort-direction": "asc",
-                                          "default-sort": "sandelis"
-                                        },
-                                        scopedSlots: _vm._u(
-                                          [
-                                            {
-                                              key: "default",
-                                              fn: function(props) {
-                                                return [
-                                                  _c(
-                                                    "b-table-column",
-                                                    {
-                                                      attrs: { label: "Akcija" }
-                                                    },
-                                                    [
-                                                      _c("small", [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            props.row.akcija
-                                                          )
-                                                        )
-                                                      ])
-                                                    ]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "b-table-column",
-                                                    {
-                                                      style: {
-                                                        "background-color":
-                                                          "LightGray"
-                                                      },
-                                                      attrs: { label: "Kaina" }
-                                                    },
-                                                    [
-                                                      _c("small", [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            props.row.kaina
-                                                          ) + " €"
-                                                        )
-                                                      ])
-                                                    ]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "b-table-column",
-                                                    {
-                                                      style: {
-                                                        "background-color":
-                                                          "LightGray"
-                                                      },
-                                                      attrs: {
-                                                        label: "Galioja IKI"
-                                                      }
-                                                    },
-                                                    [
-                                                      _c("small", [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            props.row.galioja_iki.split(
-                                                              " "
-                                                            )[0]
-                                                          )
-                                                        )
-                                                      ])
-                                                    ]
-                                                  )
-                                                ]
-                                              }
-                                            }
-                                          ],
-                                          null,
-                                          true
-                                        )
-                                      })
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  props.row.akcija_lv.length > 0
-                                    ? _c("br")
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _c("b-table", {
-                                    attrs: {
-                                      data: props.row.list.LV,
-                                      "default-sort-direction": "asc",
-                                      "default-sort": "sandelis"
-                                    },
-                                    scopedSlots: _vm._u(
-                                      [
-                                        {
-                                          key: "default",
-                                          fn: function(props) {
-                                            return [
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  attrs: {
-                                                    field: "sandelis",
-                                                    label: "Sandelis",
-                                                    sortable: ""
-                                                  }
-                                                },
-                                                [
-                                                  _c("small", [
-                                                    _vm._v(
-                                                      _vm._s(props.row.sandelis)
-                                                    )
-                                                  ])
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  style: {
-                                                    "background-color":
-                                                      "LightGray"
-                                                  },
-                                                  attrs: {
-                                                    field: "likutis.kiekis",
-                                                    label: "Likuciai"
-                                                  }
-                                                },
-                                                [
-                                                  _c("small", [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        props.row.likutis &&
-                                                          props.row.likutis
-                                                            .kiekis
-                                                      )
-                                                    )
-                                                  ])
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  style: {
-                                                    "background-color":
-                                                      "LightGray"
-                                                  },
-                                                  attrs: {
-                                                    field: "pardavimai.kiekis",
-                                                    label: "Pardavimai"
-                                                  }
-                                                },
-                                                [
-                                                  _c("small", [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        props.row.pardavimai &&
-                                                          props.row.pardavimai
-                                                            .kiekis
-                                                      )
-                                                    )
-                                                  ])
-                                                ]
-                                              )
-                                            ]
-                                          }
-                                        }
-                                      ],
-                                      null,
-                                      true
-                                    )
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: _vm.rodyti_ee,
-                                      expression: "rodyti_ee"
-                                    }
-                                  ],
-                                  staticClass: "column",
-                                  style: {
-                                    border: "1px dotted",
-                                    "background-color": "tomato"
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "div",
-                                    { staticClass: "has-text-centered" },
-                                    [_vm._v("ESTIJA:")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("br"),
-                                  _vm._v(" "),
-                                  _c("b-table", {
-                                    attrs: {
-                                      data: props.row.list.EE,
-                                      "default-sort-direction": "asc",
-                                      "default-sort": "sandelis"
-                                    },
-                                    scopedSlots: _vm._u(
-                                      [
-                                        {
-                                          key: "default",
-                                          fn: function(props) {
-                                            return [
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  attrs: {
-                                                    field: "sandelis",
-                                                    label: "Sandelis",
-                                                    sortable: ""
-                                                  }
-                                                },
-                                                [
-                                                  _c("small", [
-                                                    _vm._v(
-                                                      _vm._s(props.row.sandelis)
-                                                    )
-                                                  ])
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  style: {
-                                                    "background-color":
-                                                      "LightGray"
-                                                  },
-                                                  attrs: {
-                                                    field: "likutis.kiekis",
-                                                    label: "Likuciai"
-                                                  }
-                                                },
-                                                [
-                                                  _c("small", [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        props.row.likutis &&
-                                                          props.row.likutis
-                                                            .kiekis
-                                                      )
-                                                    )
-                                                  ])
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "b-table-column",
-                                                {
-                                                  style: {
-                                                    "background-color":
-                                                      "LightGray"
-                                                  },
-                                                  attrs: {
-                                                    field: "pardavimai.kiekis",
-                                                    label: "Pardavimai"
-                                                  }
-                                                },
-                                                [
-                                                  _c("small", [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        props.row.pardavimai &&
-                                                          props.row.pardavimai
-                                                            .kiekis
-                                                      )
-                                                    )
-                                                  ])
-                                                ]
-                                              )
-                                            ]
-                                          }
-                                        }
-                                      ],
-                                      null,
-                                      true
-                                    )
-                                  })
-                                ],
-                                1
-                              )
-                            ])
-                          ]
-                        }
-                      }
-                    ])
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c("p", [_vm._v("Duomenų nerasta …")])
+                              ]
+                        ],
+                        2
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("template", { slot: "footer" }, [
+                    _c("th"),
+                    _vm._v(" "),
+                    _c("th"),
+                    _vm._v(" "),
+                    _c("th", [_vm._v(_vm._s(_vm.viso_lik))]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v(_vm._s(_vm.viso_pard))]),
+                    _vm._v(" "),
+                    _c("th")
+                  ])
+                ],
+                2
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "buttons" },
+            [
+              _c(
+                "b-button",
+                {
+                  attrs: {
+                    size: "is-medium",
+                    "icon-left": "printer",
+                    type: "is-dark"
                   },
-                  [
-                    _vm._v(" "),
-                    _vm._v(" "),
-                    _c(
-                      "section",
-                      {
-                        staticClass: "section",
-                        attrs: { slot: "empty" },
-                        slot: "empty"
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "content has-text-centered" },
-                          [
-                            _vm.isLoading
-                              ? [
-                                  _c(
-                                    "p",
-                                    [
-                                      _c("b-icon", {
-                                        attrs: {
-                                          icon: "dots-horizontal",
-                                          size: "is-large"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("p", [_vm._v("Gaunami duomenys...")])
-                                ]
-                              : [
-                                  _c(
-                                    "p",
-                                    [
-                                      _c("b-icon", {
-                                        attrs: {
-                                          icon: "emoticon-sad",
-                                          size: "is-large"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("p", [_vm._v("Duomenų nerasta …")])
-                                ]
-                          ],
-                          2
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("template", { slot: "footer" }, [
-                      _c("th"),
-                      _vm._v(" "),
-                      _c("th"),
-                      _vm._v(" "),
-                      _c(
-                        "th",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.rodyti_lt,
-                              expression: "rodyti_lt"
-                            }
-                          ]
-                        },
-                        [_vm._v(_vm._s(_vm.viso.lt_lik))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "th",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.rodyti_lt,
-                              expression: "rodyti_lt"
-                            }
-                          ]
-                        },
-                        [_vm._v(_vm._s(_vm.viso.lt_pard))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "th",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.rodyti_lv,
-                              expression: "rodyti_lv"
-                            }
-                          ]
-                        },
-                        [_vm._v(_vm._s(_vm.viso.lv_lik))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "th",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.rodyti_lv,
-                              expression: "rodyti_lv"
-                            }
-                          ]
-                        },
-                        [_vm._v(_vm._s(_vm.viso.lv_pard))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "th",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.rodyti_ee,
-                              expression: "rodyti_ee"
-                            }
-                          ]
-                        },
-                        [_vm._v(_vm._s(_vm.viso.ee_lik))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "th",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.rodyti_ee,
-                              expression: "rodyti_ee"
-                            }
-                          ]
-                        },
-                        [_vm._v(_vm._s(_vm.viso.ee_pard))]
-                      ),
-                      _vm._v(" "),
-                      _c("th")
-                    ])
-                  ],
-                  2
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "buttons" },
-              [
-                _c(
-                  "b-button",
-                  {
-                    attrs: {
-                      size: "is-medium",
-                      "icon-left": "printer",
-                      type: "is-dark"
-                    },
-                    on: { click: _vm.print }
-                  },
-                  [_vm._v("SPAUSDINTI")]
-                )
-              ],
-              1
-            )
-          ]
-        )
-      ],
-      1
-    )
-  ])
+                  on: { click: _vm.print }
+                },
+                [_vm._v("SPAUSDINTI")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -1944,17 +952,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/CardToolbar.vue":
-/*!*************************************************!*\
-  !*** ./resources/js/components/CardToolbar.vue ***!
-  \*************************************************/
+/***/ "./resources/js/views/Statistika.vue":
+/*!*******************************************!*\
+  !*** ./resources/js/views/Statistika.vue ***!
+  \*******************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardToolbar.vue?vue&type=template&id=46e0f3b0& */ "./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0&");
-/* harmony import */ var _CardToolbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardToolbar.vue?vue&type=script&lang=js& */ "./resources/js/components/CardToolbar.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Statistika_vue_vue_type_template_id_5f6443e8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Statistika.vue?vue&type=template&id=5f6443e8& */ "./resources/js/views/Statistika.vue?vue&type=template&id=5f6443e8&");
+/* harmony import */ var _Statistika_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Statistika.vue?vue&type=script&lang=js& */ "./resources/js/views/Statistika.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1964,9 +972,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _CardToolbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Statistika_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Statistika_vue_vue_type_template_id_5f6443e8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Statistika_vue_vue_type_template_id_5f6443e8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1976,107 +984,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/CardToolbar.vue"
+component.options.__file = "resources/js/views/Statistika.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/CardToolbar.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/views/Statistika.vue?vue&type=script&lang=js&":
+/*!********************************************************************!*\
+  !*** ./resources/js/views/Statistika.vue?vue&type=script&lang=js& ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Statistika_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Statistika.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Statistika.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Statistika_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/Statistika.vue?vue&type=template&id=5f6443e8&":
 /*!**************************************************************************!*\
-  !*** ./resources/js/components/CardToolbar.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/js/views/Statistika.vue?vue&type=template&id=5f6443e8& ***!
   \**************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CardToolbar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardToolbar.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0& ***!
-  \********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CardToolbar.vue?vue&type=template&id=46e0f3b0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardToolbar.vue?vue&type=template&id=46e0f3b0&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Statistika_vue_vue_type_template_id_5f6443e8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Statistika.vue?vue&type=template&id=5f6443e8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Statistika.vue?vue&type=template&id=5f6443e8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Statistika_vue_vue_type_template_id_5f6443e8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/views/Prekes.vue":
-/*!***************************************!*\
-  !*** ./resources/js/views/Prekes.vue ***!
-  \***************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Prekes_vue_vue_type_template_id_67ff23b5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Prekes.vue?vue&type=template&id=67ff23b5& */ "./resources/js/views/Prekes.vue?vue&type=template&id=67ff23b5&");
-/* harmony import */ var _Prekes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Prekes.vue?vue&type=script&lang=js& */ "./resources/js/views/Prekes.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Prekes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Prekes_vue_vue_type_template_id_67ff23b5___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Prekes_vue_vue_type_template_id_67ff23b5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/views/Prekes.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/views/Prekes.vue?vue&type=script&lang=js&":
-/*!****************************************************************!*\
-  !*** ./resources/js/views/Prekes.vue?vue&type=script&lang=js& ***!
-  \****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Prekes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Prekes.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Prekes.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Prekes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/views/Prekes.vue?vue&type=template&id=67ff23b5&":
-/*!**********************************************************************!*\
-  !*** ./resources/js/views/Prekes.vue?vue&type=template&id=67ff23b5& ***!
-  \**********************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Prekes_vue_vue_type_template_id_67ff23b5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Prekes.vue?vue&type=template&id=67ff23b5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Prekes.vue?vue&type=template&id=67ff23b5&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Prekes_vue_vue_type_template_id_67ff23b5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Prekes_vue_vue_type_template_id_67ff23b5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Statistika_vue_vue_type_template_id_5f6443e8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

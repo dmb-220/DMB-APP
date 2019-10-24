@@ -39,9 +39,9 @@ export default new Router({
       component: () => import('./views/Prekes.vue')
     },
     {
-      path: '/profile',
-      name: 'profile',
-      component: () => import('./views/Profile.vue')
+      path: '/sandeliai',
+      name: 'sandeliai',
+      component: () => import('./views/Sandeliai.vue')
     },
     
 
