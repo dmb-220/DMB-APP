@@ -30,15 +30,19 @@ class SandeliaiController extends Controller
         $sandeliai = array();
 
         //$rikiuoti = 0;
-        $sandelis = "BIGA";
+        $sandelis = "TELS";
+
+        //$sand = Likutis::distinct()->pluck('sandelis');
 
         $pardavimai = Pardavimai::query()
             ->where('sandelis', $sandelis)
-            ->where('kiekis','>','0')->get();
+            ->where('kiekis','>','0')
+            ->get();
 
         $likuciai = Likutis::query()
             ->where('sandelis', $sandelis)
-            ->where('kiekis','>','0')->get();
+            ->where('kiekis','>','0')
+            ->get();
 
             /*foreach ( $pardavimai as $value ) {
                 if($rikiuoti){
@@ -78,7 +82,7 @@ class SandeliaiController extends Controller
                     if(count($a) == 2){$ne = $a[0]."-";}
                     //turi veikti tik su BROK
                     if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
-                    $duomenys[$idx]['pard_grupe'][$ne][] = $res;
+                    $duomenys[$idx]['grupe']['pardavimai'][$ne][] = $res;
                 }
             }
 
@@ -95,11 +99,12 @@ class SandeliaiController extends Controller
                     if(count($a) == 2){$ne = $a[0]."-";}
                     //turi veikti tik su BROK
                     if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
-                    $duomenys[$idx]['lik_grupe'][$ne][] = $res;
+                    $duomenys[$idx]['grupe']['likuciai'][$ne]['pavadinimas'] = $ne;
+                    $duomenys[$idx]['grupe']['likuciai'][$ne]['sarasas'][] = $res;
                 }
-            }
 
-            //
+                $duomenys[$idx]['grupe']['likuciai'] = array_values($duomenys[$idx]['grupe']['likuciai']);
+            }
 
             $duomenys = array_values($duomenys);
 
