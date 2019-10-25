@@ -483,7 +483,7 @@ var render = function() {
                           [
                             _c("b-table", {
                               attrs: {
-                                data: props.row.lik_grupe,
+                                data: props.row.grupe.likuciai,
                                 "default-sort-direction": "desc",
                                 "default-sort": "kiekis",
                                 bordered: true,
@@ -500,15 +500,15 @@ var render = function() {
                                           "b-table-column",
                                           {
                                             attrs: {
-                                              field: "preke",
-                                              label: "Prekė",
+                                              field: "pavadinimas",
+                                              label: "Pavadinimas",
                                               sortable: ""
                                             }
                                           },
                                           [
                                             _vm._v(
                                               "\n                    " +
-                                                _vm._s(props.row.preke) +
+                                                _vm._s(props.row.pavadinimas) +
                                                 "\n                "
                                             )
                                           ]
@@ -517,19 +517,17 @@ var render = function() {
                                         _c(
                                           "b-table-column",
                                           {
-                                            style: {
-                                              "background-color": "LightGray"
-                                            },
                                             attrs: {
-                                              label: "Likučiai",
-                                              field: "likutis",
-                                              sortable: ""
+                                              field: "likuciai",
+                                              label: "Likuciai"
                                             }
                                           },
                                           [
                                             _vm._v(
                                               "\n                    " +
-                                                _vm._s(props.row.kiekis) +
+                                                _vm._s(
+                                                  props.row.sarasas.length
+                                                ) +
                                                 "\n                "
                                             )
                                           ]

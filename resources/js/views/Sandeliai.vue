@@ -33,18 +33,18 @@
         <template slot="detail" slot-scope="props">
           <div class="columns">
           <b-table
-              :data="props.row.lik_grupe"
+              :data="props.row.grupe.likuciai"
               default-sort-direction="desc"
               default-sort="kiekis"
               :bordered="true"
               :striped="true"
               :narrowed="true">
               <template slot-scope="props">
-                  <b-table-column field="preke" label="Prekė" sortable>
-                      {{ props.row.preke }}
+                  <b-table-column field="pavadinimas" label="Pavadinimas" sortable>
+                      {{ props.row.pavadinimas }}
                   </b-table-column>
-                  <b-table-column :style="{'background-color': 'LightGray'}" label="Likučiai" field="likutis" sortable >
-                      {{ props.row.kiekis }}
+                  <b-table-column field="likuciai" label="Likuciai">
+                      {{ props.row.sarasas.length }}
                   </b-table-column>
               </template>
               </b-table>

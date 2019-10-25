@@ -83,7 +83,7 @@ class SandeliaiController extends Controller
                     //turi veikti tik su BROK
                     if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
                     $duomenys[$idx]['grupe']['pardavimai'][$ne]['pavadinimas'] = $ne;
-                    $duomenys[$idx]['grupe']['pardavimai'][$ne][] = $res;
+                    $duomenys[$idx]['grupe']['pardavimai'][$ne]['sarasas'][] = $res;
                 }
             }
 
@@ -105,7 +105,7 @@ class SandeliaiController extends Controller
                 }
 
                 $duomenys[$idx]['grupe']['likuciai'] = array_values($duomenys[$idx]['grupe']['likuciai']);
-                $duomenys[$idx]['grupe']['pardavimai'] = array_values($duomenys[$idx]['grupe']['pardavimai']);
+                //$duomenys[$idx]['grupe']['pardavimai'] = array_values($duomenys[$idx]['grupe']['pardavimai']);
             }
 
             $duomenys = array_values($duomenys);
