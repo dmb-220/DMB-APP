@@ -31,24 +31,71 @@
         </template> 
 
         <template slot="detail" slot-scope="props">
-          <div class="columns">
           <b-table
-              :data="props.row.grupe.likuciai"
-              default-sort-direction="desc"
-              default-sort="kiekis"
-              :bordered="true"
-              :striped="true"
-              :narrowed="true">
-              <template slot-scope="props">
-                  <b-table-column field="pavadinimas" label="Pavadinimas" sortable>
-                      {{ props.row.pavadinimas }}
-                  </b-table-column>
-                  <b-table-column field="likuciai" label="Likuciai">
-                      {{ props.row.sarasas.length }}
-                  </b-table-column>
-              </template>
-              </b-table>
-        </div>
+          :data="props.row.grupe"
+          default-sort-direction="desc"
+          default-sort="kiekis"
+          :bordered="true"
+          :striped="true"
+          :narrowed="true"
+          :opened-detailed="defaultOpened"
+          detailed
+          sort-icon="arrow-up"
+          detail-key="pavadinimas"
+          @details-open="(row, index) => $buefy.toast.open(`Išskleista ${ row.pavadinimas } grupė!`)">
+          <template slot-scope="props">
+              <b-table-column field="pavadinimas" label="Pavadinimas" sortable>
+                  {{ props.row.pavadinimas }}
+              </b-table-column>
+              <b-table-column field="likuciai" label="Likuciai">
+                  {{ props.row.likuciai && props.row.likuciai.length }}
+              </b-table-column>
+              <b-table-column field="pardavimai" label="Pardavimai">
+                  {{ props.row.pardavimai && props.row.pardavimai.length }}
+              </b-table-column>
+          </template>
+          <template slot="detail" slot-scope="props">
+            <div class="columns">
+              <div class="column">
+                <b-table
+                :data="props.row.likuciai"
+                default-sort-direction="desc"
+                default-sort="kiekis"
+                :bordered="true"
+                :striped="true"
+                :narrowed="true">
+                <template slot-scope="props">
+                    <b-table-column field="pavadinimas" label="Pavadinimas" sortable>
+                        {{ props.row.preke }}
+                    </b-table-column>
+                    <b-table-column field="likuciai" label="Likuciai">
+                        {{ props.row.kiekis }}
+                    </b-table-column>
+                </template>
+                </b-table>
+                </div>
+                <div class="column">
+                <b-table
+                :data="props.row.pardavimai"
+                default-sort-direction="desc"
+                default-sort="kiekis"
+                :bordered="true"
+                :striped="true"
+                :narrowed="true">
+                <template slot-scope="props">
+                    <b-table-column field="pavadinimas" label="Pavadinimas" sortable>
+                        {{ props.row.preke }}
+                    </b-table-column>
+                    <b-table-column field="likuciai" label="Pardavimai">
+                        {{ props.row.kiekis }}
+                    </b-table-column>
+                </template>
+                </b-table>
+                </div>
+            </div>
+          </template>
+
+          </b-table>
         </template>
 
         <section class="section" slot="empty">
@@ -86,6 +133,7 @@ export default {
       isLoading: false,
       duomenys: [],
       defaultOpenedDetails: [1],
+      defaultOpened: [1],
       ieskoti: '',
       paieska: '',
       rodyti_lt: true,

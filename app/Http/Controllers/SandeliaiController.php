@@ -59,6 +59,7 @@ class SandeliaiController extends Controller
             }*/
 
             //sudejom i grupes
+            //reik isfiltruoti tarpus
             foreach ( $pardavimai as $value ) {
                 if($value['registras'] != "PERS"){
                     $pardavimas[$value['pavadinimas']][] = $value;
@@ -82,9 +83,10 @@ class SandeliaiController extends Controller
                     if(count($a) == 2){$ne = $a[0]."-";}
                     //turi veikti tik su BROK
                     if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
-                    $duomenys[$idx]['grupe']['pardavimai'][$ne]['pavadinimas'] = $ne;
-                    $duomenys[$idx]['grupe']['pardavimai'][$ne]['sarasas'][] = $res;
+                    $duomenys[$idx]['grupe'][$ne]['pavadinimas'] = $ne;
+                    $duomenys[$idx]['grupe'][$ne]['pardavimai'][] = $res;
                 }
+                //$duomenys[$idx]['grupe'] = array_values($duomenys[$idx]['grupe']);
             }
 
             foreach ( $likutis as $idx => $val ){
@@ -100,13 +102,14 @@ class SandeliaiController extends Controller
                     if(count($a) == 2){$ne = $a[0]."-";}
                     //turi veikti tik su BROK
                     if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
-                    $duomenys[$idx]['grupe']['likuciai'][$ne]['pavadinimas'] = $ne;
-                    $duomenys[$idx]['grupe']['likuciai'][$ne]['sarasas'][] = $res;
+                    $duomenys[$idx]['grupe'][$ne]['pavadinimas'] = $ne;
+                    $duomenys[$idx]['grupe'][$ne]['likuciai'][] = $res;
                 }
-
-                $duomenys[$idx]['grupe']['likuciai'] = array_values($duomenys[$idx]['grupe']['likuciai']);
-                //$duomenys[$idx]['grupe']['pardavimai'] = array_values($duomenys[$idx]['grupe']['pardavimai']);
+                
+                $duomenys[$idx]['grupe'] = array_values($duomenys[$idx]['grupe']);
             }
+
+            //prasukti cikla ir sujungti pirkimus su pardavimais
 
             $duomenys = array_values($duomenys);
 
