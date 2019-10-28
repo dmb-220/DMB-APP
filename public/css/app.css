@@ -15854,7 +15854,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .b-table .table {
   width: 100%;
-  border: 1px solid;
+  border: 1px solid transparent;
   border-radius: 4px;
   border-collapse: separate;
 }
