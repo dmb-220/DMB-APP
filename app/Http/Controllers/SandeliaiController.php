@@ -17,22 +17,42 @@ class SandeliaiController extends Controller
      */
     public function index()
     {
-        $store = array(
-            "LT" => array("MINS", "TELS", "MADA", "MARI", "UKME", "MOLA", "NORF", "BIGA", "BABI", "UTEN", "MANT", "VISA", "KEDA",
-             "AREN", "MAXI", "PANE", "KREV", "MAZE", "TAIK", "SAUL", "TAUB"),
-            "LV" => array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN",
-            "PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO"),
-            "EE" => array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera",
-            "Eden", "Haapsalu", "Kohtla Järve", "Kopli", "Parnu", "Riia Parnu"),
+        $store = (object) array(
+            "LT" => (object) array("MINS", "TELS", "MADA", "MARI", "UKME", "MOLA", "NORF", "BIGA", "BABI", "UTEN", "MANT", "VISA", "KEDA", "AREN", "MAXI", "PANE", "KREV", "MAZE", "TAIK", "SAUL", "TAUB"),
+            "LV" => (object) array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN", "PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO"),
+            "EE" => (object) array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera", "Eden", "Haapsalu", "Kohtla Järve", "Kopli", "Parnu", "Riia Parnu"),
         );
+        $store2 = array(
+            "LT" => array("MINS", "TELS", "MADA", "MARI", "UKME", "MOLA", "NORF", "BIGA", "BABI", "UTEN", "MANT", "VISA", "KEDA", "AREN", "MAXI", "PANE", "KREV", "MAZE", "TAIK", "SAUL", "TAUB"),
+            "LV" => array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN","PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO"),
+            "EE" => array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera", "Eden", "Haapsalu", "Kohtla Järve", "Kopli", "Parnu", "Riia Parnu"),
+        );
+
+        $failas = "sandelis.txt";
+        $directory  = "app/";
+        $failas = $directory.$failas;
+
+        $myfile = fopen(storage_path($failas), "r");
+        $key = fread($myfile,filesize(storage_path($failas)));
+        fclose($myfile);
+
+        $key = explode("||", $key);
+        $valstybe = '';
+        if($key[1]){$valstybe = "LT";}
+        if($key[2]){$valstybe = "LV";}
+        if($key[3]){$valstybe = "EE";}
 
         $duomenys = array();
         $sandeliai = array();
+        $pardavimas = array();
+        $likutis = array();
 
         //$rikiuoti = 0;
-        $sandelis = "TELS";
-
-        //$sand = Likutis::distinct()->pluck('sandelis');
+        if($valstybe){
+            $sandelis = $store2[$valstybe][$key[0]];
+        }else{
+            $sandelis = '';
+        }
 
         $pardavimai = Pardavimai::query()
             ->where('sandelis', $sandelis)
@@ -43,20 +63,6 @@ class SandeliaiController extends Controller
             ->where('sandelis', $sandelis)
             ->where('kiekis','>','0')
             ->get();
-
-            /*foreach ( $pardavimai as $value ) {
-                if($rikiuoti){
-                    $pardavimas[$value['preke']] = $value;
-                }else{
-                    $a = explode("-", $value['preke']);
-                    if(count($a) == 3){$ne = $a[0]."-".$a[1]."-";}
-                    if(count($a) == 2){$ne = $a[0]."-";}
-                    //turi veikti tik su BROK
-                    if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
-                    //$ne = $a[0]."-";
-                    $pardavimas[$ne][] = $value;
-                }
-            }*/
 
             //sudejom i grupes
             //reik isfiltruoti tarpus
@@ -113,10 +119,13 @@ class SandeliaiController extends Controller
 
             $duomenys = array_values($duomenys);
 
+            $arr = array("LT" => $key[1], "LV" => $key[2], "EE" => $key[3]);
+
             return response()->json([
                 'status' => true,
+                'salis' =>  $arr,
                 'duomenys' => $duomenys,
-                'store' => $store
+                'store' => $store,
             ]);
     }
 
@@ -138,7 +147,34 @@ class SandeliaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        //$ieskoti = $data['ieskoti'];
+        $lt = $data['lt'];
+        $lv = $data['lv'];
+        $ee = $data['ee'];
+        $sandelis = $data['sandelis'];
+        //$rikiuoti = $data['rikiuoti'];
+        //$gam = $data['gam'];
+        //$pirk = $data['pirk'];
+        //$paieska_big= $data['paieska_big'];
+
+        $failas = "sandelis.txt";
+        $directory  = "app/";
+        $failas = $directory.$failas;
+
+        $eilute = $sandelis."||".$lt."||".$lv."||".$ee;
+
+        $myfile = fopen(storage_path($failas), "w");
+        fwrite($myfile, $eilute);
+        fclose($myfile);
+
+        return response()->json([
+            'status' => true,
+            'data' => $sandelis,
+            //'rikiuoti' => $rikiuoti,
+            //'gam' => $gam,
+            //'pirk' => $pirk,
+        ]);
     }
 
     /**

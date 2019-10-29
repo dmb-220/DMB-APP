@@ -24,6 +24,17 @@ Route::resource('testas', 'TestasController');
 Route::resource('sandeliai', 'SandeliaiController');
 
 /*
+ * Sandeliai
+ * */ 
+Route::prefix('/sandeliai')->group(function () {
+    Route::get('', 'SandeliaiController@index');
+    Route::get('{sandeliai}', 'SandeliaiController@show');
+    Route::post('store', 'SandeliaiController@store');
+    Route::patch('{sandeliai}', 'SandeliaiController@update');
+    Route::delete('{sandeliai}/destroy', 'SandeliaiController@destroy');
+});
+
+/*
  * CSV
  * */ 
 Route::prefix('/csv')->group(function () {

@@ -2,7 +2,19 @@
   <div>
     <section class="section is-main-section">
       <card-component title="VALDYMAS" icon="account-multiple">
-          Valdymas
+        <b-field label="RODYTI:" horizontal>
+          <b-button :type="rodyti_lt ? 'is-primary' : 'is-dark'" @click="change_lt()">LIETUVA</b-button>
+          <b-button :type="rodyti_lv ? 'is-warning' : 'is-dark'" @click="change_lv()">LATVIJA</b-button>
+          <b-button :type="rodyti_ee ? 'is-danger' : 'is-dark'" @click="change_ee()">ESTIJA</b-button>
+        </b-field>
+        <b-field label="RINKTIS:" class="has-check" horizontal>
+          <radio-picker :options="sandeliai" @change.native="keisti_sandelis()" v-model="sandelis"></radio-picker>
+        </b-field>
+        <div class="columns">
+          <div class="column has-text-centered has-text-weight-bold">
+            Sandelis: {{ sandeliai[sandelis] }}
+            </div>
+        </div>
       </card-component>
 
       <card-component title="SANDELIS" icon="account-multiple">
@@ -48,10 +60,10 @@
                   {{ props.row.pavadinimas }}
               </b-table-column>
               <b-table-column field="likuciai" label="Likuciai">
-                  {{ props.row.likuciai && props.row.likuciai.length }}
+                  {{ props.row.likuciai && props.row.likuciai.reduce(function(total, item){ return total + item.kiekis; }, 0) }}
               </b-table-column>
               <b-table-column field="pardavimai" label="Pardavimai">
-                  {{ props.row.pardavimai && props.row.pardavimai.length }}
+                  {{ props.row.pardavimai && props.row.pardavimai.reduce(function(total, item){ return total + item.kiekis; }, 0) }}
               </b-table-column>
           </template>
           <template slot="detail" slot-scope="props">
@@ -124,29 +136,33 @@
 <script>
 import map from 'lodash/map'
 import CardComponent from '@/components/CardComponent'
+import RadioPicker from '@/components/RadioPicker'
 
 export default {
   name: "Sandeliai",
-  components: {CardComponent},
+  components: {CardComponent, RadioPicker},
   data () {
     return {
       isLoading: false,
       duomenys: [],
+      sandeliai: {},
+      store: {},
       defaultOpenedDetails: [1],
       defaultOpened: [1],
       ieskoti: '',
       paieska: '',
-      rodyti_lt: true,
-     rodyti_lv: true,
-     rodyti_ee: true,
-     salis: '',
-     rikiuoti: false,
+      rodyti_lt: false,
+      rodyti_lv: false,
+      rodyti_ee: false,
+      salis: '',
+      rikiuoti: false,
+      sandelis: 0
     }
   },
   computed: {
-
   },
   created () {
+    this.paieska_post()
     this.getData()
   },
   methods: {
@@ -154,17 +170,44 @@ export default {
       // Pass the element id here
      // this.$htmlToPaper('printMe');
     //},
-    
-  getData () {
+    keisti_sandelis(){
+      //this.sandelis = 1;
+      this.paieska_post();
+    },
+    change_lt(){
+      this.rodyti_lt = true;
+      this.rodyti_lv = false;
+      this.rodyti_ee = false;
+      this.sandeliai = this.store.LT;
+      this.sandelis = 0;
+      this.paieska_post();
+    },
+    change_lv(){
+      this.rodyti_lt = false;
+      this.rodyti_lv = true;
+      this.rodyti_ee = false;
+      this.sandeliai = this.store.LV;
+      this.sandelis = 0;
+      this.paieska_post()
+    },
+    change_ee(){
+      this.rodyti_lt = false;
+      this.rodyti_lv = false;
+      this.rodyti_ee = true;
+      this.sandeliai = this.store.EE;
+      this.sandelis = 0;
+      this.paieska_post()
+    },
+    getData () {
       this.isLoading = true
       this.axios
       .get('/sandeliai')
       .then(response => {
         this.isLoading = false
-        //this.rikiuoti = response.data.rikiuoti ? false : true;
+        //this.sandelis = response.data.sandelis;
         this.duomenys= response.data.duomenys;
-        //this.paieska = response.data.paieska;
-        
+        this.store = response.data.store;
+
         //this.rodyti_lt = response.data.salis.LT ? true : false
         //this.rodyti_lv = response.data.salis.LV ? true : false
         //this.rodyti_ee = response.data.salis.EE ? true : false
@@ -177,6 +220,27 @@ export default {
               queue: false
             })
           })
+    },
+    paieska_post(){
+    axios
+      .post(`/sandeliai/store`, {
+        lt: this.rodyti_lt,
+        lv: this.rodyti_lv,
+        ee: this.rodyti_ee,
+        sandelis: this.sandelis
+        })
+      .then(response => {
+        console.log(response.data.data)
+        //this.rikiuoti = false;
+        this.getData()
+    })
+      .catch( err => {
+        this.$buefy.toast.open({
+          message: `Error: ${err.message}`,
+          type: 'is-danger',
+          queue: false
+        })
+      })
     },
   }
 }
