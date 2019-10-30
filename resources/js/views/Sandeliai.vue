@@ -7,9 +7,13 @@
           <b-button :type="rodyti_lv ? 'is-warning' : 'is-dark'" @click="change_lv()">LATVIJA</b-button>
           <b-button :type="rodyti_ee ? 'is-danger' : 'is-dark'" @click="change_ee()">ESTIJA</b-button>
         </b-field>
-        <b-field label="RINKTIS:" class="has-check" horizontal>
-          <radio-picker :options="sandeliai" @change.native="keisti_sandelis()" v-model="sandelis"></radio-picker>
-        </b-field>
+        <b-field label="RINKTIS:" horizontal>
+            <b-select placeholder="Pasirinkite..." @change.native="keisti_sandelis()" v-model="sandelis" icon="earth" expanded>
+              <option v-for="(sandeli, index) in sandeliai" :key="index" :value="index">
+                {{ sandeli }}
+              </option>
+            </b-select>
+          </b-field>
       </card-component>
 
       <card-component title="SANDELIS" icon="account-multiple">
@@ -45,8 +49,6 @@
         <template slot="detail" slot-scope="props">
           <b-table
           :data="props.row.grupe"
-          default-sort-direction="desc"
-          default-sort="kiekis"
           :bordered="true"
           :striped="true"
           :narrowed="true"
@@ -69,8 +71,6 @@
           <template slot="detail" slot-scope="props">
             <b-table
             :data="props.row.list"
-            default-sort-direction="desc"
-            default-sort="kiekis"
             :bordered="true"
             :striped="true"
             :narrowed="true">

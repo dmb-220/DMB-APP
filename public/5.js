@@ -517,26 +517,44 @@ var render = function() {
             _vm._v(" "),
             _c(
               "b-field",
-              {
-                staticClass: "has-check",
-                attrs: { label: "RINKTIS:", horizontal: "" }
-              },
+              { attrs: { label: "RINKTIS:", horizontal: "" } },
               [
-                _c("radio-picker", {
-                  attrs: { options: _vm.sandeliai },
-                  nativeOn: {
-                    change: function($event) {
-                      return _vm.keisti_sandelis()
+                _c(
+                  "b-select",
+                  {
+                    attrs: {
+                      placeholder: "Pasirinkite...",
+                      icon: "earth",
+                      expanded: ""
+                    },
+                    nativeOn: {
+                      change: function($event) {
+                        return _vm.keisti_sandelis()
+                      }
+                    },
+                    model: {
+                      value: _vm.sandelis,
+                      callback: function($$v) {
+                        _vm.sandelis = $$v
+                      },
+                      expression: "sandelis"
                     }
                   },
-                  model: {
-                    value: _vm.sandelis,
-                    callback: function($$v) {
-                      _vm.sandelis = $$v
-                    },
-                    expression: "sandelis"
-                  }
-                })
+                  _vm._l(_vm.sandeliai, function(sandeli, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: index } },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(sandeli) +
+                            "\n            "
+                        )
+                      ]
+                    )
+                  }),
+                  0
+                )
               ],
               1
             )
@@ -668,8 +686,6 @@ var render = function() {
                         _c("b-table", {
                           attrs: {
                             data: props.row.grupe,
-                            "default-sort-direction": "desc",
-                            "default-sort": "kiekis",
                             bordered: true,
                             striped: true,
                             narrowed: true,
@@ -755,8 +771,6 @@ var render = function() {
                                     _c("b-table", {
                                       attrs: {
                                         data: props.row.list,
-                                        "default-sort-direction": "desc",
-                                        "default-sort": "kiekis",
                                         bordered: true,
                                         striped: true,
                                         narrowed: true
