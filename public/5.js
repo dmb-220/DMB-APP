@@ -185,25 +185,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -558,23 +539,7 @@ var render = function() {
                 })
               ],
               1
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "columns" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "column has-text-centered has-text-weight-bold"
-                },
-                [
-                  _vm._v(
-                    "\n          Sandelis: " +
-                      _vm._s(_vm.sandeliai[_vm.sandelis]) +
-                      "\n          "
-                  )
-                ]
-              )
-            ])
+            )
           ],
           1
         ),
@@ -583,6 +548,34 @@ var render = function() {
           "card-component",
           { attrs: { title: "SANDELIS", icon: "account-multiple" } },
           [
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.sandeliai[_vm.sandelis],
+                    expression: "sandeliai[sandelis]"
+                  }
+                ],
+                staticClass: "columns"
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "column has-text-centered has-text-weight-bold"
+                  },
+                  [
+                    _vm._v("\n          Sandelis:"),
+                    _c("br"),
+                    _vm._v(_vm._s(_vm.sandeliai[_vm.sandelis]) + "\n          ")
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
             _c(
               "b-table",
               {
@@ -701,6 +694,7 @@ var render = function() {
                                     _c(
                                       "b-table-column",
                                       {
+                                        style: { "background-color": "silver" },
                                         attrs: {
                                           field: "pavadinimas",
                                           label: "Pavadinimas",
@@ -720,22 +714,15 @@ var render = function() {
                                       "b-table-column",
                                       {
                                         attrs: {
-                                          field: "likuciai",
-                                          label: "Likuciai"
+                                          field: "lik_sk",
+                                          label: "Likuciai",
+                                          sortable: ""
                                         }
                                       },
                                       [
                                         _vm._v(
                                           "\n                " +
-                                            _vm._s(
-                                              props.row.likuciai &&
-                                                props.row.likuciai.reduce(
-                                                  function(total, item) {
-                                                    return total + item.kiekis
-                                                  },
-                                                  0
-                                                )
-                                            ) +
+                                            _vm._s(props.row.lik_sk) +
                                             "\n            "
                                         )
                                       ]
@@ -745,22 +732,15 @@ var render = function() {
                                       "b-table-column",
                                       {
                                         attrs: {
-                                          field: "pardavimai",
-                                          label: "Pardavimai"
+                                          field: "pard_sk",
+                                          label: "Pardavimai",
+                                          sortable: ""
                                         }
                                       },
                                       [
                                         _vm._v(
                                           "\n                " +
-                                            _vm._s(
-                                              props.row.pardavimai &&
-                                                props.row.pardavimai.reduce(
-                                                  function(total, item) {
-                                                    return total + item.kiekis
-                                                  },
-                                                  0
-                                                )
-                                            ) +
+                                            _vm._s(props.row.pard_sk) +
                                             "\n            "
                                         )
                                       ]
@@ -772,149 +752,88 @@ var render = function() {
                                 key: "detail",
                                 fn: function(props) {
                                   return [
-                                    _c("div", { staticClass: "columns" }, [
-                                      _c(
-                                        "div",
-                                        { staticClass: "column" },
+                                    _c("b-table", {
+                                      attrs: {
+                                        data: props.row.list,
+                                        "default-sort-direction": "desc",
+                                        "default-sort": "kiekis",
+                                        bordered: true,
+                                        striped: true,
+                                        narrowed: true
+                                      },
+                                      scopedSlots: _vm._u(
                                         [
-                                          _c("b-table", {
-                                            attrs: {
-                                              data: props.row.likuciai,
-                                              "default-sort-direction": "desc",
-                                              "default-sort": "kiekis",
-                                              bordered: true,
-                                              striped: true,
-                                              narrowed: true
-                                            },
-                                            scopedSlots: _vm._u(
-                                              [
-                                                {
-                                                  key: "default",
-                                                  fn: function(props) {
-                                                    return [
-                                                      _c(
-                                                        "b-table-column",
-                                                        {
-                                                          attrs: {
-                                                            field:
-                                                              "pavadinimas",
-                                                            label:
-                                                              "Pavadinimas",
-                                                            sortable: ""
-                                                          }
-                                                        },
-                                                        [
-                                                          _vm._v(
-                                                            "\n                      " +
-                                                              _vm._s(
-                                                                props.row.preke
-                                                              ) +
-                                                              "\n                  "
-                                                          )
-                                                        ]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "b-table-column",
-                                                        {
-                                                          attrs: {
-                                                            field: "likuciai",
-                                                            label: "Likuciai"
-                                                          }
-                                                        },
-                                                        [
-                                                          _vm._v(
-                                                            "\n                      " +
-                                                              _vm._s(
-                                                                props.row.kiekis
-                                                              ) +
-                                                              "\n                  "
-                                                          )
-                                                        ]
-                                                      )
-                                                    ]
-                                                  }
-                                                }
-                                              ],
-                                              null,
-                                              true
-                                            )
-                                          })
+                                          {
+                                            key: "default",
+                                            fn: function(props) {
+                                              return [
+                                                _c(
+                                                  "b-table-column",
+                                                  {
+                                                    attrs: {
+                                                      field: "pavadinimas",
+                                                      label: "Pavadinimas",
+                                                      sortable: ""
+                                                    }
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                  " +
+                                                        _vm._s(
+                                                          props.row.preke
+                                                        ) +
+                                                        "\n              "
+                                                    )
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "b-table-column",
+                                                  {
+                                                    attrs: {
+                                                      field: "lik_kiekis",
+                                                      label: "Likuciai",
+                                                      sortable: ""
+                                                    }
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                  " +
+                                                        _vm._s(
+                                                          props.row.lik_kiekis
+                                                        ) +
+                                                        "\n              "
+                                                    )
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "b-table-column",
+                                                  {
+                                                    attrs: {
+                                                      field: "pard_kiekis",
+                                                      label: "Pardavimai",
+                                                      sortable: ""
+                                                    }
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                  " +
+                                                        _vm._s(
+                                                          props.row.pard_kiekis
+                                                        ) +
+                                                        "\n              "
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            }
+                                          }
                                         ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        { staticClass: "column" },
-                                        [
-                                          _c("b-table", {
-                                            attrs: {
-                                              data: props.row.pardavimai,
-                                              "default-sort-direction": "desc",
-                                              "default-sort": "kiekis",
-                                              bordered: true,
-                                              striped: true,
-                                              narrowed: true
-                                            },
-                                            scopedSlots: _vm._u(
-                                              [
-                                                {
-                                                  key: "default",
-                                                  fn: function(props) {
-                                                    return [
-                                                      _c(
-                                                        "b-table-column",
-                                                        {
-                                                          attrs: {
-                                                            field:
-                                                              "pavadinimas",
-                                                            label:
-                                                              "Pavadinimas",
-                                                            sortable: ""
-                                                          }
-                                                        },
-                                                        [
-                                                          _vm._v(
-                                                            "\n                      " +
-                                                              _vm._s(
-                                                                props.row.preke
-                                                              ) +
-                                                              "\n                  "
-                                                          )
-                                                        ]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "b-table-column",
-                                                        {
-                                                          attrs: {
-                                                            field: "likuciai",
-                                                            label: "Pardavimai"
-                                                          }
-                                                        },
-                                                        [
-                                                          _vm._v(
-                                                            "\n                      " +
-                                                              _vm._s(
-                                                                props.row.kiekis
-                                                              ) +
-                                                              "\n                  "
-                                                          )
-                                                        ]
-                                                      )
-                                                    ]
-                                                  }
-                                                }
-                                              ],
-                                              null,
-                                              true
-                                            )
-                                          })
-                                        ],
-                                        1
+                                        null,
+                                        true
                                       )
-                                    ])
+                                    })
                                   ]
                                 }
                               }

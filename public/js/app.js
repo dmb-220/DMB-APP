@@ -2001,7 +2001,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         to: '/sandeliai',
         label: 'Sandeliai',
-        icon: 'cart'
+        icon: 'archive'
       }], 'VEIKSMAI', [{
         to: '/csv_sarasas',
         label: 'CSV failų įkėlimas',

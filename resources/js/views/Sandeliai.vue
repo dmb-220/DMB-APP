@@ -10,14 +10,14 @@
         <b-field label="RINKTIS:" class="has-check" horizontal>
           <radio-picker :options="sandeliai" @change.native="keisti_sandelis()" v-model="sandelis"></radio-picker>
         </b-field>
-        <div class="columns">
-          <div class="column has-text-centered has-text-weight-bold">
-            Sandelis: {{ sandeliai[sandelis] }}
-            </div>
-        </div>
       </card-component>
 
       <card-component title="SANDELIS" icon="account-multiple">
+        <div v-show="sandeliai[sandelis]" class="columns">
+          <div class="column has-text-centered has-text-weight-bold">
+            Sandelis:<br>{{ sandeliai[sandelis] }}
+            </div>
+        </div>
         <b-table
         focusable
         bordered
@@ -56,55 +56,36 @@
           detail-key="pavadinimas"
           @details-open="(row, index) => $buefy.toast.open(`Išskleista ${ row.pavadinimas } grupė!`)">
           <template slot-scope="props">
-              <b-table-column field="pavadinimas" label="Pavadinimas" sortable>
+              <b-table-column :style="{'background-color': 'silver'}" field="pavadinimas" label="Pavadinimas" sortable>
                   {{ props.row.pavadinimas }}
               </b-table-column>
-              <b-table-column field="likuciai" label="Likuciai">
-                  {{ props.row.likuciai && props.row.likuciai.reduce(function(total, item){ return total + item.kiekis; }, 0) }}
+              <b-table-column field="lik_sk" label="Likuciai" sortable>
+                  {{ props.row.lik_sk }}
               </b-table-column>
-              <b-table-column field="pardavimai" label="Pardavimai">
-                  {{ props.row.pardavimai && props.row.pardavimai.reduce(function(total, item){ return total + item.kiekis; }, 0) }}
+              <b-table-column field="pard_sk" label="Pardavimai" sortable>
+                  {{ props.row.pard_sk }}
               </b-table-column>
           </template>
           <template slot="detail" slot-scope="props">
-            <div class="columns">
-              <div class="column">
-                <b-table
-                :data="props.row.likuciai"
-                default-sort-direction="desc"
-                default-sort="kiekis"
-                :bordered="true"
-                :striped="true"
-                :narrowed="true">
-                <template slot-scope="props">
-                    <b-table-column field="pavadinimas" label="Pavadinimas" sortable>
-                        {{ props.row.preke }}
-                    </b-table-column>
-                    <b-table-column field="likuciai" label="Likuciai">
-                        {{ props.row.kiekis }}
-                    </b-table-column>
-                </template>
-                </b-table>
-                </div>
-                <div class="column">
-                <b-table
-                :data="props.row.pardavimai"
-                default-sort-direction="desc"
-                default-sort="kiekis"
-                :bordered="true"
-                :striped="true"
-                :narrowed="true">
-                <template slot-scope="props">
-                    <b-table-column field="pavadinimas" label="Pavadinimas" sortable>
-                        {{ props.row.preke }}
-                    </b-table-column>
-                    <b-table-column field="likuciai" label="Pardavimai">
-                        {{ props.row.kiekis }}
-                    </b-table-column>
-                </template>
-                </b-table>
-                </div>
-            </div>
+            <b-table
+            :data="props.row.list"
+            default-sort-direction="desc"
+            default-sort="kiekis"
+            :bordered="true"
+            :striped="true"
+            :narrowed="true">
+            <template slot-scope="props">
+                <b-table-column field="pavadinimas" label="Pavadinimas" sortable>
+                    {{ props.row.preke }}
+                </b-table-column>
+                <b-table-column field="lik_kiekis" label="Likuciai" sortable>
+                    {{ props.row.lik_kiekis }}
+                </b-table-column>
+                <b-table-column field="pard_kiekis" label="Pardavimai" sortable>
+                    {{ props.row.pard_kiekis }}
+                </b-table-column>
+            </template>
+            </b-table>
           </template>
 
           </b-table>

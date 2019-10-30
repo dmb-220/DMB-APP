@@ -56,7 +56,7 @@ export default {
           {
             to: '/sandeliai',
             label: 'Sandeliai',
-            icon: 'cart',
+            icon: 'archive',
           },
         ],
         'VEIKSMAI',

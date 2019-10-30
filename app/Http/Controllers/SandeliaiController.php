@@ -18,13 +18,13 @@ class SandeliaiController extends Controller
     public function index()
     {
         $store = (object) array(
-            "LT" => (object) array("MINS", "TELS", "MADA", "MARI", "UKME", "MOLA", "NORF", "BIGA", "BABI", "UTEN", "MANT", "VISA", "KEDA", "AREN", "MAXI", "PANE", "KREV", "MAZE", "TAIK", "SAUL", "TAUB"),
-            "LV" => (object) array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN", "PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO"),
+            "LT" => (object) array("MINS", "TELS", "MADA", "MARI", "UKME", "MOLA", "NORF", "BIGA", "BABI", "UTEN", "MANT", "VISA", "KEDA", "AREN", "MAXI", "PANE", "KREV", "MAZE", "TAIK", "SAUL", "TAUB", "INTE"),
+            "LV" => (object) array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN", "PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO", "INTE"),
             "EE" => (object) array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera", "Eden", "Haapsalu", "Kohtla Järve", "Kopli", "Parnu", "Riia Parnu"),
         );
         $store2 = array(
-            "LT" => array("MINS", "TELS", "MADA", "MARI", "UKME", "MOLA", "NORF", "BIGA", "BABI", "UTEN", "MANT", "VISA", "KEDA", "AREN", "MAXI", "PANE", "KREV", "MAZE", "TAIK", "SAUL", "TAUB"),
-            "LV" => array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN","PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO"),
+            "LT" => array("MINS", "TELS", "MADA", "MARI", "UKME", "MOLA", "NORF", "BIGA", "BABI", "UTEN", "MANT", "VISA", "KEDA", "AREN", "MAXI", "PANE", "KREV", "MAZE", "TAIK", "SAUL", "TAUB", "INTE"),
+            "LV" => array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN","PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO", "INTE"),
             "EE" => array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera", "Eden", "Haapsalu", "Kohtla Järve", "Kopli", "Parnu", "Riia Parnu"),
         );
 
@@ -37,10 +37,10 @@ class SandeliaiController extends Controller
         fclose($myfile);
 
         $key = explode("||", $key);
-        $valstybe = '';
-        if($key[1]){$valstybe = "LT";}
-        if($key[2]){$valstybe = "LV";}
-        if($key[3]){$valstybe = "EE";}
+        $valstybe = ''; $va = '';
+        if($key[1]){$valstybe = "LT"; $va = 1;}
+        if($key[2]){$valstybe = "LV"; $va = 2;}
+        if($key[3]){$valstybe = "EE"; $va = 3;}
 
         $duomenys = array();
         $sandeliai = array();
@@ -56,11 +56,13 @@ class SandeliaiController extends Controller
 
         $pardavimai = Pardavimai::query()
             ->where('sandelis', $sandelis)
+            ->where('salis', $va)
             ->where('kiekis','>','0')
             ->get();
 
         $likuciai = Likutis::query()
             ->where('sandelis', $sandelis)
+            ->where('salis', $va)
             ->where('kiekis','>','0')
             ->get();
 
@@ -68,12 +70,14 @@ class SandeliaiController extends Controller
             //reik isfiltruoti tarpus
             foreach ( $pardavimai as $value ) {
                 if($value['registras'] != "PERS"){
-                    $pardavimas[$value['pavadinimas']][] = $value;
+                    $p = str_replace(' ', '', $value['pavadinimas']);
+                    $pardavimas[$p][] = $value;
                 }
             }
 
             foreach ( $likuciai as $value ) {
-                $likutis[$value['pavadinimas']][] = $value;
+                $p = str_replace(' ', '', $value['pavadinimas']);
+                $likutis[$p][] = $value;
             }
 
             foreach ( $pardavimas as $idx => $val ){
@@ -85,12 +89,18 @@ class SandeliaiController extends Controller
                 foreach($val as $res){
                     $duomenys[$idx]['pardavimai_sk'] = $duomenys[$idx]['pardavimai_sk'] + $res['kiekis'];
                     $a = explode("-", $res['preke']);
-                    if(count($a) == 3){$ne = $a[0]."-".$a[1]."-";}
+                    if(count($a) >= 3){$ne = $a[0]."-".$a[1]."-";}
                     if(count($a) == 2){$ne = $a[0]."-";}
                     //turi veikti tik su BROK
                     if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
                     $duomenys[$idx]['grupe'][$ne]['pavadinimas'] = $ne;
-                    $duomenys[$idx]['grupe'][$ne]['pardavimai'][] = $res;
+                    if(!array_key_exists('pard_sk', $duomenys[$idx]['grupe'][$ne])){
+                        $duomenys[$idx]['grupe'][$ne]['pard_sk'] = 0;
+                    }
+                    $duomenys[$idx]['grupe'][$ne]['pard_sk'] = $duomenys[$idx]['grupe'][$ne]['pard_sk'] + $res['kiekis'];
+                    //$duomenys[$idx]['grupe'][$ne]['pardavimai'][] = $res;
+                    $duomenys[$idx]['grupe'][$ne]['list'][$res['preke']]["pard_kiekis"] = $res['kiekis'];
+                    $duomenys[$idx]['grupe'][$ne]['list'][$res['preke']]["preke"] = $res['preke'];
                 }
                 //$duomenys[$idx]['grupe'] = array_values($duomenys[$idx]['grupe']);
             }
@@ -104,16 +114,29 @@ class SandeliaiController extends Controller
                 foreach($val as $res){
                     $duomenys[$idx]['likutis_sk'] = $duomenys[$idx]['likutis_sk'] + $res['kiekis'];
                     $a = explode("-", $res['preke']);
-                    if(count($a) == 3){$ne = $a[0]."-".$a[1]."-";}
+                    if(count($a) >= 3){$ne = $a[0]."-".$a[1]."-";}
                     if(count($a) == 2){$ne = $a[0]."-";}
                     //turi veikti tik su BROK
                     if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
                     $duomenys[$idx]['grupe'][$ne]['pavadinimas'] = $ne;
-                    $duomenys[$idx]['grupe'][$ne]['likuciai'][] = $res;
+                    if(!array_key_exists('lik_sk', $duomenys[$idx]['grupe'][$ne])){
+                        $duomenys[$idx]['grupe'][$ne]['lik_sk'] = 0;
+                    }
+                    $duomenys[$idx]['grupe'][$ne]['lik_sk'] = $duomenys[$idx]['grupe'][$ne]['lik_sk'] + $res['kiekis'];
+                    //$duomenys[$idx]['grupe'][$ne]['likuciai'][] = $res;
+                    $duomenys[$idx]['grupe'][$ne]['list'][$res['preke']]["lik_kiekis"] = $res['kiekis'];
+                    $duomenys[$idx]['grupe'][$ne]['list'][$res['preke']]["preke"] = $res['preke'];
                 }
                 
                 $duomenys[$idx]['grupe'] = array_values($duomenys[$idx]['grupe']);
+                //$duomenys[$idx]['grupe'][$ne]['list'][$res['preke']] = array_values($duomenys[$idx]['grupe'][$ne]['list'][$res['preke']]);
             }
+
+            foreach($duomenys as $idx => $val){
+                foreach($val['grupe'] as $id => $res){
+                    $duomenys[$idx]['grupe'][$id]['list'] = array_values($duomenys[$idx]['grupe'][$id]['list']);
+                }
+           }
 
             //prasukti cikla ir sujungti pirkimus su pardavimais
 
@@ -126,6 +149,7 @@ class SandeliaiController extends Controller
                 'salis' =>  $arr,
                 'duomenys' => $duomenys,
                 'store' => $store,
+                //'likutis' => $likutis
             ]);
     }
 
