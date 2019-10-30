@@ -185,6 +185,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -202,8 +206,8 @@ __webpack_require__.r(__webpack_exports__);
       store: {},
       defaultOpenedDetails: [1],
       defaultOpened: [1],
-      ieskoti: '',
-      paieska: '',
+      gam: true,
+      pirk: true,
       rodyti_lt: false,
       rodyti_lv: false,
       rodyti_ee: false,
@@ -225,6 +229,14 @@ __webpack_require__.r(__webpack_exports__);
     keisti_sandelis: function keisti_sandelis() {
       //this.sandelis = 1;
       this.paieska_post();
+    },
+    change_gam: function change_gam() {
+      this.gam = !this.gam; //this.ieskoti = this.paieska
+      //this.paieska_post()
+    },
+    change_pirk: function change_pirk() {
+      this.pirk = !this.pirk; //this.ieskoti = this.paieska
+      //this.paieska_post()
     },
     change_lt: function change_lt() {
       this.rodyti_lt = true;
@@ -278,7 +290,9 @@ __webpack_require__.r(__webpack_exports__);
         lt: this.rodyti_lt,
         lv: this.rodyti_lv,
         ee: this.rodyti_ee,
-        sandelis: this.sandelis
+        sandelis: this.sandelis,
+        gam: this.gam,
+        pirk: this.pirk
       }).then(function (response) {
         console.log(response.data.data); //this.rikiuoti = false;
 
@@ -554,6 +568,39 @@ var render = function() {
                     )
                   }),
                   0
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "PREKĖS:", horizontal: "" } },
+              [
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.gam ? "is-info" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_gam()
+                      }
+                    }
+                  },
+                  [_vm._v("GAMYBA")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.pirk ? "is-info" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_pirk()
+                      }
+                    }
+                  },
+                  [_vm._v("PIRKIMAI")]
                 )
               ],
               1

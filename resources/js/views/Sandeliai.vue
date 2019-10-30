@@ -14,6 +14,10 @@
               </option>
             </b-select>
           </b-field>
+          <b-field label="PREKĖS:" horizontal>
+          <b-button :type="gam ? 'is-info' : 'is-dark'" @click="change_gam()">GAMYBA</b-button>
+          <b-button :type="pirk ? 'is-info' : 'is-dark'" @click="change_pirk()">PIRKIMAI</b-button>
+        </b-field>
       </card-component>
 
       <card-component title="SANDELIS" icon="account-multiple">
@@ -130,8 +134,8 @@ export default {
       store: {},
       defaultOpenedDetails: [1],
       defaultOpened: [1],
-      ieskoti: '',
-      paieska: '',
+      gam: true,
+      pirk: true,
       rodyti_lt: false,
       rodyti_lv: false,
       rodyti_ee: false,
@@ -154,6 +158,16 @@ export default {
     keisti_sandelis(){
       //this.sandelis = 1;
       this.paieska_post();
+    },
+    change_gam(){
+      this.gam = !this.gam
+      //this.ieskoti = this.paieska
+      //this.paieska_post()
+    },
+    change_pirk(){
+      this.pirk = !this.pirk
+      //this.ieskoti = this.paieska
+      //this.paieska_post()
     },
     change_lt(){
       this.rodyti_lt = true;
@@ -208,7 +222,10 @@ export default {
         lt: this.rodyti_lt,
         lv: this.rodyti_lv,
         ee: this.rodyti_ee,
-        sandelis: this.sandelis
+        sandelis: this.sandelis,
+
+        gam: this.gam,
+        pirk: this.pirk,
         })
       .then(response => {
         console.log(response.data.data)

@@ -37,6 +37,9 @@ class SandeliaiController extends Controller
         fclose($myfile);
 
         $key = explode("||", $key);
+        $gam = $key[4];
+        $pirk = $key[5];
+
         $valstybe = ''; $va = '';
         if($key[1]){$valstybe = "LT"; $va = 1;}
         if($key[2]){$valstybe = "LV"; $va = 2;}
@@ -116,7 +119,9 @@ class SandeliaiController extends Controller
                 
                 //skaiciuojam kiek is viso yra
                 foreach($val as $res){
-                    $duomenys[$idx]['pardavimai_sk'] = 0;
+                    if(!array_key_exists('pardavimai_sk', $duomenys[$idx])){
+                        $duomenys[$idx]['pardavimai_sk'] = 0;
+                    }
                     $duomenys[$idx]['pardavimai_sk'] = $duomenys[$idx]['pardavimai_sk'] + $res['kiekis'];
                     $a = explode("-", $res['preke']);
                     if(count($a) >= 3){$ne = $a[0]."-".$a[1]."-";}
@@ -181,16 +186,14 @@ class SandeliaiController extends Controller
         $lv = $data['lv'];
         $ee = $data['ee'];
         $sandelis = $data['sandelis'];
-        //$rikiuoti = $data['rikiuoti'];
-        //$gam = $data['gam'];
-        //$pirk = $data['pirk'];
-        //$paieska_big= $data['paieska_big'];
+        $gam = $data['gam'];
+        $pirk = $data['pirk'];
 
         $failas = "sandelis.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
 
-        $eilute = $sandelis."||".$lt."||".$lv."||".$ee;
+        $eilute = $sandelis."||".$lt."||".$lv."||".$ee."||".$gam."||".$pirk;
 
         $myfile = fopen(storage_path($failas), "w");
         fwrite($myfile, $eilute);
