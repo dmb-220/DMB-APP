@@ -15,8 +15,8 @@
             </b-select>
           </b-field>
           <b-field label="PREKĖS:" horizontal>
-          <b-button :type="gam ? 'is-info' : 'is-dark'" @click="change_gam()">GAMYBA</b-button>
-          <b-button :type="pirk ? 'is-info' : 'is-dark'" @click="change_pirk()">PIRKIMAI</b-button>
+            <b-button :type="pirk ? 'is-info' : 'is-dark'" @click="change_pirk()">GAMYBA</b-button>
+           <b-button :type="gam ? 'is-info' : 'is-dark'" @click="change_gam()">PIRKIMAI</b-button>
         </b-field>
       </card-component>
 
@@ -147,8 +147,8 @@ export default {
   computed: {
   },
   created () {
-    this.paieska_post()
-    this.getData()
+    //this.paieska_post()
+    //this.getData()
   },
   methods: {
     //print() {
@@ -162,12 +162,12 @@ export default {
     change_gam(){
       this.gam = !this.gam
       //this.ieskoti = this.paieska
-      //this.paieska_post()
+      this.paieska_post()
     },
     change_pirk(){
       this.pirk = !this.pirk
       //this.ieskoti = this.paieska
-      //this.paieska_post()
+      this.paieska_post()
     },
     change_lt(){
       this.rodyti_lt = true;

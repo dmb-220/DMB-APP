@@ -58,6 +58,11 @@ export default {
             label: 'Sandeliai',
             icon: 'archive',
           },
+          {
+            to: '/testas',
+            label: 'Testas',
+            icon: 'archive',
+          },
         ],
         'VEIKSMAI',
         [

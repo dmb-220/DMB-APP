@@ -29,10 +29,28 @@ class LikutisController extends Controller
 
         $rikiuoti = $key[4];
 
+        $grupes['LT'] = array();
+        $grupes['LV'] = array();
+        $grupes['EE'] = array();
+
+        //$grupes= Likutis::distinct()->pluck('pavadinimas');
+        $gru = Likutis::select('pavadinimas', 'salis')->distinct()->get();
+        foreach ( $gru as $value ) {
+            if(!in_array($value, $grupes['LT']) && $value['salis'] == 1){
+                $grupes['LT'][] = $value['pavadinimas'];
+            }
+            if(!in_array($value, $grupes['LV']) && $value['salis'] == 2){
+                $grupes['LV'][] = $value['pavadinimas'];
+            }
+            if(!in_array($value, $grupes['EE']) && $value['salis'] == 3){
+                $grupes['EE'][] = $value['pavadinimas'];
+            }
+        }
+
         $re = Likutis::query()
         ->where('preke', 'like', "{$keyword}%")->get();
 
-        foreach ( $re as $value ) {
+        foreach ( $re as $value ) {    
             if($value['sandelis'] != "BROK" && $value['sandelis'] != "ESTI" && $value['sandelis'] != "4444"
              && $value['sandelis'] != "TELSIAI" && $value['sandelis'] != "1111" && $value['sandelis'] != "SAND"){
 
@@ -108,6 +126,7 @@ class LikutisController extends Controller
         return response()->json([
             'status' => true,
             'prekes' => $likuciai,
+            'grupes' => $grupes,
             'paieska' => $keyword,
             'rikiuoti' => $rikiuoti,
             'salis' =>  $arr,

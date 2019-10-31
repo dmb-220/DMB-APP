@@ -217,9 +217,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {},
-  created: function created() {
-    this.paieska_post();
-    this.getData();
+  created: function created() {//this.paieska_post()
+    //this.getData()
   },
   methods: {
     //print() {
@@ -232,11 +231,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     change_gam: function change_gam() {
       this.gam = !this.gam; //this.ieskoti = this.paieska
-      //this.paieska_post()
+
+      this.paieska_post();
     },
     change_pirk: function change_pirk() {
       this.pirk = !this.pirk; //this.ieskoti = this.paieska
-      //this.paieska_post()
+
+      this.paieska_post();
     },
     change_lt: function change_lt() {
       this.rodyti_lt = true;
@@ -580,10 +581,10 @@ var render = function() {
                 _c(
                   "b-button",
                   {
-                    attrs: { type: _vm.gam ? "is-info" : "is-dark" },
+                    attrs: { type: _vm.pirk ? "is-info" : "is-dark" },
                     on: {
                       click: function($event) {
-                        return _vm.change_gam()
+                        return _vm.change_pirk()
                       }
                     }
                   },
@@ -593,10 +594,10 @@ var render = function() {
                 _c(
                   "b-button",
                   {
-                    attrs: { type: _vm.pirk ? "is-info" : "is-dark" },
+                    attrs: { type: _vm.gam ? "is-info" : "is-dark" },
                     on: {
                       click: function($event) {
-                        return _vm.change_pirk()
+                        return _vm.change_gam()
                       }
                     }
                   },

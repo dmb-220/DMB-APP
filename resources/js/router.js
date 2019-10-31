@@ -43,6 +43,12 @@ export default new Router({
       name: 'sandeliai',
       component: () => import('./views/Sandeliai.vue')
     },
+    {
+      path: '/testas',
+      name: 'testas',
+      component: () => import('./views/Testas.vue')
+    },
+
     
 
   ],

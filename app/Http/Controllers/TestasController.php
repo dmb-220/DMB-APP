@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use SoapClient;
 
+use App\Pardavimai;
+use App\Likutis;
+use App\Akcijos;
 
 class TestasController extends Controller
 {
@@ -16,33 +18,45 @@ class TestasController extends Controller
      */
     public function index()
     {
-      /*$client = new SoapClient('https://lt2.dineta.eu/sidonas/ws/export/ws.php?wsdll');
-      // parametru padavimas
-      $p['param'][0]['name'] = 'docdate_from';
-      $p['param'][0]['value'] = "2019-09-01";
-      $p['param'][1]['name'] = 'op';
-      $p['param'][1]['value'] = 'I';
-      $response = $client->get_operations($p);
-      print_r ($response);*/
+      $va = 3;
+      $sa = "Kelnaitės";
 
-      $client = new SoapClient('https://lt2.dineta.eu/sidonas/ws/export/ws.php?wsdll');
+      $keyword = "-d";
+      $pa = "%{$keyword}%";
 
-      //var_dump($client->__getFunctions());
+        $query_p = Likutis::query();
+        //$query_p->where('preke', 'like', $pa);
+        $query_p->where('pavadinimas', $sa);
+        $query_p->where('salis', $va);
+        $query_p->where('kiekis','>','0');
+        $likuciai = $query_p->get();
 
-      $p['param'][0]['name'] = 'date';
-      $p['param'][0]['value'] = "2019-10-17";
-      
-      $p['param'][1]['name'] = 'storeid';
-      $p['param'][1]['value'] = "BIGA";   // cia sandelio kodas Dineta.web'e
+        
+        foreach ( $likuciai as $value ) {
+            //$p = str_replace(' ', '', $value['preke']);
+            $likutis[$value['preke']]['preke'] = $value['preke'];
+            $likutis[$value['preke']]['sarasas'][] = $value;
+        }
+        $likutis = array_values($likutis);
 
-      $p['param'][2]['name'] = 'null_quant';
-      $p['param'][2]['value'] = "1";
-      
-      $response = $client->get_stock_quant($p);
-      var_dump($response);
+        /*foreach($likutis as $idx => $val){
+            echo "<b>".$idx."</b>";
+            echo"<table border=' solid 1px'>";
+            foreach($val as $va){
+                echo"<tr>";
+                echo"<td>"; echo $va['sandelis']; echo"</td>";
+                echo"<td>"; echo $va['kiekis']; echo"</td>";
+                echo"</tr>";
+            }
+            echo"</table>";
+        }*/
 
 
-      //https://webmobtuts.com/backend-development/manipulating-soap-web-services-with-php-and-laravel/
+        return response()->json([
+            'status' => true,
+            'likutis' => $likutis
+         ]);
+
   }
 
     /**

@@ -2,12 +2,27 @@
   <div>
     <section class="section is-main-section">
       <card-component title="LIKUČIAI" icon="account-multiple">
-          <b-field horizontal>
+          <b-field label="PAIEŠKA:" horizontal>
             <b-input placeholder="Paieška..." type="search" @keyup.native.enter="paieska_post" 
             required v-model="ieskoti" icon="magnify"></b-input>    
           <div class="control">
             <b-button native-type="submit" type="is-primary" @click="paieska_post">Ieškoti</b-button>
           </div>
+        </b-field>
+        <b-field label=" " horizontal>
+            <b-checkbox :value="false" v-model="paieska_big" type="is-info">Aktivuoti išplėstinę paieška</b-checkbox>
+        </b-field>
+        <b-field label="RINKTIS:" horizontal>
+            <b-select placeholder="Pasirinkite..." @change.native="keisti_sandelis()" v-model="grupe" icon="earth" expanded>
+              <option v-for="(grup, index) in grupee" :key="index" :value="index">
+                {{ grup }}
+              </option>
+            </b-select>
+          </b-field>
+          <b-field label="RODYTI:" horizontal>
+          <b-button :type="rodyti_lt ? 'is-primary' : 'is-dark'" @click="change_lt()">LIETUVA</b-button>
+          <b-button :type="rodyti_lv ? 'is-warning' : 'is-dark'" @click="change_lv()">LATVIJA</b-button>
+          <b-button :type="rodyti_ee ? 'is-danger' : 'is-dark'" @click="change_ee()">ESTIJA</b-button>
         </b-field>
         <b-field label="GRUPAVIMAS:" horizontal>
           <b-switch v-model="rikiuoti" @click.native="switch_post">
@@ -145,14 +160,17 @@ export default {
     return {
       isLoading: false,
       likutis: [],
+      grupes: [],
+      grupee: [],
       defaultOpenedDetails: [1],
       ieskoti: '',
       paieska: '',
-      rodyti_lt: true,
-     rodyti_lv: true,
-     rodyti_ee: true,
+      rodyti_lt: false,
+     rodyti_lv: false,
+     rodyti_ee: false,
      salis: '',
      rikiuoti: false,
+     grupe: ''
     }
   },
   computed: {
@@ -165,6 +183,30 @@ export default {
     print() {
       // Pass the element id here
       this.$htmlToPaper('printMe');
+    },
+       change_lt(){
+      this.rodyti_lt = true;
+      this.rodyti_lv = false;
+      this.rodyti_ee = false;
+      this.grupee = this.grupes.LT;
+      this.grupe = 0;
+      //this.paieska_post();
+    },
+    change_lv(){
+      this.rodyti_lt = false;
+      this.rodyti_lv = true;
+      this.rodyti_ee = false;
+      this.grupee = this.grupes.LV;
+      this.grupe = 0;
+      //this.paieska_post()
+    },
+    change_ee(){
+      this.rodyti_lt = false;
+      this.rodyti_lv = false;
+      this.rodyti_ee = true;
+      this.grupee = this.grupes.EE;
+      this.grupe = 0;
+      //this.paieska_post()
     },
     switch_post(){
       //this.rikiuotic = !this.rikiuoti;
@@ -230,6 +272,7 @@ export default {
         this.rikiuoti = response.data.rikiuoti ? false : true;
         this.likutis = response.data.prekes;
         this.paieska = response.data.paieska;
+        this.grupes = response.data.grupes;
         
         this.rodyti_lt = response.data.salis.LT ? true : false
         this.rodyti_lv = response.data.salis.LV ? true : false

@@ -187,6 +187,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -200,14 +215,17 @@ __webpack_require__.r(__webpack_exports__);
     return {
       isLoading: false,
       likutis: [],
+      grupes: [],
+      grupee: [],
       defaultOpenedDetails: [1],
       ieskoti: '',
       paieska: '',
-      rodyti_lt: true,
-      rodyti_lv: true,
-      rodyti_ee: true,
+      rodyti_lt: false,
+      rodyti_lv: false,
+      rodyti_ee: false,
       salis: '',
-      rikiuoti: false
+      rikiuoti: false,
+      grupe: ''
     };
   },
   computed: {},
@@ -218,6 +236,27 @@ __webpack_require__.r(__webpack_exports__);
     print: function print() {
       // Pass the element id here
       this.$htmlToPaper('printMe');
+    },
+    change_lt: function change_lt() {
+      this.rodyti_lt = true;
+      this.rodyti_lv = false;
+      this.rodyti_ee = false;
+      this.grupee = this.grupes.LT;
+      this.grupe = 0; //this.paieska_post();
+    },
+    change_lv: function change_lv() {
+      this.rodyti_lt = false;
+      this.rodyti_lv = true;
+      this.rodyti_ee = false;
+      this.grupee = this.grupes.LV;
+      this.grupe = 0; //this.paieska_post()
+    },
+    change_ee: function change_ee() {
+      this.rodyti_lt = false;
+      this.rodyti_lv = false;
+      this.rodyti_ee = true;
+      this.grupee = this.grupes.EE;
+      this.grupe = 0; //this.paieska_post()
     },
     switch_post: function switch_post() {
       var _this = this;
@@ -284,6 +323,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.rikiuoti = response.data.rikiuoti ? false : true;
         _this3.likutis = response.data.prekes;
         _this3.paieska = response.data.paieska;
+        _this3.grupes = response.data.grupes;
         _this3.rodyti_lt = response.data.salis.LT ? true : false;
         _this3.rodyti_lv = response.data.salis.LV ? true : false;
         _this3.rodyti_ee = response.data.salis.EE ? true : false;
@@ -459,7 +499,7 @@ var render = function() {
           [
             _c(
               "b-field",
-              { attrs: { horizontal: "" } },
+              { attrs: { label: "PAIEŠKA:", horizontal: "" } },
               [
                 _c("b-input", {
                   attrs: {
@@ -502,6 +542,116 @@ var render = function() {
                     )
                   ],
                   1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: " ", horizontal: "" } },
+              [
+                _c(
+                  "b-checkbox",
+                  {
+                    attrs: { value: false, type: "is-info" },
+                    model: {
+                      value: _vm.paieska_big,
+                      callback: function($$v) {
+                        _vm.paieska_big = $$v
+                      },
+                      expression: "paieska_big"
+                    }
+                  },
+                  [_vm._v("Aktivuoti išplėstinę paieška")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "RINKTIS:", horizontal: "" } },
+              [
+                _c(
+                  "b-select",
+                  {
+                    attrs: {
+                      placeholder: "Pasirinkite...",
+                      icon: "earth",
+                      expanded: ""
+                    },
+                    nativeOn: {
+                      change: function($event) {
+                        return _vm.keisti_sandelis()
+                      }
+                    },
+                    model: {
+                      value: _vm.grupe,
+                      callback: function($$v) {
+                        _vm.grupe = $$v
+                      },
+                      expression: "grupe"
+                    }
+                  },
+                  _vm._l(_vm.grupee, function(grup, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: index } },
+                      [
+                        _vm._v(
+                          "\n              " + _vm._s(grup) + "\n            "
+                        )
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "RODYTI:", horizontal: "" } },
+              [
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.rodyti_lt ? "is-primary" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_lt()
+                      }
+                    }
+                  },
+                  [_vm._v("LIETUVA")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.rodyti_lv ? "is-warning" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_lv()
+                      }
+                    }
+                  },
+                  [_vm._v("LATVIJA")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.rodyti_ee ? "is-danger" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_ee()
+                      }
+                    }
+                  },
+                  [_vm._v("ESTIJA")]
                 )
               ],
               1

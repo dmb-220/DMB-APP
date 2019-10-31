@@ -17,14 +17,9 @@ class SandeliaiController extends Controller
      */
     public function index()
     {
-        $store = (object) array(
-            "LT" => (object) array("MINS", "TELS", "MADA", "MARI", "UKME", "MOLA", "NORF", "BIGA", "BABI", "UTEN", "MANT", "VISA", "KEDA", "AREN", "MAXI", "PANE", "KREV", "MAZE", "TAIK", "SAUL", "TAUB", "INTE"),
-            "LV" => (object) array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN", "PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO", "INTE"),
-            "EE" => (object) array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera", "Eden", "Haapsalu", "Kohtla Järve", "Kopli", "Parnu", "Riia Parnu"),
-        );
-        $store2 = array(
+        $store = array(
             "LT" => array("MINS", "TELS", "MADA", "MARI", "UKME", "MOLA", "NORF", "BIGA", "BABI", "UTEN", "MANT", "VISA", "KEDA", "AREN", "MAXI", "PANE", "KREV", "MAZE", "TAIK", "SAUL", "TAUB", "INTE"),
-            "LV" => array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN","PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO", "INTE"),
+            "LV" => array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN", "PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO", "INTE"),
             "EE" => array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera", "Eden", "Haapsalu", "Kohtla Järve", "Kopli", "Parnu", "Riia Parnu"),
         );
 
@@ -52,22 +47,63 @@ class SandeliaiController extends Controller
 
         //$rikiuoti = 0;
         if($valstybe){
-            $sandelis = $store2[$valstybe][$key[0]];
+            $sandelis = $store[$valstybe][$key[0]];
         }else{
             $sandelis = '';
         }
 
-        $pardavimai = Pardavimai::query()
-            ->where('sandelis', $sandelis)
-            ->where('salis', $va)
-            ->where('kiekis','>','0')
-            ->get();
+        /*
+        if($gam && $pirk){
+            $res = Pardavimai::query()
+            ->where('preke', 'like', $pa)->get();
+        }else if($gam && !$pirk){
+            $res = Pardavimai::query()
+            ->where('preke', 'like', $pa)
+            ->where('registras', 'GAM')->get();
+        }else if(!$gam && $pirk){
+            $res = Pardavimai::query()
+            ->where('preke', 'like', $pa)
+            ->where('registras', 'PIRK')->get();
+        }else{
+            $res = array();
+        }
+        
+        $query = Author::query();
 
-        $likuciai = Likutis::query()
-            ->where('sandelis', $sandelis)
-            ->where('salis', $va)
-            ->where('kiekis','>','0')
-            ->get();
+        $query->when(request('filter_by') == 'likes', function ($q) {
+            return $q->where('likes', '>', request('likes_amount', 0));
+        });
+        $query->when(request('filter_by') == 'date', function ($q) {
+            return $q->orderBy('created_at', request('ordering_rule', 'desc'));
+        });
+        
+        $authors = $query->get();
+        */
+
+
+        $query_l = Pardavimai::query();
+        $query_l->where('sandelis', $sandelis);
+        $query_l->where('salis', $va);
+        $query_l->where('kiekis','>','0');
+        $query_l->when(!$gam, function ($q) {
+            return $q->where('registras', "GAM");
+        });
+        $query_l->when(!$pirk, function ($q) {
+            return $q->where('registras', "PIRK");
+        });
+        $pardavimai = $query_l->get();
+
+        $query_p = Likutis::query();
+        $query_p->where('sandelis', $sandelis);
+        $query_p->where('salis', $va);
+        $query_p->where('kiekis','>','0');
+        $query_p->when(!$gam, function ($q) {
+            return $q->where('registras', "GAM");
+        });
+        $query_p->when(!$pirk, function ($q) {
+            return $q->where('registras', "PIRK");
+        });
+        $likuciai = $query_p->get();
 
             //sudejom i grupes
             //reik isfiltruoti tarpus
@@ -158,7 +194,7 @@ class SandeliaiController extends Controller
                 'salis' =>  $arr,
                 'duomenys' => $duomenys,
                 'store' => $store,
-                //'likutis' => $likutis
+                'likutis' => array("gam" => $gam, "pirk" => $pirk)
             ]);
     }
 
