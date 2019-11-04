@@ -54,23 +54,20 @@
           <b-table-column v-else label="Preke"  field="preke" sortable>
                 {{ props.row.preke }}
           </b-table-column> 
-          <b-table-column :style="{'background-color': 'greenyellow'}" label="LIETUVA"  field="LT_viso" sortable>
+          <b-table-column :visible='rodyti_lt'  :style="{'background-color': 'greenyellow'}" label="LIETUVA"  field="LT_viso" sortable>
                 {{ props.row.LT_viso }}
           </b-table-column>
-           <b-table-column :style="{'background-color': 'GoldenRod'}" label="LATVIJA"  field="LV_viso" sortable >
+           <b-table-column :visible='rodyti_lv'  :style="{'background-color': 'GoldenRod'}" label="LATVIJA"  field="LV_viso" sortable >
                 {{ props.row.LV_viso }}
           </b-table-column>
-          <b-table-column :style="{'background-color': 'tomato'}" label="ESTIJA"  field="EE_viso" sortable>
+          <b-table-column :visible='rodyti_ee' :style="{'background-color': 'tomato'}" label="ESTIJA"  field="EE_viso" sortable>
                 {{ props.row.EE_viso }}
-          </b-table-column>
-          <b-table-column :style="{'background-color': 'WhiteSmoke'}" label="VISO" field="viso" sortable>
-                {{ props.row.viso }}
           </b-table-column>
         </template> 
 
         <template slot="detail" slot-scope="props">
           <div class="columns">
-          <div class="column" :style="{'border': '1px solid', 'background-color': 'greenyellow'}">
+          <div class="column" v-show='rodyti_lt' :style="{'border': '1px solid', 'background-color': 'greenyellow'}">
             <div class="has-text-centered">Lietuva:</div>
             <b-table
             :data="props.row.LT"
@@ -86,7 +83,7 @@
             </template>
             </b-table>
           </div>
-          <div class="column" :style="{'border': '1px solid', 'background-color': 'GoldenRod'}">
+          <div class="column" v-show='rodyti_lv' :style="{'border': '1px solid', 'background-color': 'GoldenRod'}">
             <div class="has-text-centered">Latvija:</div>
             <b-table
             :data="props.row.LV"
@@ -102,7 +99,7 @@
             </template>
             </b-table>
           </div>
-          <div class="column" :style="{'border': '1px solid', 'background-color': 'tomato'}">
+          <div class="column" v-show='rodyti_ee' :style="{'border': '1px solid', 'background-color': 'tomato'}">
             <div class="has-text-centered">Estija:</div>
             <b-table
             :data="props.row.EE"
@@ -170,7 +167,11 @@ export default {
      rodyti_ee: false,
      salis: '',
      rikiuoti: false,
-     grupe: ''
+     grupe: '',
+     gam: true,
+     pirk: true,
+     mobile_card: true,
+     paieska_big: false,
     }
   },
   computed: {
@@ -184,13 +185,18 @@ export default {
       // Pass the element id here
       this.$htmlToPaper('printMe');
     },
-       change_lt(){
+    keisti_sandelis(){
+      //this.sandelis = 1;
+      this.paieska_post();
+    },
+    change_lt(){
       this.rodyti_lt = true;
       this.rodyti_lv = false;
       this.rodyti_ee = false;
       this.grupee = this.grupes.LT;
       this.grupe = 0;
-      //this.paieska_post();
+      this.ieskoti = this.paieska
+      this.paieska_post();
     },
     change_lv(){
       this.rodyti_lt = false;
@@ -198,7 +204,8 @@ export default {
       this.rodyti_ee = false;
       this.grupee = this.grupes.LV;
       this.grupe = 0;
-      //this.paieska_post()
+      this.ieskoti = this.paieska
+      this.paieska_post()
     },
     change_ee(){
       this.rodyti_lt = false;
@@ -206,7 +213,8 @@ export default {
       this.rodyti_ee = true;
       this.grupee = this.grupes.EE;
       this.grupe = 0;
-      //this.paieska_post()
+      this.ieskoti = this.paieska
+      this.paieska_post()
     },
     switch_post(){
       //this.rikiuotic = !this.rikiuoti;
@@ -219,7 +227,11 @@ export default {
             lt: this.rodyti_lt,
             lv: this.rodyti_lv,
             ee: this.rodyti_ee,
-            rikiuoti: this.rikiuoti
+            rikiuoti: this.rikiuoti,
+            gam: this.gam,
+            pirk: this.pirk,
+            paieska_big: this.paieska_big,
+            grupe: this.grupe
             })
           .then(response => {
             console.log(response.data)
@@ -241,7 +253,11 @@ export default {
             lt: this.rodyti_lt,
             lv: this.rodyti_lv,
             ee: this.rodyti_ee,
-            rikiuoti: "1"
+            rikiuoti: "1",
+            gam: this.gam,
+            pirk: this.pirk,
+            paieska_big: this.paieska_big,
+            grupe: this.grupe
             })
           .then(response => {
             console.log(response.data.data)
@@ -274,7 +290,7 @@ export default {
         this.paieska = response.data.paieska;
         this.grupes = response.data.grupes;
         
-        this.rodyti_lt = response.data.salis.LT ? true : false
+        this.rodyti_lt = response.data.salis.LT ? true  : false
         this.rodyti_lv = response.data.salis.LV ? true : false
         this.rodyti_ee = response.data.salis.EE ? true : false
       })

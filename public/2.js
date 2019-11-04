@@ -199,9 +199,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -225,7 +222,11 @@ __webpack_require__.r(__webpack_exports__);
       rodyti_ee: false,
       salis: '',
       rikiuoti: false,
-      grupe: ''
+      grupe: '',
+      gam: true,
+      pirk: true,
+      mobile_card: true,
+      paieska_big: false
     };
   },
   computed: {},
@@ -237,26 +238,36 @@ __webpack_require__.r(__webpack_exports__);
       // Pass the element id here
       this.$htmlToPaper('printMe');
     },
+    keisti_sandelis: function keisti_sandelis() {
+      //this.sandelis = 1;
+      this.paieska_post();
+    },
     change_lt: function change_lt() {
       this.rodyti_lt = true;
       this.rodyti_lv = false;
       this.rodyti_ee = false;
       this.grupee = this.grupes.LT;
-      this.grupe = 0; //this.paieska_post();
+      this.grupe = 0;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
     },
     change_lv: function change_lv() {
       this.rodyti_lt = false;
       this.rodyti_lv = true;
       this.rodyti_ee = false;
       this.grupee = this.grupes.LV;
-      this.grupe = 0; //this.paieska_post()
+      this.grupe = 0;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
     },
     change_ee: function change_ee() {
       this.rodyti_lt = false;
       this.rodyti_lv = false;
       this.rodyti_ee = true;
       this.grupee = this.grupes.EE;
-      this.grupe = 0; //this.paieska_post()
+      this.grupe = 0;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
     },
     switch_post: function switch_post() {
       var _this = this;
@@ -271,7 +282,11 @@ __webpack_require__.r(__webpack_exports__);
         lt: this.rodyti_lt,
         lv: this.rodyti_lv,
         ee: this.rodyti_ee,
-        rikiuoti: this.rikiuoti
+        rikiuoti: this.rikiuoti,
+        gam: this.gam,
+        pirk: this.pirk,
+        paieska_big: this.paieska_big,
+        grupe: this.grupe
       }).then(function (response) {
         console.log(response.data);
 
@@ -293,7 +308,11 @@ __webpack_require__.r(__webpack_exports__);
           lt: this.rodyti_lt,
           lv: this.rodyti_lv,
           ee: this.rodyti_ee,
-          rikiuoti: "1"
+          rikiuoti: "1",
+          gam: this.gam,
+          pirk: this.pirk,
+          paieska_big: this.paieska_big,
+          grupe: this.grupe
         }).then(function (response) {
           console.log(response.data.data);
           _this2.rikiuoti = false;
@@ -780,6 +799,7 @@ var render = function() {
                               {
                                 style: { "background-color": "greenyellow" },
                                 attrs: {
+                                  visible: _vm.rodyti_lt,
                                   label: "LIETUVA",
                                   field: "LT_viso",
                                   sortable: ""
@@ -799,6 +819,7 @@ var render = function() {
                               {
                                 style: { "background-color": "GoldenRod" },
                                 attrs: {
+                                  visible: _vm.rodyti_lv,
                                   label: "LATVIJA",
                                   field: "LV_viso",
                                   sortable: ""
@@ -818,6 +839,7 @@ var render = function() {
                               {
                                 style: { "background-color": "tomato" },
                                 attrs: {
+                                  visible: _vm.rodyti_ee,
                                   label: "ESTIJA",
                                   field: "EE_viso",
                                   sortable: ""
@@ -827,25 +849,6 @@ var render = function() {
                                 _vm._v(
                                   "\n              " +
                                     _vm._s(props.row.EE_viso) +
-                                    "\n        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                style: { "background-color": "WhiteSmoke" },
-                                attrs: {
-                                  label: "VISO",
-                                  field: "viso",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(props.row.viso) +
                                     "\n        "
                                 )
                               ]
@@ -861,6 +864,14 @@ var render = function() {
                               _c(
                                 "div",
                                 {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.rodyti_lt,
+                                      expression: "rodyti_lt"
+                                    }
+                                  ],
                                   staticClass: "column",
                                   style: {
                                     border: "1px solid",
@@ -937,6 +948,14 @@ var render = function() {
                               _c(
                                 "div",
                                 {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.rodyti_lv,
+                                      expression: "rodyti_lv"
+                                    }
+                                  ],
                                   staticClass: "column",
                                   style: {
                                     border: "1px solid",
@@ -1013,6 +1032,14 @@ var render = function() {
                               _c(
                                 "div",
                                 {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.rodyti_ee,
+                                      expression: "rodyti_ee"
+                                    }
+                                  ],
                                   staticClass: "column",
                                   style: {
                                     border: "1px solid",

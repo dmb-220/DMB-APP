@@ -34,10 +34,23 @@ class LikutisController extends Controller
         $keyword = $key[0];
 
         $rikiuoti = $key[4];
+        $gam = $key[5];
+        $pirk = $key[6];
+        $grupe = $key[8];
+
+        //paieska, paprasta, isplestine
+        if($key[7]){
+            $pa = "%{$keyword}%";
+        }else{
+            $pa = "{$keyword}%";
+        }
 
         $grupes['LT'] = array();
         $grupes['LV'] = array();
         $grupes['EE'] = array();
+
+        $likutis = array();
+        $likuciai = array();
 
         //$grupes= Likutis::distinct()->pluck('pavadinimas');
         $gru = Likutis::select('pavadinimas', 'salis')->distinct()->get();
@@ -53,8 +66,17 @@ class LikutisController extends Controller
             }
         }
 
-        $re = Likutis::query()
-        ->where('preke', 'like', "{$keyword}%")->get();
+        /*$re = Likutis::query()
+        ->where('preke', 'like', "{$keyword}%")->get();*/
+        
+        $query_p = Likutis::query();
+        $query_p->where('preke', 'like', $pa);
+        if($grupe){
+            $query_p->where('pavadinimas', $gru[$grupe]);
+        }
+        //$query_p->where('salis', $va);
+        $query_p->where('kiekis','>','0');
+        $re = $query_p->get();
 
         foreach ( $re as $value ) {    
             if($value['sandelis'] != "BROK" && $value['sandelis'] != "ESTI" && $value['sandelis'] != "4444"
@@ -164,12 +186,16 @@ class LikutisController extends Controller
         $lv = $data['lv'];
         $ee = $data['ee'];
         $rikiuoti = $data['rikiuoti'];
+        $gam = $data['gam'];
+        $pirk = $data['pirk'];
+        $paieska_big= $data['paieska_big'];
+        $grupe= $data['grupe'];
 
         $failas = "likutis.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
 
-        $eilute = strtoupper($ieskoti)."||".$lt."||".$lv."||".$ee."||".$rikiuoti;
+        $eilute = strtoupper($ieskoti)."||".$lt."||".$lv."||".$ee."||".$rikiuoti."||".$gam."||".$pirk."||".$paieska_big."||".$grupe;
 
         $myfile = fopen(storage_path($failas), "w");
         fwrite($myfile, $eilute);
@@ -178,7 +204,9 @@ class LikutisController extends Controller
         return response()->json([
             'status' => true,
             'data' => $ieskoti,
-            'rikiuoti' => $rikiuoti
+            'rikiuoti' => $rikiuoti,
+            'gam' => $gam,
+            'pirk' => $pirk,
         ]);
     }
 
