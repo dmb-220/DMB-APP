@@ -199,6 +199,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -213,19 +216,20 @@ __webpack_require__.r(__webpack_exports__);
       isLoading: false,
       likutis: [],
       grupes: [],
+      grupes_lv: [],
       grupee: [],
       defaultOpenedDetails: [1],
       ieskoti: '',
       paieska: '',
-      rodyti_lt: false,
-      rodyti_lv: false,
-      rodyti_ee: false,
+      rodyti_lt: true,
+      rodyti_lv: true,
+      rodyti_ee: true,
       salis: '',
       rikiuoti: false,
       grupe: '',
       gam: true,
       pirk: true,
-      mobile_card: true,
+      //mobile_card: true,
       paieska_big: false
     };
   },
@@ -238,33 +242,27 @@ __webpack_require__.r(__webpack_exports__);
       // Pass the element id here
       this.$htmlToPaper('printMe');
     },
-    keisti_sandelis: function keisti_sandelis() {
-      //this.sandelis = 1;
+    keisti_grupe: function keisti_grupe() {
+      if (!this.ieskoti) {
+        this.ieskoti = this.paieska;
+      }
+
       this.paieska_post();
     },
     change_lt: function change_lt() {
-      this.rodyti_lt = true;
-      this.rodyti_lv = false;
-      this.rodyti_ee = false;
-      this.grupee = this.grupes.LT;
+      this.rodyti_lt = !this.rodyti_lt;
       this.grupe = 0;
       this.ieskoti = this.paieska;
       this.paieska_post();
     },
     change_lv: function change_lv() {
-      this.rodyti_lt = false;
-      this.rodyti_lv = true;
-      this.rodyti_ee = false;
-      this.grupee = this.grupes.LV;
+      this.rodyti_lv = !this.rodyti_lv;
       this.grupe = 0;
       this.ieskoti = this.paieska;
       this.paieska_post();
     },
     change_ee: function change_ee() {
-      this.rodyti_lt = false;
-      this.rodyti_lv = false;
-      this.rodyti_ee = true;
-      this.grupee = this.grupes.EE;
+      this.rodyti_ee = !this.rodyti_ee;
       this.grupe = 0;
       this.ieskoti = this.paieska;
       this.paieska_post();
@@ -342,7 +340,10 @@ __webpack_require__.r(__webpack_exports__);
         _this3.rikiuoti = response.data.rikiuoti ? false : true;
         _this3.likutis = response.data.prekes;
         _this3.paieska = response.data.paieska;
+        _this3.paieska_big = response.data.paieska_big ? true : false;
         _this3.grupes = response.data.grupes;
+        _this3.grupes_lv = response.data.grupes_lv;
+        _this3.grupe = response.data.grupe;
         _this3.rodyti_lt = response.data.salis.LT ? true : false;
         _this3.rodyti_lv = response.data.salis.LV ? true : false;
         _this3.rodyti_ee = response.data.salis.EE ? true : false;
@@ -602,7 +603,7 @@ var render = function() {
                     },
                     nativeOn: {
                       change: function($event) {
-                        return _vm.keisti_sandelis()
+                        return _vm.keisti_grupe($event)
                       }
                     },
                     model: {
@@ -613,13 +614,17 @@ var render = function() {
                       expression: "grupe"
                     }
                   },
-                  _vm._l(_vm.grupee, function(grup, index) {
+                  _vm._l(_vm.grupes, function(grup, index) {
                     return _c(
                       "option",
                       { key: index, domProps: { value: index } },
                       [
                         _vm._v(
-                          "\n              " + _vm._s(grup) + "\n            "
+                          "\n              " +
+                            _vm._s(grup) +
+                            " - " +
+                            _vm._s(_vm.grupes_lv[grup]) +
+                            "\n            "
                         )
                       ]
                     )
@@ -850,6 +855,24 @@ var render = function() {
                                   "\n              " +
                                     _vm._s(props.row.EE_viso) +
                                     "\n        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-table-column",
+                              {
+                                attrs: {
+                                  field: "viso",
+                                  label: "Viso",
+                                  sortable: ""
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                  " +
+                                    _vm._s(props.row.viso) +
+                                    "\n              "
                                 )
                               ]
                             )

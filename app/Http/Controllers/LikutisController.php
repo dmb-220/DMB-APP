@@ -20,6 +20,59 @@ class LikutisController extends Controller
      */
     public function index()
     {
+        $sarasas = array(
+            "Suknelė" => "Kleita",
+            "Palaidinė" => "Blūze",
+            "Kelnės" => "Bikses",
+            "Švarkas" => "Žakete",
+            "Sijonas" => "Svārki",
+            "Striukė" => "Jaka",
+            "Sport. kelnės" => "Sport. bikses",
+            "Skara" => "Plecu lakats",
+            "Šalikas" => "Šalle",
+            "Rankinė" => "Soma",
+            "Tamprės" => "Legingi",
+            "Tamprės" => "Leging",
+            "Pižama" => "Pidžama",
+            "Paltas" => "Mētelis",
+            "Pirštinės" => "Cimdi",
+            "Pėdkelnės" => "Zeķubikses",
+            "Naktiniai" => "Naktskrekls",
+            "Kostiumas" => "Kostīms",
+            "Megztinis" => "Džemperis",
+            "Maud. kostiumas" => "Peldkostims",
+            "Maišelis" => "Maisiņi",
+            "Med. kelnės" => "Med. bikses",
+            "Liekninanti palaidinė" => "Blūze figūras korekcijai",
+            "Liemenėlė" => "Krūšturis",
+            "Vyr. kelnaitės" => "Vīr. apakšbikses",
+            "Kelnaitės" => "Apakšbikses",
+            "Vyr. kojinės" => "Vīr. zeķes",
+            "Vaik. kojinė" => "Bēr. zeķes",
+            "Kojinės" => "Zeķes",
+            "Džinsai" => "Džinsi",
+            "Chalatas" => "Halāts",
+            "Sport. kostiumas" => "Sport. kostīms",
+            "Sarafanas" => "Sarafāns",
+            "Med. švarkas" => "Med. jaka",
+            "Komplektas" => "Komplekts",
+            "Liemenė" => "Veste",
+            "Diržas" => "Siksna",
+            "Vyr. pėdutės" => "Vīr. pēdiņas",
+            "Kepurė" => "Cepure",
+            "Šortai" => "Šorti",
+            "Suknelė + apatinukas" => "Kleita + apakšveļa",
+            "Kombinezonas" => "Kombinezons",
+            "Skarelė" => "Lakats",
+            "Pėdutės" => "Pēdiņas",
+            "Med. chalatas" => "Med. halāts",
+            "Rankšluostis" => "Dvielis",
+            "Vyr. džinsai" => "Vīr. džinsi"
+        );
+
+        //reik prideti dar keleta griupiu, nes meta klaida
+    
+
         //pasidaryt kintamuosius is VUE kad pateiktu tik nurodyta valstybe
         //$keyword = 'DMK-';
         $failas = "likutis.txt";
@@ -45,9 +98,7 @@ class LikutisController extends Controller
             $pa = "{$keyword}%";
         }
 
-        $grupes['LT'] = array();
-        $grupes['LV'] = array();
-        $grupes['EE'] = array();
+        $grupes = array();
 
         $likutis = array();
         $likuciai = array();
@@ -55,27 +106,17 @@ class LikutisController extends Controller
         //$grupes= Likutis::distinct()->pluck('pavadinimas');
         $gru = Likutis::select('pavadinimas', 'salis')->distinct()->get();
         foreach ( $gru as $value ) {
-            if(!in_array($value, $grupes['LT']) && $value['salis'] == 1){
-                $grupes['LT'][] = $value['pavadinimas'];
-            }
-            if(!in_array($value, $grupes['LV']) && $value['salis'] == 2){
-                $grupes['LV'][] = $value['pavadinimas'];
-            }
-            if(!in_array($value, $grupes['EE']) && $value['salis'] == 3){
-                $grupes['EE'][] = $value['pavadinimas'];
+            if(!in_array($value, $grupes) && $value['salis'] == 1){
+                $grupes[] = $value['pavadinimas'];
             }
         }
-
-        /*$re = Likutis::query()
-        ->where('preke', 'like', "{$keyword}%")->get();*/
         
         $query_p = Likutis::query();
-        $query_p->where('preke', 'like', $pa);
-        if($grupe){
-            $query_p->where('pavadinimas', $gru[$grupe]);
+        if($grupes[$grupe]){
+            $query_p->where('pavadinimas', $grupes[$grupe]);
+            $query_p->orWhere('pavadinimas', $sarasas[$grupes[$grupe]]);
         }
-        //$query_p->where('salis', $va);
-        $query_p->where('kiekis','>','0');
+        $query_p->where('preke', 'like', $pa);
         $re = $query_p->get();
 
         foreach ( $re as $value ) {    
@@ -105,7 +146,7 @@ class LikutisController extends Controller
             $likuciai[$idx]['LV'] = array();
             $likuciai[$idx]['EE'] = array();
             foreach($value as $val){
-                if($val['salis'] == 1){
+                if($val['salis'] == 1 && $key[1]){
                     if(array_key_exists($val['sandelis'], $likuciai[$idx]['LT'])){
                         $kiek = $likuciai[$idx]['LT'][$val['sandelis']]['kiekis'];
                     }else{
@@ -115,7 +156,7 @@ class LikutisController extends Controller
                     $lt_viso = $lt_viso + $val['kiekis'];
                     $likuciai[$idx]['LT_viso'] = $lt_viso;
                 }
-                if($val['salis'] == 2){
+                if($val['salis'] == 2 && $key[2]){
                     if(array_key_exists($val['sandelis'], $likuciai[$idx]['LV'])){
                         $kiek = $likuciai[$idx]['LV'][$val['sandelis']]['kiekis'];
                     }else{
@@ -125,7 +166,7 @@ class LikutisController extends Controller
                     $lv_viso = $lv_viso + $val['kiekis'];
                     $likuciai[$idx]['LV_viso'] = $lv_viso;
                 }
-                if($val['salis'] == 3){
+                if($val['salis'] == 3 && $key[3]){
                     if(array_key_exists($val['sandelis'], $likuciai[$idx]['EE'])){
                         $kiek = $likuciai[$idx]['EE'][$val['sandelis']]['kiekis'];
                     }else{
@@ -157,6 +198,9 @@ class LikutisController extends Controller
             'grupes' => $grupes,
             'paieska' => $keyword,
             'rikiuoti' => $rikiuoti,
+            'paieska_big' => $key[7],
+            'grupe' => $grupe,
+            'grupes_lv' => $sarasas,
             'salis' =>  $arr,
         ]);
 

@@ -13,9 +13,9 @@
             <b-checkbox :value="false" v-model="paieska_big" type="is-info">Aktivuoti išplėstinę paieška</b-checkbox>
         </b-field>
         <b-field label="RINKTIS:" horizontal>
-            <b-select placeholder="Pasirinkite..." @change.native="keisti_sandelis()" v-model="grupe" icon="earth" expanded>
-              <option v-for="(grup, index) in grupee" :key="index" :value="index">
-                {{ grup }}
+            <b-select placeholder="Pasirinkite..." @change.native="keisti_grupe" v-model="grupe" icon="earth" expanded>
+              <option v-for="(grup, index) in grupes" :key="index" :value="index">
+                {{ grup }} - {{ grupes_lv[grup] }}
               </option>
             </b-select>
           </b-field>
@@ -63,6 +63,9 @@
           <b-table-column :visible='rodyti_ee' :style="{'background-color': 'tomato'}" label="ESTIJA"  field="EE_viso" sortable>
                 {{ props.row.EE_viso }}
           </b-table-column>
+          <b-table-column field="viso" label="Viso" sortable>
+                    {{ props.row.viso}}
+                </b-table-column>
         </template> 
 
         <template slot="detail" slot-scope="props">
@@ -158,20 +161,21 @@ export default {
       isLoading: false,
       likutis: [],
       grupes: [],
+      grupes_lv: [],
       grupee: [],
       defaultOpenedDetails: [1],
       ieskoti: '',
       paieska: '',
-      rodyti_lt: false,
-     rodyti_lv: false,
-     rodyti_ee: false,
-     salis: '',
-     rikiuoti: false,
-     grupe: '',
-     gam: true,
-     pirk: true,
-     mobile_card: true,
-     paieska_big: false,
+      rodyti_lt: true,
+      rodyti_lv: true,
+      rodyti_ee: true,
+      salis: '',
+      rikiuoti: false,
+      grupe: '',
+      gam: true,
+      pirk: true,
+      //mobile_card: true,
+      paieska_big: false,
     }
   },
   computed: {
@@ -185,33 +189,26 @@ export default {
       // Pass the element id here
       this.$htmlToPaper('printMe');
     },
-    keisti_sandelis(){
-      //this.sandelis = 1;
+    keisti_grupe(){
+      if(!this.ieskoti){
+      this.ieskoti = this.paieska;
+      }
       this.paieska_post();
     },
     change_lt(){
-      this.rodyti_lt = true;
-      this.rodyti_lv = false;
-      this.rodyti_ee = false;
-      this.grupee = this.grupes.LT;
+      this.rodyti_lt = !this.rodyti_lt;
       this.grupe = 0;
       this.ieskoti = this.paieska
       this.paieska_post();
     },
     change_lv(){
-      this.rodyti_lt = false;
-      this.rodyti_lv = true;
-      this.rodyti_ee = false;
-      this.grupee = this.grupes.LV;
+      this.rodyti_lv = !this.rodyti_lv;
       this.grupe = 0;
       this.ieskoti = this.paieska
       this.paieska_post()
     },
     change_ee(){
-      this.rodyti_lt = false;
-      this.rodyti_lv = false;
-      this.rodyti_ee = true;
-      this.grupee = this.grupes.EE;
+      this.rodyti_ee = !this.rodyti_ee;
       this.grupe = 0;
       this.ieskoti = this.paieska
       this.paieska_post()
@@ -288,9 +285,12 @@ export default {
         this.rikiuoti = response.data.rikiuoti ? false : true;
         this.likutis = response.data.prekes;
         this.paieska = response.data.paieska;
+        this.paieska_big = response.data.paieska_big ? true : false
         this.grupes = response.data.grupes;
+        this.grupes_lv = response.data.grupes_lv;
+        this.grupe = response.data.grupe;
         
-        this.rodyti_lt = response.data.salis.LT ? true  : false
+        this.rodyti_lt = response.data.salis.LT ? true : false
         this.rodyti_lv = response.data.salis.LV ? true : false
         this.rodyti_ee = response.data.salis.EE ? true : false
       })

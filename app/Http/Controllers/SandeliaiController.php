@@ -57,34 +57,6 @@ class SandeliaiController extends Controller
             $sandelis = '';
         }
 
-        /*
-        if($gam && $pirk){
-            $res = Pardavimai::query()
-            ->where('preke', 'like', $pa)->get();
-        }else if($gam && !$pirk){
-            $res = Pardavimai::query()
-            ->where('preke', 'like', $pa)
-            ->where('registras', 'GAM')->get();
-        }else if(!$gam && $pirk){
-            $res = Pardavimai::query()
-            ->where('preke', 'like', $pa)
-            ->where('registras', 'PIRK')->get();
-        }else{
-            $res = array();
-        }
-        
-        $query = Author::query();
-
-        $query->when(request('filter_by') == 'likes', function ($q) {
-            return $q->where('likes', '>', request('likes_amount', 0));
-        });
-        $query->when(request('filter_by') == 'date', function ($q) {
-            return $q->orderBy('created_at', request('ordering_rule', 'desc'));
-        });
-        
-        $authors = $query->get();
-        */
-
 
         $query_l = Pardavimai::query();
         $query_l->where('sandelis', $sandelis);
@@ -114,13 +86,13 @@ class SandeliaiController extends Controller
             //reik isfiltruoti tarpus
             foreach ( $pardavimai as $value ) {
                 if($value['registras'] != "PERS"){
-                    $p = str_replace(' ', '', $value['pavadinimas']);
+                    $p = strtolower(str_replace(' ', '', $value['pavadinimas']));
                     $pardavimas[$p][] = $value;
                 }
             }
 
             foreach ( $likuciai as $value ) {
-                $p = str_replace(' ', '', $value['pavadinimas']);
+                $p = strtolower(str_replace(' ', '', $value['pavadinimas']));
                 $likutis[$p][] = $value;
             }
 
@@ -193,6 +165,7 @@ class SandeliaiController extends Controller
             $duomenys = array_values($duomenys);
 
             $arr = array("LT" => $key[1], "LV" => $key[2], "EE" => $key[3]);
+
 
             return response()->json([
                 'status' => true,
