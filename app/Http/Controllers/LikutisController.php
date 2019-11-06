@@ -28,11 +28,12 @@ class LikutisController extends Controller
             "Sijonas" => "Svārki",
             "Striukė" => "Jaka",
             "Sport. kelnės" => "Sport. bikses",
+            "Sport.kelnės" => "Sport. bikses",
             "Skara" => "Plecu lakats",
             "Šalikas" => "Šalle",
             "Rankinė" => "Soma",
-            "Tamprės" => "Legingi",
             "Tamprės" => "Leging",
+            "Tamprės" => "Legingi",
             "Pižama" => "Pidžama",
             "Paltas" => "Mētelis",
             "Pirštinės" => "Cimdi",
@@ -40,8 +41,10 @@ class LikutisController extends Controller
             "Naktiniai" => "Naktskrekls",
             "Kostiumas" => "Kostīms",
             "Megztinis" => "Džemperis",
+            "Džemperis" => "Džemperis",
             "Maud. kostiumas" => "Peldkostims",
-            "Maišelis" => "Maisiņi",
+            "Maišelis" => "Maisiņi", //Latvija
+            //"Maišelis" => "Kilekott", //Estija
             "Med. kelnės" => "Med. bikses",
             "Liekninanti palaidinė" => "Blūze figūras korekcijai",
             "Liemenėlė" => "Krūšturis",
@@ -55,6 +58,7 @@ class LikutisController extends Controller
             "Sport. kostiumas" => "Sport. kostīms",
             "Sarafanas" => "Sarafāns",
             "Med. švarkas" => "Med. jaka",
+            "Med.Švarkas" => "Med. jaka", 
             "Komplektas" => "Komplekts",
             "Liemenė" => "Veste",
             "Diržas" => "Siksna",
@@ -67,8 +71,15 @@ class LikutisController extends Controller
             "Pėdutės" => "Pēdiņas",
             "Med. chalatas" => "Med. halāts",
             "Rankšluostis" => "Dvielis",
-            "Vyr. džinsai" => "Vīr. džinsi"
-        );
+            "Vyr. džinsai" => "Vīr. džinsi",
+            "Skraistė" => "Plecu lakats",
+            "Vaik. kelnaitės" => "Bēr. apakšbikses",
+            "Lietpaltis" => "Mētelis",
+            "Chalat.+ naktiniai" => "Halāts + naktskrekls",
+            "Vaik. kojinės" => "Bēr. zeķes",
+            "Vyr.kelnaitės" => "Vīr. apakšbikses",
+            "Naktinai" => "Naktskrekls"
+        ); 
 
         //reik prideti dar keleta griupiu, nes meta klaida
     
@@ -112,11 +123,16 @@ class LikutisController extends Controller
         }
         
         $query_p = Likutis::query();
-        if($grupes[$grupe]){
-            $query_p->where('pavadinimas', $grupes[$grupe]);
-            $query_p->orWhere('pavadinimas', $sarasas[$grupes[$grupe]]);
-        }
         $query_p->where('preke', 'like', $pa);
+        if($grupes[$grupe]){
+            $query_p->whereIn('pavadinimas',[$grupes[$grupe], $sarasas[$grupes[$grupe]]]);
+        }
+        $query_p->when(!$gam, function ($q) {
+            return $q->where('registras', "GAM");
+        });
+        $query_p->when(!$pirk, function ($q) {
+            return $q->where('registras', "PIRK");
+        });
         $re = $query_p->get();
 
         foreach ( $re as $value ) {    
@@ -127,7 +143,10 @@ class LikutisController extends Controller
                 $likutis[$value['preke']][] = $value;
             }else{
                 $a = explode("-", $value['preke']);
-                $ne = $a[0]."-".$a[1]."-";
+                if(count($a) >= 3){$ne = $a[0]."-".$a[1]."-";}
+                if(count($a) == 2){$ne = $a[0]."-";}
+                //turi veikti tik su BROK
+                if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
                 $likutis[$ne][] = $value;
             }
 
@@ -202,6 +221,8 @@ class LikutisController extends Controller
             'grupe' => $grupe,
             'grupes_lv' => $sarasas,
             'salis' =>  $arr,
+            'gam' => $gam,
+            'pirk' => $pirk,
         ]);
 
     }

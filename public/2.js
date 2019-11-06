@@ -202,6 +202,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -241,6 +245,16 @@ __webpack_require__.r(__webpack_exports__);
     print: function print() {
       // Pass the element id here
       this.$htmlToPaper('printMe');
+    },
+    change_gam: function change_gam() {
+      this.gam = !this.gam;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
+    },
+    change_pirk: function change_pirk() {
+      this.pirk = !this.pirk;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
     },
     keisti_grupe: function keisti_grupe() {
       if (!this.ieskoti) {
@@ -300,36 +314,28 @@ __webpack_require__.r(__webpack_exports__);
     paieska_post: function paieska_post() {
       var _this2 = this;
 
-      if (this.ieskoti != "") {
-        axios.post("/likutis/store", {
-          ieskoti: this.ieskoti,
-          lt: this.rodyti_lt,
-          lv: this.rodyti_lv,
-          ee: this.rodyti_ee,
-          rikiuoti: "1",
-          gam: this.gam,
-          pirk: this.pirk,
-          paieska_big: this.paieska_big,
-          grupe: this.grupe
-        }).then(function (response) {
-          console.log(response.data.data);
-          _this2.rikiuoti = false;
+      axios.post("/likutis/store", {
+        ieskoti: this.ieskoti,
+        lt: this.rodyti_lt,
+        lv: this.rodyti_lv,
+        ee: this.rodyti_ee,
+        rikiuoti: "1",
+        gam: this.gam,
+        pirk: this.pirk,
+        paieska_big: this.paieska_big,
+        grupe: this.grupe
+      }).then(function (response) {
+        console.log(response.data.data);
+        _this2.rikiuoti = false;
 
-          _this2.getData();
-        })["catch"](function (err) {
-          _this2.$buefy.toast.open({
-            message: "Error: ".concat(err.message),
-            type: 'is-danger',
-            queue: false
-          });
-        });
-      } else {
-        this.$buefy.toast.open({
-          message: "KLAIDA: \u012Fveskite paie\u0161kos rakta\u017Eod\u012F!",
+        _this2.getData();
+      })["catch"](function (err) {
+        _this2.$buefy.toast.open({
+          message: "Error: ".concat(err.message),
           type: 'is-danger',
           queue: false
         });
-      }
+      });
     },
     getData: function getData() {
       var _this3 = this;
@@ -344,6 +350,8 @@ __webpack_require__.r(__webpack_exports__);
         _this3.grupes = response.data.grupes;
         _this3.grupes_lv = response.data.grupes_lv;
         _this3.grupe = response.data.grupe;
+        _this3.gam = response.data.gam ? true : false;
+        _this3.pirk = response.data.pirk ? true : false;
         _this3.rodyti_lt = response.data.salis.LT ? true : false;
         _this3.rodyti_lv = response.data.salis.LV ? true : false;
         _this3.rodyti_ee = response.data.salis.EE ? true : false;
@@ -525,7 +533,6 @@ var render = function() {
                   attrs: {
                     placeholder: "Paieška...",
                     type: "search",
-                    required: "",
                     icon: "magnify"
                   },
                   nativeOn: {
@@ -676,6 +683,39 @@ var render = function() {
                     }
                   },
                   [_vm._v("ESTIJA")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "PREKĖS:", horizontal: "" } },
+              [
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.pirk ? "is-info" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_pirk()
+                      }
+                    }
+                  },
+                  [_vm._v("GAMYBA")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.gam ? "is-info" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_gam()
+                      }
+                    }
+                  },
+                  [_vm._v("PIRKIMAI")]
                 )
               ],
               1

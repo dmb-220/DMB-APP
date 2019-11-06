@@ -4,7 +4,7 @@
       <card-component title="LIKUČIAI" icon="account-multiple">
           <b-field label="PAIEŠKA:" horizontal>
             <b-input placeholder="Paieška..." type="search" @keyup.native.enter="paieska_post" 
-            required v-model="ieskoti" icon="magnify"></b-input>    
+             v-model="ieskoti" icon="magnify"></b-input>    
           <div class="control">
             <b-button native-type="submit" type="is-primary" @click="paieska_post">Ieškoti</b-button>
           </div>
@@ -23,6 +23,10 @@
           <b-button :type="rodyti_lt ? 'is-primary' : 'is-dark'" @click="change_lt()">LIETUVA</b-button>
           <b-button :type="rodyti_lv ? 'is-warning' : 'is-dark'" @click="change_lv()">LATVIJA</b-button>
           <b-button :type="rodyti_ee ? 'is-danger' : 'is-dark'" @click="change_ee()">ESTIJA</b-button>
+        </b-field>
+        <b-field label="PREKĖS:" horizontal>
+            <b-button :type="pirk ? 'is-info' : 'is-dark'" @click="change_pirk()">GAMYBA</b-button>
+           <b-button :type="gam ? 'is-info' : 'is-dark'" @click="change_gam()">PIRKIMAI</b-button>
         </b-field>
         <b-field label="GRUPAVIMAS:" horizontal>
           <b-switch v-model="rikiuoti" @click.native="switch_post">
@@ -189,6 +193,16 @@ export default {
       // Pass the element id here
       this.$htmlToPaper('printMe');
     },
+    change_gam(){
+      this.gam = !this.gam
+      this.ieskoti = this.paieska
+      this.paieska_post()
+    },
+    change_pirk(){
+      this.pirk = !this.pirk
+      this.ieskoti = this.paieska
+      this.paieska_post()
+    },
     keisti_grupe(){
       if(!this.ieskoti){
       this.ieskoti = this.paieska;
@@ -243,7 +257,6 @@ export default {
           })
     },
     paieska_post(){
-      if(this.ieskoti != ""){
         axios
           .post(`/likutis/store`, {
             ieskoti: this.ieskoti,
@@ -268,13 +281,6 @@ export default {
               queue: false
             })
           })
-        }else{
-          this.$buefy.toast.open({
-              message: `KLAIDA: įveskite paieškos raktažodį!`,
-              type: 'is-danger',
-              queue: false
-            })
-          }
     },
   getData () {
       this.isLoading = true
@@ -289,6 +295,9 @@ export default {
         this.grupes = response.data.grupes;
         this.grupes_lv = response.data.grupes_lv;
         this.grupe = response.data.grupe;
+
+        this.gam = response.data.gam ? true : false
+        this.pirk = response.data.pirk ? true : false
         
         this.rodyti_lt = response.data.salis.LT ? true : false
         this.rodyti_lv = response.data.salis.LV ? true : false
