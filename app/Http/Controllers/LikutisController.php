@@ -102,6 +102,14 @@ class LikutisController extends Controller
         $pirk = $key[6];
         $grupe = $key[8];
 
+        //jei nera ivestas paieskos raktazodis, nustatyti pradini
+        //jei grupe nustatyta, tada galima buti ir tuscias
+        if($grupe == 0){
+            if($keyword == ""){
+                $keyword = "DM-";
+            }
+        }
+
         //paieska, paprasta, isplestine
         if($key[7]){
             $pa = "%{$keyword}%";
@@ -109,13 +117,13 @@ class LikutisController extends Controller
             $pa = "{$keyword}%";
         }
 
-        $grupes = array();
+        $grupes = array('Paieška tarp grupių išjungta');
 
         $likutis = array();
         $likuciai = array();
 
         //$grupes= Likutis::distinct()->pluck('pavadinimas');
-        $gru = Likutis::select('pavadinimas', 'salis')->distinct()->get();
+        $gru = Likutis::select('pavadinimas', 'salis')->where('kiekis','>','0')->distinct()->get();
         foreach ( $gru as $value ) {
             if(!in_array($value, $grupes) && $value['salis'] == 1){
                 $grupes[] = $value['pavadinimas'];
@@ -124,7 +132,7 @@ class LikutisController extends Controller
         
         $query_p = Likutis::query();
         $query_p->where('preke', 'like', $pa);
-        if($grupes[$grupe]){
+        if($grupe != 0 && $grupes[$grupe]){
             $query_p->whereIn('pavadinimas',[$grupes[$grupe], $sarasas[$grupes[$grupe]]]);
         }
         $query_p->when(!$gam, function ($q) {

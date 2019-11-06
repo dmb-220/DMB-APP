@@ -12,7 +12,7 @@
         <b-field label=" " horizontal>
             <b-checkbox :value="false" v-model="paieska_big" type="is-info">Aktivuoti išplėstinę paieška</b-checkbox>
         </b-field>
-        <b-field label="RINKTIS:" horizontal>
+        <b-field label="GRUPĖ:" horizontal>
             <b-select placeholder="Pasirinkite..." @change.native="keisti_grupe" v-model="grupe" icon="earth" expanded>
               <option v-for="(grup, index) in grupes" :key="index" :value="index">
                 {{ grup }} - {{ grupes_lv[grup] }}
@@ -36,7 +36,7 @@
         <hr>
         <div  id="printMe">
         <div class="columns">
-          <div class="column has-text-centered has-text-weight-bold">Rasta: {{likutis.length }}<br>{{paieska}}</div>
+          <div class="column has-text-centered has-text-weight-bold">Rasta: {{likutis.length }}<br>{{paieska}}<br>{{grupes[grupe]}}</div>
         </div>
         <b-table
         :mobile-cards="false"
@@ -52,12 +52,9 @@
         @details-open="(row, index) => $buefy.toast.open(`Išskleista ${ row.preke } prekė!`)"
         :loading="isLoading">
         <template slot-scope="props">
-          <b-table-column v-if="props.row.pavadinimas == 'Liemenė'" :style="{'background-color': 'gold'}"  label="Preke"  field="preke" sortable>
-                {{ props.row.preke }} - ({{ props.row.pavadinimas }})
-          </b-table-column>
-          <b-table-column v-else label="Preke"  field="preke" sortable>
+          <b-table-column  label="Preke"  field="preke" sortable>
                 {{ props.row.preke }}
-          </b-table-column> 
+          </b-table-column>
           <b-table-column :visible='rodyti_lt'  :style="{'background-color': 'greenyellow'}" label="LIETUVA"  field="LT_viso" sortable>
                 {{ props.row.LT_viso }}
           </b-table-column>
