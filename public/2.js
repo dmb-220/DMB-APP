@@ -203,6 +203,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -520,7 +522,7 @@ var render = function() {
       [
         _c(
           "card-component",
-          { attrs: { title: "LIKUČIAI", icon: "account-multiple" } },
+          { attrs: { title: "VALDYMAS", icon: "account-multiple" } },
           [
             _c(
               "b-field",
@@ -746,10 +748,15 @@ var render = function() {
                 )
               ],
               1
-            ),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "card-component",
+          { attrs: { title: "LIKUČIAI", icon: "account-multiple" } },
+          [
             _c(
               "div",
               { attrs: { id: "printMe" } },
@@ -1239,8 +1246,7 @@ var render = function() {
               ],
               1
             )
-          ],
-          1
+          ]
         )
       ],
       1

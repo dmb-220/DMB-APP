@@ -132,7 +132,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'statistika',
@@ -263,18 +262,18 @@ var render = function() {
     [
       _c(
         "card-component",
-        { attrs: { title: "Statistika", icon: "finance" } },
+        { attrs: { title: "VALDYMAS", icon: "finance" } },
         [
           _c(
             "b-field",
-            { attrs: { horizontal: "" } },
             [
               _c("b-input", {
                 attrs: {
                   placeholder: "Paieška...",
-                  type: "search",
                   required: "",
-                  icon: "magnify"
+                  type: "search",
+                  icon: "magnify",
+                  expanded: ""
                 },
                 nativeOn: {
                   keyup: function($event) {
@@ -296,100 +295,73 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "control" },
-                [
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { "native-type": "submit", type: "is-primary" },
-                      on: { click: _vm.paieska_post }
-                    },
-                    [_vm._v("Ieškoti")]
-                  )
-                ],
-                1
-              )
+              _c("p", { staticClass: "control" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "button is-primary",
+                    on: { click: _vm.paieska_post }
+                  },
+                  [_vm._v("Ieškoti")]
+                )
+              ])
             ],
             1
           ),
           _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c("div", { staticClass: "columns" }, [
-            _c(
-              "div",
-              {
-                staticClass: "column has-text-centered",
-                style: { "background-color": "greenyellow" }
-              },
-              [
-                _c(
-                  "b-button",
-                  {
-                    attrs: { type: _vm.rodyti_lt ? "is-primary" : "is-dark" },
-                    on: {
-                      click: function($event) {
-                        return _vm.change_lt()
-                      }
+          _c(
+            "b-field",
+            { attrs: { horizontal: "" } },
+            [
+              _c(
+                "b-button",
+                {
+                  attrs: { type: _vm.rodyti_lt ? "is-primary" : "is-dark" },
+                  on: {
+                    click: function($event) {
+                      return _vm.change_lt()
                     }
-                  },
-                  [_vm._v("LIETUVA")]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "column has-text-centered",
-                style: { "background-color": "GoldenRod" }
-              },
-              [
-                _c(
-                  "b-button",
-                  {
-                    attrs: { type: _vm.rodyti_lv ? "is-warning" : "is-dark" },
-                    on: {
-                      click: function($event) {
-                        return _vm.change_lv()
-                      }
+                  }
+                },
+                [_vm._v("LIETUVA")]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  attrs: { type: _vm.rodyti_lv ? "is-warning" : "is-dark" },
+                  on: {
+                    click: function($event) {
+                      return _vm.change_lv()
                     }
-                  },
-                  [_vm._v("LATVIJA")]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "column has-text-centered",
-                style: { "background-color": "tomato" }
-              },
-              [
-                _c(
-                  "b-button",
-                  {
-                    attrs: { type: _vm.rodyti_ee ? "is-danger" : "is-dark" },
-                    on: {
-                      click: function($event) {
-                        return _vm.change_ee()
-                      }
+                  }
+                },
+                [_vm._v("LATVIJA")]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  attrs: { type: _vm.rodyti_ee ? "is-danger" : "is-dark" },
+                  on: {
+                    click: function($event) {
+                      return _vm.change_ee()
                     }
-                  },
-                  [_vm._v("ESTIJA")]
-                )
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
+                  }
+                },
+                [_vm._v("ESTIJA")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "card-component",
+        { attrs: { title: "STATISTIKA", icon: "account-multiple" } },
+        [
           _c(
             "div",
             { attrs: { id: "printMe" } },
@@ -752,8 +724,7 @@ var render = function() {
             ],
             1
           )
-        ],
-        1
+        ]
       )
     ],
     1

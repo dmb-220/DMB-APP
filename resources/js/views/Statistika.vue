@@ -1,27 +1,26 @@
 <template>
     <section class="section is-main-section">
-      <card-component title="Statistika" icon="finance">
-        <b-field horizontal>
-            <b-input placeholder="Paieška..." type="search" @keyup.native.enter="paieska_post" 
-            required v-model="ieskoti" icon="magnify"></b-input>    
-          <div class="control">
-            <b-button native-type="submit" type="is-primary" @click="paieska_post">Ieškoti</b-button>
-          </div>
+      <card-component title="VALDYMAS" icon="finance">
+        <b-field>
+            <b-input placeholder="Paieška..."
+              @keyup.native.enter="paieska_post" 
+              required v-model="ieskoti"
+              type="search"
+              icon="magnify"
+              expanded>
+            </b-input>
+            <p class="control">
+                <button class="button is-primary" @click="paieska_post">Ieškoti</button>
+            </p>
         </b-field>
-        <hr>
-        <div class="columns">
-          <div class="column has-text-centered" :style="{'background-color': 'greenyellow'}">
-            <b-button :type="rodyti_lt ? 'is-primary' : 'is-dark'" @click="change_lt()">LIETUVA</b-button>
-            </div>
-          <div class="column has-text-centered" :style="{'background-color': 'GoldenRod'}">
-            <b-button :type="rodyti_lv ? 'is-warning' : 'is-dark'" @click="change_lv()">LATVIJA</b-button>
-            </div>
-          <div class="column has-text-centered" :style="{'background-color': 'tomato'}">
-            <b-button :type="rodyti_ee ? 'is-danger' : 'is-dark'" @click="change_ee()">ESTIJA</b-button>
-            </div>
-        </div>
+        <b-field horizontal>
+          <b-button :type="rodyti_lt ? 'is-primary' : 'is-dark'" @click="change_lt()">LIETUVA</b-button>
+          <b-button :type="rodyti_lv ? 'is-warning' : 'is-dark'" @click="change_lv()">LATVIJA</b-button>
+          <b-button :type="rodyti_ee ? 'is-danger' : 'is-dark'" @click="change_ee()">ESTIJA</b-button>
+        </b-field>
+        </card-component>
 
-        <hr>
+      <card-component title="STATISTIKA" icon="account-multiple">
         <div  id="printMe">
           <div class="columns">
             <div class="column has-text-centered has-text-weight-bold">{{ paieska }}</div>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="section is-main-section">
-      <card-component title="LIKUČIAI" icon="account-multiple">
+      <card-component title="VALDYMAS" icon="account-multiple">
           <b-field label="PAIEŠKA:" horizontal>
             <b-input placeholder="Paieška..." type="search" @keyup.native.enter="paieska_post" 
              v-model="ieskoti" icon="magnify"></b-input>    
@@ -33,7 +33,9 @@
             Veikia su mūsų GAM gaminiais! 
           </b-switch>
         </b-field>
-        <hr>
+        </card-component>
+        
+        <card-component title="LIKUČIAI" icon="account-multiple">
         <div  id="printMe">
         <div class="columns">
           <div class="column has-text-centered has-text-weight-bold">Rasta: {{likutis.length }}<br>{{paieska}}<br>{{grupes[grupe]}}</div>
