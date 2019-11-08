@@ -41,9 +41,26 @@ class StatistikaController extends Controller
         $key = explode("||", $key);
         $keyword = $key[0];
 
+        $rikiuoti = $key[4];
+
+        $gam = $key[5];
+        $pirk = $key[6];
+
+
+        //paieska, paprasta, isplestine
+        if($key[7]){
+            $pa = "%{$keyword}%";
+        }else{
+            $pa = "{$keyword}%";
+        }
+
         //aprasom tuscius masyvus
         $list = array();
         $new = array();
+        $group2 = array();
+        $group = array();
+        $pard = array();
+        $pardavimai = array();
 
         //nuo pasirinkimo priklauso ka rodyti.
         //nustatom tuscia masyva
@@ -58,8 +75,18 @@ class StatistikaController extends Controller
         if($key[1] && $key[2] && !$key[3]){$store = array_merge($LT, $LV);}
 
         //Sudedam norimus likucius
-        $re = Likutis::query()
-        ->where('preke', 'like', "{$keyword}%")->get();
+        //$re = Likutis::query()
+        //->where('preke', 'like', $pa)->get();
+
+        $query_p = Likutis::query();
+        $query_p->where('preke', 'like', $pa);
+        $query_p->when(!$gam, function ($q) {
+            return $q->where('registras', "GAM");
+        });
+        $query_p->when(!$pirk, function ($q) {
+            return $q->where('registras', "PIRK");
+        });
+        $re = $query_p->get();
 
         foreach ( $re as $value ) {
             if($value['sandelis'] != "BROK" && $value['sandelis'] != "ESTI" 
@@ -108,10 +135,20 @@ class StatistikaController extends Controller
         }
 
         //Sudedam norimus pardavimus 
-        $res = Pardavimai::query()
-        ->where('preke', 'like', "{$keyword}%")->get();
+        //$res = Pardavimai::query()
+        //->where('preke', 'like', $pa)->get();
+        $query_p = Pardavimai::query();
+        $query_p->where('preke', 'like', $pa);
+        $query_p->when(!$gam, function ($q) {
+            return $q->where('registras', "GAM");
+        });
+        $query_p->when(!$pirk, function ($q) {
+            return $q->where('registras', "PIRK");
+        });
+        $re = $query_p->get();
 
-        foreach ( $res as $value ) {
+
+        foreach ( $re as $value ) {
             if($value['sandelis'] != "TELSIAI"){
                 $pard[$value['sandelis']][] = $value;
             }
@@ -219,6 +256,10 @@ class StatistikaController extends Controller
             'viso_pard' => $viso_pard,
             'viso_lik' => $viso_lik,
             'data' => $new,
+            'rikiuoti' => $rikiuoti,
+            'paieska_big' => $key[7],
+            'gam' => $gam,
+            'pirk' => $pirk,
             //'parduotuves' => $sarasas
         ]);
     }
@@ -246,12 +287,16 @@ class StatistikaController extends Controller
         $lt = $data['lt'];
         $lv = $data['lv'];
         $ee = $data['ee'];
+        $rikiuoti = $data['rikiuoti'];
+        $gam = $data['gam'];
+        $pirk = $data['pirk'];
+        $paieska_big= $data['paieska_big'];
 
         $failas = "paieska.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
 
-        $eilute = strtoupper($ieskoti)."||".$lt."||".$lv."||".$ee;
+        $eilute = strtoupper($ieskoti)."||".$lt."||".$lv."||".$ee."||".$rikiuoti."||".$gam."||".$pirk."||".$paieska_big;
 
         $myfile = fopen(storage_path($failas), "w");
         fwrite($myfile, $eilute);
@@ -259,7 +304,7 @@ class StatistikaController extends Controller
 
         return response()->json([
             'status' => true,
-            'data' => $ieskoti
+            'data' => $rikiuoti,
         ]);
     }
 

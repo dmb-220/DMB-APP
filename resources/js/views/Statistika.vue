@@ -1,7 +1,7 @@
 <template>
     <section class="section is-main-section">
       <card-component title="VALDYMAS" icon="finance">
-        <b-field>
+        <b-field position="is-centered">
             <b-input placeholder="Paieška..."
               @keyup.native.enter="paieska_post" 
               v-model="ieskoti"
@@ -13,10 +13,22 @@
                 <button class="button is-primary" @click="paieska_post">Ieškoti</button>
             </p>
         </b-field>
+        <b-field>
+            <b-checkbox :value="false" v-model="paieska_big" type="is-info">Aktivuoti išplėstinę paieška</b-checkbox>
+        </b-field>
         <b-field horizontal>
           <b-button :type="rodyti_lt ? 'is-primary' : 'is-dark'" @click="change_lt()">LIETUVA</b-button>
           <b-button :type="rodyti_lv ? 'is-warning' : 'is-dark'" @click="change_lv()">LATVIJA</b-button>
           <b-button :type="rodyti_ee ? 'is-danger' : 'is-dark'" @click="change_ee()">ESTIJA</b-button>
+        </b-field>
+        <b-field horizontal>
+            <b-button :type="pirk ? 'is-info' : 'is-dark'" @click="change_pirk()">GAMYBA</b-button>
+            <b-button :type="gam ? 'is-info' : 'is-dark'" @click="change_gam()">PIRKIMAI</b-button>
+        </b-field>
+        <b-field>
+          <b-switch v-model="rikiuoti" @click.native="switch_post">
+            Veikia su mūsų GAM gaminiais! 
+          </b-switch>
         </b-field>
         </card-component>
 
@@ -127,8 +139,6 @@ export default {
   components: { CardComponent },
   data () {
     return {
-      output: null,
-      error: '',
      isLoading: false,
      defaultOpenedDetails: [1],
      showDetailIcon: false,
@@ -143,6 +153,10 @@ export default {
      rodyti_lv: true,
      rodyti_ee: true,
      salis: '',
+     rikiuoti: false,
+      gam: true,
+      pirk: true,
+      paieska_big: false,
      mobile_card: true,
     }
   },
@@ -159,6 +173,16 @@ export default {
       this.mobile_card = false;
       this.$htmlToPaper('printMe');
     },
+    change_gam(){
+      this.gam = !this.gam
+      this.ieskoti = this.paieska
+      this.paieska_post()
+    },
+    change_pirk(){
+      this.pirk = !this.pirk
+      this.ieskoti = this.paieska
+      this.paieska_post()
+    },
     change_lt(){
       this.rodyti_lt = !this.rodyti_lt
       this.ieskoti = this.paieska
@@ -174,6 +198,34 @@ export default {
       this.ieskoti = this.paieska
       this.paieska_post()
     },
+    switch_post(){
+      //this.rikiuotic = !this.rikiuoti;
+      if(this.ieskoti == ""){
+        this.ieskoti = this.paieska;
+      }
+        axios
+          .post(`/statistika/store`, {
+            ieskoti: this.ieskoti,
+            lt: this.rodyti_lt,
+            lv: this.rodyti_lv,
+            ee: this.rodyti_ee,
+            rikiuoti: this.rikiuoti,
+            gam: this.gam,
+            pirk: this.pirk,
+            paieska_big: this.paieska_big,
+            })
+          .then(response => {
+            console.log(response.data)
+            this.getData()
+        })
+          .catch( err => {
+            this.$buefy.toast.open({
+              message: `Error: ${err.message}`,
+              type: 'is-danger',
+              queue: false
+            })
+          })
+    },
     paieska_post(){
       if(this.ieskoti != ""){
         axios
@@ -182,6 +234,11 @@ export default {
             lt: this.rodyti_lt,
             lv: this.rodyti_lv,
             ee: this.rodyti_ee,
+
+            rikiuoti: "1",
+            gam: this.gam,
+            pirk: this.pirk,
+            paieska_big: this.paieska_big,
             })
           .then(response => {
             console.log(response.data.data)
@@ -212,6 +269,11 @@ export default {
         this.paieska = response.data.paieska;
         this.viso_pard = response.data.viso_pard;
         this.viso_lik = response.data.viso_lik;
+
+        this.rikiuoti = response.data.rikiuoti ? false : true;
+        this.paieska_big = response.data.paieska_big ? true : false
+        this.gam = response.data.gam ? true : false
+        this.pirk = response.data.pirk ? true : false
         
         this.rodyti_lt = response.data.salis.LT ? true : false
         this.rodyti_lv = response.data.salis.LV ? true : false
