@@ -270,7 +270,6 @@ var render = function() {
               _c("b-input", {
                 attrs: {
                   placeholder: "Paieška...",
-                  required: "",
                   type: "search",
                   icon: "magnify",
                   expanded: ""

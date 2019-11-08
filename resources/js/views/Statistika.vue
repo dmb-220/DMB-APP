@@ -4,7 +4,7 @@
         <b-field>
             <b-input placeholder="Paieška..."
               @keyup.native.enter="paieska_post" 
-              required v-model="ieskoti"
+              v-model="ieskoti"
               type="search"
               icon="magnify"
               expanded>

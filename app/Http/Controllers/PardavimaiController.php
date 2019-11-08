@@ -116,7 +116,7 @@ class PardavimaiController extends Controller
             $pa = "{$keyword}%";
         }
 
-        $grupes = array('Paieška tarp grupių išjungta');
+        $grupes = array();
 
         $pardavimas = array();
         $pardavimai = array();
@@ -129,9 +129,11 @@ class PardavimaiController extends Controller
             }
         }
         }
-
-        //$re = Pardavimai::query()
-        //->where('preke', 'like', "{$keyword}%")->get();
+        //padarom isrykiavima
+        sort($grupes);
+        $g = array('Paieška tarp grupių išjungta');
+        //i masyvo pradzia idedam grupes isjungima
+        $grupes = $g + $grupes;
 
         $query_p = Pardavimai::query();
         $query_p->where('preke', 'like', $pa);

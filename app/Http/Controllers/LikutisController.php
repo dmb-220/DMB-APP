@@ -117,7 +117,7 @@ class LikutisController extends Controller
             $pa = "{$keyword}%";
         }
 
-        $grupes = array('Paieška tarp grupių išjungta');
+        $grupes = array();
 
         $likutis = array();
         $likuciai = array();
@@ -129,6 +129,11 @@ class LikutisController extends Controller
                 $grupes[] = $value['pavadinimas'];
             }
         }
+        //padarom isrykiavima
+        sort($grupes);
+        $g = array('Paieška tarp grupių išjungta');
+        //i masyvo pradzia idedam grupes isjungima
+        $grupes = $g + $grupes;
         
         $query_p = Likutis::query();
         $query_p->where('preke', 'like', $pa);
