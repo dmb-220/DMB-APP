@@ -186,6 +186,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -199,6 +217,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       isLoading: false,
       likutis: [],
+      grupes: [],
+      grupes_lv: [],
       defaultOpenedDetails: [1],
       ieskoti: '',
       paieska: '',
@@ -206,7 +226,12 @@ __webpack_require__.r(__webpack_exports__);
       rodyti_lv: true,
       rodyti_ee: true,
       salis: '',
-      rikiuoti: false
+      rikiuoti: false,
+      grupe: '',
+      gam: true,
+      pirk: true,
+      //mobile_card: true,
+      paieska_big: false
     };
   },
   computed: {},
@@ -217,6 +242,41 @@ __webpack_require__.r(__webpack_exports__);
     print: function print() {
       // Pass the element id here
       this.$htmlToPaper('printMe');
+    },
+    change_gam: function change_gam() {
+      this.gam = !this.gam;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
+    },
+    change_pirk: function change_pirk() {
+      this.pirk = !this.pirk;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
+    },
+    keisti_grupe: function keisti_grupe() {
+      if (!this.ieskoti) {
+        this.ieskoti = this.paieska;
+      }
+
+      this.paieska_post();
+    },
+    change_lt: function change_lt() {
+      this.rodyti_lt = !this.rodyti_lt;
+      this.grupe = 0;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
+    },
+    change_lv: function change_lv() {
+      this.rodyti_lv = !this.rodyti_lv;
+      this.grupe = 0;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
+    },
+    change_ee: function change_ee() {
+      this.rodyti_ee = !this.rodyti_ee;
+      this.grupe = 0;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
     },
     switch_post: function switch_post() {
       var _this = this;
@@ -231,7 +291,11 @@ __webpack_require__.r(__webpack_exports__);
         lt: this.rodyti_lt,
         lv: this.rodyti_lv,
         ee: this.rodyti_ee,
-        rikiuoti: this.rikiuoti
+        rikiuoti: this.rikiuoti,
+        gam: this.gam,
+        pirk: this.pirk,
+        paieska_big: this.paieska_big,
+        grupe: this.grupe
       }).then(function (response) {
         console.log(response.data);
 
@@ -247,32 +311,28 @@ __webpack_require__.r(__webpack_exports__);
     paieska_post: function paieska_post() {
       var _this2 = this;
 
-      if (this.ieskoti != "") {
-        axios.post("/pardavimai/store", {
-          ieskoti: this.ieskoti,
-          lt: this.rodyti_lt,
-          lv: this.rodyti_lv,
-          ee: this.rodyti_ee,
-          rikiuoti: "1"
-        }).then(function (response) {
-          console.log(response.data.data);
-          _this2.rikiuoti = false;
+      axios.post("/pardavimai/store", {
+        ieskoti: this.ieskoti,
+        lt: this.rodyti_lt,
+        lv: this.rodyti_lv,
+        ee: this.rodyti_ee,
+        rikiuoti: "1",
+        gam: this.gam,
+        pirk: this.pirk,
+        paieska_big: this.paieska_big,
+        grupe: this.grupe
+      }).then(function (response) {
+        console.log(response.data.data);
+        _this2.rikiuoti = false;
 
-          _this2.getData();
-        })["catch"](function (err) {
-          _this2.$buefy.toast.open({
-            message: "Error: ".concat(err.message),
-            type: 'is-danger',
-            queue: false
-          });
-        });
-      } else {
-        this.$buefy.toast.open({
-          message: "KLAIDA: \u012Fveskite paie\u0161kos rakta\u017Eod\u012F!",
+        _this2.getData();
+      })["catch"](function (err) {
+        _this2.$buefy.toast.open({
+          message: "Error: ".concat(err.message),
           type: 'is-danger',
           queue: false
         });
-      }
+      });
     },
     getData: function getData() {
       var _this3 = this;
@@ -283,6 +343,12 @@ __webpack_require__.r(__webpack_exports__);
         _this3.rikiuoti = response.data.rikiuoti ? false : true;
         _this3.likutis = response.data.prekes;
         _this3.paieska = response.data.paieska;
+        _this3.paieska_big = response.data.paieska_big ? true : false;
+        _this3.grupes = response.data.grupes;
+        _this3.grupes_lv = response.data.grupes_lv;
+        _this3.grupe = response.data.grupe;
+        _this3.gam = response.data.gam ? true : false;
+        _this3.pirk = response.data.pirk ? true : false;
         _this3.rodyti_lt = response.data.salis.LT ? true : false;
         _this3.rodyti_lv = response.data.salis.LV ? true : false;
         _this3.rodyti_ee = response.data.salis.EE ? true : false;
@@ -454,17 +520,16 @@ var render = function() {
       [
         _c(
           "card-component",
-          { attrs: { title: "PARDAVIMAI", icon: "account-multiple" } },
+          { attrs: { title: "VALDYMAS", icon: "account-multiple" } },
           [
             _c(
               "b-field",
-              { attrs: { horizontal: "" } },
+              { attrs: { label: "PAIEŠKA:", horizontal: "" } },
               [
                 _c("b-input", {
                   attrs: {
                     placeholder: "Paieška...",
                     type: "search",
-                    required: "",
                     icon: "magnify"
                   },
                   nativeOn: {
@@ -508,6 +573,153 @@ var render = function() {
             _vm._v(" "),
             _c(
               "b-field",
+              { attrs: { label: " ", horizontal: "" } },
+              [
+                _c(
+                  "b-checkbox",
+                  {
+                    attrs: { value: false, type: "is-info" },
+                    model: {
+                      value: _vm.paieska_big,
+                      callback: function($$v) {
+                        _vm.paieska_big = $$v
+                      },
+                      expression: "paieska_big"
+                    }
+                  },
+                  [_vm._v("Aktivuoti išplėstinę paieška")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "GRUPĖ:", horizontal: "" } },
+              [
+                _c(
+                  "b-select",
+                  {
+                    attrs: {
+                      placeholder: "Pasirinkite...",
+                      icon: "earth",
+                      expanded: ""
+                    },
+                    nativeOn: {
+                      change: function($event) {
+                        return _vm.keisti_grupe($event)
+                      }
+                    },
+                    model: {
+                      value: _vm.grupe,
+                      callback: function($$v) {
+                        _vm.grupe = $$v
+                      },
+                      expression: "grupe"
+                    }
+                  },
+                  _vm._l(_vm.grupes, function(grup, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: index } },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(grup) +
+                            " - " +
+                            _vm._s(_vm.grupes_lv[grup]) +
+                            "\n            "
+                        )
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "RODYTI:", horizontal: "" } },
+              [
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.rodyti_lt ? "is-primary" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_lt()
+                      }
+                    }
+                  },
+                  [_vm._v("LIETUVA")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.rodyti_lv ? "is-warning" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_lv()
+                      }
+                    }
+                  },
+                  [_vm._v("LATVIJA")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.rodyti_ee ? "is-danger" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_ee()
+                      }
+                    }
+                  },
+                  [_vm._v("ESTIJA")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "PREKĖS:", horizontal: "" } },
+              [
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.pirk ? "is-info" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_pirk()
+                      }
+                    }
+                  },
+                  [_vm._v("GAMYBA")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.gam ? "is-info" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_gam()
+                      }
+                    }
+                  },
+                  [_vm._v("PIRKIMAI")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
               { attrs: { label: "GRUPAVIMAS:", horizontal: "" } },
               [
                 _c(
@@ -528,16 +740,21 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n          Veikia TIK su mūsų GAM gaminiais! \n        "
+                      "\n          Veikia su mūsų GAM gaminiais! \n        "
                     )
                   ]
                 )
               ],
               1
-            ),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "card-component",
+          { attrs: { title: "PARDAVIMAI", icon: "account-multiple" } },
+          [
             _c(
               "div",
               { attrs: { id: "printMe" } },
@@ -552,7 +769,9 @@ var render = function() {
                     [
                       _vm._v("Rasta: " + _vm._s(_vm.likutis.length)),
                       _c("br"),
-                      _vm._v(_vm._s(_vm.paieska))
+                      _vm._v(_vm._s(_vm.paieska)),
+                      _c("br"),
+                      _vm._v(_vm._s(_vm.grupes[_vm.grupe]))
                     ]
                   )
                 ]),
@@ -584,50 +803,30 @@ var render = function() {
                         key: "default",
                         fn: function(props) {
                           return [
-                            props.row.pavadinimas == "Liemenė"
-                              ? _c(
-                                  "b-table-column",
-                                  {
-                                    style: { "background-color": "gold" },
-                                    attrs: {
-                                      label: "Preke",
-                                      field: "preke",
-                                      sortable: ""
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(props.row.preke) +
-                                        " - (" +
-                                        _vm._s(props.row.pavadinimas) +
-                                        ")\n        "
-                                    )
-                                  ]
+                            _c(
+                              "b-table-column",
+                              {
+                                attrs: {
+                                  label: "Preke",
+                                  field: "preke",
+                                  sortable: ""
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(props.row.preke) +
+                                    "\n        "
                                 )
-                              : _c(
-                                  "b-table-column",
-                                  {
-                                    attrs: {
-                                      label: "Preke",
-                                      field: "preke",
-                                      sortable: ""
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(props.row.preke) +
-                                        "\n        "
-                                    )
-                                  ]
-                                ),
+                              ]
+                            ),
                             _vm._v(" "),
                             _c(
                               "b-table-column",
                               {
                                 style: { "background-color": "greenyellow" },
                                 attrs: {
+                                  visible: _vm.rodyti_lt,
                                   label: "LIETUVA",
                                   field: "LT_viso",
                                   sortable: ""
@@ -647,6 +846,7 @@ var render = function() {
                               {
                                 style: { "background-color": "GoldenRod" },
                                 attrs: {
+                                  visible: _vm.rodyti_lv,
                                   label: "LATVIJA",
                                   field: "LV_viso",
                                   sortable: ""
@@ -666,6 +866,7 @@ var render = function() {
                               {
                                 style: { "background-color": "tomato" },
                                 attrs: {
+                                  visible: _vm.rodyti_ee,
                                   label: "ESTIJA",
                                   field: "EE_viso",
                                   sortable: ""
@@ -709,6 +910,14 @@ var render = function() {
                               _c(
                                 "div",
                                 {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.rodyti_lt,
+                                      expression: "rodyti_lt"
+                                    }
+                                  ],
                                   staticClass: "column",
                                   style: {
                                     border: "1px solid",
@@ -785,6 +994,14 @@ var render = function() {
                               _c(
                                 "div",
                                 {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.rodyti_lv,
+                                      expression: "rodyti_lv"
+                                    }
+                                  ],
                                   staticClass: "column",
                                   style: {
                                     border: "1px solid",
@@ -861,6 +1078,14 @@ var render = function() {
                               _c(
                                 "div",
                                 {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.rodyti_ee,
+                                      expression: "rodyti_ee"
+                                    }
+                                  ],
                                   staticClass: "column",
                                   style: {
                                     border: "1px solid",
@@ -1019,8 +1244,7 @@ var render = function() {
               ],
               1
             )
-          ],
-          1
+          ]
         )
       ],
       1
