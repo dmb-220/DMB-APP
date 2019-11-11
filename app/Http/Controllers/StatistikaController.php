@@ -77,9 +77,12 @@ class StatistikaController extends Controller
         //Sudedam norimus likucius
         //$re = Likutis::query()
         //->where('preke', 'like', $pa)->get();
+        //$ke = "DM-9";
+        //$not = "{$ke}%";
 
         $query_p = Likutis::query();
         $query_p->where('preke', 'like', $pa);
+        //$query_p->orWhere('preke', 'NOT LIKE', $not);
         $query_p->when(!$gam, function ($q) {
             return $q->where('registras', "GAM");
         });
@@ -103,6 +106,9 @@ class StatistikaController extends Controller
         foreach ( $group2 as $idx => $value ) {
 
             foreach($value as $val){
+               // $ke = explode("-", $val['preke']);
+                //$k = str_split($ke[1]);
+                //if($k[0] != 9 ){
                 if($key[1] && $val['salis'] == 1){
                     $group[$idx][] = $val;
                     $lt_viso = $lt_viso + $val['kiekis'];
@@ -127,6 +133,7 @@ class StatistikaController extends Controller
                     $list[$idx][$val['preke']]['likutis'] = $val['kiekis'];
                     $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
+            //}//
             }
 
             $lt_viso = 0;
@@ -139,6 +146,7 @@ class StatistikaController extends Controller
         //->where('preke', 'like', $pa)->get();
         $query_p = Pardavimai::query();
         $query_p->where('preke', 'like', $pa);
+        //$query_p->orWhere('preke', 'NOT LIKE', $not);
         $query_p->when(!$gam, function ($q) {
             return $q->where('registras', "GAM");
         });
@@ -160,6 +168,9 @@ class StatistikaController extends Controller
         foreach ( $pard as $idx => $value ) {
             //echo $idx." - ".count($value)."<br>";
             foreach($value as $val){
+                //$ke = explode("-", $val['preke']);
+                //$k = str_split($ke[1]);
+                //if($k[0] != 9 ){
                 if($key[1] && $val['salis'] == 1){
                     $pardavimai[$idx][] = $val;
                     $lt_viso = $lt_viso + $val['kiekis'];
@@ -184,6 +195,7 @@ class StatistikaController extends Controller
                     $list[$idx][$val['preke']]['pardavimai'] = $val['kiekis'];
                     $list[$idx][$val['preke']]['preke'] = $val['preke'];
             }
+        //}//
 
         }
 
