@@ -25,11 +25,11 @@ class TestasController extends Controller
             $q->whereIn('sandelis', '!=', ["TELSIAI", "EST"]);
         })->orderBy('kiekis', 'desc')->first();*/
 
-       $data = Pardavimai::where('salis', '=', "2")
+       $data = Pardavimai::where('pavadinimas', '=', "Džinsai")
             ->whereNotIn('pavadinimas', ["Siuntimo išlaidos", "Maišelis", "Maisiņi",])
             ->whereNotIn('sandelis', ["TELSIAI", "3333"])
             ->whereNotIn('registras', ["PERS"])
-            ->orderBy('kiekis', 'desc')->take(30)->get();
+            ->orderBy('kiekis', 'desc')->take(50)->get();
 
         return response()->json([
             'status' => true,
