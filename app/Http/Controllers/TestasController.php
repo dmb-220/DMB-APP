@@ -18,19 +18,18 @@ class TestasController extends Controller
      */
     public function index()
     {
-        //$data = array();
+        $data = array();
 
-        $data = Pardavimai::where('salis', 1)->orderBy('kiekis', 'desc')->first();
+        //$data = Pardavimai::where('salis', 1)->orderBy('kiekis', 'desc')->first();
         /*$data= Pardavimai::whereHas('kiekis', function($q){
             $q->whereIn('sandelis', '!=', ["TELSIAI", "EST"]);
         })->orderBy('kiekis', 'desc')->first();*/
 
-       $data = Pardavimai::where('sandelis', '!=', ["TELSIAI", "EST"])
-            ->where(function ($query) {
-                $query->where('pavadinimas', '!=', ["Siuntimo išlaidos", "Maišelis"]);
-                      //->orWhere('salis', '=', "1");
-            })
-            ->orderBy('kiekis', 'desc')->first();
+       $data = Pardavimai::where('salis', '=', "2")
+            ->whereNotIn('pavadinimas', ["Siuntimo išlaidos", "Maišelis", "Maisiņi",])
+            ->whereNotIn('sandelis', ["TELSIAI", "3333"])
+            ->whereNotIn('registras', ["PERS"])
+            ->orderBy('kiekis', 'desc')->take(30)->get();
 
         return response()->json([
             'status' => true,

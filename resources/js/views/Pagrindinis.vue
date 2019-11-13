@@ -4,7 +4,12 @@
         Duomenys atnaujinti<br>
         Likučiai: 2019-11-13<br>
         Pardavimai: 2019-10-13 --- 2019-11-13<br>
-        MAX: {{ info }}
+        MAX:
+        <ul id="example-1">
+          <li v-for="idx in info">
+            {{ idx.preke }} - {{ idx.sandelis }} -- {{ idx.kiekis }} -- {{ idx.pavadinimas }}
+          </li>
+        </ul>
       </card-component>     
     </section>
 </template>

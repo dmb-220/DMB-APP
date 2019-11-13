@@ -2550,6 +2550,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'pagrindinis',
@@ -33591,7 +33596,27 @@ var render = function() {
           _c("br"),
           _vm._v("\n      Pardavimai: 2019-10-13 --- 2019-11-13"),
           _c("br"),
-          _vm._v("\n      MAX: " + _vm._s(_vm.info) + "\n    ")
+          _vm._v("\n      MAX:\n      "),
+          _c(
+            "ul",
+            { attrs: { id: "example-1" } },
+            _vm._l(_vm.info, function(idx) {
+              return _c("li", [
+                _vm._v(
+                  "\n          " +
+                    _vm._s(idx.preke) +
+                    " - " +
+                    _vm._s(idx.sandelis) +
+                    " -- " +
+                    _vm._s(idx.kiekis) +
+                    " -- " +
+                    _vm._s(idx.pavadinimas) +
+                    "\n        "
+                )
+              ])
+            }),
+            0
+          )
         ]
       )
     ],
@@ -50719,8 +50744,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\DMB-APP\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\DMB-APP\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\wamp64\www\vuejs-laravel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\wamp64\www\vuejs-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
