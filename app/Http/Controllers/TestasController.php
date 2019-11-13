@@ -25,9 +25,17 @@ class TestasController extends Controller
             $q->whereIn('sandelis', '!=', ["TELSIAI", "EST"]);
         })->orderBy('kiekis', 'desc')->first();*/
 
+       $data = Pardavimai::where('sandelis', '!=', ["TELSIAI", "EST"])
+            ->where(function ($query) {
+                $query->where('pavadinimas', '!=', ["Siuntimo išlaidos", "Maišelis"]);
+                      //->orWhere('salis', '=', "1");
+            })
+            ->orderBy('kiekis', 'desc')->first();
+
         return response()->json([
             'status' => true,
-            'data' => array("pavadinimas" => $data->pavadinimas, "kiekis" => $data->kiekis, "preke" => $data->preke, "sandelis" => $data->sandelis)
+            //'data' => array("pavadinimas" => $data->pavadinimas, "kiekis" => $data->kiekis, "preke" => $data->preke, "sandelis" => $data->sandelis)
+            'data' => $data
          ]);
 
   }
