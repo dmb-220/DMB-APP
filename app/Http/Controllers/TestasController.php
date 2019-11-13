@@ -18,43 +18,16 @@ class TestasController extends Controller
      */
     public function index()
     {
-      $va = 3;
-      $sa = "Kelnaitės";
+        //$data = array();
 
-      $keyword = "-d";
-      $pa = "%{$keyword}%";
-
-        $query_p = Likutis::query();
-        //$query_p->where('preke', 'like', $pa);
-        $query_p->where('pavadinimas', $sa);
-        $query_p->where('salis', $va);
-        $query_p->where('kiekis','>','0');
-        $likuciai = $query_p->get();
-
-        
-        foreach ( $likuciai as $value ) {
-            //$p = str_replace(' ', '', $value['preke']);
-            $likutis[$value['preke']]['preke'] = $value['preke'];
-            $likutis[$value['preke']]['sarasas'][] = $value;
-        }
-        $likutis = array_values($likutis);
-
-        /*foreach($likutis as $idx => $val){
-            echo "<b>".$idx."</b>";
-            echo"<table border=' solid 1px'>";
-            foreach($val as $va){
-                echo"<tr>";
-                echo"<td>"; echo $va['sandelis']; echo"</td>";
-                echo"<td>"; echo $va['kiekis']; echo"</td>";
-                echo"</tr>";
-            }
-            echo"</table>";
-        }*/
-
+        $data = Pardavimai::where('salis', 1)->orderBy('kiekis', 'desc')->first();
+        /*$data= Pardavimai::whereHas('kiekis', function($q){
+            $q->whereIn('sandelis', '!=', ["TELSIAI", "EST"]);
+        })->orderBy('kiekis', 'desc')->first();*/
 
         return response()->json([
             'status' => true,
-            'likutis' => $likutis
+            'data' => array("pavadinimas" => $data->pavadinimas, "kiekis" => $data->kiekis, "preke" => $data->preke, "sandelis" => $data->sandelis)
          ]);
 
   }

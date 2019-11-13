@@ -2556,7 +2556,35 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  computed: {}
+  data: function data() {
+    return {
+      isLoading: false,
+      info: []
+    };
+  },
+  computed: {},
+  created: function created() {
+    this.getData();
+  },
+  methods: {
+    getData: function getData() {
+      var _this = this;
+
+      this.isLoading = true;
+      this.axios.get('/testas').then(function (response) {
+        _this.isLoading = false;
+        _this.info = response.data.data; //this.paieska = response.data.paieska;
+      })["catch"](function (err) {
+        _this.isLoading = false;
+
+        _this.$buefy.toast.open({
+          message: "Error: ".concat(err.message),
+          type: 'is-danger',
+          queue: false
+        });
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -33559,9 +33587,11 @@ var render = function() {
         [
           _vm._v("\n      Duomenys atnaujinti"),
           _c("br"),
-          _vm._v("\n      Likučiai: 2019-10-28"),
+          _vm._v("\n      Likučiai: 2019-11-13"),
           _c("br"),
-          _vm._v("\n      Pardavimai: 2019-09-28 --- 2019-10-28\n\n    ")
+          _vm._v("\n      Pardavimai: 2019-10-13 --- 2019-11-13"),
+          _c("br"),
+          _vm._v("\n      MAX: " + _vm._s(_vm.info) + "\n    ")
         ]
       )
     ],
