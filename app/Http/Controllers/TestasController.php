@@ -26,15 +26,36 @@ class TestasController extends Controller
         })->orderBy('kiekis', 'desc')->first();*/
 
        $data = Pardavimai::where('pavadinimas', '=', "Suknelė")
-            ->whereNotIn('pavadinimas', ["Siuntimo išlaidos", "Maišelis", "Maisiņi",])
-            ->whereNotIn('sandelis', ["TELSIAI", "3333"])
-            ->whereNotIn('registras', ["PERS"])
-            ->orderBy('kiekis', 'desc')->take(50)->get();
+            ///->whereNotIn('pavadinimas', ["Siuntimo išlaidos", "Maišelis", "Maisiņi",])
+            //->whereNotIn('sandelis', ["TELSIAI", "3333", "INTE"])
+            //->whereNotIn('registras', ["PERS"])
+            //->orderBy('kiekis', 'desc')->get();
+            ->whereIn('sandelis', ["INTE"])
+            ->get();
+
+            foreach ( $data as $value ) {
+                $a = explode("-", $value['preke']);
+                if(count($a) >= 3){$ne = $a[0]."-".$a[1]."-";}
+                if(count($a) == 2){$ne = $a[0]."-";}
+                //turi veikti tik su BROK
+                if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
+                $pardavimas[$ne][] = $value;
+            }
+
+
+        $sk = Pardavimai::where('pavadinimas', '=', "Suknelė")
+            //->whereNotIn('pavadinimas', ["Siuntimo išlaidos", "Maišelis", "Maisiņi",])
+            //->whereNotIn('sandelis', ["TELSIAI", "3333", "INTE"])
+            //->whereNotIn('registras', ["PERS"])
+            ->whereIn('sandelis', ["INTE"])
+            //->orderBy('kiekis', 'desc')->take(30)->get();
+            ->sum('kiekis');
 
         return response()->json([
             'status' => true,
             //'data' => array("pavadinimas" => $data->pavadinimas, "kiekis" => $data->kiekis, "preke" => $data->preke, "sandelis" => $data->sandelis)
-            'data' => $data
+            'data' => $pardavimas,
+            'sk' => $sk
          ]);
 
   }

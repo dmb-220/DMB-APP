@@ -4,10 +4,12 @@
         Duomenys atnaujinti<br>
         Likučiai: 2019-11-13<br>
         Pardavimai: 2019-10-13 --- 2019-11-13<br>
-        MAX:
+        MAX: {{ sk }}
+        <br>
+        
         <ul id="example-1">
-          <li v-for="idx in info">
-            {{ idx.preke }} - {{ idx.sandelis }} -- {{ idx.kiekis }} -- {{ idx.pavadinimas }}
+          <li v-for="(idx, key) in info" v-bind:key="idx">
+            {{ key }} 
           </li>
         </ul>
       </card-component>     
@@ -24,6 +26,7 @@ export default {
     return {
       isLoading: false,
       info: [],
+      sk: ''
     }
   },
   computed: {
@@ -39,7 +42,7 @@ export default {
       .then(response => {
         this.isLoading = false
         this.info = response.data.data;
-        //this.paieska = response.data.paieska;
+        this.sk = response.data.sk;
       })
       .catch( err => {
             this.isLoading = false
