@@ -115,17 +115,14 @@ class TestasController extends Controller
         //echo"<br>======================<br>";
         //$duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
         $da = curl("https://lt2.dineta.eu/sidonas/report/stock_quant_rep.php?reportid=stock_quant&tid=report&export=csv|stock_quant_rep.php");
-
         $row = str_getcsv($da, "\n");
-    
         array_shift($row);
+
             foreach ($row as $ro) {
                 $data = str_getcsv($ro, ";");
                 $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
                 echo $duomenys[0]."-".$duomenys[6]."<br>";
             }
-
-
         //echo $da;
   }
 
