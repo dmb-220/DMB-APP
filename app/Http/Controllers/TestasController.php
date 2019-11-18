@@ -75,7 +75,6 @@ class TestasController extends Controller
                 CURLOPT_HEADER         => false,    // don't return headers
                 CURLOPT_FOLLOWLOCATION => true,     // follow redirects
                 CURLOPT_ENCODING       => "",       // handle all encodings
-                //CURLOPT_USERAGENT      => "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:54.0) Gecko/20100101 Firefox/54.0", // who am i
                 CURLOPT_AUTOREFERER    => true,     // set referer on redirect
                 CURLOPT_CONNECTTIMEOUT => 120,      // timeout on connect
                 CURLOPT_TIMEOUT        => 120,      // timeout on response
@@ -94,63 +93,40 @@ class TestasController extends Controller
             }else{     
             curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie);
             }
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-            //curl_setopt($ch, CURLOPT_FILE, storage_path($failas));
+
+            //$failas = 'csv.csv';
+            //$directory  = "app/";
+            //$failas = $directory.$failas;
+
+            //$fp = fopen(storage_path($failas), "w+");
+            curl_setopt($ch,  CURLOPT_RETURNTRANSFER, TRUE);
+            //curl_setopt($ch, CURLOPT_FILE, $fp);
+            //curl_setopt($ch, CURLOPT_URL, $url);
+            //fclose($fp);
+
             $c = curl_exec($ch);
             curl_close($ch);
             return $c;
         }
-
-        $failas = 'csv.txt';
-            $directory  = "app/";
-            $failas = $directory.$failas;
-         //$fp = fopen(storage_path($failas), 'w');
         
-        echo curl('https://lt2.dineta.eu/sidonas/login.php');
+        curl('https://lt2.dineta.eu/sidonas/login.php');
         echo"<br>======================<br>";
-        echo curl("https://lt2.dineta.eu/sidonas/report/stock_quant_qry.php?reportid=stock_quant&form=stock_quant_rep.php&load=1"); 
-        echo"<br>======================<br>";
+        //echo curl("https://lt2.dineta.eu/sidonas/report/stock_quant_qry.php?reportid=stock_quant&form=stock_quant_rep.php&load=1"); 
+        //echo"<br>======================<br>";
         //$duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-        echo mb_convert_encoding(curl("https://lt2.dineta.eu/sidonas/report/stock_quant_rep.php?reportid=stock_quant&tid=report&export=csv|stock_quant_rep.php"),  "UTF-8", "ISO-8859-13");
-    //fwrite($fp, $out);
-        //fclose($fp);
-        $failas = 'CSV.csv';
-        $directory  = "app/CSV_DATA/";
-        $failas = $directory.$failas;
+        $da = curl("https://lt2.dineta.eu/sidonas/report/stock_quant_rep.php?reportid=stock_quant&tid=report&export=csv|stock_quant_rep.php");
+
+        $row = str_getcsv($da, "\n");
+    
+        array_shift($row);
+            foreach ($row as $ro) {
+                $data = str_getcsv($ro, ";");
+                $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                echo $duomenys[0]."-".$duomenys[6]."<br>";
+            }
 
 
-        // create a new cURL resource
-        //$ch = curl_init();
-
-        // set URL and other appropriate options
-        //curl_setopt($ch, CURLOPT_URL, "https://lt2.dineta.eu/sidonas/report/report_db.php?reportid=stock_quant&form=stock_quant_rep.php&tid=report&action=export_report&export_type=csv|stock_quant_rep.php");
-        //curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-        //curl_setopt($ch, CURLOPT_HEADER, 0);
-
-        // grab URL and pass it to the browser
-        //$out = curl_exec($ch);
-
-        // close cURL resource, and free up system resources
-        //curl_close($ch);
-
-
-       //$fp = fopen(storage_path($failas), 'w');
-        //fwrite($fp, $out);
-        //fclose($fp);
-
-        /*set_time_limit(0); // unlimited max execution time
-        $options = array(
-        CURLOPT_FILE    => storage_path($failas),
-        CURLOPT_TIMEOUT =>  28800, // set this to 8 hours so we dont timeout on big files
-        CURLOPT_URL     => 'https://lt2.dineta.eu/sidonas/report/report_db.php?reportid=stock_quant&form=stock_quant_rep.php&tid=report&action=export_report&export_type=csv|stock_quant_rep.php',
-        );
-
-        $ch = curl_init();
-        curl_setopt_array($ch, $options);
-        curl_exec($ch);
-        curl_close($ch);*/
-
-
+        //echo $da;
   }
 
     /**
