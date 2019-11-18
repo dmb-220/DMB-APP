@@ -111,7 +111,7 @@ class TestasController extends Controller
         
         curl('https://lt2.dineta.eu/sidonas/login.php');
         echo"<br>======================<br>";
-        //echo curl("https://lt2.dineta.eu/sidonas/report/stock_quant_qry.php?reportid=stock_quant&form=stock_quant_rep.php&load=1"); 
+        //curl("https://lt2.dineta.eu/sidonas/class/form_db.php?action=update_selvalue&self_id=edt_stock&tid=report&empty=1&reload=1&search_field=f_field2&source_table=t_stock&source_field=f_id&match_field=f_id&filter_field=&filter_cond=&filter_value=&filter_join=&selector_id=sel_stock&search_value="); 
         //echo"<br>======================<br>";
         //$duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
         $da = curl("https://lt2.dineta.eu/sidonas/report/stock_quant_rep.php?reportid=stock_quant&tid=report&export=csv|stock_quant_rep.php");
