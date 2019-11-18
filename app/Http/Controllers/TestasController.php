@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 use App\Pardavimai;
 use App\Likutis;
 use App\Akcijos;
@@ -52,6 +52,10 @@ class TestasController extends Controller
 
         function curl($url)
         {
+            $failas = 'cokkies.txt';
+            $directory  = "app/";
+            $failas = $directory.$failas;
+
             $post = [
                 'user' => 'arturas', 
                 'password' => 'krokodilas', 
@@ -64,7 +68,7 @@ class TestasController extends Controller
                 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
                 'User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'
             ];
-            $cookie = 'cookie.txt'; 
+            $cookie = storage_path($failas); 
 
             $options = array(
                 CURLOPT_FOLLOWLOCATION => true,     // return web page
@@ -90,34 +94,49 @@ class TestasController extends Controller
             }else{     
             curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie);
             }
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+            //curl_setopt($ch, CURLOPT_FILE, storage_path($failas));
             $c = curl_exec($ch);
             curl_close($ch);
             return $c;
         }
 
+        $failas = 'csv.txt';
+            $directory  = "app/";
+            $failas = $directory.$failas;
+         //$fp = fopen(storage_path($failas), 'w');
+        
+        echo curl('https://lt2.dineta.eu/sidonas/login.php');
+        echo"<br>======================<br>";
+        echo curl("https://lt2.dineta.eu/sidonas/report/stock_quant_qry.php?reportid=stock_quant&form=stock_quant_rep.php&load=1"); 
+        echo"<br>======================<br>";
+        //$duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+        echo mb_convert_encoding(curl("https://lt2.dineta.eu/sidonas/report/stock_quant_rep.php?reportid=stock_quant&tid=report&export=csv|stock_quant_rep.php"),  "UTF-8", "ISO-8859-13");
+    //fwrite($fp, $out);
+        //fclose($fp);
         $failas = 'CSV.csv';
         $directory  = "app/CSV_DATA/";
         $failas = $directory.$failas;
 
 
         // create a new cURL resource
-        $ch = curl_init();
+        //$ch = curl_init();
 
         // set URL and other appropriate options
-        curl_setopt($ch, CURLOPT_URL, "https://lt2.dineta.eu/sidonas/report/report_db.php?reportid=stock_quant&form=stock_quant_rep.php&tid=report&action=export_report&export_type=csv|stock_quant_rep.php");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-        curl_setopt($ch, CURLOPT_HEADER, 0);
+        //curl_setopt($ch, CURLOPT_URL, "https://lt2.dineta.eu/sidonas/report/report_db.php?reportid=stock_quant&form=stock_quant_rep.php&tid=report&action=export_report&export_type=csv|stock_quant_rep.php");
+        //curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        //curl_setopt($ch, CURLOPT_HEADER, 0);
 
         // grab URL and pass it to the browser
-        $out = curl_exec($ch);
+        //$out = curl_exec($ch);
 
         // close cURL resource, and free up system resources
-        curl_close($ch);
+        //curl_close($ch);
 
 
-        $fp = fopen(storage_path($failas), 'w');
-        fwrite($fp, $out);
-        fclose($fp);
+       //$fp = fopen(storage_path($failas), 'w');
+        //fwrite($fp, $out);
+        //fclose($fp);
 
         /*set_time_limit(0); // unlimited max execution time
         $options = array(
@@ -130,8 +149,6 @@ class TestasController extends Controller
         curl_setopt_array($ch, $options);
         curl_exec($ch);
         curl_close($ch);*/
-        
-        echo curl('https://lt2.dineta.eu/sidonas/login.php');
 
 
   }
