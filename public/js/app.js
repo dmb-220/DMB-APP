@@ -2231,6 +2231,57 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardComponent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'CardComponent',
+  props: {
+    title: {
+      type: String,
+      "default": null
+    },
+    icon: {
+      type: String,
+      "default": null
+    },
+    headerIcon: {
+      type: String,
+      "default": null
+    }
+  },
+  methods: {
+    headerIconClick: function headerIconClick() {
+      this.$emit('header-icon-click');
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FooterBar.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FooterBar.vue?vue&type=script&lang=js& ***!
@@ -2482,10 +2533,68 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /*!*****************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Pagrindinis.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\wamp64\\www\\DMB-APP\\resources\\js\\views\\Pagrindinis.vue: Invalid left-hand side in assignment expression (44:8)\n\n\u001b[0m \u001b[90m 42 | \u001b[39m      \u001b[33m.\u001b[39mthen(response \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 43 | \u001b[39m        \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39misLoading \u001b[33m=\u001b[39m \u001b[36mfalse\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 44 | \u001b[39m        \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39minfo\u001b[33m.\u001b[39msort() \u001b[33m=\u001b[39m response\u001b[33m.\u001b[39mdata\u001b[33m.\u001b[39mdata\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 45 | \u001b[39m        \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39msk \u001b[33m=\u001b[39m response\u001b[33m.\u001b[39mdata\u001b[33m.\u001b[39msk\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 46 | \u001b[39m      })\u001b[0m\n\u001b[0m \u001b[90m 47 | \u001b[39m      \u001b[33m.\u001b[39m\u001b[36mcatch\u001b[39m( err \u001b[33m=>\u001b[39m {\u001b[0m\n    at Parser.raise (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:6387:17)\n    at Parser.toAssignable (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:7887:18)\n    at Parser.parseMaybeAssign (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8269:47)\n    at Parser.parseExpression (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8197:23)\n    at Parser.parseStatementContent (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:10029:23)\n    at Parser.parseStatement (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:9900:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:10476:25)\n    at Parser.parseBlockBody (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:10463:10)\n    at Parser.parseBlock (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:10447:10)\n    at Parser.parseFunctionBody (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:9495:24)\n    at Parser.parseArrowExpression (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:9436:10)\n    at Parser.parseExprAtom (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8786:18)\n    at Parser.parseExprSubscripts (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8483:23)\n    at Parser.parseMaybeUnary (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8463:21)\n    at Parser.parseExprOps (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8329:23)\n    at Parser.parseMaybeConditional (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8302:23)\n    at Parser.parseMaybeAssign (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8249:21)\n    at Parser.parseExprListItem (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:9562:18)\n    at Parser.parseCallExpressionArguments (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8692:22)\n    at Parser.parseSubscript (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8585:29)\n    at Parser.parseSubscripts (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8504:19)\n    at Parser.parseExprSubscripts (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8493:17)\n    at Parser.parseMaybeUnary (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8463:21)\n    at Parser.parseExprOps (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8329:23)\n    at Parser.parseMaybeConditional (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8302:23)\n    at Parser.parseMaybeAssign (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8249:21)\n    at Parser.parseExpression (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:8197:23)\n    at Parser.parseStatementContent (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:10029:23)\n    at Parser.parseStatement (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:9900:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:10476:25)\n    at Parser.parseBlockBody (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:10463:10)\n    at Parser.parseBlock (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:10447:10)\n    at Parser.parseFunctionBody (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:9495:24)\n    at Parser.parseFunctionBodyAndFinish (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:9465:10)\n    at Parser.parseMethod (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:9419:10)\n    at Parser.parseObjectMethod (C:\\wamp64\\www\\DMB-APP\\node_modules\\@babel\\parser\\lib\\index.js:9335:19)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'pagrindinis',
+  components: {
+    CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      isLoading: false,
+      info: [],
+      sk: ''
+    };
+  },
+  computed: {},
+  created: function created() {
+    this.getData();
+  },
+  methods: {
+    getData: function getData() {
+      var _this = this;
+
+      this.isLoading = true;
+      this.axios.get('/testas').then(function (response) {
+        _this.isLoading = false;
+        _this.info = response.data.data;
+        _this.sk = response.data.sk;
+      })["catch"](function (err) {
+        _this.isLoading = false;
+
+        _this.$buefy.toast.open({
+          message: "Error: ".concat(err.message),
+          type: 'is-danger',
+          queue: false
+        });
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -33092,6 +33201,72 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card" }, [
+    _vm.title
+      ? _c("header", { staticClass: "card-header" }, [
+          _c(
+            "p",
+            { staticClass: "card-header-title" },
+            [
+              _vm.icon
+                ? _c("b-icon", {
+                    attrs: { icon: _vm.icon, "custom-size": "default" }
+                  })
+                : _vm._e(),
+              _vm._v("\n      " + _vm._s(_vm.title) + "\n    ")
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm.headerIcon
+            ? _c(
+                "a",
+                {
+                  staticClass: "card-header-icon",
+                  attrs: { href: "#", "aria-label": "more options" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.headerIconClick($event)
+                    }
+                  }
+                },
+                [
+                  _c("b-icon", {
+                    attrs: { icon: _vm.headerIcon, "custom-size": "default" }
+                  })
+                ],
+                1
+              )
+            : _vm._e()
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-content" }, [_vm._t("default")], 2)
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FooterBar.vue?vue&type=template&id=46075ac6&":
 /*!************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FooterBar.vue?vue&type=template&id=46075ac6& ***!
@@ -33421,9 +33596,9 @@ var render = function() {
         [
           _vm._v("\n      Duomenys atnaujinti"),
           _c("br"),
-          _vm._v("\n      Likučiai: 2019-11-13"),
+          _vm._v("\n      Likučiai: 2019-11-18"),
           _c("br"),
-          _vm._v("\n      Pardavimai: 2019-10-13 --- 2019-11-13"),
+          _vm._v("\n      Pardavimai: 2019-10-18 --- 2019-11-18"),
           _c("br"),
           _vm._v("\n      MAX: " + _vm._s(_vm.sk) + "\n      "),
           _c("br"),
@@ -49973,6 +50148,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/CardComponent.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/CardComponent.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CardComponent_vue_vue_type_template_id_6e4da0f2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardComponent.vue?vue&type=template&id=6e4da0f2& */ "./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2&");
+/* harmony import */ var _CardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/CardComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CardComponent_vue_vue_type_template_id_6e4da0f2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CardComponent_vue_vue_type_template_id_6e4da0f2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/CardComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/CardComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/CardComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CardComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardComponent_vue_vue_type_template_id_6e4da0f2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CardComponent.vue?vue&type=template&id=6e4da0f2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardComponent_vue_vue_type_template_id_6e4da0f2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardComponent_vue_vue_type_template_id_6e4da0f2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/FooterBar.vue":
 /*!***********************************************!*\
   !*** ./resources/js/components/FooterBar.vue ***!
@@ -50413,15 +50657,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*!********************************************!*\
   !*** ./resources/js/views/Pagrindinis.vue ***!
   \********************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pagrindinis_vue_vue_type_template_id_2bcc5bfa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pagrindinis.vue?vue&type=template&id=2bcc5bfa& */ "./resources/js/views/Pagrindinis.vue?vue&type=template&id=2bcc5bfa&");
 /* harmony import */ var _Pagrindinis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pagrindinis.vue?vue&type=script&lang=js& */ "./resources/js/views/Pagrindinis.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Pagrindinis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Pagrindinis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -50451,15 +50694,13 @@ component.options.__file = "resources/js/views/Pagrindinis.vue"
 /*!*********************************************************************!*\
   !*** ./resources/js/views/Pagrindinis.vue?vue&type=script&lang=js& ***!
   \*********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagrindinis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Pagrindinis.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Pagrindinis.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagrindinis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagrindinis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagrindinis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagrindinis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagrindinis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagrindinis_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

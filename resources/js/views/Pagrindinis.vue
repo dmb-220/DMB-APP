@@ -2,16 +2,15 @@
   <section class="section is-main-section">
       <card-component title="INFORMACIJA" icon="account-multiple">
         Duomenys atnaujinti<br>
-        Likučiai: 2019-11-13<br>
-        Pardavimai: 2019-10-13 --- 2019-11-13<br>
+        Likučiai: 2019-11-18<br>
+        Pardavimai: 2019-10-18 --- 2019-11-18<br>
         MAX: {{ sk }}
         <br>
-        
-        <ul id="example-1">
+        <!-- <ul id="example-1">
           <li v-for="(idx, key) in info" v-bind:key="idx">
             {{ key }} 
           </li>
-        </ul>
+        </ul> -->
       </card-component>     
     </section>
 </template>
