@@ -100,12 +100,28 @@ class TestasController extends Controller
         $failas = $directory.$failas;
 
 
-        // create a new cURL resource
-        $ch = curl_init();
+$ch = curl_init("https://lt2.dineta.eu/sidonas/report/stock_op_qry.php?reportid=stock_op&form=stock_op_rep.php&load=1");
 
         // set URL and other appropriate options
-        curl_setopt($ch, CURLOPT_URL, "https://lt2.dineta.eu/sidonas/report/report_db.php?reportid=stock_quant&form=stock_quant_rep.php&tid=report&action=export_report&export_type=csv|stock_quant_rep.php");
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);     // return web page)
+        //curl_setopt($ch, CURLOPT_URL, "https://lt2.dineta.eu/sidonas/report/stock_op_qry.php?reportid=stock_op&form=stock_op_rep.php&load=1");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        // grab URL and pass it to the browser
+        $out1 = curl_exec($ch);
+
+        // close cURL resource, and free up system resources
+        curl_close($ch);
+
+        // create a new cURL resource
+        $ch = curl_init("https://lt2.dineta.eu/sidonas/report/report_db.php?reportid=stock_quant&form=stock_quant_rep.php&tid=report&action=export_report&export_type=csv|stock_quant_rep.php");
+
+        // set URL and other appropriate options
+        //curl_setopt($ch, CURLOPT_URL, "https://lt2.dineta.eu/sidonas/report/report_db.php?reportid=stock_quant&form=stock_quant_rep.php&tid=report&action=export_report&export_type=csv|stock_quant_rep.php");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 0);
 
         // grab URL and pass it to the browser
@@ -131,7 +147,7 @@ class TestasController extends Controller
         curl_exec($ch);
         curl_close($ch);*/
         
-        echo curl('https://lt2.dineta.eu/sidonas/login.php');
+        echo $out1;
 
 
   }
