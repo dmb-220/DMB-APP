@@ -23,9 +23,19 @@ class KelioneController extends Controller
 
         }
 
+        foreach ( $group as $idx => $value ) {
+            //$gr[$value[$idx]][] = array();
+            foreach($value as $val){
+                $gr[$idx][$val['kaina']][] = $val;
+            }
+            
+
+    }
+
+
         return response()->json([
             'status' => true,
-            'likutis' => $group,
+            'likutis' => $gr,
         ]);
     }
 
