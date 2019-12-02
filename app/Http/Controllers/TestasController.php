@@ -109,12 +109,12 @@ class TestasController extends Controller
             return $c;
         }
         
-        curl('https://lt2.dineta.eu/sidonaslv/login.php');
+        curl('https://lt2.dineta.eu/sidonas/login.php');
         echo"<br>======================<br>";
-        curl("https://lt2.dineta.eu/sidonaslv/report/stock_quant_qry.php?reportid=stock_quant&form=stock_quant_rep.php&load=1"); 
+        curl("https://lt2.dineta.eu/sidonas/report/stock_quant_qry.php?reportid=stock_quant&form=stock_quant_rep.php&load=1"); 
         //echo"<br>======================<br>";
         //$duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-        $da = curl("https://lt2.dineta.eu/sidonaslv/report/stock_quant_rep.php?reportid=stock_quant&tid=report&export=csv|stock_quant_rep.php");
+        $da = curl("https://lt2.dineta.eu/sidonas/report/stock_quant_rep.php?reportid=stock_quant&tid=report&export=csv|stock_quant_rep.php");
         $row = str_getcsv($da, "\n");
         array_shift($row);
             foreach ($row as $ro) {

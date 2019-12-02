@@ -1202,7 +1202,14 @@ var render = function() {
         },
         [
           _c("radio-picker", {
-            attrs: { options: { 1: "PARDAVIMAI", 2: "LIKUTIS", 3: "AKCIJOS" } },
+            attrs: {
+              options: {
+                1: "PARDAVIMAI",
+                2: "LIKUTIS",
+                3: "AKCIJOS",
+                4: "KELIONĖS LAPAS"
+              }
+            },
             on: { input: _vm.edit_data },
             model: {
               value: _vm.tipas,

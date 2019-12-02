@@ -35,6 +35,17 @@ Route::prefix('/sandeliai')->group(function () {
 });
 
 /*
+ * Keliones lapai
+ * */ 
+Route::prefix('/kelione')->group(function () {
+    Route::get('', 'KelioneController@index');
+    Route::get('{kelione}', 'KelioneController@show');
+    Route::post('store', 'KelioneController@store');
+    Route::patch('{kelione}', 'KelioneController@update');
+    Route::delete('{kelione}/destroy', 'KelioneController@destroy');
+});
+
+/*
  * CSV
  * */ 
 Route::prefix('/csv')->group(function () {

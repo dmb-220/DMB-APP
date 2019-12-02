@@ -291,6 +291,37 @@ class CSVController extends Controller
             }*/
         }
 
+        //daromas KELIONES LAPŲ uzkelimas
+        if($tipas == 4){
+            //Uzkelime LIETUVOS ir LATVIJOS duomenis
+            if($valstybe == 1 || $valstybe == 2){
+                if($valstybe == 1){
+                    DB::table('keliones')->where('salis', 1)->delete();
+                }
+                if($valstybe == 2){
+                    DB::table('keliones')->where('salis', 2)->delete();
+                }
+                if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                    DB::table('keliones')->insert([
+                        'data' => $duomenys[0],
+                        'doc_nr' => $duomenys[2],
+                        'blanko_nr' => $duomenys[3],
+                        'sandelis_is' => $duomenys[4],
+                        'sandelis_i' => $duomenys[5],
+                        'preke' => $duomenys[6],
+                        'kiekis' => $duomenys[7],
+                        'kaina' => $duomenys[8],
+                        'grupe' => $duomenys[9],
+                        'salis' => $valstybe,
+                        ]);
+                }
+                fclose($handle);
+                }
+            }
+        }
+
         //$ats = Storage::delete($failas);
         $ats = unlink(storage_path($failas));
         

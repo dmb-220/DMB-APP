@@ -2002,13 +2002,11 @@ __webpack_require__.r(__webpack_exports__);
         to: '/sandeliai',
         label: 'Sandeliai',
         icon: 'archive'
-      }
-      /*{
-        to: '/testas',
-        label: 'Testas',
-        icon: 'archive',
-      },*/
-      ], 'VEIKSMAI', [{
+      }, {
+        to: '/kelione',
+        label: 'Kelionės lapas',
+        icon: 'archive'
+      }], 'VEIKSMAI', [{
         to: '/csv_sarasas',
         label: 'CSV failų įkėlimas',
         icon: 'view-list'
@@ -2539,7 +2537,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
-//
 //
 //
 //
@@ -33601,18 +33598,7 @@ var render = function() {
           _vm._v("\n      Pardavimai: 2019-10-18 --- 2019-11-18"),
           _c("br"),
           _vm._v("\n      MAX: " + _vm._s(_vm.sk) + "\n      "),
-          _c("br"),
-          _vm._v(" "),
-          _c(
-            "ul",
-            { attrs: { id: "example-1" } },
-            _vm._l(_vm.info, function(idx, key) {
-              return _c("li", { key: idx }, [
-                _vm._v("\n          " + _vm._s(key) + " \n        ")
-              ])
-            }),
-            0
-          )
+          _c("br")
         ]
       )
     ],
@@ -50520,7 +50506,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/statistika',
     name: 'Statistika',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./views/Statistika.vue */ "./resources/js/views/Statistika.vue"));
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./views/Statistika.vue */ "./resources/js/views/Statistika.vue"));
     }
   }, {
     path: '/likuciai',
@@ -50550,15 +50536,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/sandeliai',
     name: 'sandeliai',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./views/Sandeliai.vue */ "./resources/js/views/Sandeliai.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./views/Sandeliai.vue */ "./resources/js/views/Sandeliai.vue"));
     }
-  }
-  /*{
-    path: '/testas',
-    name: 'testas',
-    component: () => import('./views/Testas.vue')
-  },*/
-  ],
+  }, {
+    path: '/kelione',
+    name: 'kelione',
+    component: function component() {
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./views/Keliones.vue */ "./resources/js/views/Keliones.vue"));
+    }
+  }],
   scrollBehavior: function scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition;

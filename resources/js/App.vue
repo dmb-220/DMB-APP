@@ -58,11 +58,11 @@ export default {
             label: 'Sandeliai',
             icon: 'archive',
           },
-          /*{
-            to: '/testas',
-            label: 'Testas',
+          {
+            to: '/kelione',
+            label: 'Kelionės lapas',
             icon: 'archive',
-          },*/
+          },
         ],
         'VEIKSMAI',
         [
