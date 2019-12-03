@@ -23,7 +23,8 @@ class CreateKelionesTable extends Migration
             $table->string('preke');
             $table->string('kiekis');
             $table->string('kaina');
-            $table->string('grupe');
+            $table->string('grupe');            
+            $table->string('pavadinimas');  
 	        $table->string('salis');
             $table->timestamps();
         });

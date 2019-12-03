@@ -2,46 +2,91 @@
   <div>
     <section class="section is-main-section">
       <card-component title="VALDYMAS" icon="account-multiple">
-        
+        <section>
+        <b-field>
+          <div v-for="estas in estai" :key="estas.id">
+            <b-checkbox-button v-model="checkboxGroup"
+            native-value='estas'
+                type="is-danger">
+                <span>{{ estas }}</span>
+            </b-checkbox-button>
+            </div>
+        </b-field>
+        <p class="content">
+            <b>Selection:</b>
+            {{ checkboxGroup }}
+        </p>
+    </section>
       </card-component>
 
       <card-component title="SANDELIS" icon="account-multiple">
         <div  id="printMe">
+          <div class="has-text-centered">
+            Serija GAB  Nr. 20190380&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;2019-11-19
+            </div>
+            <br>
+            <div class="columns">
+              <div class="column is-one-third">
+                <div class="has-text-right"><b>Siuntėjas:</b></div>
+              </div>
+              <div class="column has-text-left">
+                <b>UAB "Sidonas" ir ko</b>, Įmonės reg. NR. AB2003-5<br>
+                Įmonės kodas (VET code): LT 808860515
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column is-one-third">
+                <div class="has-text-right"><b>Pirkėjas:</b></div>
+              </div>
+              <div class="column has-text-left">
+                <b>"Sidonas" Group OŪ</b><br>
+                PVM kodas (VET code): EE 101043995<br>
+                Kiisa 8-27, tallinn 10416, ESTIJOS RESPUBLIKA
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column is-one-third">
+                <div class="has-text-right"><b>Bankas:</b></div>
+              </div>
+              <div class="column has-text-left">
+                AB bankas " Swedbank", A/s  LT02 7300 0100 7710 3089<br>
+                Banko kodas: 73000
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column is-one-third">
+                <div class="has-text-right"><b>Adresas:</b></div>
+              </div>
+              <div class="column has-text-left">
+                Kęstučio 20-1, LT-87120, Telšiai, Lietuva
+              </div>
+            </div>
+            <br>
         <b-table
         focusable
         bordered
         hoverable
         :narrowed="true"
         :data="duomenys"
-        :opened-detailed="defaultOpenedDetails"
-        detailed
         sort-icon="arrow-up"
-        detail-key="preke"
-        @details-open="(row, index) => $buefy.toast.open(`Išskleista ${ row.preke } prekė!`)"
         :loading="isLoading">
         <template slot-scope="props">
-          <b-table-column label="Preke"  field="preke" sortable>
-                {{ props.row.preke }}
+          <b-table-column :style="{'background-color': 'silver'}" label="Pavadinimas"  field="pavadinimas">
+                {{ props.row.pavadinimas }}
+          </b-table-column>
+          <b-table-column label="MATO, Vnt.">
+                Vnt.
+          </b-table-column>
+          <b-table-column class="has-text-right" label="Kiekis"  field="kiekis">
+                {{ props.row.kiekis }}
+          </b-table-column>
+          <b-table-column class="has-text-right" label="Kaina"  field="kaina">
+                {{ props.row.kaina }}
+          </b-table-column>
+          <b-table-column class="has-text-centered" label="Suma, Eur">
+                {{ props.row.suma  }}
           </b-table-column>
         </template> 
-
-        <template slot="detail" slot-scope="props">
-          <b-table
-          :data="props.row.sarasas"
-          :bordered="true"
-          :striped="true"
-          :narrowed="true"
-          sort-icon="arrow-up">
-          <template slot-scope="props">
-              <b-table-column :style="{'background-color': 'silver'}" field="sandelis" label="Sandelis" sortable>
-                  {{ props.row.sandelis }}
-              </b-table-column>
-              <b-table-column field="kiekis" label="Likuciai" sortable>
-                  {{ props.row.kiekis }}
-              </b-table-column>
-          </template>
-          </b-table>
-        </template>
 
         <section class="section" slot="empty">
           <div class="content has-text-centered">
@@ -59,7 +104,31 @@
             </template>
           </div>
         </section>
+        <template slot="footer">
+              <th class="has-text-right">VISO:</th>
+              <th> </th>
+              <th class="has-text-right">{{total_kiekis}}</th>
+              <th> </th>
+              <th class="has-text-centered">{{ total_suma }}</th>
+          </template>
       </b-table>
+      <br>
+      <br>
+      <div class="columns">
+        <div class="column">
+          <div class="has-text-left"><b>Suma  žodžiais EUR:</b>&emsp;&emsp;&emsp;{{sk_lt}} eur, {{ centai }} cent.</div>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column">
+          <div class="has-text-left"><b>Direktorius:</b>
+          </div>
+        </div>
+        <div class="column">
+          <div class="has-text-left"><b>Antanas Dargis</b>
+          </div>
+        </div>
+      </div>
       </div>
       <hr>
       <div class="buttons">
@@ -70,6 +139,8 @@
   </div>
 
 </template>
+
+
 
 <script>
 import map from 'lodash/map'
@@ -83,10 +154,29 @@ export default {
     return {
       isLoading: false,
       duomenys: [],
-      defaultOpenedDetails: [1],
+      sk_lt: "",
+      centai: "",
+      estai: [],
+      checkboxGroup: []
     }
   },
   computed: {
+    total_kiekis: function(){
+      let total = [];
+      Object.entries(this.duomenys).forEach(([key, val]) => {
+          total.push(val.kiekis) // the value of the current key.
+      });
+      return total.reduce(function(total, num){ return total + num }, 0);
+
+    },
+    total_suma: function(){
+      let total = [];
+      Object.entries(this.duomenys).forEach(([key, val]) => {
+          total.push(val.suma) // the value of the current key.
+      });
+      return total.reduce(function(total, num){ return total + num }, 0);
+
+    }
   },
   created () {
     //this.paieska_post()
@@ -105,7 +195,9 @@ export default {
         this.isLoading = false
         //this.sandelis = response.data.sandelis;
         this.duomenys= response.data.likutis;
-        //this.store = response.data.store;
+        this.sk_lt = response.data.sk_lt;
+        this.centai = response.data.centai;
+        this.estai = response.data.estai;
 
         //this.rodyti_lt = response.data.salis.LT ? true : false
         //this.rodyti_lv = response.data.salis.LV ? true : false
@@ -123,3 +215,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>

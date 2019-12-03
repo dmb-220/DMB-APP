@@ -314,6 +314,7 @@ class CSVController extends Controller
                         'kiekis' => $duomenys[7],
                         'kaina' => $duomenys[8],
                         'grupe' => $duomenys[9],
+                        'pavadinimas' => $duomenys[10],
                         'salis' => $valstybe,
                         ]);
                 }
