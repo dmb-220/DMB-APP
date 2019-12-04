@@ -152,10 +152,35 @@ class KelioneController extends Controller
         'EE' => array("JOHV", "MUST", "NARV", "RAKV", "SOPR", "VORU", "UMER", "EDEN", "HAPS", "KOHT", "KOPL", "PARN", "RIAA"),
         'LV' => array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN", "PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO"),
         );
+       $failas = "keliones.txt";
+        $directory  = "app/";
+        $failas = $directory.$failas;
+
+        $myfile = fopen(storage_path($failas), "r");
+        $key = fread($myfile,filesize(storage_path($failas)));
+        fclose($myfile);
+
+        $key = explode("||", $key);
+        $lv = $key[0];
+        $ee = $key[1];
+        $mies = unserialize($key[2]);
+        $dat = $key[3];
+
+        //var_dump($mies); die;
+        //sukurti masyva
+        $arrra = '';
+        if($lv){$arra = 'LV';}
+        if($ee){$arra = 'EE';}
+          foreach($mies as $val){
+            $a[] = $miestai[$arra][$val];
+          }
+        
+
+          //var_dump($a);
         $query_p = Kelione::query();
-        $query_p->where('data', '>', '2019-11-01');
+        $query_p->where('data', '>=', $dat);
         //cia estija, visi miestai, su galimybe kazka pasalinti
-        $query_p->whereIn('sandelis_i', $miestai['EE']);
+        $query_p->whereIn('sandelis_i', $a);
         $re = $query_p->get();
 
         foreach ( $re as $value ) {
@@ -188,13 +213,15 @@ class KelioneController extends Controller
             $kelione[$i]['pavadinimas'] = $value['pavadinimas'];
             //round(1.22354881, 2);
             $kaina = round(tofloat($ix)*0.5, 2);
+            $kaina = number_format($kaina, 2);
             $kelione[$i]['kaina'] = $kaina;
             $kelione[$i]['kiekis'] = $val;
-            $kelione[$i]['suma'] = round($val*$kaina, 2);
+            $suma = round($val*$kaina, 2);
+            $kelione[$i]['suma'] = sprintf('%0.2f', $suma);
             $i++;
         }
     }
-
+    
     $sum = 0;
     foreach ($kelione as $item) {
         $sum += $item['suma'];
@@ -205,13 +232,16 @@ class KelioneController extends Controller
         $centai = $cnt[1];
     }else{ $centai = 0; }
 
+    $arr = array("LV" => $key[0], "EE" => $key[1]);
         return response()->json([
             'status' => true,
             'likutis' => $kelione,
             'sk_lt' => sk_to_lt($sum),
             'centai' => $centai,
             'miestai' => $miestai,
-            'data' => date("Y-m-d")
+            'data' => date("Y-m-d"),
+            //'check' => $mies,
+            'salis' => $arr
         ]);
     }
 
@@ -238,13 +268,13 @@ class KelioneController extends Controller
       $ee = $data['ee'];
       $miestai = serialize($data['miestai']);
       $data = $data['data'];
-      $nr = $data['nr'];
+      //$nr = $data['nr'];
 
       $failas = "keliones.txt";
       $directory  = "app/";
       $failas = $directory.$failas;
 
-      $eilute = $lv."||".$ee."||".$miestai."||".$data."||".$nr;
+      $eilute = $lv."||".$ee."||".$miestai."||".$data;
 
       $myfile = fopen(storage_path($failas), "w");
       fwrite($myfile, $eilute);

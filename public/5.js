@@ -246,9 +246,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       checkbox: [],
       rodyti_lv: true,
       rodyti_ee: false,
-      rodo: 'LV',
-      data: '2019-12-01',
-      nr: '20190390',
+      rodo: '',
+      data: '2019-11-01',
+      nr: '2019038',
       date: ''
     };
   },
@@ -276,7 +276,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         total.push(val.suma); // the value of the current key.
       });
       return total.reduce(function (total, num) {
-        return total + num;
+        return parseFloat(total) + parseFloat(num);
       }, 0);
     }
   },
@@ -292,12 +292,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     change_lv: function change_lv() {
       this.rodyti_lv = true;
       this.rodyti_ee = false;
-      this.rodo = 'LV'; //this.paieska_post()
+      this.rodo = 'LV';
+      this.checkbox = []; //this.paieska_post()
     },
     change_ee: function change_ee() {
       this.rodyti_ee = true;
       this.rodyti_lv = false;
-      this.rodo = 'EE'; //this.paieska_post()
+      this.rodo = 'EE';
+      this.checkbox = []; //this.paieska_post()
     },
     paieska: function paieska() {
       var _this = this;
@@ -306,10 +308,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         lv: this.rodyti_lv,
         ee: this.rodyti_ee,
         miestai: this.checkbox,
-        data: this.data,
-        nr: this.nr
+        data: this.data //nr: this.nr
+
       }).then(function (response) {
-        //console.log(response.data.data)
+        console.log(response.data.data);
+
         _this.getData();
       })["catch"](function (err) {
         _this.$buefy.toast.open({
@@ -330,9 +333,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         _this2.sk_lt = response.data.sk_lt;
         _this2.centai = response.data.centai;
         _this2.miestai = response.data.miestai;
-        _this2.date = response.data.data; //this.rodyti_lt = response.data.salis.LT ? true : false
-        //this.rodyti_lv = response.data.salis.LV ? true : false
-        //this.rodyti_ee = response.data.salis.EE ? true : false
+        _this2.date = response.data.data; //this.checkbox = response.data.check;
+        //this.rodyti_lt = response.data.salis.LT ? true : false
+
+        _this2.rodyti_lv = response.data.salis.LV ? true : false;
+        _this2.rodyti_ee = response.data.salis.EE ? true : false;
       })["catch"](function (err) {
         _this2.isLoading = false;
 
@@ -640,7 +645,9 @@ var render = function() {
               [
                 _c("div", { staticClass: "has-text-centered" }, [
                   _vm._v(
-                    "\n          Serija GAB  Nr. 20190380        " +
+                    "\n          Serija GAB  Nr. " +
+                      _vm._s(_vm.nr) +
+                      "        " +
                       _vm._s(_vm.date) +
                       "\n          "
                   )
@@ -672,7 +679,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm.rodo == "EE"
+                  _vm.rodyti_ee
                     ? _c("div", { staticClass: "column has-text-left" }, [
                         _c("b", [_vm._v('SIA "Sidonas"')]),
                         _c("br"),
@@ -684,7 +691,7 @@ var render = function() {
                           "\n              Kiisa 8-27, Tallinn 10416, ESTIJOS RESPUBLIKA\n            "
                         )
                       ])
-                    : _vm.rodo == "LV"
+                    : _vm.rodyti_lv
                     ? _c("div", { staticClass: "column has-text-left" }, [
                         _c("b", [_vm._v('"Sidonas" Group OŪ')]),
                         _c("br"),
@@ -805,7 +812,7 @@ var render = function() {
                             _c(
                               "b-table-column",
                               {
-                                staticClass: "has-text-centered",
+                                staticClass: "has-text-right",
                                 attrs: { label: "Suma, Eur" }
                               },
                               [
@@ -887,7 +894,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("th"),
                       _vm._v(" "),
-                      _c("th", { staticClass: "has-text-centered" }, [
+                      _c("th", { staticClass: "has-text-right" }, [
                         _vm._v(_vm._s(_vm.total_suma))
                       ])
                     ])

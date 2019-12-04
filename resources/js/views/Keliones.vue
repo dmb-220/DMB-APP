@@ -23,7 +23,7 @@
       <card-component title="SANDELIS" icon="account-multiple">
         <div  id="printMe">
           <div class="has-text-centered">
-            Serija GAB  Nr. 20190380&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{date}}
+            Serija GAB  Nr. {{nr}}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{date}}
             </div>
             <br>
             <div class="columns">
@@ -39,12 +39,12 @@
               <div class="column is-one-third">
                 <div class="has-text-right"><b>Pirkėjas:</b></div>
               </div>
-              <div v-if="rodo == 'EE'" class="column has-text-left">
+              <div v-if="rodyti_ee" class="column has-text-left">
                 <b>SIA "Sidonas"</b><br>
                 PVM kodas (VET code): EE 101043995<br>
                 Kiisa 8-27, Tallinn 10416, ESTIJOS RESPUBLIKA
               </div>
-              <div v-else-if="rodo == 'LV'" class="column has-text-left">
+              <div v-else-if="rodyti_lv" class="column has-text-left">
                 <b>"Sidonas" Group OŪ</b><br>
                 PVM kodas (VET code): LV 40003558478<br>
                 Matīsa iela 25, Rīga, LATVIJAS RESPUBLIKA
@@ -89,7 +89,7 @@
           <b-table-column class="has-text-right" label="Kaina"  field="kaina">
                 {{ props.row.kaina }}
           </b-table-column>
-          <b-table-column class="has-text-centered" label="Suma, Eur">
+          <b-table-column class="has-text-right" label="Suma, Eur">
                 {{ props.row.suma  }}
           </b-table-column>
         </template> 
@@ -115,7 +115,7 @@
               <th> </th>
               <th class="has-text-right">{{total_kiekis}}</th>
               <th> </th>
-              <th class="has-text-centered">{{ total_suma }}</th>
+              <th class="has-text-right">{{ total_suma }}</th>
           </template>
       </b-table>
       <br>
@@ -166,9 +166,9 @@ export default {
       checkbox: [],
       rodyti_lv: true,
       rodyti_ee: false,
-      rodo: 'LV',
-      data: '2019-12-01',
-      nr: '20190390',
+      rodo: '',
+      data: '2019-11-01',
+      nr: '2019038',
       date: '',
     }
   },
@@ -186,7 +186,7 @@ export default {
       Object.entries(this.duomenys).forEach(([key, val]) => {
           total.push(val.suma) // the value of the current key.
       });
-      return total.reduce(function(total, num){ return total + num }, 0);
+      return total.reduce(function(total, num){ return parseFloat(total) + parseFloat(num) }, 0);
 
     },
     
@@ -204,12 +204,14 @@ export default {
       this.rodyti_lv = true;
       this.rodyti_ee = false;
       this.rodo = 'LV';
+      this.checkbox = [];
       //this.paieska_post()
     },
     change_ee(){
       this.rodyti_ee = true;
       this.rodyti_lv = false;
       this.rodo = 'EE';
+      this.checkbox = [];
       //this.paieska_post()
     },
     paieska(){
@@ -219,7 +221,7 @@ export default {
             ee: this.rodyti_ee,
             miestai: this.checkbox,
             data: this.data,
-            nr: this.nr
+            //nr: this.nr
             })
           .then(response => {
             console.log(response.data.data)
@@ -245,9 +247,10 @@ export default {
         this.centai = response.data.centai;
         this.miestai = response.data.miestai;
         this.date = response.data.data;
+        //this.checkbox = response.data.check;
         //this.rodyti_lt = response.data.salis.LT ? true : false
-        //this.rodyti_lv = response.data.salis.LV ? true : false
-        //this.rodyti_ee = response.data.salis.EE ? true : false
+        this.rodyti_lv = response.data.salis.LV ? true : false
+        this.rodyti_ee = response.data.salis.EE ? true : false
       })
       .catch( err => {
             this.isLoading = false
