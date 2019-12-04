@@ -148,11 +148,14 @@ class KelioneController extends Controller
             return $simtz;
             }
 
-        $estai = array("JOHV", "MUST", "NARV", "RAKV", "SOPR", "VORU", "UMER", "EDEN", "HAPS", "KOHT", "KOPL", "PARN", "RIAA");
+        $miestai = array(
+        'EE' => array("JOHV", "MUST", "NARV", "RAKV", "SOPR", "VORU", "UMER", "EDEN", "HAPS", "KOHT", "KOPL", "PARN", "RIAA"),
+        'LV' => array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN", "PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO"),
+        );
         $query_p = Kelione::query();
         $query_p->where('data', '>', '2019-11-01');
         //cia estija, visi miestai, su galimybe kazka pasalinti
-        $query_p->whereIn('sandelis_i', $estai);
+        $query_p->whereIn('sandelis_i', $miestai['EE']);
         $re = $query_p->get();
 
         foreach ( $re as $value ) {
@@ -207,7 +210,8 @@ class KelioneController extends Controller
             'likutis' => $kelione,
             'sk_lt' => sk_to_lt($sum),
             'centai' => $centai,
-            'estai' => $estai
+            'miestai' => $miestai,
+            'data' => date("Y-m-d")
         ]);
     }
 
@@ -229,7 +233,27 @@ class KelioneController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $data = $request->all();
+      $lv = $data['lv'];
+      $ee = $data['ee'];
+      $miestai = serialize($data['miestai']);
+      $data = $data['data'];
+      $nr = $data['nr'];
+
+      $failas = "keliones.txt";
+      $directory  = "app/";
+      $failas = $directory.$failas;
+
+      $eilute = $lv."||".$ee."||".$miestai."||".$data."||".$nr;
+
+      $myfile = fopen(storage_path($failas), "w");
+      fwrite($myfile, $eilute);
+      fclose($myfile);
+
+      return response()->json([
+          'status' => true,
+          'data' => $request->all(), 
+      ]);
     }
 
     /**

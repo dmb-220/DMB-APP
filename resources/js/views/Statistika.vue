@@ -154,9 +154,9 @@ export default {
      rodyti_ee: true,
      salis: '',
      rikiuoti: false,
-      gam: true,
-      pirk: true,
-      paieska_big: false,
+     gam: true,
+     pirk: true,
+     paieska_big: false,
      mobile_card: true,
     }
   },

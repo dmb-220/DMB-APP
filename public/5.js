@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RadioPicker.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RadioPicker.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CheckboxPicker.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CheckboxPicker.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'RadioPicker',
+  name: 'CheckboxPicker',
   props: {
     options: {
       type: Object,
@@ -31,12 +31,12 @@ __webpack_require__.r(__webpack_exports__);
       "default": null
     },
     value: {
-      "default": null
+      "default": []
     }
   },
   data: function data() {
     return {
-      newValue: null
+      newValue: []
     };
   },
   created: function created() {
@@ -68,7 +68,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_map__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/map */ "./node_modules/lodash/map.js");
 /* harmony import */ var lodash_map__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_map__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
-/* harmony import */ var _components_RadioPicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/RadioPicker */ "./resources/js/components/RadioPicker.vue");
+/* harmony import */ var _components_CheckboxPicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/CheckboxPicker */ "./resources/js/components/CheckboxPicker.vue");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -220,6 +220,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -227,7 +234,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   name: "Testas",
   components: {
     CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
-    RadioPicker: _components_RadioPicker__WEBPACK_IMPORTED_MODULE_2__["default"]
+    CheckboxPicker: _components_CheckboxPicker__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -235,8 +242,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       duomenys: [],
       sk_lt: "",
       centai: "",
-      estai: [],
-      checkboxGroup: []
+      miestai: [],
+      checkbox: [],
+      rodyti_lv: true,
+      rodyti_ee: false,
+      rodo: 'LV',
+      data: '2019-12-01',
+      nr: '20190390',
+      date: ''
     };
   },
   computed: {
@@ -276,23 +289,54 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       // Pass the element id here
       this.$htmlToPaper('printMe');
     },
-    getData: function getData() {
+    change_lv: function change_lv() {
+      this.rodyti_lv = true;
+      this.rodyti_ee = false;
+      this.rodo = 'LV'; //this.paieska_post()
+    },
+    change_ee: function change_ee() {
+      this.rodyti_ee = true;
+      this.rodyti_lv = false;
+      this.rodo = 'EE'; //this.paieska_post()
+    },
+    paieska: function paieska() {
       var _this = this;
+
+      axios.post("/kelione/store", {
+        lv: this.rodyti_lv,
+        ee: this.rodyti_ee,
+        miestai: this.checkbox,
+        data: this.data,
+        nr: this.nr
+      }).then(function (response) {
+        //console.log(response.data.data)
+        _this.getData();
+      })["catch"](function (err) {
+        _this.$buefy.toast.open({
+          message: "Error: ".concat(err.message),
+          type: 'is-danger',
+          queue: false
+        });
+      });
+    },
+    getData: function getData() {
+      var _this2 = this;
 
       this.isLoading = true;
       this.axios.get('/kelione').then(function (response) {
-        _this.isLoading = false; //this.sandelis = response.data.sandelis;
+        _this2.isLoading = false; //this.sandelis = response.data.sandelis;
 
-        _this.duomenys = response.data.likutis;
-        _this.sk_lt = response.data.sk_lt;
-        _this.centai = response.data.centai;
-        _this.estai = response.data.estai; //this.rodyti_lt = response.data.salis.LT ? true : false
+        _this2.duomenys = response.data.likutis;
+        _this2.sk_lt = response.data.sk_lt;
+        _this2.centai = response.data.centai;
+        _this2.miestai = response.data.miestai;
+        _this2.date = response.data.data; //this.rodyti_lt = response.data.salis.LT ? true : false
         //this.rodyti_lv = response.data.salis.LV ? true : false
         //this.rodyti_ee = response.data.salis.EE ? true : false
       })["catch"](function (err) {
-        _this.isLoading = false;
+        _this2.isLoading = false;
 
-        _this.$buefy.toast.open({
+        _this2.$buefy.toast.open({
           message: "Error: ".concat(err.message),
           type: 'is-danger',
           queue: false
@@ -401,10 +445,10 @@ module.exports = map;
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RadioPicker.vue?vue&type=template&id=f0ab0264&":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RadioPicker.vue?vue&type=template&id=f0ab0264& ***!
-  \**************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CheckboxPicker.vue?vue&type=template&id=b0b44648&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CheckboxPicker.vue?vue&type=template&id=b0b44648& ***!
+  \*****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -425,7 +469,7 @@ var render = function() {
         { key: k, staticClass: "control" },
         [
           _c(
-            "b-radio",
+            "b-checkbox",
             {
               attrs: { "native-value": k, type: _vm.type },
               on: { input: _vm.input },
@@ -478,46 +522,112 @@ var render = function() {
           { attrs: { title: "VALDYMAS", icon: "account-multiple" } },
           [
             _c(
-              "section",
+              "b-field",
+              { attrs: { label: "Valstybė", horizontal: "" } },
               [
                 _c(
-                  "b-field",
-                  _vm._l(_vm.estai, function(estas) {
-                    return _c(
-                      "div",
-                      { key: estas.id },
-                      [
-                        _c(
-                          "b-checkbox-button",
-                          {
-                            attrs: { type: "is-danger" },
-                            model: {
-                              value: _vm.checkboxGroup,
-                              callback: function($$v) {
-                                _vm.checkboxGroup = $$v
-                              },
-                              expression: "checkboxGroup"
-                            }
-                          },
-                          [_c("span", [_vm._v(_vm._s(estas))])]
-                        )
-                      ],
-                      1
-                    )
-                  }),
-                  0
+                  "b-button",
+                  {
+                    attrs: { type: _vm.rodyti_lv ? "is-warning" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_lv()
+                      }
+                    }
+                  },
+                  [_vm._v("LATVIJA")]
                 ),
                 _vm._v(" "),
-                _c("p", { staticClass: "content" }, [
-                  _c("b", [_vm._v("Selection:")]),
-                  _vm._v(
-                    "\n          " + _vm._s(_vm.checkboxGroup) + "\n      "
-                  )
-                ])
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.rodyti_ee ? "is-danger" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_ee()
+                      }
+                    }
+                  },
+                  [_vm._v("ESTIJA")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              {
+                staticClass: "has-check",
+                attrs: { label: "Miestai", horizontal: "" }
+              },
+              [
+                _c("checkbox-picker", {
+                  attrs: { options: _vm.miestai[_vm.rodo], type: "is-black" },
+                  model: {
+                    value: _vm.checkbox,
+                    callback: function($$v) {
+                      _vm.checkbox = $$v
+                    },
+                    expression: "checkbox"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "Data:", horizontal: "" } },
+              [
+                _c("b-input", {
+                  attrs: { type: "date", icon: "calendar-month" },
+                  model: {
+                    value: _vm.data,
+                    callback: function($$v) {
+                      _vm.data = $$v
+                    },
+                    expression: "data"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "Numeris:", horizontal: "" } },
+              [
+                _c("b-input", {
+                  attrs: { type: "input", icon: "variable" },
+                  model: {
+                    value: _vm.nr,
+                    callback: function($$v) {
+                      _vm.nr = $$v
+                    },
+                    expression: "nr"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "buttons" },
+              [
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: "is-black", expanded: "" },
+                    on: { click: _vm.paieska }
+                  },
+                  [_vm._v("Skaičiuoti")]
+                )
               ],
               1
             )
-          ]
+          ],
+          1
         ),
         _vm._v(" "),
         _c(
@@ -530,7 +640,9 @@ var render = function() {
               [
                 _c("div", { staticClass: "has-text-centered" }, [
                   _vm._v(
-                    "\n          Serija GAB  Nr. 20190380        2019-11-19\n          "
+                    "\n          Serija GAB  Nr. 20190380        " +
+                      _vm._s(_vm.date) +
+                      "\n          "
                   )
                 ]),
                 _vm._v(" "),
@@ -560,17 +672,31 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "column has-text-left" }, [
-                    _c("b", [_vm._v('"Sidonas" Group OŪ')]),
-                    _c("br"),
-                    _vm._v(
-                      "\n              PVM kodas (VET code): EE 101043995"
-                    ),
-                    _c("br"),
-                    _vm._v(
-                      "\n              Kiisa 8-27, tallinn 10416, ESTIJOS RESPUBLIKA\n            "
-                    )
-                  ])
+                  _vm.rodo == "EE"
+                    ? _c("div", { staticClass: "column has-text-left" }, [
+                        _c("b", [_vm._v('SIA "Sidonas"')]),
+                        _c("br"),
+                        _vm._v(
+                          "\n              PVM kodas (VET code): EE 101043995"
+                        ),
+                        _c("br"),
+                        _vm._v(
+                          "\n              Kiisa 8-27, Tallinn 10416, ESTIJOS RESPUBLIKA\n            "
+                        )
+                      ])
+                    : _vm.rodo == "LV"
+                    ? _c("div", { staticClass: "column has-text-left" }, [
+                        _c("b", [_vm._v('"Sidonas" Group OŪ')]),
+                        _c("br"),
+                        _vm._v(
+                          "\n              PVM kodas (VET code): LV 40003558478"
+                        ),
+                        _c("br"),
+                        _vm._v(
+                          "\n              Matīsa iela 25, Rīga, LATVIJAS RESPUBLIKA\n            "
+                        )
+                      ])
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "columns" }, [
@@ -840,17 +966,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/RadioPicker.vue":
-/*!*************************************************!*\
-  !*** ./resources/js/components/RadioPicker.vue ***!
-  \*************************************************/
+/***/ "./resources/js/components/CheckboxPicker.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/CheckboxPicker.vue ***!
+  \****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _RadioPicker_vue_vue_type_template_id_f0ab0264___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RadioPicker.vue?vue&type=template&id=f0ab0264& */ "./resources/js/components/RadioPicker.vue?vue&type=template&id=f0ab0264&");
-/* harmony import */ var _RadioPicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RadioPicker.vue?vue&type=script&lang=js& */ "./resources/js/components/RadioPicker.vue?vue&type=script&lang=js&");
+/* harmony import */ var _CheckboxPicker_vue_vue_type_template_id_b0b44648___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CheckboxPicker.vue?vue&type=template&id=b0b44648& */ "./resources/js/components/CheckboxPicker.vue?vue&type=template&id=b0b44648&");
+/* harmony import */ var _CheckboxPicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CheckboxPicker.vue?vue&type=script&lang=js& */ "./resources/js/components/CheckboxPicker.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -860,9 +986,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _RadioPicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _RadioPicker_vue_vue_type_template_id_f0ab0264___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _RadioPicker_vue_vue_type_template_id_f0ab0264___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _CheckboxPicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CheckboxPicker_vue_vue_type_template_id_b0b44648___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CheckboxPicker_vue_vue_type_template_id_b0b44648___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -872,38 +998,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/RadioPicker.vue"
+component.options.__file = "resources/js/components/CheckboxPicker.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/RadioPicker.vue?vue&type=script&lang=js&":
-/*!**************************************************************************!*\
-  !*** ./resources/js/components/RadioPicker.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************/
+/***/ "./resources/js/components/CheckboxPicker.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/CheckboxPicker.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RadioPicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./RadioPicker.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RadioPicker.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RadioPicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckboxPicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CheckboxPicker.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CheckboxPicker.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckboxPicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/RadioPicker.vue?vue&type=template&id=f0ab0264&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/RadioPicker.vue?vue&type=template&id=f0ab0264& ***!
-  \********************************************************************************/
+/***/ "./resources/js/components/CheckboxPicker.vue?vue&type=template&id=b0b44648&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/CheckboxPicker.vue?vue&type=template&id=b0b44648& ***!
+  \***********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RadioPicker_vue_vue_type_template_id_f0ab0264___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./RadioPicker.vue?vue&type=template&id=f0ab0264& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RadioPicker.vue?vue&type=template&id=f0ab0264&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RadioPicker_vue_vue_type_template_id_f0ab0264___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckboxPicker_vue_vue_type_template_id_b0b44648___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CheckboxPicker.vue?vue&type=template&id=b0b44648& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CheckboxPicker.vue?vue&type=template&id=b0b44648&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckboxPicker_vue_vue_type_template_id_b0b44648___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RadioPicker_vue_vue_type_template_id_f0ab0264___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckboxPicker_vue_vue_type_template_id_b0b44648___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

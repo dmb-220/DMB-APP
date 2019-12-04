@@ -2,27 +2,28 @@
   <div>
     <section class="section is-main-section">
       <card-component title="VALDYMAS" icon="account-multiple">
-        <section>
-        <b-field>
-          <div v-for="estas in estai" :key="estas.id">
-            <b-checkbox-button v-model="checkboxGroup"
-            native-value='estas'
-                type="is-danger">
-                <span>{{ estas }}</span>
-            </b-checkbox-button>
-            </div>
+        <b-field label='Valstybė' horizontal>
+          <b-button :type="rodyti_lv ? 'is-warning' : 'is-dark'" @click="change_lv()">LATVIJA</b-button>
+          <b-button :type="rodyti_ee ? 'is-danger' : 'is-dark'" @click="change_ee()">ESTIJA</b-button>
         </b-field>
-        <p class="content">
-            <b>Selection:</b>
-            {{ checkboxGroup }}
-        </p>
-    </section>
+        <b-field label="Miestai" class="has-check" horizontal>
+          <checkbox-picker :options="miestai[rodo]" v-model="checkbox" type="is-black"/>
+        </b-field>
+        <b-field label="Data:" horizontal>
+            <b-input type="date" v-model="data" icon="calendar-month"></b-input>    
+        </b-field>
+        <b-field label="Numeris:" horizontal>
+            <b-input type="input" v-model="nr" icon="variable"></b-input>    
+        </b-field>
+        <div class="buttons">
+            <b-button type="is-black" @click="paieska" expanded>Skaičiuoti</b-button>
+        </div>
       </card-component>
 
       <card-component title="SANDELIS" icon="account-multiple">
         <div  id="printMe">
           <div class="has-text-centered">
-            Serija GAB  Nr. 20190380&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;2019-11-19
+            Serija GAB  Nr. 20190380&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{date}}
             </div>
             <br>
             <div class="columns">
@@ -38,10 +39,15 @@
               <div class="column is-one-third">
                 <div class="has-text-right"><b>Pirkėjas:</b></div>
               </div>
-              <div class="column has-text-left">
-                <b>"Sidonas" Group OŪ</b><br>
+              <div v-if="rodo == 'EE'" class="column has-text-left">
+                <b>SIA "Sidonas"</b><br>
                 PVM kodas (VET code): EE 101043995<br>
-                Kiisa 8-27, tallinn 10416, ESTIJOS RESPUBLIKA
+                Kiisa 8-27, Tallinn 10416, ESTIJOS RESPUBLIKA
+              </div>
+              <div v-else-if="rodo == 'LV'" class="column has-text-left">
+                <b>"Sidonas" Group OŪ</b><br>
+                PVM kodas (VET code): LV 40003558478<br>
+                Matīsa iela 25, Rīga, LATVIJAS RESPUBLIKA
               </div>
             </div>
             <div class="columns">
@@ -145,19 +151,25 @@
 <script>
 import map from 'lodash/map'
 import CardComponent from '@/components/CardComponent'
-import RadioPicker from '@/components/RadioPicker'
+import CheckboxPicker from '@/components/CheckboxPicker'
 
 export default {
   name: "Testas",
-  components: {CardComponent, RadioPicker},
+  components: {CardComponent, CheckboxPicker},
   data () {
     return {
       isLoading: false,
       duomenys: [],
       sk_lt: "",
       centai: "",
-      estai: [],
-      checkboxGroup: []
+      miestai: [],
+      checkbox: [],
+      rodyti_lv: true,
+      rodyti_ee: false,
+      rodo: 'LV',
+      data: '2019-12-01',
+      nr: '20190390',
+      date: '',
     }
   },
   computed: {
@@ -176,7 +188,8 @@ export default {
       });
       return total.reduce(function(total, num){ return total + num }, 0);
 
-    }
+    },
+    
   },
   created () {
     //this.paieska_post()
@@ -186,6 +199,39 @@ export default {
     print() {
       // Pass the element id here
       this.$htmlToPaper('printMe');
+    },
+         change_lv(){
+      this.rodyti_lv = true;
+      this.rodyti_ee = false;
+      this.rodo = 'LV';
+      //this.paieska_post()
+    },
+    change_ee(){
+      this.rodyti_ee = true;
+      this.rodyti_lv = false;
+      this.rodo = 'EE';
+      //this.paieska_post()
+    },
+    paieska(){
+        axios
+          .post(`/kelione/store`, {
+            lv: this.rodyti_lv,
+            ee: this.rodyti_ee,
+            miestai: this.checkbox,
+            data: this.data,
+            nr: this.nr
+            })
+          .then(response => {
+            console.log(response.data.data)
+            this.getData()
+        })
+          .catch( err => {
+            this.$buefy.toast.open({
+              message: `Error: ${err.message}`,
+              type: 'is-danger',
+              queue: false
+            })
+          })
     },
     getData () {
       this.isLoading = true
@@ -197,8 +243,8 @@ export default {
         this.duomenys= response.data.likutis;
         this.sk_lt = response.data.sk_lt;
         this.centai = response.data.centai;
-        this.estai = response.data.estai;
-
+        this.miestai = response.data.miestai;
+        this.date = response.data.data;
         //this.rodyti_lt = response.data.salis.LT ? true : false
         //this.rodyti_lv = response.data.salis.LV ? true : false
         //this.rodyti_ee = response.data.salis.EE ? true : false
