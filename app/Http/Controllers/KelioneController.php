@@ -244,6 +244,15 @@ class KelioneController extends Controller
         $query_p = Kelione::query();
         $query_p->where('data', '>=', $dat);
         //cia estija, visi miestai, su galimybe kazka pasalinti
+        //pasidaryti sandelio pasirinkima is kurio juda prekes
+        //LATVIJA 5555
+        //ESTIJA 7777
+        if($lv){
+          $query_p->whereIn('sandelis_is', ["5555"]);
+        }
+        if($ee){
+          $query_p->whereIn('sandelis_is', ["7777"]);
+        }
         $query_p->whereIn('sandelis_i', $a);
         $re = $query_p->get();
 
