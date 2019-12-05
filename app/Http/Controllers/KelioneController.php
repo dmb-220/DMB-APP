@@ -152,6 +152,67 @@ class KelioneController extends Controller
         'EE' => array("JOHV", "MUST", "NARV", "RAKV", "SOPR", "VORU", "UMER", "EDEN", "HAPS", "KOHT", "KOPL", "PARN", "RIAA"),
         'LV' => array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN", "PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO"),
         );
+
+        $sarasas = array(
+           "Kleita" => "Suknelė",
+           "Blūze" => "Palaidinė",
+           "Bikses" => "Kelnės",
+           "Žakete" => "Švarkas",
+           "Svārki" => "Sijonas",
+           "Jaka" => "Striukė",
+           "Sport. bikses" => "Sport. kelnės",
+           "Plecu lakats" => "Skara",
+           "Šalle" => "Šalikas",
+           "Soma" => "Rankinė",
+           "Leging" => "Tamprės",
+           "Legingi" => "Tamprės",
+           "Pidžama" => "Pižama",
+           "Mētelis" => "Paltas" ,
+           "Cimdi" => "Pirštinės",
+           "Zeķubikses" => "Pėdkelnės",
+           "Zekubikses" => "Pėdkelnės",
+           "Naktskrekls" => "Naktiniai",
+           "Kostīms" => "Kostiumas",
+           "Džemperis" => "Megztinis",
+           "Džemperis" => "Džemperis",
+           "Peldkostims" => "Maud. kostiumas",
+           "Maisiņi" => "Maišelis", //Latvija
+          //"Maišelis" => "Kilekott", //Estija
+           "Med. bikses" => "Med. kelnės",
+           "Blūze figūras korekcijai" => "Liekninanti palaidinė",
+           "Krūšturis" => "Liemenėlė",
+           "Vīr. apakšbikses", "Vyr. kelnaitės",
+           "Apakšbikses" => "Kelnaitės",
+           "Vīr. zeķes" => "Vyr. kojinės",
+           "Bēr. zeķes" => "Vaik. kojinė",
+           "Zeķes" => "Kojinės",
+           "Džinsi" => "Džinsai",
+           "Halāts" => "Chalatas",
+           "Sport. kostīms" => "Sport. kostiumas",
+           "Sarafāns" => "Sarafanas",
+           "Med. jaka" => "Med. švarkas",
+           "Komplekts" => "Komplektas",
+           "Veste" => "Liemenė",
+           "Siksna" => "Diržas",
+           "Vīr. pēdiņas" => "Vyr. pėdutės",
+           "Cepure" => "Kepurė",
+           "Šorti" => "Šortai",
+           "Kleita + apakšveļa" => "Suknelė + apatinukas",
+           "Kombinezons" => "Kombinezonas",
+           "Lakats" => "Skarelė",
+           "Pēdiņas" => "Pėdutės",
+           "Med. halāts" => "Med. chalatas",
+           "Dvielis" => "Rankšluostis",
+           "Vīr. džinsi" => "Vyr. džinsai",
+           "Bēr. apakšbikses" => "Vaik. kelnaitės",
+           "Halāts + naktskrekls" => "Chalat.+ naktiniai",
+           "Bēr. zeķes" => "Vaik. kojinės",
+           "Vīr. apakšbikses" => "Vyr.kelnaitės",
+           "Naktskrekls" => "Naktinai"
+      ); 
+
+
+
        $failas = "keliones.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
@@ -184,9 +245,14 @@ class KelioneController extends Controller
         $re = $query_p->get();
 
         foreach ( $re as $value ) {
-                $group[$value['pavadinimas']][] = $value;
-
+          if($lv){
+            $group[$sarasas[$value['pavadinimas']]][] = $value;
+          }else{
+            $group[$value['pavadinimas']][] = $value;
+          }
         }
+
+        ksort($group);
 
         foreach ( $group as $idx => $value ) {
 
@@ -229,7 +295,10 @@ class KelioneController extends Controller
 
     if(strpos($sum, ".")  !== false){
         $cnt = explode(".", $sum);
-        $centai = $cnt[1];
+        if(strlen($cnt[1]) > 1){
+          $centai = $cnt[1];}else{
+            $centai = $cnt[1]."0";
+          }
     }else{ $centai = 0; }
 
     $arr = array("LV" => $key[0], "EE" => $key[1]);

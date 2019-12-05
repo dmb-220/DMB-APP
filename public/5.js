@@ -895,7 +895,7 @@ var render = function() {
                       _c("th"),
                       _vm._v(" "),
                       _c("th", { staticClass: "has-text-right" }, [
-                        _vm._v(_vm._s(_vm.total_suma))
+                        _vm._v(_vm._s(_vm.total_suma.toFixed(2)))
                       ])
                     ])
                   ],

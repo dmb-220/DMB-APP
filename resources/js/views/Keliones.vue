@@ -115,7 +115,7 @@
               <th> </th>
               <th class="has-text-right">{{total_kiekis}}</th>
               <th> </th>
-              <th class="has-text-right">{{ total_suma }}</th>
+              <th class="has-text-right">{{ total_suma.toFixed(2) }}</th>
           </template>
       </b-table>
       <br>
