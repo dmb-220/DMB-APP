@@ -227,6 +227,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
 
 
 
@@ -566,16 +567,31 @@ var render = function() {
                 attrs: { label: "Miestai", horizontal: "" }
               },
               [
-                _c("checkbox-picker", {
-                  attrs: { options: _vm.miestai[_vm.rodo], type: "is-black" },
-                  model: {
-                    value: _vm.checkbox,
-                    callback: function($$v) {
-                      _vm.checkbox = $$v
-                    },
-                    expression: "checkbox"
-                  }
-                })
+                _vm.rodyti_lv
+                  ? _c("checkbox-picker", {
+                      attrs: { options: _vm.miestai["LV"], type: "is-black" },
+                      model: {
+                        value: _vm.checkbox,
+                        callback: function($$v) {
+                          _vm.checkbox = $$v
+                        },
+                        expression: "checkbox"
+                      }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.rodyti_ee
+                  ? _c("checkbox-picker", {
+                      attrs: { options: _vm.miestai["EE"], type: "is-black" },
+                      model: {
+                        value: _vm.checkbox,
+                        callback: function($$v) {
+                          _vm.checkbox = $$v
+                        },
+                        expression: "checkbox"
+                      }
+                    })
+                  : _vm._e()
               ],
               1
             ),

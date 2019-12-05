@@ -7,7 +7,8 @@
           <b-button :type="rodyti_ee ? 'is-danger' : 'is-dark'" @click="change_ee()">ESTIJA</b-button>
         </b-field>
         <b-field label="Miestai" class="has-check" horizontal>
-          <checkbox-picker :options="miestai[rodo]" v-model="checkbox" type="is-black"/>
+          <checkbox-picker v-if="rodyti_lv" :options="miestai['LV']" v-model="checkbox" type="is-black"/>
+          <checkbox-picker v-if="rodyti_ee" :options="miestai['EE']" v-model="checkbox" type="is-black"/>
         </b-field>
         <b-field label="Data:" horizontal>
             <b-input type="date" v-model="data" icon="calendar-month"></b-input>    

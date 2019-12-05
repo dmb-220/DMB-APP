@@ -227,6 +227,9 @@ class KelioneController extends Controller
         $mies = unserialize($key[2]);
         $dat = $key[3];
 
+        $a = array();
+        $group = array();
+        $gr = array();
         //var_dump($mies); die;
         //sukurti masyva
         $arrra = '';
