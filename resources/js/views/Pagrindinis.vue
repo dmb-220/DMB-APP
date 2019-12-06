@@ -2,9 +2,8 @@
   <section class="section is-main-section">
       <card-component title="INFORMACIJA" icon="account-multiple">
         Duomenys atnaujinti<br>
-        Likučiai: 2019-11-18<br>
-        Pardavimai: 2019-10-18 --- 2019-11-18<br>
-        MAX: {{ sk }}
+        Likučiai: 2019-12-06<br>
+        Pardavimai: 2019-11-06 --- 2019-12-06<br>
         <br>
         <!-- <ul id="example-1">
           <li v-for="(idx, key) in info" v-bind:key="idx">
@@ -31,7 +30,7 @@ export default {
   computed: {
   },
   created () {
-    this.getData()
+    //this.getData()
   },
   methods: {
       getData () {

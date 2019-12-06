@@ -2553,7 +2553,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'pagrindinis',
@@ -2568,8 +2567,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {},
-  created: function created() {
-    this.getData();
+  created: function created() {//this.getData()
   },
   methods: {
     getData: function getData() {
@@ -33593,11 +33591,11 @@ var render = function() {
         [
           _vm._v("\n      Duomenys atnaujinti"),
           _c("br"),
-          _vm._v("\n      Likučiai: 2019-11-18"),
+          _vm._v("\n      Likučiai: 2019-12-06"),
           _c("br"),
-          _vm._v("\n      Pardavimai: 2019-10-18 --- 2019-11-18"),
+          _vm._v("\n      Pardavimai: 2019-11-06 --- 2019-12-06"),
           _c("br"),
-          _vm._v("\n      MAX: " + _vm._s(_vm.sk) + "\n      "),
+          _vm._v(" "),
           _c("br")
         ]
       )
