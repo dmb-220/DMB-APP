@@ -258,9 +258,13 @@ class KelioneController extends Controller
 
         foreach ( $re as $value ) {
           if($lv){
+            if("Maisiņi" != $value['pavadinimas']){
             $group[$sarasas[$value['pavadinimas']]][] = $value;
+            }
           }else{
+            if("Kilekott" != $value['pavadinimas']){
             $group[$value['pavadinimas']][] = $value;
+            }
           }
         }
 
