@@ -41,12 +41,12 @@
                 <div class="has-text-right"><b>Pirkėjas:</b></div>
               </div>
               <div v-if="rodyti_ee" class="column has-text-left">
-                <b>SIA "Sidonas"</b><br>
+                <b>Sidonas" Group OŪ</b><br>
                 PVM kodas (VET code): EE 101043995<br>
                 Kiisa 8-27, Tallinn 10416, ESTIJOS RESPUBLIKA
               </div>
               <div v-else-if="rodyti_lv" class="column has-text-left">
-                <b>"Sidonas" Group OŪ</b><br>
+                <b>"SIA "Sidonas"</b><br>
                 PVM kodas (VET code): LV 40003558478<br>
                 Matīsa iela 25, Rīga, LATVIJAS RESPUBLIKA
               </div>

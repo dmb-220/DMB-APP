@@ -697,7 +697,7 @@ var render = function() {
                   _vm._v(" "),
                   _vm.rodyti_ee
                     ? _c("div", { staticClass: "column has-text-left" }, [
-                        _c("b", [_vm._v('SIA "Sidonas"')]),
+                        _c("b", [_vm._v('Sidonas" Group OŪ')]),
                         _c("br"),
                         _vm._v(
                           "\n              PVM kodas (VET code): EE 101043995"
@@ -709,7 +709,7 @@ var render = function() {
                       ])
                     : _vm.rodyti_lv
                     ? _c("div", { staticClass: "column has-text-left" }, [
-                        _c("b", [_vm._v('"Sidonas" Group OŪ')]),
+                        _c("b", [_vm._v('"SIA "Sidonas"')]),
                         _c("br"),
                         _vm._v(
                           "\n              PVM kodas (VET code): LV 40003558478"

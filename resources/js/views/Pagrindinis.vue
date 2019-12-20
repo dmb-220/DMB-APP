@@ -2,8 +2,8 @@
   <section class="section is-main-section">
       <card-component title="INFORMACIJA" icon="account-multiple">
         Duomenys atnaujinti<br>
-        Likučiai: 2019-12-13<br>
-        Pardavimai: 2019-11-13 --- 2019-12-13<br>
+        Likučiai: 2019-12-20<br>
+        Pardavimai: 2019-11-20 --- 2019-12-20<br>
         <br>
         <!-- <ul id="example-1">
           <li v-for="(idx, key) in info" v-bind:key="idx">
