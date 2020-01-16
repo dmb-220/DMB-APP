@@ -174,7 +174,7 @@ class KelioneController extends Controller
            "Naktskrekls" => "Naktiniai",
            "Kostīms" => "Kostiumas",
            "Džemperis" => "Megztinis",
-           "Džemperis" => "Džemperis",
+           //"Džemperis" => "Džemperis",
            "Peldkostims" => "Maud. kostiumas",
            "Maisiņi" => "Maišelis", //Latvija
           //"Maišelis" => "Kilekott", //Estija
@@ -208,7 +208,8 @@ class KelioneController extends Controller
            "Halāts + naktskrekls" => "Chalat.+ naktiniai",
            "Bēr. zeķes" => "Vaik. kojinės",
            "Vīr. apakšbikses" => "Vyr.kelnaitės",
-           "Naktskrekls" => "Naktinai"
+           "Naktskrekls" => "Naktinai",
+           "Megztinis" => "Megztinis"
       ); 
 
 
@@ -259,7 +260,7 @@ class KelioneController extends Controller
         foreach ( $re as $value ) {
           if($lv){
             if("Maisiņi" != $value['pavadinimas']){
-            $group[$sarasas[$value['pavadinimas']]][] = $value;
+            $group[$value['pavadinimas']][] = $value;
             }
           }else{
             if("Kilekott" != $value['pavadinimas']){

@@ -33591,9 +33591,9 @@ var render = function() {
         [
           _vm._v("\n      Duomenys atnaujinti"),
           _c("br"),
-          _vm._v("\n      Likučiai: 2019-12-13"),
+          _vm._v("\n      Likučiai: 2019-12-20"),
           _c("br"),
-          _vm._v("\n      Pardavimai: 2019-11-13 --- 2019-12-13"),
+          _vm._v("\n      Pardavimai: 2019-11-20 --- 2019-12-20"),
           _c("br"),
           _vm._v(" "),
           _c("br")
