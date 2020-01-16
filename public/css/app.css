@@ -330,7 +330,12 @@
 .pagination-next,
 .pagination-link,
 .pagination-ellipsis,
-.tabs {
+.tabs,
+.carousel,
+.carousel-list,
+.b-checkbox.checkbox,
+.b-radio.radio,
+.switch {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -12399,15 +12404,227 @@ label.panel-block:hover {
   font-size: 1.5rem;
 }
 
+.carousel {
+  min-height: 120px;
+  position: relative;
+}
+
+.carousel.is-overlay {
+  background-color: rgba(10, 10, 10, 0.86);
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  display: flex;
+  max-height: 100vh;
+  position: fixed;
+  z-index: 40;
+}
+
+.carousel.is-overlay .carousel-item img {
+  cursor: default;
+}
+
+.carousel.is-overlay .carousel-indicator.has-background {
+  background: transparent;
+}
+
+.carousel .progress {
+  border-radius: 2px;
+  height: 0.25rem;
+  margin-bottom: 0;
+}
+
+.carousel .carousel-items {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+}
+
+@media screen and (min-width: 769px), print {
+  .carousel .carousel-items:hover .carousel-arrow.is-hovered {
+    opacity: 1;
+  }
+}
+
+.carousel .carousel-items .carousel-item {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.carousel .carousel-pause {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 0.15rem;
+  z-index: 1;
+}
+
+.carousel .carousel-indicator {
+  width: 100%;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel .carousel-indicator.has-background {
+  background: rgba(10, 10, 10, 0.5);
+}
+
+.carousel .carousel-indicator.has-custom {
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.carousel .carousel-indicator.has-custom.is-small .indicator-item {
+  flex: 1 0 10%;
+}
+
+.carousel .carousel-indicator.has-custom.is-medium .indicator-item {
+  flex: 1 0 16.66667%;
+}
+
+.carousel .carousel-indicator.is-inside {
+  position: absolute;
+}
+
+.carousel .carousel-indicator.is-inside.is-bottom {
+  bottom: 0;
+}
+
+.carousel .carousel-indicator.is-inside.is-top {
+  top: 0;
+}
+
+.carousel .carousel-indicator .indicator-item:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.carousel .carousel-indicator .indicator-item.is-active .indicator-style,
+.carousel .carousel-indicator .indicator-item .indicator-style:hover {
+  background: #00d1b2;
+  border: 1px solid white;
+}
+
+.carousel .carousel-indicator .indicator-item .indicator-style {
+  display: block;
+  border: 1px solid #00d1b2;
+  background: white;
+  outline: none;
+  transition: 0.3s ease-out;
+}
+
+.carousel .carousel-indicator .indicator-item .indicator-style.is-boxes {
+  height: 10px;
+  width: 10px;
+}
+
+.carousel .carousel-indicator .indicator-item .indicator-style.is-dots {
+  border-radius: 10px;
+  height: 10px;
+  width: 10px;
+}
+
+.carousel .carousel-indicator .indicator-item .indicator-style.is-lines {
+  height: 5px;
+  width: 25px;
+}
+
+.carousel-list {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-list.has-shadow {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (min-width: 769px), print {
+  .carousel-list:hover .carousel-arrow.is-hovered {
+    opacity: 1;
+  }
+}
+
+.carousel-list .carousel-slides {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.carousel-list .carousel-slides:not(.is-dragging) {
+  transition: all 250ms ease-out 0s;
+}
+
+.carousel-list .carousel-slides.has-grayscale .carousel-slide img {
+  -webkit-filter: grayscale(100%);
+          filter: grayscale(100%);
+}
+
+.carousel-list .carousel-slides.has-grayscale .carousel-slide.is-active img {
+  -webkit-filter: grayscale(0%);
+          filter: grayscale(0%);
+}
+
+.carousel-list .carousel-slides.has-opacity .carousel-slide img {
+  opacity: 0.25;
+}
+
+.carousel-list .carousel-slides.has-opacity .carousel-slide.is-active img {
+  opacity: 1;
+}
+
+.carousel-list .carousel-slides .carousel-slide {
+  border: 2px solid transparent;
+  flex-shrink: 0;
+}
+
+.carousel-arrow {
+  transition: 0.5s ease-out;
+}
+
+.carousel-arrow.is-hovered {
+  opacity: 0;
+}
+
+.carousel-arrow .icon {
+  background: white;
+  color: #00d1b2;
+  cursor: pointer;
+  border: 1px solid white;
+  border-radius: 290486px;
+  outline: 0;
+}
+
+.carousel-arrow .icon:hover {
+  border: 1px solid #00d1b2;
+  opacity: 1;
+}
+
+.carousel-arrow .icon.has-icons-left,
+.carousel-arrow .icon.has-icons-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.carousel-arrow .icon.has-icons-left {
+  left: 1.5rem;
+}
+
+.carousel-arrow .icon.has-icons-right {
+  right: 1.5rem;
+}
+
 .b-checkbox.checkbox {
   outline: none;
   display: inline-flex;
   align-items: center;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 .b-checkbox.checkbox + .checkbox {
@@ -12429,6 +12646,7 @@ label.panel-block:hover {
   border-radius: 4px;
   border: 2px solid #7a7a7a;
   transition: background 150ms ease-out;
+  background: transparent;
 }
 
 .b-checkbox.checkbox input[type=checkbox]:checked + .check {
@@ -12591,6 +12809,10 @@ label.panel-block:hover {
 
 .b-checkbox.checkbox .control-label {
   padding-left: 0.5em;
+}
+
+.b-checkbox.checkbox.button {
+  display: flex;
 }
 
 .b-checkbox.checkbox[disabled] {
@@ -13111,6 +13333,16 @@ label.panel-block:hover {
   width: 100%;
 }
 
+.datepicker .dropdown.is-disabled {
+  opacity: 1;
+}
+
+.datepicker .dropdown-content {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+}
+
 .datepicker .dropdown-item,
 .datepicker .dropdown .dropdown-menu .has-link a,
 .dropdown .dropdown-menu .has-link .datepicker a {
@@ -13396,6 +13628,10 @@ label.panel-block:hover {
   font-size: 1.5rem;
 }
 
+.dialog.has-custom-container {
+  position: absolute;
+}
+
 .dropdown + .dropdown {
   margin-left: 0.5em;
 }
@@ -13432,6 +13668,22 @@ label.panel-block:hover {
 .dropdown .dropdown-menu .has-link a {
   padding-right: 3rem;
   white-space: nowrap;
+}
+
+.dropdown.is-expanded {
+  width: 100%;
+}
+
+.dropdown.is-expanded .dropdown-trigger {
+  width: 100%;
+}
+
+.dropdown.is-expanded .dropdown-menu {
+  width: 100%;
+}
+
+.dropdown.is-expanded.is-mobile-modal .dropdown-menu {
+  max-width: 100%;
 }
 
 .dropdown:not(.is-disabled) .dropdown-menu .dropdown-item.is-disabled,
@@ -13476,7 +13728,7 @@ label.panel-block:hover {
 }
 
 @media screen and (max-width: 1023px) {
-  .dropdown.is-mobile-modal .dropdown-menu {
+  .dropdown.is-mobile-modal > .dropdown-menu {
     position: fixed;
     width: calc(100vw - 40px);
     max-width: 460px;
@@ -13491,8 +13743,8 @@ label.panel-block:hover {
     z-index: 50;
   }
 
-  .dropdown.is-mobile-modal .dropdown-menu .dropdown-item,
-  .dropdown.is-mobile-modal .dropdown-menu .has-link a {
+  .dropdown.is-mobile-modal > .dropdown-menu > .dropdown-content > .dropdown-item,
+  .dropdown .dropdown-menu .has-link .dropdown.is-mobile-modal > .dropdown-menu > .dropdown-content > a {
     padding: 1rem 1.5rem;
   }
 }
@@ -13577,7 +13829,7 @@ label.panel-block:hover {
   left: 0;
   right: 0;
   height: 0.375em;
-  background-color: #fff;
+  background-color: white;
   z-index: -1;
 }
 
@@ -13601,12 +13853,17 @@ label.panel-block:hover {
   box-shadow: none;
 }
 
-.field.is-floating-label .taginput .taginput-container.is-focusable {
+.field.is-floating-label .taginput .taginput-container {
   padding-top: 0.475em;
 }
 
-.field.is-floating-label .taginput .taginput-container.is-focusable.is-focused {
+.field.is-floating-label .taginput .taginput-container.is-focused {
   box-shadow: none;
+}
+
+.field.is-floating-label .taginput .counter {
+  float: none;
+  text-align: right;
 }
 
 .field.is-floating-in-label {
@@ -13680,8 +13937,13 @@ label.panel-block:hover {
   margin-top: calc(3.25em / 2 - (1.5rem * 3 / 4) / 2);
 }
 
-.field.is-floating-in-label .taginput .taginput-container.is-focusable {
+.field.is-floating-in-label .taginput .taginput-container {
   padding-top: calc(3.25em / 2 - (1.5rem * 3 / 4) / 2 + (0.275em - 1px));
+}
+
+.field.is-floating-in-label .taginput .counter {
+  float: none;
+  text-align: right;
 }
 
 .field.is-floating-in-label.has-numberinput .b-numberinput .control .button {
@@ -13844,18 +14106,13 @@ label.panel-block:hover {
   border: 0;
 }
 
-.notification > .delete {
-  right: 0.5rem !important;
-  top: 0.5rem !important;
-}
-
 .modal.is-full-screen > .animation-content,
 .modal.is-full-screen > .animation-content > .modal-card {
   width: 100%;
   height: 100%;
   max-height: 100vh;
   margin: 0;
-  background-color: #ffffff;
+  background-color: whitesmoke;
 }
 
 .modal .animation-content {
@@ -14224,11 +14481,6 @@ label.panel-block:hover {
   outline: none;
   display: inline-flex;
   align-items: center;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 .b-radio.radio + .radio {
@@ -14411,6 +14663,10 @@ label.panel-block:hover {
   padding-left: 0.5em;
 }
 
+.b-radio.radio.button {
+  display: flex;
+}
+
 .b-radio.radio[disabled] {
   opacity: 0.5;
 }
@@ -14472,7 +14728,90 @@ label.panel-block:hover {
   font-size: 1.5rem;
 }
 
+.rate {
+  align-items: center;
+  display: flex;
+}
+
+.rate:not(:last-child) {
+  margin-bottom: 0.75rem;
+}
+
+.rate.is-spaced .rate-item:not(:last-child) {
+  margin-right: 0.25rem;
+}
+
+.rate.is-disabled .rate-item {
+  cursor: initial;
+}
+
+.rate.is-disabled .rate-item:hover {
+  transform: none;
+}
+
+.rate.is-rtl .rate-item {
+  order: 1;
+}
+
+.rate.is-rtl .rate-text {
+  margin-left: 0;
+  margin-right: 0.35rem;
+}
+
+.rate .rate-item {
+  cursor: pointer;
+  display: inline-flex;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.rate .rate-item:hover {
+  transform: scale(1.1);
+}
+
+.rate .rate-item.set-on .icon,
+.rate .rate-item.set-half .is-half {
+  color: #ffd83d;
+}
+
+.rate .rate-item.set-half .is-half {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.rate .icon {
+  color: #dbdbdb;
+  line-height: 1;
+  pointer-events: none;
+  width: inherit;
+}
+
+.rate .is-half > i {
+  position: absolute;
+  left: 0;
+}
+
+.rate .rate-text {
+  font-size: calc(1rem / 1.25);
+  margin-left: 0.35rem;
+}
+
+.rate .rate-text.is-small {
+  font-size: calc(0.75rem / 1.25);
+}
+
+.rate .rate-text.is-medium {
+  font-size: calc(1.25rem / 1.25);
+}
+
+.rate .rate-text.is-large {
+  font-size: calc(1.5rem / 1.25);
+}
+
 .select select {
+  text-rendering: auto !important;
   padding-right: 2.5em;
 }
 
@@ -14729,7 +15068,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   margin-top: 0;
   position: relative;
   flex-grow: 1;
-  flex-basis: 0;
+  flex-basis: 1em;
 }
 
 .b-steps .steps .step-items .step-item .step-link {
@@ -15042,8 +15381,6 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .b-steps .steps .step-items .step-item:not(:first-child),
 .b-steps .steps .step-items .step-item:only-child {
-  flex-basis: 1em;
-  flex-grow: 1;
   flex-shrink: 1;
 }
 
@@ -15429,11 +15766,6 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   display: inline-flex;
   align-items: center;
   position: relative;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 .switch + .switch {
@@ -16075,6 +16407,81 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   width: 100%;
 }
 
+.b-tabs.is-vertical {
+  display: flex;
+  flex-direction: row;
+}
+
+.b-tabs.is-vertical > .tabs ul {
+  flex-direction: column;
+  border-bottom-color: transparent;
+}
+
+.b-tabs.is-vertical > .tabs ul li {
+  width: 100%;
+}
+
+.b-tabs.is-vertical > .tabs ul li a {
+  justify-content: left;
+}
+
+.b-tabs.is-vertical > .tabs.is-boxed li a {
+  border-bottom-color: transparent !important;
+  border-right-color: #dbdbdb !important;
+  border-radius: 4px 0 0 4px;
+}
+
+.b-tabs.is-vertical > .tabs.is-boxed li.is-active a {
+  border-bottom-color: #dbdbdb !important;
+  border-right-color: transparent !important;
+}
+
+.b-tabs.is-vertical > .tabs.is-toggle li + li {
+  margin-left: 0;
+}
+
+.b-tabs.is-vertical > .tabs.is-toggle li:first-child a {
+  border-radius: 4px 4px 0 0;
+}
+
+.b-tabs.is-vertical > .tabs.is-toggle li:last-child a {
+  border-radius: 0 0 4px 4px;
+}
+
+.b-tabs.is-vertical > .tabs.is-fullwidth li a {
+  height: 100%;
+}
+
+.b-tabs.is-vertical > .tab-content {
+  flex-grow: 1;
+}
+
+.b-tabs.is-vertical.is-right {
+  flex-direction: row-reverse;
+}
+
+.b-tabs.is-vertical.is-right > .tabs ul a {
+  flex-direction: row-reverse;
+}
+
+.b-tabs.is-vertical.is-right > .tabs ul a .icon:first-child {
+  margin-right: 0;
+  margin-left: 0.5em;
+}
+
+.b-tabs.is-vertical.is-right > .tabs.is-boxed li a {
+  border-bottom-color: transparent !important;
+  border-right-color: transparent !important;
+  border-left-color: #dbdbdb !important;
+  border-radius: 0 4px 4px 0;
+}
+
+.b-tabs.is-vertical.is-right > .tabs.is-boxed li.is-active a {
+  border-bottom-color: #dbdbdb !important;
+  border-right-color: #dbdbdb !important;
+  border-left-color: transparent !important;
+}
+
 .tag .has-ellipsis {
   max-width: 10em;
   overflow: hidden;
@@ -16096,6 +16503,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .taginput .taginput-container > .tag,
 .taginput .taginput-container > .tags {
+  margin-left: 0.275rem;
   margin-bottom: calc(0.275em - 1px);
   font-size: 0.9em;
   height: 1.7em;
@@ -16111,11 +16519,6 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .taginput .taginput-container > .tag .tag.is-delete,
 .taginput .taginput-container > .tags .tag.is-delete {
   width: 1.7em;
-}
-
-.taginput .taginput-container > .tag:not(:last-child),
-.taginput .taginput-container > .tags:not(:last-child) {
-  margin-left: 0.275rem;
 }
 
 .taginput .taginput-container .autocomplete {
@@ -16151,6 +16554,10 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .timepicker .dropdown,
 .timepicker .dropdown-trigger {
   width: 100%;
+}
+
+.timepicker .dropdown.is-disabled {
+  opacity: 1;
 }
 
 .timepicker .dropdown-item,

@@ -22,6 +22,67 @@ class PrekesController extends Controller
      */
     public function index()
     {
+        $sara = array(
+            "Suknelė" => "Kleita",
+            "Palaidinė" => "Blūze",
+            "Kelnės" => "Bikses",
+            "Švarkas" => "Žakete",
+            "Sijonas" => "Svārki",
+            "Striukė" => "Jaka",
+            "Sport. kelnės" => "Sport. bikses",
+            "Sport.kelnės" => "Sport. bikses",
+            "Skara" => "Plecu lakats",
+            "Šalikas" => "Šalle",
+            "Rankinė" => "Soma",
+            "Tamprės" => "Leging",
+            "Tamprės" => "Legingi",
+            "Pižama" => "Pidžama",
+            "Paltas" => "Mētelis",
+            "Pirštinės" => "Cimdi",
+            "Pėdkelnės" => "Zeķubikses",
+            "Naktiniai" => "Naktskrekls",
+            "Kostiumas" => "Kostīms",
+            "Megztinis" => "Džemperis",
+            "Džemperis" => "Džemperis",
+            "Maud. kostiumas" => "Peldkostims",
+            "Maišelis" => "Maisiņi", //Latvija
+            //"Maišelis" => "Kilekott", //Estija
+            "Med. kelnės" => "Med. bikses",
+            "Liekninanti palaidinė" => "Blūze figūras korekcijai",
+            "Liemenėlė" => "Krūšturis",
+            "Vyr. kelnaitės" => "Vīr. apakšbikses",
+            "Kelnaitės" => "Apakšbikses",
+            "Vyr. kojinės" => "Vīr. zeķes",
+            "Vaik. kojinė" => "Bēr. zeķes",
+            "Kojinės" => "Zeķes",
+            "Džinsai" => "Džinsi",
+            "Chalatas" => "Halāts",
+            "Sport. kostiumas" => "Sport. kostīms",
+            "Sarafanas" => "Sarafāns",
+            "Med. švarkas" => "Med. jaka",
+            "Med.Švarkas" => "Med. jaka", 
+            "Komplektas" => "Komplekts",
+            "Liemenė" => "Veste",
+            "Diržas" => "Siksna",
+            "Vyr. pėdutės" => "Vīr. pēdiņas",
+            "Kepurė" => "Cepure",
+            "Šortai" => "Šorti",
+            "Suknelė + apatinukas" => "Kleita + apakšveļa",
+            "Kombinezonas" => "Kombinezons",
+            "Skarelė" => "Lakats",
+            "Pėdutės" => "Pēdiņas",
+            "Med. chalatas" => "Med. halāts",
+            "Rankšluostis" => "Dvielis",
+            "Vyr. džinsai" => "Vīr. džinsi",
+            "Skraistė" => "Plecu lakats",
+            "Vaik. kelnaitės" => "Bēr. apakšbikses",
+            "Lietpaltis" => "Mētelis",
+            "Chalat.+ naktiniai" => "Halāts + naktskrekls",
+            "Vaik. kojinės" => "Bēr. zeķes",
+            "Vyr.kelnaitės" => "Vīr. apakšbikses",
+            "Naktinai" => "Naktskrekls"
+        ); 
+
         $failas = "prekes.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
@@ -36,6 +97,7 @@ class PrekesController extends Controller
         $rikiuoti = $key[4];
         $gam = $key[5];
         $pirk = $key[6];
+        $grupe = $key[8];
 
         //aprasom tuscius masyvus
         $list = array();
@@ -46,8 +108,19 @@ class PrekesController extends Controller
         $akcija['lietuva'] = array();
         $akcija['latvija'] = array();
 
+        $grupes_likutis = array();
+        $grupes_pardavimai = array();
+
         $pardavimas = array();
         $likutis = array();
+
+        //jei nera ivestas paieskos raktazodis, nustatyti pradini
+        //jei grupe nustatyta, tada galima buti ir tuscias
+        if($grupe == 0){
+            if($keyword == ""){
+                $keyword = "DM-";
+            }
+        }
 
         //paieska, paprasta, isplestine
         if($key[7]){
@@ -73,22 +146,46 @@ class PrekesController extends Controller
             }
         }
 
-
-        //Sudedam norimus pardavimus
-        if($gam && $pirk){
-            $res = Pardavimai::query()
-            ->where('preke', 'like', $pa)->get();
-        }else if($gam && !$pirk){
-            $res = Pardavimai::query()
-            ->where('preke', 'like', $pa)
-            ->where('registras', 'GAM')->get();
-        }else if(!$gam && $pirk){
-            $res = Pardavimai::query()
-            ->where('preke', 'like', $pa)
-            ->where('registras', 'PIRK')->get();
-        }else{
-            $res = array();
+        //reikia issitraukti GRUPIU pavadinimus, pagal kuriuos galetų filtruoti
+        //traukiam grupes pagal LT, pagal LV gali buti papildomai
+        //Geriausia butu susivesti tas grupes i masyva ir viskas.
+        $gru = Likutis::select('pavadinimas', 'salis')->where('kiekis','>','0')->distinct()->get();
+        foreach ( $gru as $value ) {
+            if(!in_array($value, $grupes_likutis) && $value['salis'] == 1){
+                $grupes_likutis[] = $value['pavadinimas'];
+            }
         }
+
+        $gru = Pardavimai::select('pavadinimas','registras', 'salis')->where('kiekis','>','0')->distinct()->get();
+        foreach ( $gru as $value ) {
+            if($value['registras'] != "PERS"){
+            if(!in_array($value, $grupes_pardavimai) && $value['salis'] == 1){
+                $grupes_pardavimai[] = $value['pavadinimas'];
+            }
+        }
+        }
+
+        //reik sujungti pardavimus su likutis
+        $grupes = $grupes_likutis + $grupes_pardavimai;
+        $grupes = array_unique($grupes);
+
+        sort($grupes);
+        $g = array('Paieška tarp grupių išjungta');
+        //i masyvo pradzia idedam grupes isjungima
+        $grupes = $g + $grupes;
+
+        $query_p = Pardavimai::query();
+        $query_p->where('preke', 'like', $pa);
+        if($grupe != 0 && $grupes[$grupe]){
+            $query_p->whereIn('pavadinimas',[$grupes[$grupe], $sara[$grupes[$grupe]]]);
+        }
+        $query_p->when(!$gam, function ($q) {
+            return $q->where('registras', "GAM");
+        });
+        $query_p->when(!$pirk, function ($q) {
+            return $q->where('registras', "PIRK");
+        });
+        $res = $query_p->get();
 
         foreach ( $res as $value ) {
             if($value['sandelis'] != "TELSIAI" && $value['sandelis'] != "3333"){
@@ -97,8 +194,11 @@ class PrekesController extends Controller
                         $pardavimas[$value['preke']][] = $value;
                     }else{
                         $a = explode("-", $value['preke']);
-                        $ne = $a[0]."-".$a[1]."-";
-                        $pardavimas[$ne][] = $value;
+                    if(count($a) >= 3){$ne = $a[0]."-".$a[1]."-";}
+                    if(count($a) == 2){$ne = $a[0]."-";}
+                    //turi veikti tik su BROK
+                    if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
+                    $pardavimas[$ne][] = $value;
                     }
                 }
             }
@@ -177,20 +277,18 @@ class PrekesController extends Controller
         }
 
         //Sudedam norimus likucius
-        if($gam && $pirk){
-            $re = Likutis::query()
-            ->where('preke', 'like', $pa)->get();
-        }else if($gam && !$pirk){
-            $re = Likutis::query()
-            ->where('preke', 'like', $pa)
-            ->where('registras', 'GAM')->get();
-        }else if(!$gam && $pirk){
-            $re = Likutis::query()
-            ->where('preke', 'like', $pa)
-            ->where('registras', 'PIRK')->get();
-        }else{
-            $re = array();
+        $query_p = Likutis::query();
+        $query_p->where('preke', 'like', $pa);
+        if($grupe != 0 && $grupes[$grupe]){
+            $query_p->whereIn('pavadinimas',[$grupes[$grupe], $sara[$grupes[$grupe]]]);
         }
+        $query_p->when(!$gam, function ($q) {
+            return $q->where('registras', "GAM");
+        });
+        $query_p->when(!$pirk, function ($q) {
+            return $q->where('registras', "PIRK");
+        });
+        $re = $query_p->get();
 
         
         foreach ( $re as $value ) {
@@ -200,8 +298,11 @@ class PrekesController extends Controller
                     $likutis[$value['preke']][] = $value;
                 }else{
                     $a = explode("-", $value['preke']);
-                    $ne = $a[0]."-".$a[1]."-";
-                    $likutis[$ne][] = $value;
+                if(count($a) >= 3){$ne = $a[0]."-".$a[1]."-";}
+                if(count($a) == 2){$ne = $a[0]."-";}
+                //turi veikti tik su BROK
+                if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
+                $likutis[$ne][] = $value;
                 }
             }
         }
@@ -216,6 +317,7 @@ class PrekesController extends Controller
                 $sarasas[] = $idx;
             }
             $likuciai[$idx]['pavadinimas'] = $value[0]['pavadinimas'];
+            $likuciai[$idx]['kaina'] = $value[0]['kaina'];
             //aprasom kintamaji, kad galetu patikrinti ar jau yra viduje sandelis
             $likuciai[$idx]['LT'] = array();
             $likuciai[$idx]['LV'] = array();
@@ -299,6 +401,7 @@ class PrekesController extends Controller
             if (array_key_exists($valu, $likuciai)) {
                 $new[$i]['likutis'] = $likuciai[$valu];
                 $new[$i]['pavadinimas'] = $likuciai[$valu]['pavadinimas'];
+                $new[$i]['kaina'] = $likuciai[$valu]['kaina'];
             }else{
                 $new[$i]['likutis'] = array();
             }
@@ -317,11 +420,25 @@ class PrekesController extends Controller
             }
             //akciju uzkelimas
             if (array_key_exists($valu, $akcija['lietuva'])) {
+                /*$aa = 1000; $bb = 0;
+                foreach($akcija['lietuva'][$valu] as $ii => $va){
+                    if($aa > $va['kaina']){
+                        $aa = $va['kaina'];
+                        $bb = $ii;
+                    }
+                }*/
                 $new[$i]['akcija_lt'] = $akcija['lietuva'][$valu];
             }else{
                 $new[$i]['akcija_lt'] = array();
             }
             if (array_key_exists($valu, $akcija['latvija'])) {
+               /* $aa = 1000; $bb = 0;
+                foreach($akcija['lietuva'][$valu] as $ii => $va){
+                    if($aa > $va['kaina']){
+                        $aa = $va['kaina'];
+                        $bb = $ii;
+                    }
+                }*/
                 $new[$i]['akcija_lv'] = $akcija['latvija'][$valu];
             }else{
                 $new[$i]['akcija_lv'] = array();
@@ -379,12 +496,16 @@ class PrekesController extends Controller
             'status' => true,
             'paieska' => $keyword,
             'salis' =>  $arr,
+            'grupes' => $grupes,
+            'grupes_lv' => $sara,
+            'grupe' => $grupe,
             'sarasas' => $new,
             'rikiuoti' => $rikiuoti,
             'gam' => $gam,
             'pirk' => $pirk,
             'paieska_big' => $key[7],
             'viso' => $viso,
+            //'likutis' => $pardavimas
         ]);
 
     }
@@ -416,12 +537,13 @@ class PrekesController extends Controller
         $gam = $data['gam'];
         $pirk = $data['pirk'];
         $paieska_big= $data['paieska_big'];
+        $grupe= $data['grupe'];
 
         $failas = "prekes.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
 
-        $eilute = strtoupper($ieskoti)."||".$lt."||".$lv."||".$ee."||".$rikiuoti."||".$gam."||".$pirk."||".$paieska_big;
+        $eilute = strtoupper($ieskoti)."||".$lt."||".$lv."||".$ee."||".$rikiuoti."||".$gam."||".$pirk."||".$paieska_big."||".$grupe;
 
         $myfile = fopen(storage_path($failas), "w");
         fwrite($myfile, $eilute);

@@ -4,20 +4,30 @@
       <card-component title="VALDYMAS" icon="account-multiple">
           <b-field label="PAIEŠKA:" horizontal>
             <b-input placeholder="Paieška..." type="search" @keyup.native.enter="paieska_post" 
-            required v-model="ieskoti" icon="magnify"></b-input> 
+             v-model="ieskoti" icon="magnify"></b-input> 
             <b-button native-type="submit" type="is-primary" @click="paieska_post" outlined>Ieškoti</b-button>
         </b-field>
         <b-field label=" " horizontal>
             <b-checkbox :value="false" v-model="paieska_big" type="is-info">Aktivuoti išplėstinę paieška</b-checkbox>
         </b-field>
+        <b-field label=" " horizontal>
+            <b-checkbox :value="false" v-model="kainos" @change='kainos_keisti' type="is-info">Rodyti kainas ir Akcijas</b-checkbox>
+        </b-field>
+        <b-field label="GRUPĖ:" horizontal>
+            <b-select placeholder="Pasirinkite..." @change.native="keisti_grupe" v-model="grupe" icon="earth" expanded>
+              <option v-for="(grup, index) in grupes" :key="index" :value="index">
+                {{ grup }} - {{ grupes_lv[grup] }}
+              </option>
+            </b-select>
+          </b-field>
         <b-field label="RODYTI:" horizontal>
           <b-button :type="rodyti_lt ? 'is-primary' : 'is-dark'" @click="change_lt()">LIETUVA</b-button>
           <b-button :type="rodyti_lv ? 'is-warning' : 'is-dark'" @click="change_lv()">LATVIJA</b-button>
           <b-button :type="rodyti_ee ? 'is-danger' : 'is-dark'" @click="change_ee()">ESTIJA</b-button>
         </b-field>
         <b-field label="PREKĖS:" horizontal>
-          <b-button :type="gam ? 'is-info' : 'is-dark'" @click="change_gam()">GAMYBA</b-button>
-          <b-button :type="pirk ? 'is-info' : 'is-dark'" @click="change_pirk()">PIRKIMAI</b-button>
+          <b-button :type="pirk? 'is-info' : 'is-dark'" @click="change_pirk()">GAMYBA</b-button>
+          <b-button :type="gam ? 'is-info' : 'is-dark'" @click="change_gam()">PIRKIMAI</b-button>
         </b-field>
         <b-field label="GRUPAVIMAS:" horizontal>
           <b-switch type="is-info" v-model="rikiuoti" @click.native="switch_post">
@@ -29,7 +39,7 @@
         <div  id="printMe">
         <div class="columns">
           <div class="column has-text-centered has-text-weight-bold">
-            Rasta: {{sarasas.length }}<br>{{paieska}}
+            Rasta: {{sarasas.length }}<br>{{paieska}}<br>{{grupes[grupe]}}
             </div>
         </div>
         <b-table
@@ -50,6 +60,9 @@
           </b-table-column>
           <b-table-column v-else  label="Preke"  field="preke" sortable>
                 {{ props.row.preke }}
+          </b-table-column> 
+          <b-table-column :visible='kainos'  label="Kaina"  field="kaina">
+                {{ props.row.kaina }}
           </b-table-column> 
           <b-table-column :visible='rodyti_lt' :style="{'background-color': 'greenyellow'}" label="LT likučiai" field="likutis.LT_viso" sortable>
                 {{props.row.likutis && props.row.likutis.LT_viso}}
@@ -230,6 +243,9 @@ export default {
      rodyti_lv: true,
      rodyti_ee: true,
       sarasas: [],
+      grupes: [],
+      grupes_lv: [],
+      grupe: '',
       defaultOpenedDetails: [1],
       ieskoti: '',
       paieska: '',
@@ -239,7 +255,8 @@ export default {
      pirk: true,
      mobile_card: true,
      paieska_big: false,
-     viso: []
+     viso: [],
+     kainos: false
     }
   },
   computed: {
@@ -252,6 +269,9 @@ export default {
       // Pass the element id here
       this.mobile_card = false;
       this.$htmlToPaper('printMe');
+    },
+    kainos_keisti(){
+      this.kainos = !this.kainos;
     },
     change_gam(){
       this.gam = !this.gam
@@ -278,6 +298,12 @@ export default {
       this.ieskoti = this.paieska
       this.paieska_post()
     },
+    keisti_grupe(){
+      if(!this.ieskoti){
+      this.ieskoti = this.paieska;
+      }
+      this.paieska_post();
+    },
     switch_post(){
       //this.rikiuotic = !this.rikiuoti;
       if(this.ieskoti == ""){
@@ -292,7 +318,8 @@ export default {
             rikiuoti: this.rikiuoti,
             gam: this.gam,
             pirk: this.pirk,
-            paieska_big: this.paieska_big
+            paieska_big: this.paieska_big,
+            grupe: this.grupe
             })
           .then(response => {
             this.getData()
@@ -306,7 +333,6 @@ export default {
           })
     },
     paieska_post(){
-      if(this.ieskoti != ""){
         axios
           .post(`/prekes/store`, {
             ieskoti: this.ieskoti,
@@ -316,7 +342,8 @@ export default {
             rikiuoti: "1",
             gam: this.gam,
             pirk: this.pirk,
-            paieska_big: this.paieska_big
+            paieska_big: this.paieska_big,
+            grupe: this.grupe
             })
           .then(response => {
             console.log(response.data.data)
@@ -330,13 +357,6 @@ export default {
               queue: false
             })
           })
-        }else{
-          this.$buefy.toast.open({
-              message: `KLAIDA: įveskite paieškos raktažodį!`,
-              type: 'is-danger',
-              queue: false
-            })
-          }
     },
   getData () {
       this.isLoading = true
@@ -349,6 +369,9 @@ export default {
         this.viso = response.data.viso;
 
         this.rikiuoti = response.data.rikiuoti ? false : true;
+        this.grupes = response.data.grupes;
+        this.grupes_lv = response.data.grupes_lv;
+        this.grupe = response.data.grupe;
 
         this.gam = response.data.gam ? true : false
         this.pirk = response.data.pirk ? true : false
