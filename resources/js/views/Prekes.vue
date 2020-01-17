@@ -55,10 +55,7 @@
         @details-open="(row, index) => $buefy.toast.open(`Išskleista ${ row.preke } prekė!`)"
         :loading="isLoading">
         <template slot-scope="props">
-          <b-table-column v-if="props.row.pavadinimas == 'Liemenė'" :style="{'background-color': 'gold'}"  label="Preke"  field="preke" sortable>
-                {{ props.row.preke }}
-          </b-table-column>
-          <b-table-column v-else  label="Preke"  field="preke" sortable>
+          <b-table-column label="Preke"  field="preke" sortable>
                 {{ props.row.preke }}
           </b-table-column> 
           <b-table-column :visible='kainos'  label="Kaina"  field="kaina">
@@ -206,6 +203,7 @@
           </div>
         </section>
         <template slot="footer">
+            <th> </th>
             <th> </th>
             <th> </th>
             <th v-show='rodyti_lt'>{{ viso.lt_lik }}</th>

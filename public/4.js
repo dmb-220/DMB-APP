@@ -279,8 +279,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -905,42 +903,23 @@ var render = function() {
                         key: "default",
                         fn: function(props) {
                           return [
-                            props.row.pavadinimas == "Liemenė"
-                              ? _c(
-                                  "b-table-column",
-                                  {
-                                    style: { "background-color": "gold" },
-                                    attrs: {
-                                      label: "Preke",
-                                      field: "preke",
-                                      sortable: ""
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(props.row.preke) +
-                                        "\n        "
-                                    )
-                                  ]
+                            _c(
+                              "b-table-column",
+                              {
+                                attrs: {
+                                  label: "Preke",
+                                  field: "preke",
+                                  sortable: ""
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(props.row.preke) +
+                                    "\n        "
                                 )
-                              : _c(
-                                  "b-table-column",
-                                  {
-                                    attrs: {
-                                      label: "Preke",
-                                      field: "preke",
-                                      sortable: ""
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(props.row.preke) +
-                                        "\n        "
-                                    )
-                                  ]
-                                ),
+                              ]
+                            ),
                             _vm._v(" "),
                             _c(
                               "b-table-column",
@@ -1732,6 +1711,8 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("template", { slot: "footer" }, [
+                      _c("th"),
+                      _vm._v(" "),
                       _c("th"),
                       _vm._v(" "),
                       _c("th"),

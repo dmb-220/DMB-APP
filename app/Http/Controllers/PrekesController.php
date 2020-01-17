@@ -420,25 +420,11 @@ class PrekesController extends Controller
             }
             //akciju uzkelimas
             if (array_key_exists($valu, $akcija['lietuva'])) {
-                /*$aa = 1000; $bb = 0;
-                foreach($akcija['lietuva'][$valu] as $ii => $va){
-                    if($aa > $va['kaina']){
-                        $aa = $va['kaina'];
-                        $bb = $ii;
-                    }
-                }*/
                 $new[$i]['akcija_lt'] = $akcija['lietuva'][$valu];
             }else{
                 $new[$i]['akcija_lt'] = array();
             }
             if (array_key_exists($valu, $akcija['latvija'])) {
-               /* $aa = 1000; $bb = 0;
-                foreach($akcija['lietuva'][$valu] as $ii => $va){
-                    if($aa > $va['kaina']){
-                        $aa = $va['kaina'];
-                        $bb = $ii;
-                    }
-                }*/
                 $new[$i]['akcija_lv'] = $akcija['latvija'][$valu];
             }else{
                 $new[$i]['akcija_lv'] = array();
