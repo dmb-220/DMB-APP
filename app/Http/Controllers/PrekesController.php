@@ -43,7 +43,6 @@ class PrekesController extends Controller
             "Naktiniai" => "Naktskrekls",
             "Kostiumas" => "Kostīms",
             "Megztinis" => "Džemperis",
-            "Džemperis" => "Džemperis",
             "Maud. kostiumas" => "Peldkostims",
             "Maišelis" => "Maisiņi", //Latvija
             //"Maišelis" => "Kilekott", //Estija
@@ -76,7 +75,6 @@ class PrekesController extends Controller
             "Vyr. džinsai" => "Vīr. džinsi",
             "Skraistė" => "Plecu lakats",
             "Vaik. kelnaitės" => "Bēr. apakšbikses",
-            "Lietpaltis" => "Mētelis",
             "Chalat.+ naktiniai" => "Halāts + naktskrekls",
             "Vaik. kojinės" => "Bēr. zeķes",
             "Vyr.kelnaitės" => "Vīr. apakšbikses",
@@ -129,23 +127,6 @@ class PrekesController extends Controller
             $pa = "{$keyword}%";
         }
 
-        //Akciju sukelimas i masyva
-        $akc = Akcijos::query()
-            ->where('preke', 'like', $pa)->get();
-        
-        foreach ( $akc as $value ) {
-            //sudeti i masyva tik tuos kurie galioja
-            //Ikeliant atfiltruojku, tai cia kaip ir nebereiketu
-            if(strtotime($value['galioja_iki']) > strtotime(date("Y-m-d H:i:s"))){
-                if($value['salis'] == "1"){
-                    $akcija['lietuva'][$value['preke']][] = $value;
-                }
-                if($value['salis'] == "2"){
-                    $akcija['latvija'][$value['preke']][] = $value;
-                }
-            }
-        }
-
         //reikia issitraukti GRUPIU pavadinimus, pagal kuriuos galetų filtruoti
         //traukiam grupes pagal LT, pagal LV gali buti papildomai
         //Geriausia butu susivesti tas grupes i masyva ir viskas.
@@ -173,6 +154,30 @@ class PrekesController extends Controller
         $g = array('Paieška tarp grupių išjungta');
         //i masyvo pradzia idedam grupes isjungima
         $grupes = $g + $grupes;
+
+        //Akciju sukelimas i masyva
+        $que = Akcijos::query();
+        /*$que->when($keyword != "", function ($q) {
+            return $q->where('preke', 'like', $pa);
+        });*/
+        $que->where('preke', 'like', $pa);
+        if($grupe != 0 && $grupes[$grupe]){
+            $que->whereIn('pavadinimas',[$grupes[$grupe], $sara[$grupes[$grupe]]]);
+            }              
+        $akc = $que->get();
+        
+        foreach ( $akc as $value ) {
+            //sudeti i masyva tik tuos kurie galioja
+            //Ikeliant atfiltruojku, tai cia kaip ir nebereiketu
+            if(strtotime($value['galioja_iki']) > strtotime(date("Y-m-d H:i:s"))){
+                if($value['salis'] == "1"){
+                    $akcija['lietuva'][$value['preke']][] = $value;
+                }
+                if($value['salis'] == "2"){
+                    $akcija['latvija'][$value['preke']][] = $value;
+                }
+            }
+        }
 
         $query_p = Pardavimai::query();
         $query_p->where('preke', 'like', $pa);
