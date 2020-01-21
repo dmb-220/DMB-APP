@@ -12,7 +12,7 @@
     "devDependencies": {
         "@mdi/font": "^3.9.97",
         "axios": "^0.19.1",
-        "buefy": "^0.8.9",
+        "buefy": "^0.8.10",
         "bulma": "^0.7.5",
         "chart.js": "^2.9.3",
         "cross-env": "^5.1",
@@ -23,7 +23,7 @@
         "node-sass": "^4.13.1",
         "numeral": "^2.0.6",
         "resolve-url-loader": "2.3.1",
-        "sass": "^1.24.4",
+        "sass": "^1.25.0",
         "sass-loader": "^7.3.1",
         "vue": "^2.6.11",
         "vue-chartjs": "^3.5.0",

@@ -1715,7 +1715,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("th"),
                       _vm._v(" "),
-                      _c("th"),
+                      _c("th", { attrs: { visible: _vm.kainos } }),
                       _vm._v(" "),
                       _c(
                         "th",

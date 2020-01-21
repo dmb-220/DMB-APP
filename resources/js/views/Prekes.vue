@@ -205,7 +205,7 @@
         <template slot="footer">
             <th> </th>
             <th> </th>
-            <th> </th>
+            <th :visible='kainos'> </th>
             <th v-show='rodyti_lt'>{{ viso.lt_lik }}</th>
             <th v-show='rodyti_lt'>{{ viso.lt_pard }}</th>
             <th v-show='rodyti_lv'>{{ viso.lv_lik }}</th>

@@ -78,7 +78,9 @@ class PrekesController extends Controller
             "Chalat.+ naktiniai" => "Halāts + naktskrekls",
             "Vaik. kojinės" => "Bēr. zeķes",
             "Vyr.kelnaitės" => "Vīr. apakšbikses",
-            "Naktinai" => "Naktskrekls"
+            "Naktinai" => "Naktskrekls",
+            "Džemperis" => "Džemperis",
+            "Lietpaltis" => "Mētelis",
         ); 
 
         $failas = "prekes.txt";
