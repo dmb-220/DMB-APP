@@ -205,14 +205,15 @@
         <template slot="footer">
             <th> </th>
             <th> </th>
-            <th :visible='kainos'> </th>
+            <th v-show='kainos'> </th>
             <th v-show='rodyti_lt'>{{ viso.lt_lik }}</th>
             <th v-show='rodyti_lt'>{{ viso.lt_pard }}</th>
             <th v-show='rodyti_lv'>{{ viso.lv_lik }}</th>
             <th v-show='rodyti_lv'>{{ viso.lv_pard }}</th>
             <th v-show='rodyti_ee'>{{ viso.ee_lik }}</th>
             <th v-show='rodyti_ee'>{{ viso.ee_pard }}</th>
-            <th> </th>
+            <th>{{ viso.lt_lik + viso.lv_lik + viso.ee_lik }}</th>
+            <th>{{ viso.lt_pard + viso.lv_pard + viso.ee_pard }}</th>
         </template>
       </b-table>
       </div>
@@ -268,6 +269,7 @@ export default {
       this.mobile_card = false;
       this.$htmlToPaper('printMe');
     },
+   
     kainos_keisti(){
       this.kainos = !this.kainos;
     },

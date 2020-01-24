@@ -279,6 +279,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -1715,7 +1716,16 @@ var render = function() {
                       _vm._v(" "),
                       _c("th"),
                       _vm._v(" "),
-                      _c("th", { attrs: { visible: _vm.kainos } }),
+                      _c("th", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.kainos,
+                            expression: "kainos"
+                          }
+                        ]
+                      }),
                       _vm._v(" "),
                       _c(
                         "th",
@@ -1807,7 +1817,23 @@ var render = function() {
                         [_vm._v(_vm._s(_vm.viso.ee_pard))]
                       ),
                       _vm._v(" "),
-                      _c("th")
+                      _c("th", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.viso.lt_lik + _vm.viso.lv_lik + _vm.viso.ee_lik
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("th", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.viso.lt_pard +
+                              _vm.viso.lv_pard +
+                              _vm.viso.ee_pard
+                          )
+                        )
+                      ])
                     ])
                   ],
                   2
