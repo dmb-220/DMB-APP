@@ -11,7 +11,7 @@
             <b-checkbox :value="false" v-model="paieska_big" type="is-info">Aktivuoti išplėstinę paieška</b-checkbox>
         </b-field>
         <b-field label=" " horizontal>
-            <b-checkbox :value="false" v-model="kainos" @change='kainos_keisti' type="is-info">Rodyti kainas ir Akcijas</b-checkbox>
+            <b-checkbox :value="false" v-model="kainos" @change='kainos_keisti' type="is-info">Rodyti kaina</b-checkbox>
         </b-field>
         <b-field label="GRUPĖ:" horizontal>
             <b-select placeholder="Pasirinkite..." @change.native="keisti_grupe" v-model="grupe" icon="earth" expanded>
