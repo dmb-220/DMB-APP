@@ -684,7 +684,7 @@ var render = function() {
                       expression: "kainos"
                     }
                   },
-                  [_vm._v("Rodyti kainas ir Akcijas")]
+                  [_vm._v("Rodyti kaina")]
                 )
               ],
               1

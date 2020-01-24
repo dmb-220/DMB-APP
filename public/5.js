@@ -248,8 +248,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       rodyti_lv: true,
       rodyti_ee: false,
       rodo: '',
-      data: '2019-11-01',
-      nr: '2019038',
+      data: '2020',
+      nr: '202000',
       date: ''
     };
   },
