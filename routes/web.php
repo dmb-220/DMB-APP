@@ -109,6 +109,17 @@ Route::prefix('/prekes')->group(function () {
 });
 
 /*
+ * Akcijos
+ * */ 
+Route::prefix('/akcijos')->group(function () {
+    Route::get('', 'AkcijosController@index');
+    Route::get('{akcijos}', 'AkcijosController@show');
+    Route::post('store', 'AkcijosController@store');
+    Route::patch('{akcijos}', 'AkcijosController@update');
+    Route::delete('{akcijos}/destroy', 'AkcijosController@destroy');
+});
+
+/*
  * Clients management
  * */
 Route::prefix('/clients')->group(function () {
