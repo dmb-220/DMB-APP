@@ -41,6 +41,10 @@ class AkcijosController extends Controller
             $pa = "{$keyword}%";
         }
 
+        //reikia pasiziuret kuriose valstybese yra
+        //sutraukti musu gamybos, jei tik nori 
+
+
         $group = array();
 
         /*$group = DB::table('akcijos')
