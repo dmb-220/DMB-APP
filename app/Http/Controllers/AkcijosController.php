@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Akcijos;
+use App\Likutis;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AkcijosController extends Controller
 {
@@ -20,7 +22,78 @@ class AkcijosController extends Controller
      */
     public function index()
     {
-        //
+
+        $failas = "akcijos.txt";
+        $directory  = "app/";
+        $failas = $directory.$failas;
+
+        $myfile = fopen(storage_path($failas), "r");
+        $key = fread($myfile,filesize(storage_path($failas)));
+        fclose($myfile);
+
+        $key = explode("||", $key);
+        $keyword = $key[0];
+
+        //paieska, paprasta, isplestine
+        if($key[1]){
+            $pa = "%{$keyword}%";
+        }else{
+            $pa = "{$keyword}%";
+        }
+
+        $group = array();
+
+        /*$group = DB::table('akcijos')
+        ->join('likutis', function ($q) use($pa) {
+            $q->on('akcijos.preke', '=', 'likutis.preke')
+            ->where('akcijos.preke', 'like', $pa);
+        })
+	    ->select('akcijos.*', 'likutis.kaina as pradine')
+	    ->get();*/
+
+        $query_p = Akcijos::query();
+        $query_p->where('preke', 'like', $pa);
+        $re = $query_p->get();
+
+        foreach ( $re as $value ) {
+            if(strtotime($value['galioja_iki']) > strtotime(date("Y-m-d H:i:s"))){
+            if (!array_key_exists($value['preke'], $group)){
+                $group[$value['preke']] = $value;
+            }else{
+               if(floatval($value['kaina']) < floatval($group[$value['preke']]['kaina'])){
+                    $group[$value['preke']] = $value;
+                }
+            }
+        }
+        }
+         //Sudedam norimus likucius
+         $query = Likutis::query();
+         $query->where('preke', 'like', $pa);
+         $re = $query->get();
+
+         foreach ( $re as $value ) {
+            if (array_key_exists($value['preke'], $group)){
+                if (!array_key_exists('pradine', $group[$value['preke']])){
+                    $group[$value['preke']]['pradine'] = $value['kaina'];
+                }
+        }else{
+            if (!array_key_exists($value['preke'], $group)){
+                $group[$value['preke']]['kaina'] = 'NERA';
+                $group[$value['preke']]['preke'] = $value['preke'];
+                $group[$value['preke']]['pradine'] = $value['kaina'];
+            }
+            //$group[$value['preke']] = $value;
+        }
+        }
+
+        $group = array_values($group);
+    
+        return response()->json([
+            'status' => true,
+            'paieska' => $keyword,
+            'data' => $group,
+            'paieska_big' => $key[1],
+        ]);
     }
 
     /**
@@ -41,7 +114,23 @@ class AkcijosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $ieskoti = $data['ieskoti'];
+        $paieska_big= $data['paieska_big'];
+
+        $failas = "akcijos.txt";
+        $directory  = "app/";
+        $failas = $directory.$failas;
+
+        $eilute = strtoupper($ieskoti)."||".$paieska_big;
+
+        $myfile = fopen(storage_path($failas), "w");
+        fwrite($myfile, $eilute);
+        fclose($myfile);
+
+        return response()->json([
+            'status' => true,
+        ]);
     }
 
     /**

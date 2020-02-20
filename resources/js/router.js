@@ -48,6 +48,11 @@ export default new Router({
       name: 'kelione',
       component: () => import('./views/Keliones.vue')
     },
+    {
+      path: '/akcijos',
+      name: 'kakcijos',
+      component: () => import('./views/Akcijos.vue')
+    },
 
     
 

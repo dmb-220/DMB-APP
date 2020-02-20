@@ -54,6 +54,11 @@ export default {
             icon: 'cart',
           },
           {
+            to: '/akcijos',
+            label: 'Akcijos',
+            icon: 'list',
+          },
+          {
             to: '/sandeliai',
             label: 'Sandeliai',
             icon: 'archive',
