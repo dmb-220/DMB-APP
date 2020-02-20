@@ -19,6 +19,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
+
+
 Route::resource('testas', 'TestasController');
 
 Route::resource('sandeliai', 'SandeliaiController');
@@ -121,3 +128,4 @@ Route::prefix('/user')->group(function () {
     Route::patch('', 'CurrentUserController@update');
     Route::patch('/password', 'CurrentUserController@updatePassword');
 });
+

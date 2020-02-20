@@ -11,7 +11,7 @@
             <b-checkbox :value="false" v-model="paieska_big" type="is-info">Aktivuoti išplėstinę paieška</b-checkbox>
         </b-field>
         <b-field label=" " horizontal>
-            <b-checkbox :value="false" v-model="kainos" @change='kainos_keisti' type="is-info">Rodyti kainas ir Akcijas</b-checkbox>
+            <b-checkbox :value="false" v-model="kainos" @change='kainos_keisti' type="is-info">Rodyti kaina</b-checkbox>
         </b-field>
         <b-field label="GRUPĖ:" horizontal>
             <b-select placeholder="Pasirinkite..." @change.native="keisti_grupe" v-model="grupe" icon="earth" expanded>
@@ -55,10 +55,7 @@
         @details-open="(row, index) => $buefy.toast.open(`Išskleista ${ row.preke } prekė!`)"
         :loading="isLoading">
         <template slot-scope="props">
-          <b-table-column v-if="props.row.pavadinimas == 'Liemenė'" :style="{'background-color': 'gold'}"  label="Preke"  field="preke" sortable>
-                {{ props.row.preke }}
-          </b-table-column>
-          <b-table-column v-else  label="Preke"  field="preke" sortable>
+          <b-table-column label="Preke"  field="preke" sortable>
                 {{ props.row.preke }}
           </b-table-column> 
           <b-table-column :visible='kainos'  label="Kaina"  field="kaina">
@@ -208,13 +205,15 @@
         <template slot="footer">
             <th> </th>
             <th> </th>
+            <th v-show='kainos'> </th>
             <th v-show='rodyti_lt'>{{ viso.lt_lik }}</th>
             <th v-show='rodyti_lt'>{{ viso.lt_pard }}</th>
             <th v-show='rodyti_lv'>{{ viso.lv_lik }}</th>
             <th v-show='rodyti_lv'>{{ viso.lv_pard }}</th>
             <th v-show='rodyti_ee'>{{ viso.ee_lik }}</th>
             <th v-show='rodyti_ee'>{{ viso.ee_pard }}</th>
-            <th> </th>
+            <th>{{ viso.lt_lik + viso.lv_lik + viso.ee_lik }}</th>
+            <th>{{ viso.lt_pard + viso.lv_pard + viso.ee_pard }}</th>
         </template>
       </b-table>
       </div>
@@ -270,6 +269,7 @@ export default {
       this.mobile_card = false;
       this.$htmlToPaper('printMe');
     },
+   
     kainos_keisti(){
       this.kainos = !this.kainos;
     },

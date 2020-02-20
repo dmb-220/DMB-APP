@@ -2,12 +2,11 @@
 
 namespace App;
 
-use App\Processors\AvatarProcessor;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends \TCG\Voyager\Models\User
 {
     use Notifiable;
 
@@ -37,12 +36,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function file() {
-        return $this->belongsTo(File::class);
-    }
-
-    public function getAvatarAttribute() {
-        return AvatarProcessor::get($this);
-    }
 }

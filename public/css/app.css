@@ -16986,7 +16986,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 }
 
 .b-tooltip:before {
-  z-index: 889;
+  z-index: 39;
 }
 
 .b-tooltip:after {
@@ -16997,7 +16997,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   font-size: 0.85rem;
   font-weight: 400;
   box-shadow: 0px 1px 2px 1px rgba(0, 1, 0, 0.2);
-  z-index: 888;
+  z-index: 38;
   white-space: nowrap;
 }
 
