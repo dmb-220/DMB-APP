@@ -56,7 +56,7 @@ export default {
           {
             to: '/akcijos',
             label: 'Akcijos',
-            icon: 'list',
+            icon: 'bell-ring',
           },
           {
             to: '/sandeliai',
@@ -66,7 +66,7 @@ export default {
           {
             to: '/kelione',
             label: 'Kelionės lapas',
-            icon: 'archive',
+            icon: 'bus',
           },
         ],
         'VEIKSMAI',

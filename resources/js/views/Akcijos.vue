@@ -37,17 +37,29 @@
             <b-table-column label="Preke" field="preke" sortable>
               {{ props.row.preke }}
             </b-table-column>
-            <b-table-column label="Akcija" field="kaina" sortable>
+            <b-table-column v-if="!props.row.kaina" :style="{'background-color': 'tomato'}" label="Akcija" field="kainaS" sortable>
+              {{ props.row.kaina }}
+            </b-table-column>
+            <b-table-column v-else label="Akcija" field="kaina" sortable>
               {{ props.row.kaina }}
             </b-table-column>
             <b-table-column label="Kaina" field="pradine" sortable>
               {{ props.row.pradine }}
             </b-table-column>
-            <b-table-column label="Galioja IKI" field="galioja_iki" sortable>
-              <b>{{ props.row.galioja_iki }}</b>
+            <b-table-column v-if="props.row.sandelis" :style="{'background-color': 'GoldenRod'}" label="Sandelis" field="sandelis" sortable>
+              {{ props.row.sandelis }}
             </b-table-column>
-            <b-table-column label="Kortele" field="akcija" sortable>
-              <b>{{ props.row.akcija }}</b>
+            <b-table-column v-else label="Sandelis" field="sandelis" sortable>
+              {{ props.row.sandelis }}
+            </b-table-column>
+            <b-table-column :style="{'background-color': 'GoldenRod'}" label="Galioja IKI" field="galioja_iki" sortable>
+              {{ props.row.galioja_iki && props.row.galioja_iki.split()[0] }}
+            </b-table-column>
+            <b-table-column :style="{'background-color': 'GoldenRod'}" label="Kortele" field="akcija" sortable>
+              {{ props.row.akcija }}
+            </b-table-column>
+            <b-table-column :style="{'background-color': 'GoldenRod'}" label="Sandeliui" field="sandeliui" sortable>
+              {{ props.row.sandeliui }}
             </b-table-column>
           </template>  
 

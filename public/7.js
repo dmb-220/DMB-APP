@@ -89,6 +89,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'akcijos',
@@ -342,23 +354,42 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          _c(
-                            "b-table-column",
-                            {
-                              attrs: {
-                                label: "Akcija",
-                                field: "kaina",
-                                sortable: ""
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n          " +
-                                  _vm._s(props.row.kaina) +
-                                  "\n        "
+                          !props.row.kaina
+                            ? _c(
+                                "b-table-column",
+                                {
+                                  style: { "background-color": "tomato" },
+                                  attrs: {
+                                    label: "Akcija",
+                                    field: "kainaS",
+                                    sortable: ""
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n          " +
+                                      _vm._s(props.row.kaina) +
+                                      "\n        "
+                                  )
+                                ]
                               )
-                            ]
-                          ),
+                            : _c(
+                                "b-table-column",
+                                {
+                                  attrs: {
+                                    label: "Akcija",
+                                    field: "kaina",
+                                    sortable: ""
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n          " +
+                                      _vm._s(props.row.kaina) +
+                                      "\n        "
+                                  )
+                                ]
+                              ),
                           _vm._v(" "),
                           _c(
                             "b-table-column",
@@ -378,28 +409,101 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
+                          props.row.sandelis
+                            ? _c(
+                                "b-table-column",
+                                {
+                                  style: { "background-color": "GoldenRod" },
+                                  attrs: {
+                                    label: "Sandelis",
+                                    field: "sandelis",
+                                    sortable: ""
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n          " +
+                                      _vm._s(props.row.sandelis) +
+                                      "\n        "
+                                  )
+                                ]
+                              )
+                            : _c(
+                                "b-table-column",
+                                {
+                                  attrs: {
+                                    label: "Sandelis",
+                                    field: "sandelis",
+                                    sortable: ""
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n          " +
+                                      _vm._s(props.row.sandelis) +
+                                      "\n        "
+                                  )
+                                ]
+                              ),
+                          _vm._v(" "),
                           _c(
                             "b-table-column",
                             {
+                              style: { "background-color": "GoldenRod" },
                               attrs: {
                                 label: "Galioja IKI",
                                 field: "galioja_iki",
                                 sortable: ""
                               }
                             },
-                            [_c("b", [_vm._v(_vm._s(props.row.galioja_iki))])]
+                            [
+                              _vm._v(
+                                "\n          " +
+                                  _vm._s(
+                                    props.row.galioja_iki &&
+                                      props.row.galioja_iki.split()[0]
+                                  ) +
+                                  "\n        "
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _c(
                             "b-table-column",
                             {
+                              style: { "background-color": "GoldenRod" },
                               attrs: {
                                 label: "Kortele",
                                 field: "akcija",
                                 sortable: ""
                               }
                             },
-                            [_c("b", [_vm._v(_vm._s(props.row.akcija))])]
+                            [
+                              _vm._v(
+                                "\n          " +
+                                  _vm._s(props.row.akcija) +
+                                  "\n        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-column",
+                            {
+                              style: { "background-color": "GoldenRod" },
+                              attrs: {
+                                label: "Sandeliui",
+                                field: "sandeliui",
+                                sortable: ""
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n          " +
+                                  _vm._s(props.row.sandeliui) +
+                                  "\n        "
+                              )
+                            ]
                           )
                         ]
                       }

@@ -44,6 +44,8 @@ class AkcijosController extends Controller
         //reikia pasiziuret kuriose valstybese yra
         //sutraukti musu gamybos, jei tik nori 
 
+        //Kai itraukiam akcija kodui, ir ieskom maziausia kaina, reikia ziureti ar turi konkretu sandseli, jei turi isskirti atskirai
+
 
         $group = array();
 
@@ -53,10 +55,22 @@ class AkcijosController extends Controller
             ->where('akcijos.preke', 'like', $pa);
         })
 	    ->select('akcijos.*', 'likutis.kaina as pradine')
-	    ->get();*/
+        ->get();*/
+        $directory  = "app/CSV_DATA/";
+        $failas = $directory."likutis.csv";
+        
+        if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                $r[] = $duomenys[0];
+                $rr[$duomenys[0]] = array();
+            }
+            fclose($handle);
+        }
 
         $query_p = Akcijos::query();
-        $query_p->where('preke', 'like', $pa);
+        $query_p->whereIn('preke', $r);
+        //$query_p->where('preke', $r[$i]);
         $re = $query_p->get();
 
         foreach ( $re as $value ) {
@@ -65,14 +79,21 @@ class AkcijosController extends Controller
                 $group[$value['preke']] = $value;
             }else{
                if(floatval($value['kaina']) < floatval($group[$value['preke']]['kaina'])){
+                   if($value['sandelis'] == ""){
                     $group[$value['preke']] = $value;
+                   }else{
+                    $group[$value['preke']."-||SAND"] = $value;  
+                   }
                 }
             }
         }
         }
+
+        $group = array_merge($rr, $group);
+
          //Sudedam norimus likucius
          $query = Likutis::query();
-         $query->where('preke', 'like', $pa);
+         $query->whereIn('preke', $r);
          $re = $query->get();
 
          foreach ( $re as $value ) {
@@ -80,9 +101,12 @@ class AkcijosController extends Controller
                 if (!array_key_exists('pradine', $group[$value['preke']])){
                     $group[$value['preke']]['pradine'] = $value['kaina'];
                 }
+                if (!array_key_exists('preke', $group[$value['preke']])){
+                    $group[$value['preke']]['preke'] = $value['preke'];
+                }
         }else{
             if (!array_key_exists($value['preke'], $group)){
-                $group[$value['preke']]['kaina'] = 'NERA';
+                $group[$value['preke']]['kaina'] = 'NĖRA';
                 $group[$value['preke']]['preke'] = $value['preke'];
                 $group[$value['preke']]['pradine'] = $value['kaina'];
             }
@@ -90,6 +114,7 @@ class AkcijosController extends Controller
         }
         }
 
+        ksort($group);
         $group = array_values($group);
     
         return response()->json([
