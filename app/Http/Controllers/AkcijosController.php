@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Akcijos;
 use App\Likutis;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\DB;
 
 class AkcijosController extends Controller
 {
@@ -68,14 +68,46 @@ class AkcijosController extends Controller
             fclose($handle);
         }
 
-        $query_p = Akcijos::query();
-        $query_p->whereIn('preke', $r);
-        //$query_p->where('preke', $r[$i]);
-        $re = $query_p->get();
+        $re = Akcijos::query()->whereIn('preke', $r)->get();
 
         foreach ( $re as $value ) {
+            $value = $value->toArray();
             if(strtotime($value['galioja_iki']) > strtotime(date("Y-m-d H:i:s"))){
-            if (!array_key_exists($value['preke'], $group)){
+                $group[$value['preke']]['preke'] = $value['preke'];
+                //$group[$value['preke']]['pavadinimas'] = $value['pavadinimas'];
+                if($value['salis'] == 1){
+                    if (array_key_exists('LT', $group[$value['preke']])){
+                        if(floatval($value['kaina']) < floatval($group[$value['preke']]['LT']['kaina'])){
+                            if($value['sandelis'] == ""){
+                                $group[$value['preke']]['LT'] = $value;
+                               }else{
+                                $group[$value['preke']."-||SAND"]['LT'] = $value;  
+                                $group[$value['preke']."-||SAND"]['preke'] = $value['preke'];
+                            }
+                        }
+                    }else{
+                        $group[$value['preke']]['LT'] = $value;
+                    }
+                }
+                if($value['salis'] == 2){
+                    if (array_key_exists('LV', $group[$value['preke']])){
+                        if(floatval($value['kaina']) < floatval($group[$value['preke']]['LV']['kaina'])){
+                            if($value['sandelis'] == ""){
+                                $group[$value['preke']]['LV'] = $value;
+                               }else{
+                                $group[$value['preke']."-||SAND"]['LV'] = $value;  
+                                $group[$value['preke']."-||SAND"]['preke'] = $value['preke'];
+                            }
+                        }
+                    }else{
+                        $group[$value['preke']]['LV'] = $value;
+                    }
+                }
+
+            /*if (!array_key_exists($value['preke'], $group)){
+                //reikia netikrinti ar egzistuoja
+                //nes tada ideda viena, o antro po to nebeideda
+                //pvz LT, LV
                 $group[$value['preke']] = $value;
             }else{
                if(floatval($value['kaina']) < floatval($group[$value['preke']]['kaina'])){
@@ -85,18 +117,17 @@ class AkcijosController extends Controller
                     $group[$value['preke']."-||SAND"] = $value;  
                    }
                 }
-            }
+            }*/
         }
         }
 
         $group = array_merge($rr, $group);
 
          //Sudedam norimus likucius
-         $query = Likutis::query();
-         $query->whereIn('preke', $r);
-         $re = $query->get();
+         $re = Likutis::query()->whereIn('preke', $r)->get();
 
          foreach ( $re as $value ) {
+            $value = $value->toArray();
             if (array_key_exists($value['preke'], $group)){
                 if (!array_key_exists('pradine', $group[$value['preke']])){
                     $group[$value['preke']]['pradine'] = $value['kaina'];
@@ -104,16 +135,31 @@ class AkcijosController extends Controller
                 if (!array_key_exists('preke', $group[$value['preke']])){
                     $group[$value['preke']]['preke'] = $value['preke'];
                 }
-        }else{
-            if (!array_key_exists($value['preke'], $group)){
-                $group[$value['preke']]['kaina'] = 'NĖRA';
-                $group[$value['preke']]['preke'] = $value['preke'];
-                $group[$value['preke']]['pradine'] = $value['kaina'];
-            }
-            //$group[$value['preke']] = $value;
-        }
-        }
 
+                $group[$value['preke']]['sandeliai'][$value['sandelis']]['name'] = $value['sandelis'];
+                $group[$value['preke']]['sandeliai'][$value['sandelis']]['likutis'] = $value['kiekis'];
+
+                if (!array_key_exists('likutis', $group[$value['preke']])){
+                    $group[$value['preke']]['likutis'] = $value['kiekis'];
+                }else{
+                    $group[$value['preke']]['likutis'] = $group[$value['preke']]['likutis'] + $value['kiekis'];
+                }
+        }else{
+            $group[$value['preke']]['kaina'] = 'NĖRA';
+            $group[$value['preke']]['preke'] = $value['preke'];
+            $group[$value['preke']]['pradine'] = $value['kaina'];
+
+            $group[$value['preke']]['sandeliai'][] = $value['sandelis'];
+
+            if (!array_key_exists('likutis', $group[$value['preke']])){
+                $group[$value['preke']]['likutis'] = $value['kiekis'];
+            }else{
+                $group[$value['preke']]['likutis'] = $group[$value['preke']]['likutis'] + $value['kiekis'];
+            }
+        }
+        $group[$value['preke']]['sandeliai'] = array_values($group[$value['preke']]['sandeliai']);
+        }
+        
         ksort($group);
         $group = array_values($group);
     
@@ -121,6 +167,7 @@ class AkcijosController extends Controller
             'status' => true,
             'paieska' => $keyword,
             'data' => $group,
+            //'likutis' => $re,
             'paieska_big' => $key[1],
         ]);
     }

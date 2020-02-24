@@ -31,37 +31,65 @@
           hoverable
           :narrowed="isNarrowed"
           :data="pardavimai"
+          :opened-detailed="defaultOpenedDetails"
+          detailed
           sort-icon="arrow-up"
+          detail-key="preke"
+          @details-open="(row, index) => $buefy.toast.open(`Išskleista ${ row.preke } prekė!`)"
           :loading="isLoading">
           <template slot-scope="props">
             <b-table-column label="Preke" field="preke" sortable>
               {{ props.row.preke }}
             </b-table-column>
-            <b-table-column v-if="!props.row.kaina" :style="{'background-color': 'tomato'}" label="Akcija" field="kainaS" sortable>
-              {{ props.row.kaina }}
-            </b-table-column>
-            <b-table-column v-else label="Akcija" field="kaina" sortable>
-              {{ props.row.kaina }}
-            </b-table-column>
             <b-table-column label="Kaina" field="pradine" sortable>
               {{ props.row.pradine }}
             </b-table-column>
-            <b-table-column v-if="props.row.sandelis" :style="{'background-color': 'GoldenRod'}" label="Sandelis" field="sandelis" sortable>
-              {{ props.row.sandelis }}
+            <b-table-column label="Likutis" field="likutis" sortable>
+              {{ props.row.likutis }}
             </b-table-column>
-            <b-table-column v-else label="Sandelis" field="sandelis" sortable>
-              {{ props.row.sandelis }}
+
+            <b-table-column  :style="{'background-color': 'tomato'}" label="LT Akcija" field="LT.kaina" sortable>
+              {{ props.row.LT && props.row.LT.kaina }}
             </b-table-column>
-            <b-table-column :style="{'background-color': 'GoldenRod'}" label="Galioja IKI" field="galioja_iki" sortable>
-              {{ props.row.galioja_iki && props.row.galioja_iki.split()[0] }}
+            <b-table-column v-if="props.row.LT && props.row.LT.sandelis" :style="{'background-color': 'GoldenRod'}" label="LT Sandelis" field="LT.sandelis" sortable>
+              {{ props.row.LT && props.row.LT.sandelis }}
             </b-table-column>
-            <b-table-column :style="{'background-color': 'GoldenRod'}" label="Kortele" field="akcija" sortable>
-              {{ props.row.akcija }}
+            <b-table-column v-else label="LT Sandelis" field="LT.sandelis" sortable>
+              {{ props.row.LT && props.row.LT.sandelis }}
             </b-table-column>
-            <b-table-column :style="{'background-color': 'GoldenRod'}" label="Sandeliui" field="sandeliui" sortable>
-              {{ props.row.sandeliui }}
+            <b-table-column :style="{'background-color': 'GoldenRod'}" label="LT Kortele" field="LT.akcija" sortable>
+              {{ props.row.LT && props.row.LT.akcija }}
             </b-table-column>
-          </template>  
+
+            <b-table-column :style="{'background-color': 'tomato'}" label="LV Akcija" field="LV.kaina" sortable>
+              {{ props.row.LV && props.row.LV.kaina }}
+            </b-table-column>
+            <b-table-column v-if="props.row.LV && props.row.LV.sandelis" :style="{'background-color': 'GoldenRod'}" label="LV Sandelis" field="LV.sandelis" sortable>
+              {{ props.row.LV && props.row.LV.sandelis }}
+            </b-table-column>
+            <b-table-column v-else label="LV Sandelis" field="LV.sandelis" sortable>
+              {{ props.row.LV && props.row.LV.sandelis }}
+            </b-table-column>
+            <b-table-column :style="{'background-color': 'GoldenRod'}" label="LV Kortele" field="LV.akcija" sortable>
+              {{ props.row.LV && props.row.LV.akcija }}
+            </b-table-column>
+          </template>
+
+          <template slot="detail" slot-scope="props">
+            <b-table
+            :data="props.row.sandeliai"
+            default-sort-direction="asc"
+            default-sort="sandelis">
+            <template slot-scope="props">
+                <b-table-column field="name" label="Sandelis" sortable>
+                    <small>{{ props.row.name }}</small>
+                </b-table-column>
+                <b-table-column field="likutis" label="Likutis" sortable>
+                    <small>{{ props.row.likutis }}</small>
+                </b-table-column>
+            </template>
+            </b-table>
+        </template>
 
           <section class="section" slot="empty">
             <div class="content has-text-centered">
