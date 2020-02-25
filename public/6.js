@@ -280,6 +280,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -291,6 +305,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      isPaginated: true,
+      paginationPosition: 'bottom',
+      perPage: 50,
       isLoading: false,
       rodyti_lt: true,
       rodyti_lv: true,
@@ -878,9 +895,71 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c(
+                  "b-field",
+                  { attrs: { grouped: "", "group-multiline": "" } },
+                  [
+                    _c(
+                      "b-select",
+                      {
+                        attrs: { disabled: !_vm.isPaginated },
+                        model: {
+                          value: _vm.perPage,
+                          callback: function($$v) {
+                            _vm.perPage = $$v
+                          },
+                          expression: "perPage"
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "50" } }, [
+                          _vm._v("50 įrašų puslapyje")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "100" } }, [
+                          _vm._v("100 įrašų puslapyje")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "150" } }, [
+                          _vm._v("150 įrašų puslapyje")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "200" } }, [
+                          _vm._v("200 įrašų puslapyje")
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "control is-flex" },
+                      [
+                        _c(
+                          "b-switch",
+                          {
+                            model: {
+                              value: _vm.isPaginated,
+                              callback: function($$v) {
+                                _vm.isPaginated = $$v
+                              },
+                              expression: "isPaginated"
+                            }
+                          },
+                          [_vm._v("Puslapiai")]
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
                   "b-table",
                   {
                     attrs: {
+                      paginated: _vm.isPaginated,
+                      "per-page": _vm.perPage,
+                      "pagination-position": _vm.paginationPosition,
                       "mobile-cards": _vm.mobile_card,
                       bordered: "",
                       hoverable: "",
