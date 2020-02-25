@@ -23,7 +23,7 @@
         <div  id="printMe">
           <div class="columns">
             <div class="column has-text-centered has-text-weight-bold">
-              Rasta: {{pardavimai.length }}<br>{{ sandelis }} - {{file}}
+              Rasta: {{pardavimai.length }}<br>{{ sandelis }}
             </div>
           </div>
           <b-table
