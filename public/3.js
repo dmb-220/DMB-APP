@@ -287,6 +287,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -297,6 +311,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      isPaginated: true,
+      paginationPosition: 'bottom',
+      perPage: 50,
       file: null,
       failas: '',
       isLoading: false,
@@ -317,17 +334,18 @@ __webpack_require__.r(__webpack_exports__);
     print: function print() {
       // Pass the element id here
       this.mobile_card = false;
+      this.isPaginated = false;
       this.$htmlToPaper('printMe');
     },
     file_info: function file_info(value) {
-      this.getData(); //console.log(value)
-
+      //this.getData()
+      //console.log(value)
       this.failas = value.name;
     },
     paieska_post: function paieska_post() {
       var _this = this;
 
-      if (this.file != "") {
+      if (this.failas != "") {
         axios.post("/akcijos/store", {
           sandelis: this.sandelis,
           failas: this.failas
@@ -691,20 +709,77 @@ var render = function() {
                       "\n          Rasta: " + _vm._s(_vm.pardavimai.length)
                     ),
                     _c("br"),
-                    _vm._v(
-                      _vm._s(_vm.sandelis) +
-                        " - " +
-                        _vm._s(_vm.file) +
-                        "\n        "
-                    )
+                    _vm._v(_vm._s(_vm.sandelis) + "\n        ")
                   ]
                 )
               ]),
               _vm._v(" "),
               _c(
+                "b-field",
+                { attrs: { grouped: "", "group-multiline": "" } },
+                [
+                  _c(
+                    "b-select",
+                    {
+                      attrs: { disabled: !_vm.isPaginated },
+                      model: {
+                        value: _vm.perPage,
+                        callback: function($$v) {
+                          _vm.perPage = $$v
+                        },
+                        expression: "perPage"
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "50" } }, [
+                        _vm._v("50 įrašų puslapyje")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "100" } }, [
+                        _vm._v("100 įrašų puslapyje")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "150" } }, [
+                        _vm._v("150 įrašų puslapyje")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "200" } }, [
+                        _vm._v("200 įrašų puslapyje")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "control is-flex" },
+                    [
+                      _c(
+                        "b-switch",
+                        {
+                          model: {
+                            value: _vm.isPaginated,
+                            callback: function($$v) {
+                              _vm.isPaginated = $$v
+                            },
+                            expression: "isPaginated"
+                          }
+                        },
+                        [_vm._v("Puslapiai")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
                 "b-table",
                 {
                   attrs: {
+                    paginated: _vm.isPaginated,
+                    "per-page": _vm.perPage,
+                    "pagination-position": _vm.paginationPosition,
                     "mobile-cards": _vm.mobile_card,
                     bordered: "",
                     hoverable: "",
@@ -812,7 +887,7 @@ var render = function() {
                                   _c(
                                     "ul",
                                     _vm._l(props.row.sandelis, function(idx) {
-                                      return _c("li", [
+                                      return _c("li", { key: idx }, [
                                         _vm._v(
                                           "\n              " +
                                             _vm._s(idx.pavadinimas) +

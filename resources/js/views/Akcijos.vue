@@ -26,7 +26,21 @@
               Rasta: {{pardavimai.length }}<br>{{ sandelis }}
             </div>
           </div>
+          <b-field grouped group-multiline>
+            <b-select v-model="perPage" :disabled="!isPaginated">
+                <option value="50">50 įrašų puslapyje</option>
+                <option value="100">100 įrašų puslapyje</option>
+                <option value="150">150 įrašų puslapyje</option>
+                <option value="200">200 įrašų puslapyje</option>
+            </b-select>
+            <div class="control is-flex">
+                <b-switch v-model="isPaginated">Puslapiai</b-switch>
+            </div>
+        </b-field>
           <b-table
+          :paginated="isPaginated"
+          :per-page="perPage"
+          :pagination-position="paginationPosition"
           :mobile-cards="mobile_card"
           bordered
           hoverable
@@ -51,7 +65,7 @@
 
             <b-table-column v-if="props.row.sandelis && props.row.sandelis.length > 0" :style="{'background-color': 'tomato', 'vertical-align': 'middle'}" label="Sandeliui" field="sandelis" sortable>
               <ul>
-                <li v-for="idx in props.row.sandelis">
+                <li v-for="idx in props.row.sandelis" v-bind:key="idx">
                   {{ idx.pavadinimas }} - {{ idx.kaina }}
                   </li>
                 </ul>
@@ -130,6 +144,9 @@ export default {
   components: { CardComponent, FilePickerAkcijos  },
   data () {
     return {
+      isPaginated: true,
+      paginationPosition: 'bottom',
+      perPage: 50,
     file: null,
     failas: '',
      isLoading: false,
@@ -152,15 +169,16 @@ export default {
     print() {
       // Pass the element id here
       this.mobile_card = false;
+      this.isPaginated = false;
       this.$htmlToPaper('printMe');
     },
     file_info (value) {
-      this.getData()
+      //this.getData()
       //console.log(value)
       this.failas = value.name;
     },
     paieska_post(){
-      if(this.file != ""){
+      if(this.failas != ""){
         axios
           .post(`/akcijos/store`, {
             sandelis: this.sandelis,
