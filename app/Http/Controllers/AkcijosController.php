@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Akcijos;
 use App\Likutis;
 use Illuminate\Http\Request;
+
+use App\File;
+use App\Http\Requests\FileUploadRequest;
+use Illuminate\Support\Facades\Storage;
 //use Illuminate\Support\Facades\DB;
 
 class AkcijosController extends Controller
@@ -32,19 +36,20 @@ class AkcijosController extends Controller
         fclose($myfile);
 
         $key = explode("||", $key);
-        $keyword = $key[0];
+        $sandelis = $key[0];
+        $failas_csv = $key[1];
 
         //paieska, paprasta, isplestine
-        if($key[1]){
+        /*if($key[1]){
             $pa = "%{$keyword}%";
         }else{
             $pa = "{$keyword}%";
-        }
+        }*/
 
         $group = array();
         //nuskaitom failą su kodais, kuriems reikia akciju
         $directory  = "app/Akcijos/";
-        $failas = $directory."likutis.csv";
+        $failas = $directory.$failas_csv;
         $flag = true;
         if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
             while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
@@ -150,10 +155,20 @@ class AkcijosController extends Controller
             $group[$value['preke']]['sandeliai'][$value['sandelis']]['likutis'] = $value['kiekis'];
 
             //suskaiciuojam likucius
-            if (!array_key_exists('likutis', $group[$value['preke']])){
-                $group[$value['preke']]['likutis'] = $value['kiekis'];
+            if(!$sandelis){
+                if (!array_key_exists('likutis', $group[$value['preke']])){
+                    $group[$value['preke']]['likutis'] = $value['kiekis'];
+                }else{
+                    $group[$value['preke']]['likutis'] = $group[$value['preke']]['likutis'] + $value['kiekis'];
+                }
             }else{
-                $group[$value['preke']]['likutis'] = $group[$value['preke']]['likutis'] + $value['kiekis'];
+                if($value['sandelis'] == $sandelis){
+                    if (!array_key_exists('likutis', $group[$value['preke']])){
+                        $group[$value['preke']]['likutis'] = $value['kiekis'];
+                    }else{
+                        $group[$value['preke']]['likutis'] = $group[$value['preke']]['likutis'] + $value['kiekis'];
+                    }
+                }
             }
 
             $group[$value['preke']]['sandeliai'] = array_values($group[$value['preke']]['sandeliai']);
@@ -164,10 +179,10 @@ class AkcijosController extends Controller
     
         return response()->json([
             'status' => true,
-            'paieska' => $keyword,
+            'sandelis' => $sandelis,
             'data' => $group,
             //'likutis' => $re,
-            'paieska_big' => $key[1],
+            'failas' => $failas_csv,
         ]);
     }
 
@@ -181,6 +196,29 @@ class AkcijosController extends Controller
         //
     }
 
+    public function store_akcija(Request $request){
+        $uploadedFile = $request->file('file');
+
+        if (!$uploadedFile->isValid()) {
+            abort( 422 );}
+
+        $storePath = $uploadedFile->storeAs('Akcijos', $uploadedFile->getClientOriginalName());
+        $file = new File;
+
+        $file->name = $uploadedFile->getClientOriginalName();
+        $file->file = $storePath;
+        $file->mime = $uploadedFile->getMimeType();
+        $file->size = $uploadedFile->getSize();
+
+        $file->save();
+
+        return response()->json([
+            'status' => true,
+            'data' => $file,
+            'upload' => $uploadedFile
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -190,14 +228,14 @@ class AkcijosController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $ieskoti = $data['ieskoti'];
-        $paieska_big= $data['paieska_big'];
+        $sandelis = $data['sandelis'];
+        $fail = $data['failas'];
 
         $failas = "akcijos.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
 
-        $eilute = strtoupper($ieskoti)."||".$paieska_big;
+        $eilute = strtoupper($sandelis)."||".$fail;
 
         $myfile = fopen(storage_path($failas), "w");
         fwrite($myfile, $eilute);

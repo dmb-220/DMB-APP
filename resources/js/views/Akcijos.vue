@@ -1,20 +1,21 @@
 <template>
     <section class="section is-main-section">
       <card-component title="VALDYMAS" icon="finance">
-        <b-field position="is-centered">
-            <b-input placeholder="Paieška..."
-              @keyup.native.enter="paieska_post" 
-              v-model="ieskoti"
+        <b-field  label="CSV failas:" horizontal>
+          <file-picker-akcijos @file-updated="file_info" v-model="file"/>
+        </b-field>
+        <b-field label="Sandelis:" horizontal>
+            <b-input placeholder="Sandelis likučiams"
+              v-model="sandelis"
               type="search"
               icon="magnify"
               expanded>
             </b-input>
-            <p class="control">
-                <button class="button is-primary" @click="paieska_post">Ieškoti</button>
-            </p>
         </b-field>
-        <b-field>
-            <b-checkbox :value="false" v-model="paieska_big" type="is-info">Aktivuoti išplėstinę paieška</b-checkbox>
+        <b-field  label=" " horizontal>
+        <p class="control">
+          <button class="button is-sark" @click="paieska_post">Ieškoti</button>
+        </p>
         </b-field>
         </card-component>
 
@@ -22,7 +23,7 @@
         <div  id="printMe">
           <div class="columns">
             <div class="column has-text-centered has-text-weight-bold">
-              Rasta: {{pardavimai.length }}
+              Rasta: {{pardavimai.length }}<br>{{ sandelis }} 
             </div>
           </div>
           <b-table
@@ -122,20 +123,20 @@
 
 <script>
 import CardComponent from '@/components/CardComponent'
+import FilePickerAkcijos from '@/components/FilePickerAkcijos'
+
 export default {
   name: 'akcijos',
-  components: { CardComponent },
+  components: { CardComponent, FilePickerAkcijos  },
   data () {
     return {
+    file: null,
      isLoading: false,
      defaultOpenedDetails: [1],
      showDetailIcon: false,
      isNarrowed: true,
      pardavimai: [],
-     ieskoti: '',
-     paieska: '',
-     salis: '',
-     paieska_big: false,
+     sandelis: '',
      mobile_card: true,
     }
   },
@@ -152,35 +153,16 @@ export default {
       this.mobile_card = false;
       this.$htmlToPaper('printMe');
     },
-
-    switch_post(){
-      //this.rikiuotic = !this.rikiuoti;
-      if(this.ieskoti == ""){
-        this.ieskoti = this.paieska;
-      }
-        axios
-          .post(`/akcijos/store`, {
-            ieskoti: this.ieskoti,
-            paieska_big: this.paieska_big,
-            })
-          .then(response => {
-            console.log(response.data)
-            this.getData()
-        })
-          .catch( err => {
-            this.$buefy.toast.open({
-              message: `Error: ${err.message}`,
-              type: 'is-danger',
-              queue: false
-            })
-          })
+    file_info (value) {
+      this.getData()
+      console.log(value)
     },
     paieska_post(){
-      if(this.ieskoti != ""){
+      if(this.file != ""){
         axios
           .post(`/akcijos/store`, {
-            ieskoti: this.ieskoti,
-            paieska_big: this.paieska_big,
+            sandelis: this.sandelis,
+            failas: this.file,
             })
           .then(response => {
             this.getData()
@@ -194,7 +176,7 @@ export default {
           })
         }else{
           this.$buefy.toast.open({
-              message: `KLAIDA: įveskite paieškos raktažodį!`,
+              message: `KLAIDA: Nepasirinktas failas!`,
               type: 'is-danger',
               queue: false
             })
@@ -207,9 +189,9 @@ export default {
       .then(response => {
         this.isLoading = false
         this.pardavimai = response.data.data;
-        this.paieska = response.data.paieska;
 
-        this.paieska_big = response.data.paieska_big ? true : false
+        this.sandelis = response.data.sandelis;
+        this.file = response.data.failas;
       })
       .catch( err => {
             this.isLoading = false

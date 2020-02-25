@@ -115,6 +115,7 @@ Route::prefix('/akcijos')->group(function () {
     Route::get('', 'AkcijosController@index');
     Route::get('{akcijos}', 'AkcijosController@show');
     Route::post('store', 'AkcijosController@store');
+    Route::post('store_akcija', 'AkcijosController@store_akcija');
     Route::patch('{akcijos}', 'AkcijosController@update');
     Route::delete('{akcijos}/destroy', 'AkcijosController@destroy');
 });
