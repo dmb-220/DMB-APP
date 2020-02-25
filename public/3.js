@@ -298,6 +298,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       file: null,
+      failas: '',
       isLoading: false,
       defaultOpenedDetails: [1],
       showDetailIcon: false,
@@ -319,8 +320,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$htmlToPaper('printMe');
     },
     file_info: function file_info(value) {
-      this.getData();
-      console.log(value);
+      this.getData(); //console.log(value)
+
+      this.failas = value.name;
     },
     paieska_post: function paieska_post() {
       var _this = this;
@@ -328,8 +330,9 @@ __webpack_require__.r(__webpack_exports__);
       if (this.file != "") {
         axios.post("/akcijos/store", {
           sandelis: this.sandelis,
-          failas: this.file
+          failas: this.failas
         }).then(function (response) {
+          //console.log(response.data.data)
           _this.getData();
         })["catch"](function (err) {
           _this.$buefy.toast.open({
@@ -353,8 +356,7 @@ __webpack_require__.r(__webpack_exports__);
       this.axios.get('/akcijos').then(function (response) {
         _this2.isLoading = false;
         _this2.pardavimai = response.data.data;
-        _this2.sandelis = response.data.sandelis;
-        _this2.file = response.data.failas;
+        _this2.sandelis = response.data.sandelis; //this.file = response.data.failas;
       })["catch"](function (err) {
         _this2.isLoading = false;
 
@@ -689,7 +691,12 @@ var render = function() {
                       "\n          Rasta: " + _vm._s(_vm.pardavimai.length)
                     ),
                     _c("br"),
-                    _vm._v(_vm._s(_vm.sandelis) + " \n        ")
+                    _vm._v(
+                      _vm._s(_vm.sandelis) +
+                        " - " +
+                        _vm._s(_vm.file) +
+                        "\n        "
+                    )
                   ]
                 )
               ]),

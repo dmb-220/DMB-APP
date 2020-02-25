@@ -23,7 +23,7 @@
         <div  id="printMe">
           <div class="columns">
             <div class="column has-text-centered has-text-weight-bold">
-              Rasta: {{pardavimai.length }}<br>{{ sandelis }} 
+              Rasta: {{pardavimai.length }}<br>{{ sandelis }} - {{file}}
             </div>
           </div>
           <b-table
@@ -131,6 +131,7 @@ export default {
   data () {
     return {
     file: null,
+    failas: '',
      isLoading: false,
      defaultOpenedDetails: [1],
      showDetailIcon: false,
@@ -155,16 +156,18 @@ export default {
     },
     file_info (value) {
       this.getData()
-      console.log(value)
+      //console.log(value)
+      this.failas = value.name;
     },
     paieska_post(){
       if(this.file != ""){
         axios
           .post(`/akcijos/store`, {
             sandelis: this.sandelis,
-            failas: this.file,
+            failas: this.failas,
             })
           .then(response => {
+            //console.log(response.data.data)
             this.getData()
         })
           .catch( err => {
@@ -191,7 +194,7 @@ export default {
         this.pardavimai = response.data.data;
 
         this.sandelis = response.data.sandelis;
-        this.file = response.data.failas;
+        //this.file = response.data.failas;
       })
       .catch( err => {
             this.isLoading = false

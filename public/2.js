@@ -591,6 +591,7 @@ __webpack_require__.r(__webpack_exports__);
     file_info: function file_info(value) {
       this.getData();
       console.log(value);
+      this.failas = value.name;
     },
     getData: function getData() {
       var _this = this;

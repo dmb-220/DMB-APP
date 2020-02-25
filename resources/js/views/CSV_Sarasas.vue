@@ -108,6 +108,7 @@ export default {
     file_info (value) {
       this.getData()
       console.log(value)
+      this.failas = value.name;
     },
     getData () {
       this.isLoading = true
