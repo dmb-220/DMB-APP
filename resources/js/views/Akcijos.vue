@@ -213,7 +213,7 @@ export default {
         this.pardavimai = response.data.data;
 
         this.sandelis = response.data.sandelis;
-        this.file = response.data.failas;
+        this.failas = response.data.failas;
       })
       .catch( err => {
             this.isLoading = false
