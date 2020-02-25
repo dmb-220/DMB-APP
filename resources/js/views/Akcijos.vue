@@ -63,28 +63,29 @@
               {{ props.row.likutis }}
             </b-table-column>
 
-            <b-table-column v-if="props.row.sandelis && props.row.sandelis.length > 0" :style="{'background-color': 'tomato', 'vertical-align': 'middle'}" label="Sandeliui" field="sandelis" sortable>
+            <b-table-column v-if="props.row.sandelis && props.row.sandelis.length > 0" :style="{'background-color': 'tomato', 'vertical-align': 'middle'}" 
+              label="Sandeliui" field="sandelis">
               <ul>
                 <li v-for="idx in props.row.sandelis" v-bind:key="idx">
                   {{ idx.pavadinimas }} - {{ idx.kaina }}
                   </li>
                 </ul>
             </b-table-column>
-            <b-table-column v-else label="Sandeliui" field="sandelis" sortable>
+            <b-table-column v-else label="Sandeliui" field="sandelis">
               {{ }}
             </b-table-column>
 
-            <b-table-column  :style="{'background-color': 'greenyellow', 'vertical-align': 'middle'}" label="LT Akcija" field="LT.kaina" sortable>
+            <b-table-column  :style="{'background-color': 'greenyellow', 'vertical-align': 'middle'}" label="LT Akcija" field="kaina">
               {{ props.row.LT && props.row.LT.kaina }}
             </b-table-column>
-            <b-table-column :style="{'background-color': 'greenyellow', 'vertical-align': 'middle'}" label="LT Kortele" field="LT.akcija" sortable>
+            <b-table-column :style="{'background-color': 'greenyellow', 'vertical-align': 'middle'}" label="LT Kortele" field="akcija">
               {{ props.row.LT && props.row.LT.akcija }}
             </b-table-column>
 
-            <b-table-column :style="{'background-color': 'GoldenRod', 'vertical-align': 'middle'}" label="LV Akcija" field="LV.kaina" sortable>
+            <b-table-column :style="{'background-color': 'GoldenRod', 'vertical-align': 'middle'}" label="LV Akcija" field="kaina">
               {{ props.row.LV && props.row.LV.kaina }}
             </b-table-column>
-            <b-table-column :style="{'background-color': 'GoldenRod', 'vertical-align': 'middle'}" label="LV Kortele" field="LV.akcija" sortable>
+            <b-table-column :style="{'background-color': 'GoldenRod', 'vertical-align': 'middle'}" label="LV Kortele" field="akcija">
               {{ props.row.LV && props.row.LV.akcija }}
             </b-table-column>
           </template>
@@ -212,7 +213,7 @@ export default {
         this.pardavimai = response.data.data;
 
         this.sandelis = response.data.sandelis;
-        //this.file = response.data.failas;
+        this.file = response.data.failas;
       })
       .catch( err => {
             this.isLoading = false

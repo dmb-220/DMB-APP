@@ -301,6 +301,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -374,7 +375,8 @@ __webpack_require__.r(__webpack_exports__);
       this.axios.get('/akcijos').then(function (response) {
         _this2.isLoading = false;
         _this2.pardavimai = response.data.data;
-        _this2.sandelis = response.data.sandelis; //this.file = response.data.failas;
+        _this2.sandelis = response.data.sandelis;
+        _this2.file = response.data.failas;
       })["catch"](function (err) {
         _this2.isLoading = false;
 
@@ -879,8 +881,7 @@ var render = function() {
                                   },
                                   attrs: {
                                     label: "Sandeliui",
-                                    field: "sandelis",
-                                    sortable: ""
+                                    field: "sandelis"
                                   }
                                 },
                                 [
@@ -906,8 +907,7 @@ var render = function() {
                                 {
                                   attrs: {
                                     label: "Sandeliui",
-                                    field: "sandelis",
-                                    sortable: ""
+                                    field: "sandelis"
                                   }
                                 },
                                 [
@@ -924,11 +924,7 @@ var render = function() {
                                 "background-color": "greenyellow",
                                 "vertical-align": "middle"
                               },
-                              attrs: {
-                                label: "LT Akcija",
-                                field: "LT.kaina",
-                                sortable: ""
-                              }
+                              attrs: { label: "LT Akcija", field: "kaina" }
                             },
                             [
                               _vm._v(
@@ -946,11 +942,7 @@ var render = function() {
                                 "background-color": "greenyellow",
                                 "vertical-align": "middle"
                               },
-                              attrs: {
-                                label: "LT Kortele",
-                                field: "LT.akcija",
-                                sortable: ""
-                              }
+                              attrs: { label: "LT Kortele", field: "akcija" }
                             },
                             [
                               _vm._v(
@@ -968,11 +960,7 @@ var render = function() {
                                 "background-color": "GoldenRod",
                                 "vertical-align": "middle"
                               },
-                              attrs: {
-                                label: "LV Akcija",
-                                field: "LV.kaina",
-                                sortable: ""
-                              }
+                              attrs: { label: "LV Akcija", field: "kaina" }
                             },
                             [
                               _vm._v(
@@ -990,11 +978,7 @@ var render = function() {
                                 "background-color": "GoldenRod",
                                 "vertical-align": "middle"
                               },
-                              attrs: {
-                                label: "LV Kortele",
-                                field: "LV.akcija",
-                                sortable: ""
-                              }
+                              attrs: { label: "LV Kortele", field: "akcija" }
                             },
                             [
                               _vm._v(

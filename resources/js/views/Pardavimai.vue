@@ -40,7 +40,21 @@
         <div class="columns">
           <div class="column has-text-centered has-text-weight-bold">Rasta: {{likutis.length }}<br>{{paieska}}<br>{{grupes[grupe]}}</div>
         </div>
+        <b-field grouped group-multiline>
+            <b-select v-model="perPage" :disabled="!isPaginated">
+                <option value="50">50 įrašų puslapyje</option>
+                <option value="100">100 įrašų puslapyje</option>
+                <option value="150">150 įrašų puslapyje</option>
+                <option value="200">200 įrašų puslapyje</option>
+            </b-select>
+            <div class="control is-flex">
+                <b-switch v-model="isPaginated">Puslapiai</b-switch>
+            </div>
+        </b-field>
         <b-table
+        :paginated="isPaginated"
+          :per-page="perPage"
+          :pagination-position="paginationPosition"
         :mobile-cards="false"
         bordered
         hoverable
@@ -160,6 +174,9 @@ export default {
   components: {CardToolbar, CardComponent},
   data () {
     return {
+      isPaginated: true,
+      paginationPosition: 'bottom',
+      perPage: 50,
       isLoading: false,
       likutis: [],
       grupes: [],
