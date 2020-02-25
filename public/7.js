@@ -129,6 +129,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'akcijos',
@@ -339,10 +342,10 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n          Rasta: " + _vm._s(_vm.pardavimai.length)
-                    ),
-                    _c("br"),
-                    _vm._v(_vm._s(_vm.paieska) + "\n        ")
+                      "\n          Rasta: " +
+                        _vm._s(_vm.pardavimai.length) +
+                        "\n        "
+                    )
                   ]
                 )
               ]),
@@ -377,6 +380,10 @@ var render = function() {
                           _c(
                             "b-table-column",
                             {
+                              style: {
+                                "background-color": "silver",
+                                "vertical-align": "middle"
+                              },
                               attrs: {
                                 label: "Preke",
                                 field: "preke",
@@ -385,7 +392,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n          " +
+                                " \n          " +
                                   _vm._s(props.row.preke) +
                                   "\n        "
                               )
@@ -395,6 +402,10 @@ var render = function() {
                           _c(
                             "b-table-column",
                             {
+                              style: {
+                                "background-color": "silver",
+                                "vertical-align": "middle"
+                              },
                               attrs: {
                                 label: "Kaina",
                                 field: "pradine",
@@ -413,6 +424,10 @@ var render = function() {
                           _c(
                             "b-table-column",
                             {
+                              style: {
+                                "background-color": "silver",
+                                "vertical-align": "middle"
+                              },
                               attrs: {
                                 label: "Likutis",
                                 field: "likutis",
@@ -428,10 +443,61 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
+                          props.row.sandelis && props.row.sandelis.length > 0
+                            ? _c(
+                                "b-table-column",
+                                {
+                                  style: {
+                                    "background-color": "tomato",
+                                    "vertical-align": "middle"
+                                  },
+                                  attrs: {
+                                    label: "Sandeliui",
+                                    field: "sandelis",
+                                    sortable: ""
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "ul",
+                                    _vm._l(props.row.sandelis, function(idx) {
+                                      return _c("li", [
+                                        _vm._v(
+                                          "\n              " +
+                                            _vm._s(idx.pavadinimas) +
+                                            " - " +
+                                            _vm._s(idx.kaina) +
+                                            "\n              "
+                                        )
+                                      ])
+                                    }),
+                                    0
+                                  )
+                                ]
+                              )
+                            : _c(
+                                "b-table-column",
+                                {
+                                  attrs: {
+                                    label: "Sandeliui",
+                                    field: "sandelis",
+                                    sortable: ""
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n          " + _vm._s() + "\n        "
+                                  )
+                                ]
+                              ),
+                          _vm._v(" "),
                           _c(
                             "b-table-column",
                             {
-                              style: { "background-color": "tomato" },
+                              style: {
+                                "background-color": "greenyellow",
+                                "vertical-align": "middle"
+                              },
                               attrs: {
                                 label: "LT Akcija",
                                 field: "LT.kaina",
@@ -447,51 +513,13 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          props.row.LT && props.row.LT.sandelis
-                            ? _c(
-                                "b-table-column",
-                                {
-                                  style: { "background-color": "GoldenRod" },
-                                  attrs: {
-                                    label: "LT Sandelis",
-                                    field: "LT.sandelis",
-                                    sortable: ""
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n          " +
-                                      _vm._s(
-                                        props.row.LT && props.row.LT.sandelis
-                                      ) +
-                                      "\n        "
-                                  )
-                                ]
-                              )
-                            : _c(
-                                "b-table-column",
-                                {
-                                  attrs: {
-                                    label: "LT Sandelis",
-                                    field: "LT.sandelis",
-                                    sortable: ""
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n          " +
-                                      _vm._s(
-                                        props.row.LT && props.row.LT.sandelis
-                                      ) +
-                                      "\n        "
-                                  )
-                                ]
-                              ),
-                          _vm._v(" "),
                           _c(
                             "b-table-column",
                             {
-                              style: { "background-color": "GoldenRod" },
+                              style: {
+                                "background-color": "greenyellow",
+                                "vertical-align": "middle"
+                              },
                               attrs: {
                                 label: "LT Kortele",
                                 field: "LT.akcija",
@@ -510,7 +538,10 @@ var render = function() {
                           _c(
                             "b-table-column",
                             {
-                              style: { "background-color": "tomato" },
+                              style: {
+                                "background-color": "GoldenRod",
+                                "vertical-align": "middle"
+                              },
                               attrs: {
                                 label: "LV Akcija",
                                 field: "LV.kaina",
@@ -526,51 +557,13 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          props.row.LV && props.row.LV.sandelis
-                            ? _c(
-                                "b-table-column",
-                                {
-                                  style: { "background-color": "GoldenRod" },
-                                  attrs: {
-                                    label: "LV Sandelis",
-                                    field: "LV.sandelis",
-                                    sortable: ""
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n          " +
-                                      _vm._s(
-                                        props.row.LV && props.row.LV.sandelis
-                                      ) +
-                                      "\n        "
-                                  )
-                                ]
-                              )
-                            : _c(
-                                "b-table-column",
-                                {
-                                  attrs: {
-                                    label: "LV Sandelis",
-                                    field: "LV.sandelis",
-                                    sortable: ""
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n          " +
-                                      _vm._s(
-                                        props.row.LV && props.row.LV.sandelis
-                                      ) +
-                                      "\n        "
-                                  )
-                                ]
-                              ),
-                          _vm._v(" "),
                           _c(
                             "b-table-column",
                             {
-                              style: { "background-color": "GoldenRod" },
+                              style: {
+                                "background-color": "GoldenRod",
+                                "vertical-align": "middle"
+                              },
                               attrs: {
                                 label: "LV Kortele",
                                 field: "LV.akcija",

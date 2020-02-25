@@ -22,7 +22,7 @@
         <div  id="printMe">
           <div class="columns">
             <div class="column has-text-centered has-text-weight-bold">
-              Rasta: {{pardavimai.length }}<br>{{paieska}}
+              Rasta: {{pardavimai.length }}
             </div>
           </div>
           <b-table
@@ -38,39 +38,38 @@
           @details-open="(row, index) => $buefy.toast.open(`Išskleista ${ row.preke } prekė!`)"
           :loading="isLoading">
           <template slot-scope="props">
-            <b-table-column label="Preke" field="preke" sortable>
+            <b-table-column label="Preke" field="preke" :style="{'background-color': 'silver','vertical-align': 'middle'}" sortable> 
               {{ props.row.preke }}
             </b-table-column>
-            <b-table-column label="Kaina" field="pradine" sortable>
+            <b-table-column label="Kaina" field="pradine" :style="{'background-color': 'silver','vertical-align': 'middle'}" sortable>
               {{ props.row.pradine }}
             </b-table-column>
-            <b-table-column label="Likutis" field="likutis" sortable>
+            <b-table-column label="Likutis" field="likutis" :style="{'background-color': 'silver','vertical-align': 'middle'}" sortable>
               {{ props.row.likutis }}
             </b-table-column>
 
-            <b-table-column  :style="{'background-color': 'tomato'}" label="LT Akcija" field="LT.kaina" sortable>
+            <b-table-column v-if="props.row.sandelis && props.row.sandelis.length > 0" :style="{'background-color': 'tomato', 'vertical-align': 'middle'}" label="Sandeliui" field="sandelis" sortable>
+              <ul>
+                <li v-for="idx in props.row.sandelis">
+                  {{ idx.pavadinimas }} - {{ idx.kaina }}
+                  </li>
+                </ul>
+            </b-table-column>
+            <b-table-column v-else label="Sandeliui" field="sandelis" sortable>
+              {{ }}
+            </b-table-column>
+
+            <b-table-column  :style="{'background-color': 'greenyellow', 'vertical-align': 'middle'}" label="LT Akcija" field="LT.kaina" sortable>
               {{ props.row.LT && props.row.LT.kaina }}
             </b-table-column>
-            <b-table-column v-if="props.row.LT && props.row.LT.sandelis" :style="{'background-color': 'GoldenRod'}" label="LT Sandelis" field="LT.sandelis" sortable>
-              {{ props.row.LT && props.row.LT.sandelis }}
-            </b-table-column>
-            <b-table-column v-else label="LT Sandelis" field="LT.sandelis" sortable>
-              {{ props.row.LT && props.row.LT.sandelis }}
-            </b-table-column>
-            <b-table-column :style="{'background-color': 'GoldenRod'}" label="LT Kortele" field="LT.akcija" sortable>
+            <b-table-column :style="{'background-color': 'greenyellow', 'vertical-align': 'middle'}" label="LT Kortele" field="LT.akcija" sortable>
               {{ props.row.LT && props.row.LT.akcija }}
             </b-table-column>
 
-            <b-table-column :style="{'background-color': 'tomato'}" label="LV Akcija" field="LV.kaina" sortable>
+            <b-table-column :style="{'background-color': 'GoldenRod', 'vertical-align': 'middle'}" label="LV Akcija" field="LV.kaina" sortable>
               {{ props.row.LV && props.row.LV.kaina }}
             </b-table-column>
-            <b-table-column v-if="props.row.LV && props.row.LV.sandelis" :style="{'background-color': 'GoldenRod'}" label="LV Sandelis" field="LV.sandelis" sortable>
-              {{ props.row.LV && props.row.LV.sandelis }}
-            </b-table-column>
-            <b-table-column v-else label="LV Sandelis" field="LV.sandelis" sortable>
-              {{ props.row.LV && props.row.LV.sandelis }}
-            </b-table-column>
-            <b-table-column :style="{'background-color': 'GoldenRod'}" label="LV Kortele" field="LV.akcija" sortable>
+            <b-table-column :style="{'background-color': 'GoldenRod', 'vertical-align': 'middle'}" label="LV Kortele" field="LV.akcija" sortable>
               {{ props.row.LV && props.row.LV.akcija }}
             </b-table-column>
           </template>
@@ -116,6 +115,10 @@
       </card-component>
     </section>
 </template>
+
+<style>
+
+</style>
 
 <script>
 import CardComponent from '@/components/CardComponent'
