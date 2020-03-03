@@ -119,6 +119,16 @@ Route::prefix('/akcijos')->group(function () {
     Route::patch('{akcijos}', 'AkcijosController@update');
     Route::delete('{akcijos}/destroy', 'AkcijosController@destroy');
 });
+/*
+ * Analizė
+ * */ 
+Route::prefix('/analize')->group(function () {
+    Route::get('', 'AnalizeController@index');
+    Route::get('{analize}', 'AnalizeController@show');
+    Route::post('store', 'AnalizeController@store');
+    Route::patch('{analize}', 'AnalizeController@update');
+    Route::delete('{analize}/destroy', 'AnalizeController@destroy');
+});
 
 /*
  * Clients management

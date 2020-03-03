@@ -50,8 +50,13 @@ export default new Router({
     },
     {
       path: '/akcijos',
-      name: 'kakcijos',
+      name: 'akcijos',
       component: () => import('./views/Akcijos.vue')
+    },
+    {
+      path: '/analize',
+      name: 'analize',
+      component: () => import('./views/Analize.vue')
     },
 
     

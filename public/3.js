@@ -376,7 +376,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.isLoading = false;
         _this2.pardavimai = response.data.data;
         _this2.sandelis = response.data.sandelis;
-        _this2.file = response.data.failas;
+        _this2.failas = response.data.failas;
       })["catch"](function (err) {
         _this2.isLoading = false;
 

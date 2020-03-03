@@ -2073,6 +2073,10 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Akcijos',
         icon: 'bell-ring'
       }, {
+        to: '/analize',
+        label: 'Analizė',
+        icon: 'bell-ring'
+      }, {
         to: '/sandeliai',
         label: 'Sandeliai',
         icon: 'archive'
@@ -52705,19 +52709,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/statistika',
     name: 'Statistika',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./views/Statistika.vue */ "./resources/js/views/Statistika.vue"));
+      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./views/Statistika.vue */ "./resources/js/views/Statistika.vue"));
     }
   }, {
     path: '/likuciai',
     name: 'Likuciai',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./views/Likuciai.vue */ "./resources/js/views/Likuciai.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./views/Likuciai.vue */ "./resources/js/views/Likuciai.vue"));
     }
   }, {
     path: '/pardavimai',
     name: 'Pardavimai',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./views/Pardavimai.vue */ "./resources/js/views/Pardavimai.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./views/Pardavimai.vue */ "./resources/js/views/Pardavimai.vue"));
     }
   }, {
     path: '/CSV_sarasas',
@@ -52729,25 +52733,31 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/prekes',
     name: 'Prekes',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./views/Prekes.vue */ "./resources/js/views/Prekes.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ./views/Prekes.vue */ "./resources/js/views/Prekes.vue"));
     }
   }, {
     path: '/sandeliai',
     name: 'sandeliai',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ./views/Sandeliai.vue */ "./resources/js/views/Sandeliai.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, /*! ./views/Sandeliai.vue */ "./resources/js/views/Sandeliai.vue"));
     }
   }, {
     path: '/kelione',
     name: 'kelione',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ./views/Keliones.vue */ "./resources/js/views/Keliones.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ./views/Keliones.vue */ "./resources/js/views/Keliones.vue"));
     }
   }, {
     path: '/akcijos',
-    name: 'kakcijos',
+    name: 'akcijos',
     component: function component() {
       return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./views/Akcijos.vue */ "./resources/js/views/Akcijos.vue"));
+    }
+  }, {
+    path: '/analize',
+    name: 'analize',
+    component: function component() {
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./views/Analize.vue */ "./resources/js/views/Analize.vue"));
     }
   }],
   scrollBehavior: function scrollBehavior(to, from, savedPosition) {
