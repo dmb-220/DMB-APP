@@ -182,18 +182,29 @@ class PrekesController extends Controller
             }
         }
 
-        /*$atsargos = array();
+        $atsargos = array();
         $ats = array();
         $qu = Atsargos::query();
         $qu->where('preke', 'like', $pa);
+        $qu->where('data', '>', '2020');
         if($grupe != 0 && $grupes[$grupe]){
             $qu->whereIn('pavadinimas',[$grupes[$grupe], $sara[$grupes[$grupe]]]);
         }
         $atsargos = $qu->get();
-
+        //reik leisti paimti duomenis tiks tiems sandeliams i kuriuos isveza.
+        //reiks masyva isikelti is statistikos
         foreach ( $atsargos as $value ) {
-            $ats[$value['preke']."-|-".$value['salis']][] = $value;
-        }*/
+            if($value['salis'] == 1){
+                if($value['sandelis_is'] == '7777'){
+                    $ats[$value['preke']]['EE'][] = $value;
+                }else{
+                    $ats[$value['preke']]['LT'][] = $value;
+                }
+            }
+            if($value['salis'] == 2){
+                $ats[$value['preke']]['LV'][] = $value;
+            }
+        }
 
         $query_p = Pardavimai::query();
         $query_p->where('preke', 'like', $pa);
@@ -512,7 +523,7 @@ class PrekesController extends Controller
             'pirk' => $pirk,
             'paieska_big' => $key[7],
             'viso' => $viso,
-            //'atsargos' => $ats
+            'atsargos' => $ats
         ]);
 
     }
