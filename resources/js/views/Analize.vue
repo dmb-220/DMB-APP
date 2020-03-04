@@ -18,16 +18,11 @@
             </b-select>
           </b-field>
           <b-field label="SANDELIAI:" horizontal>
-            <b-input type="text" v-model="sandeliai"></b-input> 
+            <b-input type="text" v-model="sandeliai" @keyup.native.enter="paieska_post"></b-input> 
         </b-field>
         <b-field label="PREKĖS:" horizontal>
           <b-button :type="pirk? 'is-info' : 'is-dark'" @click="change_pirk()">GAMYBA</b-button>
           <b-button :type="gam ? 'is-info' : 'is-dark'" @click="change_gam()">PIRKIMAI</b-button>
-        </b-field>
-        <b-field label="GRUPAVIMAS:" horizontal>
-          <b-switch type="is-info" v-model="rikiuoti" @click.native="switch_post">
-            Veikia TIK su mūsų GAM gaminiais! 
-          </b-switch>
         </b-field>
         </card-component>
         <card-component title="Analizė" icon="account-multiple">
@@ -57,8 +52,14 @@
         hoverable
         :narrowed="true"
         :data="sarasas"
+        :opened-detailed="defaultOpenedDetails"
+        detailed
         sort-icon="arrow-up"
-        :loading="isLoading">
+        detail-key="preke"
+        @details-open="(row, index) => $buefy.toast.open(`Išskleista ${ row.preke } prekė!`)"
+        :loading="isLoading"
+        default-sort-direction="asc"
+        default-sort="preke">
         <template slot-scope="props">
           <b-table-column v-if="props.row.sandelis == sandeliai.split('::')[0]" :style="{'background-color': 'greenyellow'}" label="Preke"  field="preke" sortable>
                 {{ props.row.preke }}
@@ -79,6 +80,31 @@
                 {{props.row.sandelis}}
           </b-table-column>
         </template> 
+
+         <template slot="detail" slot-scope="props">
+            <b-table
+            :data="props.row.akcija"
+            default-sort-direction="desc"
+            default-sort="kaina">
+            <template slot-scope="props">
+                <b-table-column field="akcija" label="Akcija" sortable>
+                    <small>{{ props.row.akcija }}</small>
+                </b-table-column>
+                <b-table-column field="kaina" label="Kaina" sortable>
+                    <small>{{ props.row.kaina }}</small>
+                </b-table-column>
+                <b-table-column v-if="props.row.salis == 1" field="salis" label="Valstybė" sortable>
+                    <small>LIETUVA</small>
+                </b-table-column>
+                <b-table-column v-if="props.row.salis == 2" field="salis" label="Valstybė" sortable>
+                    <small>LATVIJA</small>
+                </b-table-column>
+                <b-table-column field="galioja_iki" label="Galioja IKI" sortable>
+                    <small>{{ props.row.galioja_iki && props.row.galioja_iki.split(" ")[0] }}</small>
+                </b-table-column>
+            </template>
+            </b-table>
+        </template>
 
         <section class="section" slot="empty">
           <div class="content has-text-centered">
@@ -121,6 +147,8 @@ export default {
       isPaginated: true,
       paginationPosition: 'bottom',
       perPage: 50,
+      defaultOpenedDetails: [1],
+      showDetailIcon: false,
       isLoading: false,
       sarasas: [],
       grupes: [],
@@ -128,7 +156,7 @@ export default {
       grupe: '',
       ieskoti: '',
       paieska: '',
-      sandeliai: 'NORF::MARI::KEDA',
+      sandeliai: '',
      salis: '',
      rikiuoti: false,
      gam: true,
@@ -139,6 +167,9 @@ export default {
     }
   },
   computed: {
+    explode(){
+      return this.sandeliai.split("::");
+    }
   },
   created () {
     this.getData()

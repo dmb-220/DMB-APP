@@ -161,6 +161,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -175,6 +201,8 @@ __webpack_require__.r(__webpack_exports__);
       isPaginated: true,
       paginationPosition: 'bottom',
       perPage: 50,
+      defaultOpenedDetails: [1],
+      showDetailIcon: false,
       isLoading: false,
       sarasas: [],
       grupes: [],
@@ -618,37 +646,6 @@ var render = function() {
                 )
               ],
               1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-field",
-              { attrs: { label: "GRUPAVIMAS:", horizontal: "" } },
-              [
-                _c(
-                  "b-switch",
-                  {
-                    attrs: { type: "is-info" },
-                    nativeOn: {
-                      click: function($event) {
-                        return _vm.switch_post($event)
-                      }
-                    },
-                    model: {
-                      value: _vm.rikiuoti,
-                      callback: function($$v) {
-                        _vm.rikiuoti = $$v
-                      },
-                      expression: "rikiuoti"
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n          Veikia TIK su mūsų GAM gaminiais! \n        "
-                    )
-                  ]
-                )
-              ],
-              1
             )
           ],
           1
@@ -752,8 +749,20 @@ var render = function() {
                       hoverable: "",
                       narrowed: true,
                       data: _vm.sarasas,
+                      "opened-detailed": _vm.defaultOpenedDetails,
+                      detailed: "",
                       "sort-icon": "arrow-up",
-                      loading: _vm.isLoading
+                      "detail-key": "preke",
+                      loading: _vm.isLoading,
+                      "default-sort-direction": "desc",
+                      "default-sort": "preke"
+                    },
+                    on: {
+                      "details-open": function(row, index) {
+                        return _vm.$buefy.toast.open(
+                          "Išskleista " + row.preke + " prekė!"
+                        )
+                      }
                     },
                     scopedSlots: _vm._u([
                       {
@@ -875,10 +884,120 @@ var render = function() {
                             )
                           ]
                         }
+                      },
+                      {
+                        key: "detail",
+                        fn: function(props) {
+                          return [
+                            _c("b-table", {
+                              attrs: {
+                                data: props.row.akcija,
+                                "default-sort-direction": "desc",
+                                "default-sort": "kaina"
+                              },
+                              scopedSlots: _vm._u(
+                                [
+                                  {
+                                    key: "default",
+                                    fn: function(props) {
+                                      return [
+                                        _c(
+                                          "b-table-column",
+                                          {
+                                            attrs: {
+                                              field: "akcija",
+                                              label: "Akcija",
+                                              sortable: ""
+                                            }
+                                          },
+                                          [
+                                            _c("small", [
+                                              _vm._v(_vm._s(props.row.akcija))
+                                            ])
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-table-column",
+                                          {
+                                            attrs: {
+                                              field: "kaina",
+                                              label: "Kaina",
+                                              sortable: ""
+                                            }
+                                          },
+                                          [
+                                            _c("small", [
+                                              _vm._v(_vm._s(props.row.kaina))
+                                            ])
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        props.row.salis == 1
+                                          ? _c(
+                                              "b-table-column",
+                                              {
+                                                attrs: {
+                                                  field: "salis",
+                                                  label: "Valstybė",
+                                                  sortable: ""
+                                                }
+                                              },
+                                              [_c("small", [_vm._v("LIETUVA")])]
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        props.row.salis == 2
+                                          ? _c(
+                                              "b-table-column",
+                                              {
+                                                attrs: {
+                                                  field: "salis",
+                                                  label: "Valstybė",
+                                                  sortable: ""
+                                                }
+                                              },
+                                              [_c("small", [_vm._v("LATVIJA")])]
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-table-column",
+                                          {
+                                            attrs: {
+                                              field: "galioja_iki",
+                                              label: "Galioja IKI",
+                                              sortable: ""
+                                            }
+                                          },
+                                          [
+                                            _c("small", [
+                                              _vm._v(
+                                                _vm._s(
+                                                  props.row.galioja_iki &&
+                                                    props.row.galioja_iki.split(
+                                                      " "
+                                                    )[0]
+                                                )
+                                              )
+                                            ])
+                                          ]
+                                        )
+                                      ]
+                                    }
+                                  }
+                                ],
+                                null,
+                                true
+                              )
+                            })
+                          ]
+                        }
                       }
                     ])
                   },
                   [
+                    _vm._v(" "),
                     _vm._v(" "),
                     _c(
                       "section",

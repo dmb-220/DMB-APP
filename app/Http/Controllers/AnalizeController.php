@@ -95,19 +95,11 @@ class AnalizeController extends Controller
         $key = explode("||", $key);
         $keyword = $key[0];
         $sand = $key[1];
-        $rikiuoti = $key[2];
+        //$rikiuoti = $key[2];
+        $rikiuoti = 1;
         $gam = $key[3];
         $pirk = $key[4];
         $grupe = $key[6];
-
-        //aprasom tuscius masyvus
-        $list = array();
-        $new = array();
-        $sarasas = array();
-        $pardavimai = array();
-        $likuciai = array();
-        $akcija['lietuva'] = array();
-        $akcija['latvija'] = array();
 
         $grupes_likutis = array();
         $grupes_pardavimai = array();
@@ -173,27 +165,12 @@ class AnalizeController extends Controller
 
         //Akciju sukelimas i masyva
         $que = Akcijos::query();
-        /*$que->when($keyword != "", function ($q) {
-            return $q->where('preke', 'like', $pa);
-        });*/
         $que->where('preke', 'like', $pa);
         if($grupe != 0 && $grupes[$grupe]){
             $que->whereIn('pavadinimas',[$grupes[$grupe], $sara[$grupes[$grupe]]]);
             }              
         $akc = $que->get();
-        
-        foreach ( $akc as $value ) {
-            //sudeti i masyva tik tuos kurie galioja
-            //Ikeliant atfiltruojku, tai cia kaip ir nebereiketu
-            if(strtotime($value['galioja_iki']) > strtotime(date("Y-m-d H:i:s"))){
-                if($value['salis'] == "1"){
-                    $akcija['lietuva'][$value['preke']][] = $value;
-                }
-                if($value['salis'] == "2"){
-                    $akcija['latvija'][$value['preke']][] = $value;
-                }
-            }
-        }
+
 
         $query_p = Pardavimai::query();
         $query_p->where('preke', 'like', $pa);
@@ -209,12 +186,26 @@ class AnalizeController extends Controller
         });
         $res = $query_p->get();
         foreach ( $res as $value ) {
+            if($rikiuoti){
                 $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['preke'] = $value['preke'];
                 $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['parduota'] = $value['kiekis'];
                 $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['sandelis'] = $value['sandelis'];
                 $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['pavadinimas'] = $value['pavadinimas'];
                 $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['registras'] = $value['registras'];
                 $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['salis'] = $value['salis'];
+            }else{
+                $a = explode("-", $value['preke']);
+            if(count($a) >= 3){$ne = $a[0]."-".$a[1]."-";}
+            if(count($a) == 2){$ne = $a[0]."-";}
+            //turi veikti tik su BROK
+            if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
+                $pardavimas[$ne.'|-|'.$value['sandelis']]['preke'] = $value['preke'];
+                $pardavimas[$ne.'|-|'.$value['sandelis']]['parduota'] = $value['kiekis'];
+                $pardavimas[$ne.'|-|'.$value['sandelis']]['sandelis'] = $value['sandelis'];
+                $pardavimas[$ne.'|-|'.$value['sandelis']]['pavadinimas'] = $value['pavadinimas'];
+                $pardavimas[$ne.'|-|'.$value['sandelis']]['registras'] = $value['registras'];
+                $pardavimas[$ne.'|-|'.$value['sandelis']]['salis'] = $value['salis'];
+            }
         }
 
         //Sudedam norimus likucius
@@ -234,18 +225,47 @@ class AnalizeController extends Controller
 
         
         foreach ( $re as $value ) {
-            if(array_key_exists($value['preke'].'|-|'.$value['sandelis'], $pardavimas)){
-                $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['likutis'] = $value['kiekis'];
-                $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['kaina'] = $value['kaina'];
+            if($rikiuoti){
+                if(array_key_exists($value['preke'].'|-|'.$value['sandelis'], $pardavimas)){
+                    $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['likutis'] = $value['kiekis'];
+                    $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['kaina'] = $value['kaina'];
+                }else{
+                    $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['preke'] = $value['preke'];
+                    $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['sandelis'] = $value['sandelis'];
+                    //$pardavimas[$value['preke'].'|-|'.$value['sandelis']]['parduota'] = 0;
+                    $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['likutis'] = $value['kiekis'];
+                    $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['kaina'] = $value['kaina'];
+                    $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['pavadinimas'] = $value['pavadinimas'];
+                    $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['registras'] = $value['registras'];
+                    $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['salis'] = $value['salis'];
+                }
             }else{
-                $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['preke'] = $value['preke'];
-                $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['sandelis'] = $value['sandelis'];
-                //$pardavimas[$value['preke'].'|-|'.$value['sandelis']]['parduota'] = 0;
-                $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['likutis'] = $value['kiekis'];
-                $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['kaina'] = $value['kaina'];
-                $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['pavadinimas'] = $value['pavadinimas'];
-                $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['registras'] = $value['registras'];
-                $pardavimas[$value['preke'].'|-|'.$value['sandelis']]['salis'] = $value['salis'];
+                $a = explode("-", $value['preke']);
+            if(count($a) >= 3){$ne = $a[0]."-".$a[1]."-";}
+            if(count($a) == 2){$ne = $a[0]."-";}
+            //turi veikti tik su BROK
+            if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
+                if(array_key_exists($value['preke'].'|-|'.$value['sandelis'], $pardavimas)){
+                    $pardavimas[$ne.'|-|'.$value['sandelis']]['likutis'] = $value['kiekis'];
+                    $pardavimas[$ne.'|-|'.$value['sandelis']]['kaina'] = $value['kaina'];
+                }else{
+                    $pardavimas[$ne.'|-|'.$value['sandelis']]['preke'] = $value['preke'];
+                    $pardavimas[$ne.'|-|'.$value['sandelis']]['sandelis'] = $value['sandelis'];
+                    //$pardavimas[$value['preke'].'|-|'.$value['sandelis']]['parduota'] = 0;
+                    $pardavimas[$ne.'|-|'.$value['sandelis']]['likutis'] = $value['kiekis'];
+                    $pardavimas[$ne.'|-|'.$value['sandelis']]['kaina'] = $value['kaina'];
+                    $pardavimas[$ne.'|-|'.$value['sandelis']]['pavadinimas'] = $value['pavadinimas'];
+                    $pardavimas[$ne.'|-|'.$value['sandelis']]['registras'] = $value['registras'];
+                    $pardavimas[$ne.'|-|'.$value['sandelis']]['salis'] = $value['salis'];
+                }
+            }
+        }
+
+        foreach ( $akc as $value ) {
+            foreach($exp as $sa){
+                if(array_key_exists($value['preke'].'|-|'.$sa, $pardavimas)){
+                    $pardavimas[$value['preke'].'|-|'.$sa]['akcija'][] = $value;
+                }
             }
         }
 
