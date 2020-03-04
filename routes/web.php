@@ -21,11 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
-});
-
-
 Route::resource('testas', 'TestasController');
 
 Route::resource('sandeliai', 'SandeliaiController');

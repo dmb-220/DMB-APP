@@ -210,7 +210,7 @@ __webpack_require__.r(__webpack_exports__);
       grupe: '',
       ieskoti: '',
       paieska: '',
-      sandeliai: 'NORF::MARI::KEDA',
+      sandeliai: '',
       salis: '',
       rikiuoti: false,
       gam: true,
@@ -220,7 +220,11 @@ __webpack_require__.r(__webpack_exports__);
       viso: []
     };
   },
-  computed: {},
+  computed: {
+    explode: function explode() {
+      return this.sandeliai.split("::");
+    }
+  },
   created: function created() {
     this.getData();
   },
@@ -603,6 +607,17 @@ var render = function() {
               [
                 _c("b-input", {
                   attrs: { type: "text" },
+                  nativeOn: {
+                    keyup: function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      return _vm.paieska_post($event)
+                    }
+                  },
                   model: {
                     value: _vm.sandeliai,
                     callback: function($$v) {
@@ -754,7 +769,7 @@ var render = function() {
                       "sort-icon": "arrow-up",
                       "detail-key": "preke",
                       loading: _vm.isLoading,
-                      "default-sort-direction": "desc",
+                      "default-sort-direction": "asc",
                       "default-sort": "preke"
                     },
                     on: {

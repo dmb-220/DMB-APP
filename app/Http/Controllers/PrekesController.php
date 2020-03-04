@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Pardavimai;
 use App\Likutis;
 use App\Akcijos;
+use App\Atsargos;
 
 class PrekesController extends Controller
 {
@@ -180,6 +181,19 @@ class PrekesController extends Controller
                 }
             }
         }
+
+        /*$atsargos = array();
+        $ats = array();
+        $qu = Atsargos::query();
+        $qu->where('preke', 'like', $pa);
+        if($grupe != 0 && $grupes[$grupe]){
+            $qu->whereIn('pavadinimas',[$grupes[$grupe], $sara[$grupes[$grupe]]]);
+        }
+        $atsargos = $qu->get();
+
+        foreach ( $atsargos as $value ) {
+            $ats[$value['preke']."-|-".$value['salis']][] = $value;
+        }*/
 
         $query_p = Pardavimai::query();
         $query_p->where('preke', 'like', $pa);
@@ -498,7 +512,7 @@ class PrekesController extends Controller
             'pirk' => $pirk,
             'paieska_big' => $key[7],
             'viso' => $viso,
-            //'likutis' => $pardavimas
+            //'atsargos' => $ats
         ]);
 
     }

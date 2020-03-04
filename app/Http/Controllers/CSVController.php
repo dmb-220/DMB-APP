@@ -6,6 +6,7 @@ use App\Pardavimai;
 use App\Likutis;
 use App\Akcijos;
 use App\Kelione;
+use App\Atsargos;
 
 use App\File;
 use App\Http\Requests\FileUploadRequest;
@@ -296,6 +297,44 @@ class CSVController extends Controller
                     $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
 
                     $q = new Kelione;
+                    $q->data = $duomenys[0];
+                    $q->doc_nr = $duomenys[2];
+                    $q->blanko_nr = $duomenys[3];
+                    $q->sandelis_is = $duomenys[4];
+                    $q->sandelis_i = $duomenys[5];
+                    $q->preke = $duomenys[6];
+                    $q->kiekis = $duomenys[7];
+                    $q->kaina = $duomenys[8];
+                    $q->grupe = $duomenys[9];
+                    $q->pavadinimas = $duomenys[10];
+                    $q->salis = $valstybe;
+                    $q->save();
+                }
+                fclose($handle);
+                }
+            }
+        }
+
+        //daromas KELIONES LAPŲ uzkelimas
+        if($tipas == 5){
+            //Uzkelime LIETUVOS ir LATVIJOS duomenis
+            if($valstybe == 1 || $valstybe == 2){
+                if($valstybe == 1){
+                    DB::table('atsargos')->where('salis', 1)->delete();
+                }
+                if($valstybe == 2){
+                    DB::table('atsargos')->where('salis', 2)->delete();
+                }
+                //reikia duomenu pildyma toliau
+                //su naujais irasais
+
+                $flag = true;
+                if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    if($flag) { $flag = false; continue; }
+                    $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+
+                    $q = new Atsargos;
                     $q->data = $duomenys[0];
                     $q->doc_nr = $duomenys[2];
                     $q->blanko_nr = $duomenys[3];

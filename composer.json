@@ -13,11 +13,9 @@
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
         "orangehill/iseed": "^2.6",
-        "oscarafdev/migrations-generator": "2.0.13",
-        "tcg/voyager": "^1.3"
+        "oscarafdev/migrations-generator": "2.0.13"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.2",
         "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.4",
         "laracasts/generators": "^1.1",
