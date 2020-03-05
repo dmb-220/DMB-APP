@@ -216,32 +216,26 @@ __webpack_require__.r(__webpack_exports__);
       pirk: true,
       mobile_card: true,
       paieska_big: false,
-      viso: [],
-      explode: []
+      viso: []
     };
   },
-  watch: {},
-  computed: {},
+  computed: {
+    explode: function explode() {
+      return this.sandeliai.split("::");
+    }
+  },
   created: function created() {
     this.getData();
   },
   methods: {
     onRowClass: function onRowClass(row, index) {
-      this.explode = this.sandeliai.split("::"); //var i;
-      //for(i=0; i < this.explode.length; i++){
+      var i;
 
-      if (row.sandelis == this.explode[0]) {
-        return this.color[0];
+      for (i = 0; i < this.explode.length; i++) {
+        if (row.sandelis == this.explode[i]) {
+          return this.color[i];
+        }
       }
-
-      if (row.sandelis == this.explode[1]) {
-        return this.color[1];
-      }
-
-      if (row.sandelis == this.explode[2]) {
-        return this.color[2];
-      } //}
-
     },
     print: function print() {
       // Pass the element id here
@@ -629,7 +623,7 @@ var render = function() {
                       ) {
                         return null
                       }
-                      return _vm.paieska_post($event)
+                      return _vm.switch_post($event)
                     }
                   },
                   model: {

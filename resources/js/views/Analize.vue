@@ -18,7 +18,7 @@
             </b-select>
           </b-field>
           <b-field label="SANDELIAI:" horizontal>
-            <b-input type="text" v-model="sandeliai" @keyup.native.enter="paieska_post"></b-input> 
+            <b-input type="text" v-model="sandeliai" @keyup.native.enter="switch_post"></b-input> 
         </b-field>
         <b-field label="PREKĖS:" horizontal>
           <b-button :type="pirk? 'is-info' : 'is-dark'" @click="change_pirk()">GAMYBA</b-button>
@@ -167,32 +167,24 @@ export default {
      mobile_card: true,
      paieska_big: false,
      viso: [],
-     explode: [],
     }
   },
-  watch: {
-    
-  },
   computed: {
+    explode: function(){
+      return this.sandeliai.split("::");
+    }
   },
   created () {
-    this.getData()
+    this.getData();
   },
   methods: {
     onRowClass: function (row, index) {
-      this.explode = this.sandeliai.split("::");
-      //var i;
-      //for(i=0; i < this.explode.length; i++){
-        if(row.sandelis == this.explode[0]){
-          return this.color[0];
+      var i;
+      for(i=0; i < this.explode.length; i++){
+        if(row.sandelis == this.explode[i]){
+          return this.color[i];
         }
-        if(row.sandelis == this.explode[1]){
-          return this.color[1];
-        }
-        if(row.sandelis == this.explode[2]){
-          return this.color[2];
-        }
-      //}
+      }
       
     },
       print() {

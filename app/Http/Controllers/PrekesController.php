@@ -184,7 +184,7 @@ class PrekesController extends Controller
 
         $atsargos = array();
         $ats = array();
-        $qu = Atsargos::query();
+        /*$qu = Atsargos::query();
         $qu->where('preke', 'like', $pa);
         $qu->where('data', '>', '2020');
         if($grupe != 0 && $grupes[$grupe]){
@@ -204,7 +204,7 @@ class PrekesController extends Controller
             if($value['salis'] == 2){
                 $ats[$value['preke']]['LV'][] = $value;
             }
-        }
+        }*/
 
         $query_p = Pardavimai::query();
         $query_p->where('preke', 'like', $pa);
