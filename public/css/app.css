@@ -18168,3 +18168,15 @@ aside.aside .menu-list li a.has-icon .menu-item-label {
 
 /* Animate.css custom build (just selected animations to minimize bundle size) */
 
+tr.is-one {
+  background: greenyellow;
+}
+
+tr.is-two {
+  background: GoldenRod;
+}
+
+tr.is-three {
+  background: tomato;
+}
+

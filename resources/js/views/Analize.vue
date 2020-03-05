@@ -49,7 +49,6 @@
         :pagination-position="paginationPosition"
         :mobile-cards="mobile_card"
         bordered
-        hoverable
         :narrowed="true"
         :data="sarasas"
         :opened-detailed="defaultOpenedDetails"
@@ -58,16 +57,11 @@
         detail-key="preke"
         @details-open="(row, index) => $buefy.toast.open(`Išskleista ${ row.preke } prekė!`)"
         :loading="isLoading"
+        :row-class="onRowClass"
         default-sort-direction="asc"
         default-sort="preke">
         <template slot-scope="props">
-          <b-table-column v-if="props.row.sandelis == sandeliai.split('::')[0]" :style="{'background-color': 'greenyellow'}" label="Preke"  field="preke" sortable>
-                {{ props.row.preke }}
-          </b-table-column>
-          <b-table-column v-else-if="props.row.sandelis == sandeliai.split('::')[1]" :style="{'background-color': 'GoldenRod'}" label="Preke"  field="preke" sortable>
-                {{ props.row.preke }}
-          </b-table-column>
-          <b-table-column v-else :style="{'background-color': 'tomato'}" label="Preke"  field="preke" sortable>
+          <b-table-column label="Preke"  field="preke" sortable>
                 {{ props.row.preke }}
           </b-table-column>
           <b-table-column label="Likutis" field="likutis" sortable>
@@ -134,6 +128,10 @@
 
 </template>
 
+<style  scoped>
+    
+</style>
+
 <script>
 import map from 'lodash/map'
 import CardComponent from '@/components/CardComponent'
@@ -144,6 +142,11 @@ export default {
   components: {CardToolbar, CardComponent},
   data () {
     return {
+      color: [
+        'is-one',
+        'is-two',
+        'is-three'
+      ],
       isPaginated: true,
       paginationPosition: 'bottom',
       perPage: 50,
@@ -164,23 +167,39 @@ export default {
      mobile_card: true,
      paieska_big: false,
      viso: [],
+     explode: [],
     }
   },
+  watch: {
+    
+  },
   computed: {
-    explode(){
-      return this.sandeliai.split("::");
-    }
   },
   created () {
     this.getData()
   },
   methods: {
+    onRowClass: function (row, index) {
+      this.explode = this.sandeliai.split("::");
+      //var i;
+      //for(i=0; i < this.explode.length; i++){
+        if(row.sandelis == this.explode[0]){
+          return this.color[0];
+        }
+        if(row.sandelis == this.explode[1]){
+          return this.color[1];
+        }
+        if(row.sandelis == this.explode[2]){
+          return this.color[2];
+        }
+      //}
+      
+    },
       print() {
       // Pass the element id here
       this.mobile_card = false;
       this.$htmlToPaper('printMe');
     },
-   
     change_gam(){
       this.gam = !this.gam
       this.ieskoti = this.paieska
