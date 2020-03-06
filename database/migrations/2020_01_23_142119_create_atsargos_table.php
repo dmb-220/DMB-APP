@@ -25,6 +25,7 @@ class CreateAtsargosTable extends Migration {
 			$table->string('kaina', 191);
 			$table->string('grupe', 191);
 			$table->string('pavadinimas', 191);
+			$table->string('registras', 191);
 			$table->string('salis', 191);
 			$table->timestamps();
 		});

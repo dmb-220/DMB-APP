@@ -345,6 +345,7 @@ class CSVController extends Controller
                     $q->kaina = $duomenys[8];
                     $q->grupe = $duomenys[9];
                     $q->pavadinimas = $duomenys[10];
+                    $q->registras = $duomenys[11];
                     $q->salis = $valstybe;
                     $q->save();
                 }

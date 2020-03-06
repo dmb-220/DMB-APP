@@ -184,7 +184,7 @@ class PrekesController extends Controller
 
         $atsargos = array();
         $ats = array();
-        /*$qu = Atsargos::query();
+        $qu = Atsargos::query();
         $qu->where('preke', 'like', $pa);
         $qu->where('data', '>', '2020');
         if($grupe != 0 && $grupes[$grupe]){
@@ -194,17 +194,44 @@ class PrekesController extends Controller
         //reik leisti paimti duomenis tiks tiems sandeliams i kuriuos isveza.
         //reiks masyva isikelti is statistikos
         foreach ( $atsargos as $value ) {
-            if($value['salis'] == 1){
-                if($value['sandelis_is'] == '7777'){
-                    $ats[$value['preke']]['EE'][] = $value;
-                }else{
-                    $ats[$value['preke']]['LT'][] = $value;
+            if($value['registras'] == "GAM"){
+                $a = explode("-", $value['preke']);
+                if(count($a) >= 3){$ne = $a[0]."-".$a[1]."-";}
+                if(count($a) == 2){$ne = $a[0]."-";}
+                //turi veikti tik su BROK
+                if(count($a) == 1){$ne = preg_replace('#[0-9 ]*#', '', $a[0]);}
+
+                if($value['salis'] == 1){
+                    if($value['sandelis_is'] == '7777'){
+                        $ats[$ne]['EE'][$value['sandelis_i']][$value['data']][] = $value;
+                    }else{
+                        if($value['sandelis_is'] == 'TELSIAI'){
+                            $ats[$ne]['LT'][$value['sandelis_i']][$value['data']][] = $value;
+                        }
+                    }
+                }
+                if($value['salis'] == 2){
+                    if($value['sandelis_is'] == '5555'){
+                        $ats[$ne]['LV'][$value['sandelis_i']][$value['data']][] = $value;
+                    }
+                }
+            }else{
+                if($value['salis'] == 1){
+                    if($value['sandelis_is'] == '7777'){
+                        $ats[$value['preke']]['EE'][$value['sandelis_i']][$value['data']][] = $value;
+                    }else{
+                        if($value['sandelis_is'] == 'TELSIAI'){
+                            $ats[$value['preke']]['LT'][$value['sandelis_i']][$value['data']][] = $value;
+                        }
+                    }
+                }
+                if($value['salis'] == 2){
+                    if($value['sandelis_is'] == '5555'){
+                        $ats[$value['preke']]['LV'][$value['sandelis_i']][$value['data']][] = $value;
+                    }
                 }
             }
-            if($value['salis'] == 2){
-                $ats[$value['preke']]['LV'][] = $value;
-            }
-        }*/
+        }
 
         $query_p = Pardavimai::query();
         $query_p->where('preke', 'like', $pa);
