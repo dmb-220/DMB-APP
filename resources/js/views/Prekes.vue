@@ -74,7 +74,7 @@
           </b-table-column> 
           <b-table-column :visible='kainos'  label="Kaina"  field="kaina">
                 {{ props.row.kaina }}
-          </b-table-column> 
+          </b-table-column>
           <b-table-column :visible='rodyti_lt' :style="{'background-color': 'greenyellow'}" label="LT likučiai" field="likutis.LT_viso" sortable>
                 {{props.row.likutis && props.row.likutis.LT_viso}}
           </b-table-column>
@@ -258,6 +258,7 @@ export default {
       rodyti_lt: true,
      rodyti_lv: true,
      rodyti_ee: true,
+     atsargos: [],
       sarasas: [],
       grupes: [],
       grupes_lv: [],
@@ -384,6 +385,7 @@ export default {
         this.sarasas = response.data.sarasas;
         this.paieska = response.data.paieska;
         this.viso = response.data.viso;
+        this.atsargos = response.data.atsargos;
 
         this.rikiuoti = response.data.rikiuoti ? false : true;
         this.grupes = response.data.grupes;

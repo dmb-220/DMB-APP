@@ -312,6 +312,7 @@ __webpack_require__.r(__webpack_exports__);
       rodyti_lt: true,
       rodyti_lv: true,
       rodyti_ee: true,
+      atsargos: [],
       sarasas: [],
       grupes: [],
       grupes_lv: [],
@@ -437,6 +438,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.sarasas = response.data.sarasas;
         _this3.paieska = response.data.paieska;
         _this3.viso = response.data.viso;
+        _this3.atsargos = response.data.atsargos;
         _this3.rikiuoti = response.data.rikiuoti ? false : true;
         _this3.grupes = response.data.grupes;
         _this3.grupes_lv = response.data.grupes_lv;
