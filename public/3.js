@@ -888,34 +888,27 @@ var render = function() {
                                   _c(
                                     "ul",
                                     _vm._l(props.row.sandelis, function(idx) {
-                                      return _c("li", { key: idx }, [
-                                        _vm._v(
-                                          "\n              " +
-                                            _vm._s(idx.pavadinimas) +
-                                            " - " +
-                                            _vm._s(idx.kaina) +
-                                            "\n              "
-                                        )
-                                      ])
+                                      return _c(
+                                        "li",
+                                        { key: idx.pavadinimas },
+                                        [
+                                          _vm._v(
+                                            "\n              " +
+                                              _vm._s(idx.pavadinimas) +
+                                              " - " +
+                                              _vm._s(idx.kaina) +
+                                              "\n              "
+                                          )
+                                        ]
+                                      )
                                     }),
                                     0
                                   )
                                 ]
                               )
-                            : _c(
-                                "b-table-column",
-                                {
-                                  attrs: {
-                                    label: "Sandeliui",
-                                    field: "sandelis"
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n          " + _vm._s() + "\n        "
-                                  )
-                                ]
-                              ),
+                            : _c("b-table-column", {
+                                attrs: { label: "Sandeliui", field: "sandelis" }
+                              }),
                           _vm._v(" "),
                           _c(
                             "b-table-column",

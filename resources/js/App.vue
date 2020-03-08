@@ -59,6 +59,11 @@ export default {
             icon: 'bell-ring',
           },
           {
+            to: '/analize',
+            label: 'Analizė',
+            icon: 'bell-ring',
+          },
+          {
             to: '/sandeliai',
             label: 'Sandeliai',
             icon: 'archive',

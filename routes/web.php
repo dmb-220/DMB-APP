@@ -21,11 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
-});
-
-
 Route::resource('testas', 'TestasController');
 
 Route::resource('sandeliai', 'SandeliaiController');
@@ -118,6 +113,16 @@ Route::prefix('/akcijos')->group(function () {
     Route::post('store_akcija', 'AkcijosController@store_akcija');
     Route::patch('{akcijos}', 'AkcijosController@update');
     Route::delete('{akcijos}/destroy', 'AkcijosController@destroy');
+});
+/*
+ * Analizė
+ * */ 
+Route::prefix('/analize')->group(function () {
+    Route::get('', 'AnalizeController@index');
+    Route::get('{analize}', 'AnalizeController@show');
+    Route::post('store', 'AnalizeController@store');
+    Route::patch('{analize}', 'AnalizeController@update');
+    Route::delete('{analize}/destroy', 'AnalizeController@destroy');
 });
 
 /*

@@ -1,5 +1,11 @@
 {
+<<<<<<< HEAD
     "/js/app.js": "/js/app.js?id=62440a95987f9c28acb5",
     "/css/app.css": "/css/app.css?id=06b6c81a7bef9a2c0d92",
     "/css/vendor.css": "/css/vendor.css?id=d79135b31ec8f72bcaf7"
+=======
+    "/js/app.js": "/js/app.js?id=dcda0c08cdabadc1735b",
+    "/css/app.css": "/css/app.css?id=7dadc49f584fab7188ec",
+    "/css/vendor.css": "/css/vendor.css?id=1fd1572065c949d95414"
+>>>>>>> bb29be527108e1fca5bd7dbe653310effb0614f2
 }

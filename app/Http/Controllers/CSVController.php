@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Pardavimai;
+use App\Likutis;
+use App\Akcijos;
+use App\Kelione;
+use App\Atsargos;
+
 use App\File;
 use App\Http\Requests\FileUploadRequest;
 use Illuminate\Http\Request;
@@ -112,27 +118,31 @@ class CSVController extends Controller
                 if($valstybe == 2){
                     DB::table('pardavimais')->where('salis', 2)->delete();
                 }
+                $flag = true;
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    //praleidziam pirma eilute
+                    if($flag) { $flag = false; continue; }
                     $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
                     $kiek = explode(",", $duomenys[6]);
                     $kiek = $kiek[0];
-                    DB::table('pardavimais')->insert([
-                        'preke' => $duomenys[2],
-                        'pavadinimas' => $duomenys[3],
-                        'barkodas' => $duomenys[1],
-                        'grupe' => $duomenys[3],
-                        'sandelis' => $duomenys[0],
-                        'kiekis' => $kiek,
-                        'pardavimo_kaina' => $duomenys[7],
-                        'pardavimo_suma' => $duomenys[7],
-                        'pvm' => $duomenys[8],
-                        'pvm_suma' => $duomenys[9],
-                        'suma' => $duomenys[10],
-                        'grupes_pavadinimas' => $duomenys[3],
-                        'registras' => $duomenys[4],
-                        'salis' => $valstybe,
-                        ]);
+
+                    $q = new Pardavimai;
+                    $q->preke = $duomenys[2];
+                    $q->pavadinimas = $duomenys[3];
+                    $q->barkodas = $duomenys[1];
+                    $q->grupe = $duomenys[3];
+                    $q->sandelis = $duomenys[0];
+                    $q->kiekis = $kiek;
+                    $q->pardavimo_kaina = $duomenys[7];
+                    $q->pardavimo_suma = $duomenys[7];
+                    $q->pvm = $duomenys[8];
+                    $q->pvm_suma = $duomenys[9];
+                    $q->suma = $duomenys[10];
+                    $q->grupes_pavadinimas = $duomenys[3];
+                    $q->registras = $duomenys[4];
+                    $q->salis = $valstybe;
+                    $q->save();
                 }
                 fclose($handle);
                 }
@@ -151,22 +161,23 @@ class CSVController extends Controller
                         if($duomenys[0] == "Pirk"){
                             $reg = "PIRK";
                         }
-                        DB::table('pardavimais')->insert([
-                            'preke' => $duomenys[8],
-                            'pavadinimas' => $duomenys[3],
-                            'barkodas' => $duomenys[8],
-                            'grupe' => $duomenys[1],
-                            'sandelis' => $duomenys[2],
-                            'kiekis' => $duomenys[5],
-                            'pardavimo_kaina' => 0,
-                            'pardavimo_suma' => 0,
-                            'pvm' => 0,
-                            'pvm_suma' => 0,
-                            'suma' => 0,
-                            'grupes_pavadinimas' => 0,
-                            'registras' => $reg,
-                            'salis' => $valstybe,
-                            ]);
+
+                        $q = new Pardavimai;
+                        $q->preke = $duomenys[8];
+                        $q->pavadinimas = $duomenys[3];
+                        $q->barkodas = $duomenys[8];
+                        $q->grupe = $duomenys[1];
+                        $q->sandelis = $duomenys[2];
+                        $q->kiekis = $duomenys[5];
+                        $q->pardavimo_kaina = 0;
+                        $q->pardavimo_suma = 0;
+                        $q->pvm = 0;
+                        $q->pvm_suma = 0;
+                        $q->suma = 0;
+                        $q->grupes_pavadinimas = 0;
+                        $q->registras = $reg;
+                        $q->salis = $valstybe;
+                        $q->save();
                     }
                     fclose($handle);
                 }
@@ -183,21 +194,24 @@ class CSVController extends Controller
                 if($valstybe == 2){
                     DB::table('likutis')->where('salis', 2)->delete();
                 }
+                $flag = true;
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    if($flag) { $flag = false; continue; }
                     $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
                     $kiek = explode(",", $duomenys[4]);
                     $kiek = $kiek[0];
-                    DB::table('likutis')->insert([
-                        'preke' => $duomenys[0],
-                        'pavadinimas' => $duomenys[1],
-                        'kaina' => $duomenys[3],
-                        'kiekis' => $kiek,
-                        'suma' => $duomenys[5],
-                        'sandelis' => $duomenys[6],
-                        'registras' => $duomenys[7],
-                        'salis' => $valstybe,
-                        ]);
+
+                    $q = new Likutis;
+                    $q->preke = $duomenys[0];
+                    $q->pavadinimas = $duomenys[1];
+                    $q->kaina = $duomenys[3];
+                    $q->kiekis = $kiek;
+                    $q->suma = $duomenys[5];
+                    $q->sandelis = $duomenys[6];
+                    $q->registras = $duomenys[7];
+                    $q->salis = $valstybe;
+                    $q->save();
                 }
                 fclose($handle);
                 }
@@ -216,16 +230,16 @@ class CSVController extends Controller
                             $reg = "PIRK";
                         }
                         
-                        DB::table('likutis')->insert([
-                            'preke' => $duomenys[6],
-                            'pavadinimas' => $duomenys[1],
-                            'kaina' => 0,
-                            'kiekis' => $duomenys[7],
-                            'suma' => $duomenys[8],
-                            'sandelis' => $duomenys[5],
-                            'registras' => $reg,
-                            'salis' => $valstybe,
-                            ]);
+                        $q = new Likutis;
+                        $q->preke = $duomenys[6];
+                        $q->pavadinimas = $duomenys[1];
+                        $q->kaina = 0;
+                        $q->kiekis = $duomenys[7];
+                        $q->suma = $duomenys[8];
+                        $q->sandelis = $duomenys[5];
+                        $q->registras = $reg;
+                        $q->salis = $valstybe;
+                        $q->save();
                     }
                     fclose($handle);
                 }
@@ -242,53 +256,28 @@ class CSVController extends Controller
                 if($valstybe == 2){
                     DB::table('akcijos')->where('salis', 2)->delete();
                 }
+                $flag = true;
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    if($flag) { $flag = false; continue; }
                     $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
                     if(strtotime($duomenys[2]) > strtotime(date("Y-m-d H:i:s"))){
-                    DB::table('akcijos')->insert([
-                        'akcija' => $duomenys[0],
-                        'galioja_nuo' => $duomenys[1],
-                        'galioja_iki' => $duomenys[2],
-                        'pavadinimas' => $duomenys[4],
-                        'preke' => $duomenys[3],
-                        'sandelis' => $duomenys[8],
-                        'kaina' => $duomenys[5],
-                        'salis' => $valstybe,
-                        ]);
+
+                    $q = new Akcijos;
+                    $q->akcija = $duomenys[0];
+                    $q->galioja_nuo = $duomenys[1];
+                    $q->galioja_iki = $duomenys[2];
+                    $q->pavadinimas = $duomenys[4];
+                    $q->preke = $duomenys[3];
+                    $q->sandelis = $duomenys[8];
+                    $q->kaina = $duomenys[5];
+                    $q->salis = $valstybe;
+                    $q->save();
                     }
                 }
                 fclose($handle);
                 }
             }
-            //uzkeliame ESTIJOS duomenis
-            /*if($valstybe == 3){
-                DB::table('likutis')->where('salis', 3)->delete();
-                //reikia EST Gamyba irasant pakeisti i GAM, o Pirkimas i PIRK
-                if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
-                    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                        $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-                        if($duomenys[2] == "Gamyba"){
-                            $reg = "GAM";
-                        }
-                        if($duomenys[2] == "Pirk"){
-                            $reg = "PIRK";
-                        }
-                        
-                        DB::table('likutis')->insert([
-                            'preke' => $duomenys[6],
-                            'pavadinimas' => $duomenys[1],
-                            'kaina' => 0,
-                            'kiekis' => $duomenys[7],
-                            'suma' => $duomenys[8],
-                            'sandelis' => $duomenys[5],
-                            'registras' => $reg,
-                            'salis' => $valstybe,
-                            ]);
-                    }
-                    fclose($handle);
-                }
-            }*/
         }
 
         //daromas KELIONES LAPŲ uzkelimas
@@ -301,22 +290,64 @@ class CSVController extends Controller
                 if($valstybe == 2){
                     DB::table('keliones')->where('salis', 2)->delete();
                 }
+                $flag = true;
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    if($flag) { $flag = false; continue; }
                     $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-                    DB::table('keliones')->insert([
-                        'data' => $duomenys[0],
-                        'doc_nr' => $duomenys[2],
-                        'blanko_nr' => $duomenys[3],
-                        'sandelis_is' => $duomenys[4],
-                        'sandelis_i' => $duomenys[5],
-                        'preke' => $duomenys[6],
-                        'kiekis' => $duomenys[7],
-                        'kaina' => $duomenys[8],
-                        'grupe' => $duomenys[9],
-                        'pavadinimas' => $duomenys[10],
-                        'salis' => $valstybe,
-                        ]);
+
+                    $q = new Kelione;
+                    $q->data = $duomenys[0];
+                    $q->doc_nr = $duomenys[2];
+                    $q->blanko_nr = $duomenys[3];
+                    $q->sandelis_is = $duomenys[4];
+                    $q->sandelis_i = $duomenys[5];
+                    $q->preke = $duomenys[6];
+                    $q->kiekis = $duomenys[7];
+                    $q->kaina = $duomenys[8];
+                    $q->grupe = $duomenys[9];
+                    $q->pavadinimas = $duomenys[10];
+                    $q->salis = $valstybe;
+                    $q->save();
+                }
+                fclose($handle);
+                }
+            }
+        }
+
+        //daromas KELIONES LAPŲ uzkelimas
+        if($tipas == 5){
+            //Uzkelime LIETUVOS ir LATVIJOS duomenis
+            if($valstybe == 1 || $valstybe == 2){
+                if($valstybe == 1){
+                    DB::table('atsargos')->where('salis', 1)->delete();
+                }
+                if($valstybe == 2){
+                    DB::table('atsargos')->where('salis', 2)->delete();
+                }
+                //reikia duomenu pildyma toliau
+                //su naujais irasais
+
+                $flag = true;
+                if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    if($flag) { $flag = false; continue; }
+                    $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+
+                    $q = new Atsargos;
+                    $q->data = $duomenys[0];
+                    $q->doc_nr = $duomenys[2];
+                    $q->blanko_nr = $duomenys[3];
+                    $q->sandelis_is = $duomenys[4];
+                    $q->sandelis_i = $duomenys[5];
+                    $q->preke = $duomenys[6];
+                    $q->kiekis = $duomenys[7];
+                    $q->kaina = $duomenys[8];
+                    $q->grupe = $duomenys[9];
+                    $q->pavadinimas = $duomenys[10];
+                    $q->registras = $duomenys[11];
+                    $q->salis = $valstybe;
+                    $q->save();
                 }
                 fclose($handle);
                 }
