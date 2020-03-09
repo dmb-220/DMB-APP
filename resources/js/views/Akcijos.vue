@@ -122,6 +122,17 @@
               </template>
             </div>
           </section>
+          <template slot="footer">
+            <th> </th>
+            <th> </th>
+            <th> </th>
+            <th>{{ bendras }}</th>
+            <th> </th>
+            <th> </th>
+            <th> </th>
+            <th> </th>
+            <th> </th>
+        </template>
         </b-table>
         </div>
       <hr>
@@ -150,6 +161,7 @@ export default {
       perPage: 50,
     file: null,
     failas: '',
+    bendras: '',
      isLoading: false,
      defaultOpenedDetails: [1],
      showDetailIcon: false,
@@ -211,6 +223,7 @@ export default {
       .then(response => {
         this.isLoading = false
         this.pardavimai = response.data.data;
+        this.bendras = response.data.likutis;
 
         this.sandelis = response.data.sandelis;
         this.failas = response.data.failas;

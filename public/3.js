@@ -302,6 +302,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -317,6 +328,7 @@ __webpack_require__.r(__webpack_exports__);
       perPage: 50,
       file: null,
       failas: '',
+      bendras: '',
       isLoading: false,
       defaultOpenedDetails: [1],
       showDetailIcon: false,
@@ -375,6 +387,7 @@ __webpack_require__.r(__webpack_exports__);
       this.axios.get('/akcijos').then(function (response) {
         _this2.isLoading = false;
         _this2.pardavimai = response.data.data;
+        _this2.bendras = response.data.likutis;
         _this2.sandelis = response.data.sandelis;
         _this2.failas = response.data.failas;
       })["catch"](function (err) {
@@ -1096,8 +1109,29 @@ var render = function() {
                         2
                       )
                     ]
-                  )
-                ]
+                  ),
+                  _vm._v(" "),
+                  _c("template", { slot: "footer" }, [
+                    _c("th"),
+                    _vm._v(" "),
+                    _c("th"),
+                    _vm._v(" "),
+                    _c("th"),
+                    _vm._v(" "),
+                    _c("th", [_vm._v(_vm._s(_vm.bendras))]),
+                    _vm._v(" "),
+                    _c("th"),
+                    _vm._v(" "),
+                    _c("th"),
+                    _vm._v(" "),
+                    _c("th"),
+                    _vm._v(" "),
+                    _c("th"),
+                    _vm._v(" "),
+                    _c("th")
+                  ])
+                ],
+                2
               )
             ],
             1

@@ -181,7 +181,7 @@ export default {
     onRowClass: function (row, index) {
       var i;
       for(i=0; i < this.explode.length; i++){
-        if(row.sandelis == this.explode[i]){
+        if(row.sandelis.toUpperCase() == this.explode[i]){
           return this.color[i];
         }
       }

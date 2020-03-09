@@ -232,7 +232,7 @@ __webpack_require__.r(__webpack_exports__);
       var i;
 
       for (i = 0; i < this.explode.length; i++) {
-        if (row.sandelis == this.explode[i]) {
+        if (row.sandelis.toUpperCase() == this.explode[i]) {
           return this.color[i];
         }
       }
