@@ -65,11 +65,9 @@
 
             <b-table-column v-if="props.row.sandelis && props.row.sandelis.length > 0" :style="{'background-color': 'tomato', 'vertical-align': 'middle'}" 
               label="Sandeliui" field="sandelis">
-              <ul>
-                <li v-for="idx in props.row.sandelis" :key="idx.pavadinimas">
+                <div class="is-size-7" v-for="idx in props.row.sandelis" :key="idx.pavadinimas">
                   {{ idx.pavadinimas }} - {{ idx.kaina }}
-                  </li>
-                </ul>
+                </div>
             </b-table-column>
             <b-table-column v-else label="Sandeliui" field="sandelis">
 

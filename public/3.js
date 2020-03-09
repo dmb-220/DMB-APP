@@ -311,8 +311,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -897,27 +895,25 @@ var render = function() {
                                     field: "sandelis"
                                   }
                                 },
-                                [
-                                  _c(
-                                    "ul",
-                                    _vm._l(props.row.sandelis, function(idx) {
-                                      return _c(
-                                        "li",
-                                        { key: idx.pavadinimas },
-                                        [
-                                          _vm._v(
-                                            "\n              " +
-                                              _vm._s(idx.pavadinimas) +
-                                              " - " +
-                                              _vm._s(idx.kaina) +
-                                              "\n              "
-                                          )
-                                        ]
+                                _vm._l(props.row.sandelis, function(idx) {
+                                  return _c(
+                                    "div",
+                                    {
+                                      key: idx.pavadinimas,
+                                      staticClass: "is-size-7"
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n              " +
+                                          _vm._s(idx.pavadinimas) +
+                                          " - " +
+                                          _vm._s(idx.kaina) +
+                                          "\n            "
                                       )
-                                    }),
-                                    0
+                                    ]
                                   )
-                                ]
+                                }),
+                                0
                               )
                             : _c("b-table-column", {
                                 attrs: { label: "Sandeliui", field: "sandelis" }

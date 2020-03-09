@@ -158,12 +158,14 @@ class AkcijosController extends Controller
             $group[$value['preke']]['sandeliai'][$value['sandelis']]['likutis'] = $value['kiekis'];
 
             //suskaiciuojam likucius
+            //reiketu suskirtyti pagal valstybes jei nera nurodytas sandelis
             if(!$sandelis){
                 if (!array_key_exists('likutis', $group[$value['preke']])){
                     $group[$value['preke']]['likutis'] = $value['kiekis'];
                 }else{
                     $group[$value['preke']]['likutis'] = $group[$value['preke']]['likutis'] + $value['kiekis'];
                 }
+                $bendras += $value['kiekis'];
             }else{
                 if($value['sandelis'] == $sandelis){
                     if (!array_key_exists('likutis', $group[$value['preke']])){
@@ -171,9 +173,9 @@ class AkcijosController extends Controller
                     }else{
                         $group[$value['preke']]['likutis'] = $group[$value['preke']]['likutis'] + $value['kiekis'];
                     }
+                    $bendras += $value['kiekis'];
                 }
             }
-            $bendras += $value['kiekis'];
 
             $group[$value['preke']]['sandeliai'] = array_values($group[$value['preke']]['sandeliai']);
         }
