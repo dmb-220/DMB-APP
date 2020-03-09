@@ -65,11 +65,9 @@
 
             <b-table-column v-if="props.row.sandelis && props.row.sandelis.length > 0" :style="{'background-color': 'tomato', 'vertical-align': 'middle'}" 
               label="Sandeliui" field="sandelis">
-              <ul>
-                <li v-for="idx in props.row.sandelis" :key="idx.pavadinimas">
+                <div class="is-size-7" v-for="idx in props.row.sandelis" :key="idx.pavadinimas">
                   {{ idx.pavadinimas }} - {{ idx.kaina }}
-                  </li>
-                </ul>
+                </div>
             </b-table-column>
             <b-table-column v-else label="Sandeliui" field="sandelis">
 
@@ -122,6 +120,17 @@
               </template>
             </div>
           </section>
+          <template slot="footer">
+            <th> </th>
+            <th> </th>
+            <th> </th>
+            <th>{{ bendras }}</th>
+            <th> </th>
+            <th> </th>
+            <th> </th>
+            <th> </th>
+            <th> </th>
+        </template>
         </b-table>
         </div>
       <hr>
@@ -150,6 +159,7 @@ export default {
       perPage: 50,
     file: null,
     failas: '',
+    bendras: '',
      isLoading: false,
      defaultOpenedDetails: [1],
      showDetailIcon: false,
@@ -211,6 +221,7 @@ export default {
       .then(response => {
         this.isLoading = false
         this.pardavimai = response.data.data;
+        this.bendras = response.data.likutis;
 
         this.sandelis = response.data.sandelis;
         this.failas = response.data.failas;

@@ -24,6 +24,11 @@
           <b-button :type="pirk? 'is-info' : 'is-dark'" @click="change_pirk()">GAMYBA</b-button>
           <b-button :type="gam ? 'is-info' : 'is-dark'" @click="change_gam()">PIRKIMAI</b-button>
         </b-field>
+        <b-field label="GRUPAVIMAS:" horizontal>
+          <b-switch type="is-info" v-model="rikiuoti" @click.native="switch_post">
+            Veikia TIK su mūsų GAM gaminiais! 
+          </b-switch>
+        </b-field>
         </card-component>
         <card-component title="Analizė" icon="account-multiple">
         <div  id="printMe">
@@ -70,6 +75,12 @@
           <b-table-column label="Parduota" field="parduota" sortable>
                 {{props.row.parduota}}
           </b-table-column>
+          <b-table-column label="Perkelta" field="atsargos" sortable>
+                <div v-for="idx in props.row.data" :key="idx">
+                  {{ idx }}
+                </div>
+                {{props.row.perkelta}}
+          </b-table-column>
           <b-table-column label="Sandelis" field="sandelis" sortable>
                 {{props.row.sandelis}}
           </b-table-column>
@@ -84,6 +95,9 @@
                 <b-table-column field="akcija" label="Akcija" sortable>
                     <small>{{ props.row.akcija }}</small>
                 </b-table-column>
+                <b-table-column field="preke" label="Prekė" sortable>
+                    <small>{{ props.row.preke }}</small>
+                </b-table-column>
                 <b-table-column field="kaina" label="Kaina" sortable>
                     <small>{{ props.row.kaina }}</small>
                 </b-table-column>
@@ -97,6 +111,22 @@
                     <small>{{ props.row.galioja_iki && props.row.galioja_iki.split(" ")[0] }}</small>
                 </b-table-column>
             </template>
+            <section class="section" slot="empty">
+          <div class="content has-text-centered">
+            <template v-if="isLoading">
+              <p>
+                <b-icon icon="dots-horizontal" size="is-large"/>
+              </p>
+              <p>Gaunami duomenys...</p>
+            </template>
+            <template v-else>
+              <p>
+                <b-icon icon="emoticon-sad" size="is-large"/>
+              </p>
+              <p>Duomenų nerasta &hellip;</p>
+            </template>
+          </div>
+        </section>
             </b-table>
         </template>
 
@@ -181,7 +211,7 @@ export default {
     onRowClass: function (row, index) {
       var i;
       for(i=0; i < this.explode.length; i++){
-        if(row.sandelis == this.explode[i]){
+        if(row.sandelis.toUpperCase() == this.explode[i]){
           return this.color[i];
         }
       }

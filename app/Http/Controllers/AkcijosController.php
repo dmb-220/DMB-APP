@@ -129,6 +129,9 @@ class AkcijosController extends Controller
         //kad pamatytume kurie is saraso neturi akciju
         $group = array_merge($rr, $group);
 
+        //suskaiciuojam kiek is viso likuciu
+        $bendras = 0;
+
          //Istraukiam likucius, pagal ieskoma sarasa
          $re = Likutis::query()->whereIn('preke', $r)->get();
          //sudedam papildomus duomenis i masyva
@@ -155,12 +158,14 @@ class AkcijosController extends Controller
             $group[$value['preke']]['sandeliai'][$value['sandelis']]['likutis'] = $value['kiekis'];
 
             //suskaiciuojam likucius
+            //reiketu suskirtyti pagal valstybes jei nera nurodytas sandelis
             if(!$sandelis){
                 if (!array_key_exists('likutis', $group[$value['preke']])){
                     $group[$value['preke']]['likutis'] = $value['kiekis'];
                 }else{
                     $group[$value['preke']]['likutis'] = $group[$value['preke']]['likutis'] + $value['kiekis'];
                 }
+                $bendras += $value['kiekis'];
             }else{
                 if($value['sandelis'] == $sandelis){
                     if (!array_key_exists('likutis', $group[$value['preke']])){
@@ -168,6 +173,7 @@ class AkcijosController extends Controller
                     }else{
                         $group[$value['preke']]['likutis'] = $group[$value['preke']]['likutis'] + $value['kiekis'];
                     }
+                    $bendras += $value['kiekis'];
                 }
             }
 
@@ -181,7 +187,7 @@ class AkcijosController extends Controller
             'status' => true,
             'sandelis' => $sandelis,
             'data' => $group,
-            //'likutis' => $re,
+            'likutis' => $bendras,
             'failas' => $failas_csv,
         ]);
     }

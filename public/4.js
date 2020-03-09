@@ -185,6 +185,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -232,7 +262,7 @@ __webpack_require__.r(__webpack_exports__);
       var i;
 
       for (i = 0; i < this.explode.length; i++) {
-        if (row.sandelis == this.explode[i]) {
+        if (row.sandelis.toUpperCase() == this.explode[i]) {
           return this.color[i];
         }
       }
@@ -669,6 +699,37 @@ var render = function() {
                 )
               ],
               1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "GRUPAVIMAS:", horizontal: "" } },
+              [
+                _c(
+                  "b-switch",
+                  {
+                    attrs: { type: "is-info" },
+                    nativeOn: {
+                      click: function($event) {
+                        return _vm.switch_post($event)
+                      }
+                    },
+                    model: {
+                      value: _vm.rikiuoti,
+                      callback: function($$v) {
+                        _vm.rikiuoti = $$v
+                      },
+                      expression: "rikiuoti"
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n          Veikia TIK su mūsų GAM gaminiais! \n        "
+                    )
+                  ]
+                )
+              ],
+              1
             )
           ],
           1
@@ -850,6 +911,34 @@ var render = function() {
                               "b-table-column",
                               {
                                 attrs: {
+                                  label: "Perkelta",
+                                  field: "atsargos",
+                                  sortable: ""
+                                }
+                              },
+                              [
+                                _vm._l(props.row.data, function(idx) {
+                                  return _c("div", { key: idx }, [
+                                    _vm._v(
+                                      "\n                " +
+                                        _vm._s(idx) +
+                                        "\n              "
+                                    )
+                                  ])
+                                }),
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(props.row.perkelta) +
+                                    "\n        "
+                                )
+                              ],
+                              2
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-table-column",
+                              {
+                                attrs: {
                                   label: "Sandelis",
                                   field: "sandelis",
                                   sortable: ""
@@ -870,108 +959,194 @@ var render = function() {
                         key: "detail",
                         fn: function(props) {
                           return [
-                            _c("b-table", {
-                              attrs: {
-                                data: props.row.akcija,
-                                "default-sort-direction": "desc",
-                                "default-sort": "kaina"
-                              },
-                              scopedSlots: _vm._u(
-                                [
-                                  {
-                                    key: "default",
-                                    fn: function(props) {
-                                      return [
-                                        _c(
-                                          "b-table-column",
-                                          {
-                                            attrs: {
-                                              field: "akcija",
-                                              label: "Akcija",
-                                              sortable: ""
-                                            }
-                                          },
-                                          [
-                                            _c("small", [
-                                              _vm._v(_vm._s(props.row.akcija))
-                                            ])
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-table-column",
-                                          {
-                                            attrs: {
-                                              field: "kaina",
-                                              label: "Kaina",
-                                              sortable: ""
-                                            }
-                                          },
-                                          [
-                                            _c("small", [
-                                              _vm._v(_vm._s(props.row.kaina))
-                                            ])
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        props.row.salis == 1
-                                          ? _c(
-                                              "b-table-column",
-                                              {
-                                                attrs: {
-                                                  field: "salis",
-                                                  label: "Valstybė",
-                                                  sortable: ""
-                                                }
-                                              },
-                                              [_c("small", [_vm._v("LIETUVA")])]
-                                            )
-                                          : _vm._e(),
-                                        _vm._v(" "),
-                                        props.row.salis == 2
-                                          ? _c(
-                                              "b-table-column",
-                                              {
-                                                attrs: {
-                                                  field: "salis",
-                                                  label: "Valstybė",
-                                                  sortable: ""
-                                                }
-                                              },
-                                              [_c("small", [_vm._v("LATVIJA")])]
-                                            )
-                                          : _vm._e(),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-table-column",
-                                          {
-                                            attrs: {
-                                              field: "galioja_iki",
-                                              label: "Galioja IKI",
-                                              sortable: ""
-                                            }
-                                          },
-                                          [
-                                            _c("small", [
-                                              _vm._v(
-                                                _vm._s(
-                                                  props.row.galioja_iki &&
-                                                    props.row.galioja_iki.split(
-                                                      " "
-                                                    )[0]
-                                                )
+                            _c(
+                              "b-table",
+                              {
+                                attrs: {
+                                  data: props.row.akcija,
+                                  "default-sort-direction": "desc",
+                                  "default-sort": "kaina"
+                                },
+                                scopedSlots: _vm._u(
+                                  [
+                                    {
+                                      key: "default",
+                                      fn: function(props) {
+                                        return [
+                                          _c(
+                                            "b-table-column",
+                                            {
+                                              attrs: {
+                                                field: "akcija",
+                                                label: "Akcija",
+                                                sortable: ""
+                                              }
+                                            },
+                                            [
+                                              _c("small", [
+                                                _vm._v(_vm._s(props.row.akcija))
+                                              ])
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-table-column",
+                                            {
+                                              attrs: {
+                                                field: "preke",
+                                                label: "Prekė",
+                                                sortable: ""
+                                              }
+                                            },
+                                            [
+                                              _c("small", [
+                                                _vm._v(_vm._s(props.row.preke))
+                                              ])
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-table-column",
+                                            {
+                                              attrs: {
+                                                field: "kaina",
+                                                label: "Kaina",
+                                                sortable: ""
+                                              }
+                                            },
+                                            [
+                                              _c("small", [
+                                                _vm._v(_vm._s(props.row.kaina))
+                                              ])
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          props.row.salis == 1
+                                            ? _c(
+                                                "b-table-column",
+                                                {
+                                                  attrs: {
+                                                    field: "salis",
+                                                    label: "Valstybė",
+                                                    sortable: ""
+                                                  }
+                                                },
+                                                [
+                                                  _c("small", [
+                                                    _vm._v("LIETUVA")
+                                                  ])
+                                                ]
                                               )
-                                            ])
-                                          ]
-                                        )
-                                      ]
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          props.row.salis == 2
+                                            ? _c(
+                                                "b-table-column",
+                                                {
+                                                  attrs: {
+                                                    field: "salis",
+                                                    label: "Valstybė",
+                                                    sortable: ""
+                                                  }
+                                                },
+                                                [
+                                                  _c("small", [
+                                                    _vm._v("LATVIJA")
+                                                  ])
+                                                ]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-table-column",
+                                            {
+                                              attrs: {
+                                                field: "galioja_iki",
+                                                label: "Galioja IKI",
+                                                sortable: ""
+                                              }
+                                            },
+                                            [
+                                              _c("small", [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    props.row.galioja_iki &&
+                                                      props.row.galioja_iki.split(
+                                                        " "
+                                                      )[0]
+                                                  )
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ]
+                                      }
                                     }
-                                  }
-                                ],
-                                null,
-                                true
-                              )
-                            })
+                                  ],
+                                  null,
+                                  true
+                                )
+                              },
+                              [
+                                _vm._v(" "),
+                                _c(
+                                  "section",
+                                  {
+                                    staticClass: "section",
+                                    attrs: { slot: "empty" },
+                                    slot: "empty"
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass: "content has-text-centered"
+                                      },
+                                      [
+                                        _vm.isLoading
+                                          ? [
+                                              _c(
+                                                "p",
+                                                [
+                                                  _c("b-icon", {
+                                                    attrs: {
+                                                      icon: "dots-horizontal",
+                                                      size: "is-large"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c("p", [
+                                                _vm._v("Gaunami duomenys...")
+                                              ])
+                                            ]
+                                          : [
+                                              _c(
+                                                "p",
+                                                [
+                                                  _c("b-icon", {
+                                                    attrs: {
+                                                      icon: "emoticon-sad",
+                                                      size: "is-large"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c("p", [
+                                                _vm._v("Duomenų nerasta …")
+                                              ])
+                                            ]
+                                      ],
+                                      2
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
                           ]
                         }
                       }
