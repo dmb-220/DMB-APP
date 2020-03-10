@@ -10,11 +10,27 @@
         </card-component>
         <card-component title="Analizė" icon="account-multiple">
         <div  id="printMe">
-        <div class="columns">
-          <div class="column has-text-centered has-text-weight-bold">
-            Rasta: {{sarasas.length }}
-            </div>
+        <div class="has-text-centered">
+          <b>UAB Sidonas ir Ko</b>
         </div>
+        <div class="has-text-centered">
+          Įm. kodas: 180886050
+        </div>
+        <div class="has-text-centered">
+          Kęstučio 20-1, LT-87120, Telšiai, Lietuva
+        </div>
+        <br>
+        <div class="has-text-centered is-size-5">
+          <b>VAŽTARAŠČIŲ REGISTRAVIMO ŽURNALAS</b>
+        </div>
+        <br>
+        <div class="has-text-left">
+          <b>Pradėta pildyti 2020m. {{menesiai[2]}} 1d.</b>
+        </div>
+        <div class="has-text-left">
+          <b>baigta pildyti 2020m. {{menesiai[2]}} {{new Date(2020, 2, 0).getDate()}}d.</b>
+        </div>
+        <br>
         <b-table
         bordered
         :narrowed="true"
@@ -22,7 +38,7 @@
         sort-icon="arrow-up"
         :loading="isLoading"
         default-sort-direction="asc"
-        default-sort="preke">
+        default-sort="data">
         <template slot-scope="props">
           <b-table-column label="Nr.">
              {{props.index + 1}}
@@ -63,6 +79,31 @@
           </div>
         </section>
       </b-table>
+      <br>
+      <br>
+      <div class="has-text-left">
+          Šiame žurnale sunumeruota, perverta virvele ir užantspauduota ________ lapų.<br>
+          20___m. ___________________________  ____d.
+      </div>
+      <br><br>
+      <div class="columns">
+        <div class="column">
+          <div class="has-text-left is-size-7">(pareigų pavadinimas)
+          </div>
+        </div>
+        <div class="column">
+          <div class="has-text-left is-size-7">(parašas)
+          </div>
+        </div>
+        <div class="column">
+          <div class="has-text-left is-size-7">(vardas, pavardė)
+          </div>
+        </div>
+      </div>
+      <div class="has-text-centered">
+         ____________________________________________________
+      </div>
+
       </div>
       <hr>
       <div class="buttons">
@@ -88,17 +129,16 @@ export default {
   components: {CardToolbar, CardComponent},
   data () {
     return {
+      menesiai: ['Sausio', 'Vasario', 'Kovo', 'Balandžio', 'Gegužės', 'Birželio', 'Liepos', 
+                'Rugpjūčio', 'Rugsėjo', 'Spalio', 'Lapkričio', 'Gruodžio'],
       showDetailIcon: false,
       isLoading: false,
       ieskoti: '',
       sarasas: [],
-      nr: 0,
+      menesis: '',
     }
   },
   computed: {
-    numeriai: function(){
-      return this.nr + 1;
-    }
   },
   created () {
     this.getData();
@@ -134,7 +174,7 @@ export default {
         this.isLoading = false
         this.sarasas = response.data.sarasas;
         this.ieskoti = response.data.ieskoti;
-      
+        this.menesis = response.data.menesis;      
       })
       .catch( err => {
             this.isLoading = false

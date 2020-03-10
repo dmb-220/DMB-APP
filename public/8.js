@@ -131,6 +131,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -142,18 +183,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      menesiai: ['Sausio', 'Vasario', 'Kovo', 'Balandžio', 'Gegužės', 'Birželio', 'Liepos', 'Rugpjūčio', 'Rugsėjo', 'Spalio', 'Lapkričio', 'Gruodžio'],
       showDetailIcon: false,
       isLoading: false,
       ieskoti: '',
       sarasas: [],
-      nr: 0
+      menesis: ''
     };
   },
-  computed: {
-    numeriai: function numeriai() {
-      return this.nr + 1;
-    }
-  },
+  computed: {},
   created: function created() {
     this.getData();
   },
@@ -188,6 +226,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.isLoading = false;
         _this2.sarasas = response.data.sarasas;
         _this2.ieskoti = response.data.ieskoti;
+        _this2.menesis = response.data.menesis;
       })["catch"](function (err) {
         _this2.isLoading = false;
 
@@ -415,22 +454,51 @@ var render = function() {
               "div",
               { attrs: { id: "printMe" } },
               [
-                _c("div", { staticClass: "columns" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "column has-text-centered has-text-weight-bold"
-                    },
-                    [
-                      _vm._v(
-                        "\n          Rasta: " +
-                          _vm._s(_vm.sarasas.length) +
-                          "\n          "
-                      )
-                    ]
+                _c("div", { staticClass: "has-text-centered" }, [
+                  _c("b", [_vm._v("UAB Sidonas ir Ko")])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "has-text-centered" }, [
+                  _vm._v("\n        Įm. kodas: 180886050\n      ")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "has-text-centered" }, [
+                  _vm._v(
+                    "\n        Kęstučio 20-1, LT-87120, Telšiai, Lietuva\n      "
                   )
                 ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("div", { staticClass: "has-text-centered is-size-5" }, [
+                  _c("b", [_vm._v("VAŽTARAŠČIŲ REGISTRAVIMO ŽURNALAS")])
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("div", { staticClass: "has-text-left" }, [
+                  _c("b", [
+                    _vm._v(
+                      "Pradėta pildyti 2020m. " +
+                        _vm._s(_vm.menesiai[2]) +
+                        " 1d."
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "has-text-left" }, [
+                  _c("b", [
+                    _vm._v(
+                      "baigta pildyti 2020m. " +
+                        _vm._s(_vm.menesiai[2]) +
+                        " " +
+                        _vm._s(new Date(2020, 2, 0).getDate()) +
+                        "d."
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("br"),
                 _vm._v(" "),
                 _c(
                   "b-table",
@@ -442,7 +510,7 @@ var render = function() {
                       "sort-icon": "arrow-up",
                       loading: _vm.isLoading,
                       "default-sort-direction": "asc",
-                      "default-sort": "preke"
+                      "default-sort": "data"
                     },
                     scopedSlots: _vm._u([
                       {
@@ -608,7 +676,50 @@ var render = function() {
                       ]
                     )
                   ]
-                )
+                ),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("div", { staticClass: "has-text-left" }, [
+                  _vm._v(
+                    "\n        Šiame žurnale sunumeruota, perverta virvele ir užantspauduota ________ lapų."
+                  ),
+                  _c("br"),
+                  _vm._v(
+                    "\n        20___m. ___________________________  ____d.\n    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _c("br"),
+                _vm._v(" "),
+                _c("div", { staticClass: "columns" }, [
+                  _c("div", { staticClass: "column" }, [
+                    _c("div", { staticClass: "has-text-left is-size-7" }, [
+                      _vm._v("(pareigų pavadinimas)\n        ")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "column" }, [
+                    _c("div", { staticClass: "has-text-left is-size-7" }, [
+                      _vm._v("(parašas)\n        ")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "column" }, [
+                    _c("div", { staticClass: "has-text-left is-size-7" }, [
+                      _vm._v("(vardas, pavardė)\n        ")
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "has-text-center" }, [
+                  _vm._v(
+                    "\n       ____________________________________________________\n    "
+                  )
+                ])
               ],
               1
             ),

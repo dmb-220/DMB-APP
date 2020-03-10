@@ -54,30 +54,38 @@ class VaztarasciaiController extends Controller
             "3333" => "Telšiai, Kęstučio 20-1"
         );
 
+        $sandeliai = array(
+            'TELSIAI', 'BROK', 'SAND', '99EE', '99LV', 'ESTI', '3333', 'ZILT'
+        );
+
+        $menesis = 1;
+
         $atsargos = array();
         $ats = array();
         $qu = Atsargos::query();
         $qu->where('salis', '=', '1');
-        $qu->whereMonth('data', '=', '02');
+        $qu->whereMonth('data', '=', $menesis);
         $atsargos = $qu->get();
         //reik leisti paimti duomenis tiks tiems sandeliams i kuriuos isveza.
         //reiks masyva isikelti is statistikos
         foreach ( $atsargos as $value ) {
-            //if($value['sandelis_i'] != "ESTI"){
-                $ats[$value['blanko_nr']]['list'][] = $value;
-                $ats[$value['blanko_nr']]['numeris'] = $value['blanko_nr'];
-                $ats[$value['blanko_nr']]['data'] = $value['data'];
-                $ats[$value['blanko_nr']]["sandelis_is"] = $value['sandelis_is'];
-                $ats[$value['blanko_nr']]["sandelis_i"] = $value['sandelis_i'];
-                $ats[$value['blanko_nr']]["adresas"] = $parduotuves[$value['sandelis_i']];
-            //}
+            //ismetam sandelius, kai perkelimai buna viduje 
+            if(!in_array($value['sandelis_is'], $sandeliai) || !in_array($value['sandelis_i'], $sandeliai)){
+            $ats[$value['blanko_nr']]['list'][] = $value;
+            $ats[$value['blanko_nr']]['numeris'] = $value['blanko_nr'];
+            $ats[$value['blanko_nr']]['data'] = $value['data'];
+            $ats[$value['blanko_nr']]["sandelis_is"] = $value['sandelis_is'];
+            $ats[$value['blanko_nr']]["sandelis_i"] = $value['sandelis_i'];
+            $ats[$value['blanko_nr']]["adresas"] = $parduotuves[$value['sandelis_i']];
+            }
         }
-        sort($ats);
+        //sort($ats);
         $ats = array_values($ats);
 
         return response()->json([
             'status' => true,
-            'sarasas' => $ats
+            'sarasas' => $ats,
+            'menesis' => $menesis,
         ]);
 
     }
