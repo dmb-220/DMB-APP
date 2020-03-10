@@ -715,7 +715,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "has-text-center" }, [
+                _c("div", { staticClass: "has-text-centered" }, [
                   _vm._v(
                     "\n       ____________________________________________________\n    "
                   )

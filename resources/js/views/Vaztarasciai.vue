@@ -88,20 +88,20 @@
       <br><br>
       <div class="columns">
         <div class="column">
-          <div class="has-text-left is-size-7">(pareigų pavadinimas)
+          <div class="has-text-centered is-size-7">(pareigų pavadinimas)
           </div>
         </div>
         <div class="column">
-          <div class="has-text-left is-size-7">(parašas)
+          <div class="has-text-centered is-size-7">(parašas)
           </div>
         </div>
         <div class="column">
-          <div class="has-text-left is-size-7">(vardas, pavardė)
+          <div class="has-text-centered is-size-7">(vardas, pavardė)
           </div>
         </div>
       </div>
       <div class="has-text-centered">
-         ____________________________________________________
+         ____________________________________
       </div>
 
       </div>
