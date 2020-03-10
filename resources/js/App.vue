@@ -69,6 +69,11 @@ export default {
             icon: 'archive',
           },
           {
+            to: '/vaztarasciai',
+            label: 'Važtarščių žurnalas',
+            icon: 'bus',
+          },
+          {
             to: '/kelione',
             label: 'Kelionės lapas',
             icon: 'bus',

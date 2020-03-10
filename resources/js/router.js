@@ -44,6 +44,11 @@ export default new Router({
       component: () => import('./views/Sandeliai.vue')
     },
     {
+      path: '/vaztarasciai',
+      name: 'vaztarasciai',
+      component: () => import('./views/Vaztarasciai.vue')
+    },
+    {
       path: '/kelione',
       name: 'kelione',
       component: () => import('./views/Keliones.vue')
