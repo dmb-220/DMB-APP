@@ -172,6 +172,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -186,9 +203,11 @@ __webpack_require__.r(__webpack_exports__);
       menesiai: ['Sausio', 'Vasario', 'Kovo', 'Balandžio', 'Gegužės', 'Birželio', 'Liepos', 'Rugpjūčio', 'Rugsėjo', 'Spalio', 'Lapkričio', 'Gruodžio'],
       showDetailIcon: false,
       isLoading: false,
-      ieskoti: '',
       sarasas: [],
-      menesis: ''
+      metai: '2020',
+      menesis: '',
+      papildomai: 0,
+      valstybe: ''
     };
   },
   computed: {},
@@ -201,11 +220,16 @@ __webpack_require__.r(__webpack_exports__);
       this.mobile_card = false;
       this.$htmlToPaper('printMe');
     },
+    keisti_menesi: function keisti_menesi() {},
+    keisti_valstybe: function keisti_valstybe() {},
     paieska_post: function paieska_post() {
       var _this = this;
 
       axios.post("/vaztarasciai/store", {
-        ieskoti: this.ieskoti
+        menesis: this.menesis,
+        metai: this.metai,
+        papildomai: this.papildomai,
+        valstybe: this.valstybe
       }).then(function (response) {
         console.log(response.data.data);
 
@@ -225,8 +249,10 @@ __webpack_require__.r(__webpack_exports__);
       this.axios.get('/vaztarasciai').then(function (response) {
         _this2.isLoading = false;
         _this2.sarasas = response.data.sarasas;
-        _this2.ieskoti = response.data.ieskoti;
+        _this2.metai = response.data.metai;
         _this2.menesis = response.data.menesis;
+        _this2.papildomai = response.data.papildomai;
+        _this2.valstybe = response.data.valstybe;
       })["catch"](function (err) {
         _this2.isLoading = false;
 
@@ -399,49 +425,127 @@ var render = function() {
           [
             _c(
               "b-field",
-              { attrs: { label: "PAIEŠKA:", horizontal: "" } },
+              { attrs: { label: "VALSTYBES:", horizontal: "" } },
               [
-                _c("b-input", {
-                  attrs: {
-                    placeholder: "Paieška...",
-                    type: "search",
-                    icon: "magnify"
-                  },
-                  nativeOn: {
-                    keyup: function($event) {
-                      if (
-                        !$event.type.indexOf("key") &&
-                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                      ) {
-                        return null
+                _c(
+                  "b-select",
+                  {
+                    attrs: { placeholder: "Pasirinkite...", expanded: "" },
+                    nativeOn: {
+                      change: function($event) {
+                        return _vm.keisti_valstybe($event)
                       }
-                      return _vm.paieska_post($event)
+                    },
+                    model: {
+                      value: _vm.valstybe,
+                      callback: function($$v) {
+                        _vm.valstybe = $$v
+                      },
+                      expression: "valstybe"
                     }
                   },
-                  model: {
-                    value: _vm.ieskoti,
-                    callback: function($$v) {
-                      _vm.ieskoti = $$v
-                    },
-                    expression: "ieskoti"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "b-button",
-                  {
-                    attrs: {
-                      "native-type": "submit",
-                      type: "is-primary",
-                      outlined: ""
-                    },
-                    on: { click: _vm.paieska_post }
-                  },
-                  [_vm._v("Ieškoti")]
+                  [
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("LIETUVA")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [
+                      _vm._v("LATVIJA")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("ESTIJA")])
+                  ]
                 )
               ],
               1
-            )
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "METAI:", horizontal: "" } },
+              [
+                _c("b-input", {
+                  attrs: { type: "text" },
+                  model: {
+                    value: _vm.metai,
+                    callback: function($$v) {
+                      _vm.metai = $$v
+                    },
+                    expression: "metai"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "MĖNESIS:", horizontal: "" } },
+              [
+                _c(
+                  "b-select",
+                  {
+                    attrs: { placeholder: "Pasirinkite...", expanded: "" },
+                    nativeOn: {
+                      change: function($event) {
+                        return _vm.keisti_menesi($event)
+                      }
+                    },
+                    model: {
+                      value: _vm.menesis,
+                      callback: function($$v) {
+                        _vm.menesis = $$v
+                      },
+                      expression: "menesis"
+                    }
+                  },
+                  _vm._l(_vm.menesiai, function(men, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: index + 1 } },
+                      [
+                        _vm._v(
+                          "\n              " + _vm._s(men) + "\n            "
+                        )
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "PAPIL. EILUTES:", horizontal: "" } },
+              [
+                _c("b-input", {
+                  attrs: { type: "number" },
+                  model: {
+                    value: _vm.papildomai,
+                    callback: function($$v) {
+                      _vm.papildomai = $$v
+                    },
+                    expression: "papildomai"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("b-field", { attrs: { label: " ", horizontal: "" } }, [
+              _c("p", { staticClass: "control" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "button is-sark",
+                    on: { click: _vm.paieska_post }
+                  },
+                  [_vm._v("Suformuoti")]
+                )
+              ])
+            ])
           ],
           1
         ),
@@ -480,7 +584,7 @@ var render = function() {
                   _c("b", [
                     _vm._v(
                       "Pradėta pildyti 2020m. " +
-                        _vm._s(_vm.menesiai[0]) +
+                        _vm._s(_vm.menesiai[_vm.menesis - 1]) +
                         " 1d."
                     )
                   ])
@@ -489,10 +593,10 @@ var render = function() {
                 _c("div", { staticClass: "has-text-left" }, [
                   _c("b", [
                     _vm._v(
-                      "baigta pildyti 2020m. " +
-                        _vm._s(_vm.menesiai[0]) +
+                      "Baigta pildyti 2020m. " +
+                        _vm._s(_vm.menesiai[_vm.menesis - 1]) +
                         " " +
-                        _vm._s(new Date(2020, 1, 0).getDate()) +
+                        _vm._s(new Date(_vm.metai, _vm.menesis, 0).getDate()) +
                         "d."
                     )
                   ])
@@ -525,24 +629,6 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                attrs: {
-                                  label: "Numeris",
-                                  field: "numeris",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(props.row.numeris) +
-                                    "\n        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
                             props.row.data != "9999"
                               ? _c(
                                   "b-table-column",
@@ -573,15 +659,15 @@ var render = function() {
                               "b-table-column",
                               {
                                 attrs: {
-                                  label: "Isvesta",
-                                  field: "sandelis_is",
+                                  label: "Numeris",
+                                  field: "numeris",
                                   sortable: ""
                                 }
                               },
                               [
                                 _vm._v(
                                   "\n              " +
-                                    _vm._s(props.row.sandelis_is) +
+                                    _vm._s(props.row.numeris) +
                                     "\n        "
                                 )
                               ]
@@ -624,7 +710,7 @@ var render = function() {
                             ),
                             _vm._v(" "),
                             _c("b-table-column", {
-                              attrs: { label: "Parašas" }
+                              attrs: { label: "Atsakingo asmens parašas" }
                             })
                           ]
                         }

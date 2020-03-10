@@ -58,12 +58,24 @@ class VaztarasciaiController extends Controller
             'TELSIAI', 'BROK', 'SAND', '99EE', '99LV', 'ESTI', '3333', 'ZILT'
         );
 
-        $menesis = 1;
+        $failas = "vaztarasciai.txt";
+        $directory  = "app/";
+        $failas = $directory.$failas;
+
+        $myfile = fopen(storage_path($failas), "r");
+        $key = fread($myfile,filesize(storage_path($failas)));
+        fclose($myfile);
+
+        $key = explode("||", $key);
+        $metai = $key[0];
+        $menesis = $key[1];
+        $papildomai = $key[2];
+        $valstybe = $key[3];
 
         $atsargos = array();
         $ats = array();
         $qu = Atsargos::query();
-        $qu->where('salis', '=', '1');
+        $qu->where('salis', '=', $valstybe);
         $qu->whereMonth('data', '=', $menesis);
         $atsargos = $qu->get();
         //reik leisti paimti duomenis tiks tiems sandeliams i kuriuos isveza.
@@ -79,14 +91,15 @@ class VaztarasciaiController extends Controller
             $ats[$value['blanko_nr']]["adresas"] = $parduotuves[$value['sandelis_i']];
             }
         }
-
-        for($i =0; $i< 5; $i++){
-            $ats['xxx'.$i]['list'][] = array();
-            $ats['xxx'.$i]['numeris'] = "";
-            $ats['xxx'.$i]['data'] = '9999';
-            $ats['xxx'.$i]["sandelis_is"] = "";
-            $ats['xxx'.$i]["sandelis_i"] = "";
-            $ats['xxx'.$i]["adresas"] = "";
+        if($papildomai > 0){
+            for($i =0; $i< 5; $i++){
+                $ats['xxx'.$i]['list'][] = array();
+                $ats['xxx'.$i]['numeris'] = "";
+                $ats['xxx'.$i]['data'] = '9999';
+                $ats['xxx'.$i]["sandelis_is"] = "";
+                $ats['xxx'.$i]["sandelis_i"] = "";
+                $ats['xxx'.$i]["adresas"] = "";
+            }
         }
         //sort($ats);
         $ats = array_values($ats);
@@ -95,6 +108,9 @@ class VaztarasciaiController extends Controller
             'status' => true,
             'sarasas' => $ats,
             'menesis' => $menesis,
+            'metai' => $metai,
+            'papildomai' => $papildomai,
+            'valstybe' => $valstybe
         ]);
 
     }
@@ -118,13 +134,16 @@ class VaztarasciaiController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $ieskoti = $data['ieskoti'];
+        $metai = $data['metai'];
+        $menesis = $data['menesis'];
+        $papildomai = $data['papildomai'];
+        $valstybe = $data['valstybe'];
     
-        $failas = "vaztarastis.txt";
+        $failas = "vaztarasciai.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
 
-        $eilute = strtoupper($ieskoti);
+        $eilute = $metai."||".$menesis."||".$papildomai."||".$valstybe;
 
         $myfile = fopen(storage_path($failas), "w");
         fwrite($myfile, $eilute);
@@ -132,7 +151,6 @@ class VaztarasciaiController extends Controller
 
         return response()->json([
             'status' => true,
-            'data' => $ieskoti,
         ]);
     }
 

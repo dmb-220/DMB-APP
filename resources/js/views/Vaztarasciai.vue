@@ -2,10 +2,30 @@
   <div>
     <section class="section is-main-section">
       <card-component title="VALDYMAS" icon="account-multiple">
-          <b-field label="PAIEŠKA:" horizontal>
-            <b-input placeholder="Paieška..." type="search" @keyup.native.enter="paieska_post" 
-             v-model="ieskoti" icon="magnify"></b-input> 
-            <b-button native-type="submit" type="is-primary" @click="paieska_post" outlined>Ieškoti</b-button>
+        <b-field label="VALSTYBES:" horizontal>
+            <b-select placeholder="Pasirinkite..." @change.native="keisti_valstybe" v-model="valstybe" expanded>
+              <option value="1">LIETUVA</option>
+              <option value="2">LATVIJA</option>
+              <option value="3">ESTIJA</option>
+            </b-select>
+          </b-field>
+        <b-field label="METAI:" horizontal>
+            <b-input type="text" v-model="metai"></b-input> 
+        </b-field>
+        <b-field label="MĖNESIS:" horizontal>
+            <b-select placeholder="Pasirinkite..." @change.native="keisti_menesi" v-model="menesis" expanded>
+              <option v-for="(men, index) in menesiai" :key="index" :value="index+1">
+                {{ men }}
+              </option>
+            </b-select>
+          </b-field>
+          <b-field label="PAPIL. EILUTES:" horizontal>
+            <b-input type="number" v-model="papildomai"></b-input> 
+        </b-field>
+          <b-field  label=" " horizontal>
+        <p class="control">
+          <button class="button is-sark" @click="paieska_post">Suformuoti</button>
+        </p>
         </b-field>
         </card-component>
         <card-component title="Analizė" icon="account-multiple">
@@ -25,10 +45,10 @@
         </div>
         <br>
         <div class="has-text-left">
-          <b>Pradėta pildyti 2020m. {{menesiai[0]}} 1d.</b>
+          <b>Pradėta pildyti 2020m. {{menesiai[(menesis-1)]}} 1d.</b>
         </div>
         <div class="has-text-left">
-          <b>baigta pildyti 2020m. {{menesiai[0]}} {{new Date(2020, 1, 0).getDate()}}d.</b>
+          <b>Baigta pildyti 2020m. {{menesiai[(menesis-1)]}} {{new Date(metai, menesis, 0).getDate()}}d.</b>
         </div>
         <br>
         <b-table
@@ -43,14 +63,14 @@
           <b-table-column label="Nr.">
              {{props.index + 1}}
           </b-table-column>
-          <b-table-column label="Numeris"  field="numeris" sortable>
-                {{ props.row.numeris }}
-          </b-table-column>
           <b-table-column v-if="props.row.data != '9999'" label="Išvežimo data" field="data" sortable>
                 {{props.row.data}}
           </b-table-column>
           <b-table-column v-else label="Išvežimo data" field="data" sortable>
 
+          </b-table-column>
+          <b-table-column label="Numeris"  field="numeris" sortable>
+                {{ props.row.numeris }}
           </b-table-column>
           <b-table-column label="Pavadinimas" field="sandelis_i" sortable>
                 {{props.row.sandelis_i}}
@@ -130,9 +150,11 @@ export default {
                 'Rugpjūčio', 'Rugsėjo', 'Spalio', 'Lapkričio', 'Gruodžio'],
       showDetailIcon: false,
       isLoading: false,
-      ieskoti: '',
       sarasas: [],
+      metai: '2020',
       menesis: '',
+      papildomai: 0,
+      valstybe: ''
     }
   },
   computed: {
@@ -146,10 +168,19 @@ export default {
       this.mobile_card = false;
       this.$htmlToPaper('printMe');
     },
+    keisti_menesi(){
+
+    },
+    keisti_valstybe(){
+
+    },
     paieska_post(){
         axios
           .post(`/vaztarasciai/store`, {
-            ieskoti: this.ieskoti,
+            menesis: this.menesis,
+            metai: this.metai,
+            papildomai: this.papildomai,
+            valstybe: this.valstybe,
             })
           .then(response => {
             console.log(response.data.data)
@@ -170,8 +201,10 @@ export default {
       .then(response => {
         this.isLoading = false
         this.sarasas = response.data.sarasas;
-        this.ieskoti = response.data.ieskoti;
-        this.menesis = response.data.menesis;      
+        this.metai = response.data.metai;
+        this.menesis = response.data.menesis;
+        this.papildomai = response.data.papildomai;
+        this.valstybe = response.data.valstybe;      
       })
       .catch( err => {
             this.isLoading = false
