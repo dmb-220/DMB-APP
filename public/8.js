@@ -480,7 +480,7 @@ var render = function() {
                   _c("b", [
                     _vm._v(
                       "Pradėta pildyti 2020m. " +
-                        _vm._s(_vm.menesiai[2]) +
+                        _vm._s(_vm.menesiai[0]) +
                         " 1d."
                     )
                   ])
@@ -490,9 +490,9 @@ var render = function() {
                   _c("b", [
                     _vm._v(
                       "baigta pildyti 2020m. " +
-                        _vm._s(_vm.menesiai[2]) +
+                        _vm._s(_vm.menesiai[0]) +
                         " " +
-                        _vm._s(new Date(2020, 2, 0).getDate()) +
+                        _vm._s(new Date(2020, 1, 0).getDate()) +
                         "d."
                     )
                   ])
@@ -543,23 +543,31 @@ var render = function() {
                               ]
                             ),
                             _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                attrs: {
-                                  label: "Išvežimo data",
-                                  field: "data",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(props.row.data) +
-                                    "\n        "
+                            props.row.data != "9999"
+                              ? _c(
+                                  "b-table-column",
+                                  {
+                                    attrs: {
+                                      label: "Išvežimo data",
+                                      field: "data",
+                                      sortable: ""
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n              " +
+                                        _vm._s(props.row.data) +
+                                        "\n        "
+                                    )
+                                  ]
                                 )
-                              ]
-                            ),
+                              : _c("b-table-column", {
+                                  attrs: {
+                                    label: "Išvežimo data",
+                                    field: "data",
+                                    sortable: ""
+                                  }
+                                }),
                             _vm._v(" "),
                             _c(
                               "b-table-column",
@@ -616,7 +624,7 @@ var render = function() {
                             ),
                             _vm._v(" "),
                             _c("b-table-column", {
-                              attrs: { label: "Atsakingo asmens parašas" }
+                              attrs: { label: "Parašas" }
                             })
                           ]
                         }
@@ -697,28 +705,22 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "columns" }, [
                   _c("div", { staticClass: "column" }, [
-                    _c("div", { staticClass: "has-text-left is-size-7" }, [
+                    _c("div", { staticClass: "has-text-centered is-size-7" }, [
                       _vm._v("(pareigų pavadinimas)\n        ")
                     ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "column" }, [
-                    _c("div", { staticClass: "has-text-left is-size-7" }, [
+                    _c("div", { staticClass: "has-text-centered is-size-7" }, [
                       _vm._v("(parašas)\n        ")
                     ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "column" }, [
-                    _c("div", { staticClass: "has-text-left is-size-7" }, [
+                    _c("div", { staticClass: "has-text-centered is-size-7" }, [
                       _vm._v("(vardas, pavardė)\n        ")
                     ])
                   ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "has-text-centered" }, [
-                  _vm._v(
-                    "\n       ____________________________________________________\n    "
-                  )
                 ])
               ],
               1

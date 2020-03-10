@@ -25,10 +25,10 @@
         </div>
         <br>
         <div class="has-text-left">
-          <b>Pradėta pildyti 2020m. {{menesiai[2]}} 1d.</b>
+          <b>Pradėta pildyti 2020m. {{menesiai[0]}} 1d.</b>
         </div>
         <div class="has-text-left">
-          <b>baigta pildyti 2020m. {{menesiai[2]}} {{new Date(2020, 2, 0).getDate()}}d.</b>
+          <b>baigta pildyti 2020m. {{menesiai[0]}} {{new Date(2020, 1, 0).getDate()}}d.</b>
         </div>
         <br>
         <b-table
@@ -46,11 +46,11 @@
           <b-table-column label="Numeris"  field="numeris" sortable>
                 {{ props.row.numeris }}
           </b-table-column>
-          <b-table-column label="Išvežimo data" field="data" sortable>
+          <b-table-column v-if="props.row.data != '9999'" label="Išvežimo data" field="data" sortable>
                 {{props.row.data}}
           </b-table-column>
-          <b-table-column label="Isvesta" field="sandelis_is" sortable>
-                {{props.row.sandelis_is}}
+          <b-table-column v-else label="Išvežimo data" field="data" sortable>
+
           </b-table-column>
           <b-table-column label="Pavadinimas" field="sandelis_i" sortable>
                 {{props.row.sandelis_i}}
@@ -99,9 +99,6 @@
           <div class="has-text-centered is-size-7">(vardas, pavardė)
           </div>
         </div>
-      </div>
-      <div class="has-text-centered">
-         ____________________________________
       </div>
 
       </div>

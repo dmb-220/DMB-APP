@@ -79,6 +79,15 @@ class VaztarasciaiController extends Controller
             $ats[$value['blanko_nr']]["adresas"] = $parduotuves[$value['sandelis_i']];
             }
         }
+
+        for($i =0; $i< 5; $i++){
+            $ats['xxx'.$i]['list'][] = array();
+            $ats['xxx'.$i]['numeris'] = "";
+            $ats['xxx'.$i]['data'] = '9999';
+            $ats['xxx'.$i]["sandelis_is"] = "";
+            $ats['xxx'.$i]["sandelis_i"] = "";
+            $ats['xxx'.$i]["adresas"] = "";
+        }
         //sort($ats);
         $ats = array_values($ats);
 
