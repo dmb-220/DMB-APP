@@ -37,6 +37,14 @@ Route::prefix('/sandeliai')->group(function () {
 });
 
 /*
+ * Sandeliai
+ * */ 
+Route::prefix('/vaztarasciai')->group(function () {
+    Route::get('', 'VaztarasciaiController@index');
+    Route::post('store', 'VaztarasciaiController@store');
+});
+
+/*
  * Keliones lapai
  * */ 
 Route::prefix('/kelione')->group(function () {

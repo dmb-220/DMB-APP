@@ -309,8 +309,8 @@ class AnalizeController extends Controller
             //ismetam ESTI sandeli, brokai is estu perkelimui i TELSIAI sandeli
             if($value['sandelis_i'] != "ESTI"){
                 if($value['sandelis_is'] == '7777' || $value['sandelis_is'] == '5555' || $value['sandelis_is'] == 'TELSIAI'){
-                    $ats[$ne][$value['sandelis_i']][$value['data']][] = $value;
-                    $ats[$ne][$value['sandelis_i']]['data'][$value['data']] = $value['data'];
+                    $ats[$ne][$value['data']."|-|".$value['salis']][] = $value;
+                    //$ats[$ne]['data'][$value['data']] = $value['data'];
 
                     if(array_key_exists($ne.'|-|'.$value['sandelis_i'], $pardavimas)){
                         $pardavimas[$ne.'|-|'.$value['sandelis_i']]['atsargos'][] = $value;

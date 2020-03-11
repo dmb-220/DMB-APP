@@ -400,7 +400,7 @@ class PrekesController extends Controller
         $ats = array();
         $qu = Atsargos::query();
         $qu->where('preke', 'like', $pa);
-        $qu->where('data', '>', '2020');
+        //$qu->where('data', '>', '2020');
         if($grupe != 0 && $grupes[$grupe]){
             $qu->whereIn('pavadinimas',[$grupes[$grupe], $sara[$grupes[$grupe]]]);
         }
@@ -417,11 +417,49 @@ class PrekesController extends Controller
             }else{
                 $ne = $value['preke'];
             }
-            //nedelioti pagal sandelius ir datas
-            //vistiek dedant i masyva reiks isskirtyti 
 
+            if($value['sandelis_i'] != "ESTI"){
+                if($value['sandelis_is'] == '7777' || $value['sandelis_is'] == '5555' || $value['sandelis_is'] == 'TELSIAI'){
+                    //if()
+                    $ats[$ne]['preke'] = $ne;
+                    //skaiciuojam kiek prekiu buvo perkelta
+                    //reik skaiciuoti tik paskutinio perkelima
+                    $da = explode("-", $value['data']);
+                    $ats[$ne]['da'] = $da[1];
+                    if($da[1] == date('m')){
+                        if(array_key_exists("perkelta", $ats[$ne])){
+                            $sk = explode(",", $value['kiekis']);
+                            $ats[$ne]['perkelta'] += $sk[0];
+                        }else{
+                            $sk = explode(",", $value['kiekis']);
+                            $ats[$ne]['perkelta'] = $sk[0];
+                        }
+
+                        $ats[$ne][$value['data']][$value['sandelis_i']][] = $value;
+                    }else{
+                        
+                    }
+                    //$ats[$ne]['data'][$value['data']] = $value['data'];
+
+                    /*if(array_key_exists($ne.'|-|'.$value['sandelis_i'], $pardavimas)){
+                        $pardavimas[$ne.'|-|'.$value['sandelis_i']]['atsargos'][] = $value;
+                        $pardavimas[$ne.'|-|'.$value['sandelis_i']]['data'][] = $value['data'];
+
+                        if(array_key_exists("perkelta", $pardavimas[$ne.'|-|'.$value['sandelis_i']])){
+                            $sk = explode(",", $value['kiekis']);
+                            $pardavimas[$ne.'|-|'.$value['sandelis_i']]['perkelta'] += $sk[0];
+                        }else{
+                            $sk = explode(",", $value['kiekis']);
+                            $pardavimas[$ne.'|-|'.$value['sandelis_i']]['perkelta'] = $sk[0];
+                        }
+                        $pardavimas[$ne.'|-|'.$value['sandelis_i']]['data'] = array_unique($pardavimas[$ne.'|-|'.$value['sandelis_i']]['data']);
+                    }*/
+
+                    //$ats[$ne] = array_keys($ats[$ne]);
+                }
+            }
             
-            if($value['salis'] == 1){
+            /*if($value['salis'] == 1){
                 if($value['sandelis_is'] == '7777'){
                     $ats[$ne]['EE'][$value['sandelis_i']][$value['data']][] = $value;
                     $ats[$ne]['EE'][$value['sandelis_i']]['data'][$value['data']] = $value['data'];
@@ -439,7 +477,7 @@ class PrekesController extends Controller
                     $ats[$ne]['LV'][$value['sandelis_i']][$value['data']][] = $value;
                     $ats[$ne]['LV'][$value['sandelis_i']]['data'][$value['data']] = $value['data'];
                 }
-            }
+            }*/
         }
 
         //Cia reikia sudeti viska i LIST masyva
@@ -474,14 +512,14 @@ class PrekesController extends Controller
             }
 
             //Atsargu duomenys, skaiciai
-            /*if (array_key_exists($valu, $ats)) {
+            if (array_key_exists($valu, $ats)) {
                 $new[$i]['atsargos'] = $ats[$valu];
                 if($new[$i]['pavadinimas'] == ""){
                     $new[$i]['pavadinimas'] = "NEZINAU";
                 }
             }else{
                 $new[$i]['atsargos'] = array();
-            }*/
+            }
             //bendras sandeliu sarasas su pirkimu pardavimu
             if (array_key_exists($valu, $list)) {
                 $new[$i]['list'] = $list[$valu];
