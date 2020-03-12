@@ -28,7 +28,7 @@
         </p>
         </b-field>
         </card-component>
-        <card-component title="Analizė" icon="account-multiple">
+        <card-component title="Važtaraščių žurnalas" icon="account-multiple">
         <div  id="printMe">
         <div class="has-text-centered">
           <b>UAB Sidonas ir Ko</b>
@@ -71,6 +71,9 @@
           </b-table-column>
           <b-table-column label="Numeris"  field="numeris" sortable>
                 {{ props.row.numeris }}
+          </b-table-column>
+          <b-table-column :visible="isvezta" label="Išvežta" field="sandelis_i" sortable>
+                {{props.row.sandelis_is}}
           </b-table-column>
           <b-table-column label="Pavadinimas" field="sandelis_i" sortable>
                 {{props.row.sandelis_i}}
@@ -154,7 +157,8 @@ export default {
       metai: '2020',
       menesis: '',
       papildomai: 0,
-      valstybe: ''
+      valstybe: '',
+      isvezta: true,
     }
   },
   computed: {
@@ -166,6 +170,7 @@ export default {
       print() {
       // Pass the element id here
       this.mobile_card = false;
+      this.isvezta = false;
       this.$htmlToPaper('printMe');
     },
     keisti_menesi(){
