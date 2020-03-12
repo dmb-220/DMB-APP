@@ -215,6 +215,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -916,23 +918,34 @@ var render = function() {
                                   sortable: ""
                                 }
                               },
+                              _vm._l(props.row.data, function(idx) {
+                                return _c("div", { key: idx }, [
+                                  _vm._v(
+                                    "\n                " +
+                                      _vm._s(idx) +
+                                      "\n              "
+                                  )
+                                ])
+                              }),
+                              0
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-table-column",
+                              {
+                                attrs: {
+                                  label: "Kiekis",
+                                  field: "perkelta",
+                                  sortable: ""
+                                }
+                              },
                               [
-                                _vm._l(props.row.data, function(idx) {
-                                  return _c("div", { key: idx }, [
-                                    _vm._v(
-                                      "\n                " +
-                                        _vm._s(idx) +
-                                        "\n              "
-                                    )
-                                  ])
-                                }),
                                 _vm._v(
                                   "\n              " +
                                     _vm._s(props.row.perkelta) +
                                     "\n        "
                                 )
-                              ],
-                              2
+                              ]
                             ),
                             _vm._v(" "),
                             _c(

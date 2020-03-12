@@ -63,11 +63,8 @@
           <b-table-column label="Nr.">
              {{props.index + 1}}
           </b-table-column>
-          <b-table-column v-if="props.row.data != '9999'" label="Išvežimo data" field="data" sortable>
+          <b-table-column label="Išvežimo data" field="data" sortable>
                 {{props.row.data}}
-          </b-table-column>
-          <b-table-column v-else label="Išvežimo data" field="data" sortable>
-
           </b-table-column>
           <b-table-column label="Numeris"  field="numeris" sortable>
                 {{ props.row.numeris }}

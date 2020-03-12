@@ -189,9 +189,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -636,31 +633,23 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
-                            props.row.data != "9999"
-                              ? _c(
-                                  "b-table-column",
-                                  {
-                                    attrs: {
-                                      label: "Išvežimo data",
-                                      field: "data",
-                                      sortable: ""
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(props.row.data) +
-                                        "\n        "
-                                    )
-                                  ]
+                            _c(
+                              "b-table-column",
+                              {
+                                attrs: {
+                                  label: "Išvežimo data",
+                                  field: "data",
+                                  sortable: ""
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(props.row.data) +
+                                    "\n        "
                                 )
-                              : _c("b-table-column", {
-                                  attrs: {
-                                    label: "Išvežimo data",
-                                    field: "data",
-                                    sortable: ""
-                                  }
-                                }),
+                              ]
+                            ),
                             _vm._v(" "),
                             _c(
                               "b-table-column",
