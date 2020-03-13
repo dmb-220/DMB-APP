@@ -53,6 +53,7 @@ class VaztarasciaiController extends Controller
             "99LV" => "Telšiai, Kęstučio 20-1",
             "ESTI" => "Telšiai, Kęstučio 20-1",
             "3333" => "Telšiai, Kęstučio 20-1",
+            "ZILT" => "Telšiai, Kęstučio 20-1",
             //LATVIJA
             "LIEP" => "LIEPĀJA, Rakstvežu iela 8",
             "VENT" => "VENTSPILIS, Lauku iela 4-1",
