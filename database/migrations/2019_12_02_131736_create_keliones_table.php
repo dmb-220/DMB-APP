@@ -15,7 +15,7 @@ class CreateKelionesTable extends Migration
     {
         Schema::create('keliones', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('data');
+            $table->date('data');
             $table->string('doc_nr');
             $table->string('blanko_nr');
             $table->string('sandelis_is');
