@@ -53,7 +53,7 @@ class VaztarasciaiController extends Controller
             "99LV" => "Telšiai, Kęstučio 20-1",
             "ESTI" => "Telšiai, Kęstučio 20-1",
             "3333" => "Telšiai, Kęstučio 20-1",
-            "ZILT" => "Telšiai, Kęstučio 20-1",
+			"ZILT" => "Telšiai, Kęstučio 20-1",
             //LATVIJA
             "LIEP" => "LIEPĀJA, Rakstvežu iela 8",
             "VENT" => "VENTSPILIS, Lauku iela 4-1",
@@ -123,6 +123,9 @@ class VaztarasciaiController extends Controller
         if($valstybe == 2){
             $qu->where('sandelis_is', '=', "5555");
         }
+		if($valstybe == 1){
+            $qu->where('sandelis_is', '!=', "7777");
+        }
         $qu->whereMonth('data', '=', $menesis);
         $atsargos = $qu->get();
         //reik leisti paimti duomenis tiks tiems sandeliams i kuriuos isveza.
@@ -142,7 +145,7 @@ class VaztarasciaiController extends Controller
             for($i =0; $i< $papildomai; $i++){
                 $ats['xxx'.$i]['list'][] = array();
                 $ats['xxx'.$i]['numeris'] = "";
-                $ats['xxx'.$i]['data'] = "";
+                $ats['xxx'.$i]['data'] = '9999';
                 $ats['xxx'.$i]["sandelis_is"] = "";
                 $ats['xxx'.$i]["sandelis_i"] = "";
                 $ats['xxx'.$i]["adresas"] = "";
