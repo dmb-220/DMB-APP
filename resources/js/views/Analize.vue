@@ -77,11 +77,8 @@
           </b-table-column>
           <b-table-column label="Perkelta" field="atsargos" sortable>
                 <div v-for="idx in props.row.data" :key="idx">
-                  {{ idx }}
+                  {{ idx }} - {{ props.row[idx] }}
                 </div>
-          </b-table-column>
-          <b-table-column label="Kiekis" field="perkelta" sortable>
-                {{props.row.perkelta}}
           </b-table-column>
           <b-table-column label="Sandelis" field="sandelis" sortable>
                 {{props.row.sandelis}}

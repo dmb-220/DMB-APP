@@ -214,9 +214,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -923,29 +920,13 @@ var render = function() {
                                   _vm._v(
                                     "\n                " +
                                       _vm._s(idx) +
+                                      " - " +
+                                      _vm._s(props.row[idx]) +
                                       "\n              "
                                   )
                                 ])
                               }),
                               0
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                attrs: {
-                                  label: "Kiekis",
-                                  field: "perkelta",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(props.row.perkelta) +
-                                    "\n        "
-                                )
-                              ]
                             ),
                             _vm._v(" "),
                             _c(
