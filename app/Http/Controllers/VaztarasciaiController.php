@@ -23,6 +23,7 @@ class VaztarasciaiController extends Controller
     {
 
         $parduotuves = array(
+            //LIETUVA
             "TELS" => "Telšiai, Plungės g.4", 
             "MAXI" => "Kaunas, Pramonės pr.29",
             "NORF" => "Kaunas, Šiaurės pr.44",
@@ -51,11 +52,45 @@ class VaztarasciaiController extends Controller
             "99EE" => "Telšiai, Kęstučio 20-1",
             "99LV" => "Telšiai, Kęstučio 20-1",
             "ESTI" => "Telšiai, Kęstučio 20-1",
-            "3333" => "Telšiai, Kęstučio 20-1"
+            "3333" => "Telšiai, Kęstučio 20-1",
+			"ZILT" => "Telšiai, Kęstučio 20-1",
+            //LATVIJA
+            "LIEP" => "LIEPĀJA, Rakstvežu iela 8",
+            "VENT" => "VENTSPILIS, Lauku iela 4-1",
+            "KULD" => "KULDĪGA, Smilšu iela 24", 
+            "SALD" => "SALDUS,  Striķu iela 12",
+            "TAL2" => "Rīgas iela 8, Talsi", 
+            "TUKU" => "TUKUMS,  Kurzemes iela 36",
+            "DOBE" => "DOBELE,  Tirgus laukums iela 5",
+            "SIGU" => "SIGULDA, KR. Valdemāra iela 1",
+            "ALUK" => "ALUKSNE,  Pils iela 9B",
+            "VALM" => "VALMIERA, Rīgas iela 28",
+            "CESI" => "CĒSIS, Pļavas iela 5", 
+            "BALV" => "BALVI, Brīvības iela 57",
+            "LIMB" => "LIMBAŽI, Torŋu iela 1",
+            "MADO" => "Madona, Saules iela 23B", 
+            "VALD" => "Jelgava, Rīgas iela 11A",
+            "MELN" => "RīGA, Melnsila iela 10",
+            "MATI" => "RīGA, Matīsa iela 25",
+            "DOLE" => "RīGA, Maskavas iela 357",
+            "BRIV" => "RīGA, Brīvības iela 49/53", 
+            "GOBA" => "RīGA, Gobas iela 10A",
+            "DAUG" => "DAUGAVPILS , Viestura iela 80",
+            "DITO" => "DAUGAVPILS , Cietokšņa iela 60", 
+            "JEKA" => "JĒKABPILS , Viestura iela 5",
+            "AIZK" => "AIZKRAUKLE, Druvas iela 2, T/C Beta",
+            "OGRE" => "OGRE, Rīgas iela 23",
+            "INTE" => "RīGA, Matīsa iela 25",
+            "5555" => "RīGA, Matīsa iela 25",
+            "4444" => "",
+            "NOLI" => ""
+            //eSTIIJA
         );
 
         $sandeliai = array(
-            'TELSIAI', 'BROK', 'SAND', '99EE', '99LV', 'ESTI', '3333', 'ZILT'
+            "LT" => array('TELSIAI', 'BROK', 'SAND', '99EE', '99LV', 'ESTI', '3333', 'ZILT'),
+            "LV" => array(),
+            'EE' => array()
         );
 
         $failas = "vaztarasciai.txt";
@@ -72,17 +107,32 @@ class VaztarasciaiController extends Controller
         $papildomai = $key[2];
         $valstybe = $key[3];
 
+        if($valstybe == 1){
+            $v = "LT";
+        }else if($valstybe == 2){
+            $v = "LV";
+        }else{
+            $v = "EE";
+        }
+
         $atsargos = array();
         $ats = array();
         $qu = Atsargos::query();
         $qu->where('salis', '=', $valstybe);
+        //rodom tik musu israsytus
+        if($valstybe == 2){
+            $qu->where('sandelis_is', '=', "5555");
+        }
+		if($valstybe == 1){
+            $qu->where('sandelis_is', '!=', "7777");
+        }
         $qu->whereMonth('data', '=', $menesis);
         $atsargos = $qu->get();
         //reik leisti paimti duomenis tiks tiems sandeliams i kuriuos isveza.
         //reiks masyva isikelti is statistikos
         foreach ( $atsargos as $value ) {
             //ismetam sandelius, kai perkelimai buna viduje 
-            if(!in_array($value['sandelis_is'], $sandeliai) || !in_array($value['sandelis_i'], $sandeliai)){
+            if(!in_array($value['sandelis_is'], $sandeliai[$v]) || !in_array($value['sandelis_i'], $sandeliai[$v])){
             $ats[$value['blanko_nr']]['list'][] = $value;
             $ats[$value['blanko_nr']]['numeris'] = $value['blanko_nr'];
             $ats[$value['blanko_nr']]['data'] = $value['data'];
@@ -92,7 +142,7 @@ class VaztarasciaiController extends Controller
             }
         }
         if($papildomai > 0){
-            for($i =0; $i< 5; $i++){
+            for($i =0; $i< $papildomai; $i++){
                 $ats['xxx'.$i]['list'][] = array();
                 $ats['xxx'.$i]['numeris'] = "";
                 $ats['xxx'.$i]['data'] = '9999';

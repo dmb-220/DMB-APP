@@ -207,7 +207,8 @@ __webpack_require__.r(__webpack_exports__);
       metai: '2020',
       menesis: '',
       papildomai: 0,
-      valstybe: ''
+      valstybe: '',
+      isvezta: true
     };
   },
   computed: {},
@@ -218,6 +219,7 @@ __webpack_require__.r(__webpack_exports__);
     print: function print() {
       // Pass the element id here
       this.mobile_card = false;
+      this.isvezta = false;
       this.$htmlToPaper('printMe');
     },
     keisti_menesi: function keisti_menesi() {},
@@ -552,7 +554,9 @@ var render = function() {
         _vm._v(" "),
         _c(
           "card-component",
-          { attrs: { title: "Analizė", icon: "account-multiple" } },
+          {
+            attrs: { title: "Važtaraščių žurnalas", icon: "account-multiple" }
+          },
           [
             _c(
               "div",
@@ -629,31 +633,23 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
-                            props.row.data != "9999"
-                              ? _c(
-                                  "b-table-column",
-                                  {
-                                    attrs: {
-                                      label: "Išvežimo data",
-                                      field: "data",
-                                      sortable: ""
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(props.row.data) +
-                                        "\n        "
-                                    )
-                                  ]
+                            _c(
+                              "b-table-column",
+                              {
+                                attrs: {
+                                  label: "Išvežimo data",
+                                  field: "data",
+                                  sortable: ""
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(props.row.data) +
+                                    "\n        "
                                 )
-                              : _c("b-table-column", {
-                                  attrs: {
-                                    label: "Išvežimo data",
-                                    field: "data",
-                                    sortable: ""
-                                  }
-                                }),
+                              ]
+                            ),
                             _vm._v(" "),
                             _c(
                               "b-table-column",
@@ -668,6 +664,25 @@ var render = function() {
                                 _vm._v(
                                   "\n              " +
                                     _vm._s(props.row.numeris) +
+                                    "\n        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-table-column",
+                              {
+                                attrs: {
+                                  visible: _vm.isvezta,
+                                  label: "Išvežta",
+                                  field: "sandelis_i",
+                                  sortable: ""
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(props.row.sandelis_is) +
                                     "\n        "
                                 )
                               ]
