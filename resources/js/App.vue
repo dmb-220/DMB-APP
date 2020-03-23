@@ -78,6 +78,11 @@ export default {
             label: 'Kelionės lapas',
             icon: 'bus',
           },
+          {
+            to: '/generuoti',
+            label: 'Generuoti duomenis',
+            icon: 'bus',
+          },
         ],
         'VEIKSMAI',
         [

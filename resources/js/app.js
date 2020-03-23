@@ -5,6 +5,8 @@ require('./bootstrap');
 import Vue from 'vue'
 import Buefy from 'buefy'
 
+import 'vue-multiselect/dist/vue-multiselect.min.css'
+
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 

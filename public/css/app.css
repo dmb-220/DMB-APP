@@ -16554,49 +16554,73 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   background: whitesmoke;
 }
 
+.b-table .level:not(.top) {
+  padding-bottom: 1.5rem;
+}
+
+.b-table.has-sticky-header {
+  height: 300px;
+  overflow-y: auto;
+}
+
 @media screen and (max-width: 768px) {
-  .b-table .table.has-mobile-cards thead {
+  .b-table.has-sticky-header.has-mobile-cards {
+    height: initial !important;
+    overflow-y: initial !important;
+  }
+}
+
+.b-table.has-sticky-header tr th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: white;
+}
+
+@media screen and (max-width: 768px) {
+  .b-table.has-mobile-cards thead {
     display: none;
   }
 
-  .b-table .table.has-mobile-cards tfoot th {
+  .b-table.has-mobile-cards tfoot th {
     border: 0;
     display: inherit;
   }
 
-  .b-table .table.has-mobile-cards tr {
+  .b-table.has-mobile-cards tr {
     box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
     max-width: 100%;
     position: relative;
     display: block;
   }
 
-  .b-table .table.has-mobile-cards tr td {
+  .b-table.has-mobile-cards tr td {
     border: 0;
     display: inherit;
   }
 
-  .b-table .table.has-mobile-cards tr td:last-child {
+  .b-table.has-mobile-cards tr td:last-child {
     border-bottom: 0;
   }
 
-  .b-table .table.has-mobile-cards tr:not(:last-child) {
+  .b-table.has-mobile-cards tr:not(:last-child) {
     margin-bottom: 1rem;
   }
 
-  .b-table .table.has-mobile-cards tr:not([class*="is-"]) {
+  .b-table.has-mobile-cards tr:not([class*="is-"]) {
     background: inherit;
   }
 
-  .b-table .table.has-mobile-cards tr:not([class*="is-"]):hover {
+  .b-table.has-mobile-cards tr:not([class*="is-"]):hover {
     background-color: inherit;
   }
 
-  .b-table .table.has-mobile-cards tr.detail {
+  .b-table.has-mobile-cards tr.detail {
     margin-top: -1rem;
   }
 
-  .b-table .table.has-mobile-cards tr:not(.detail):not(.is-empty):not(.table-footer) td {
+  .b-table.has-mobile-cards tr:not(.detail):not(.is-empty):not(.table-footer) td {
     display: flex;
     width: auto;
     justify-content: space-between;
@@ -16604,16 +16628,12 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
     border-bottom: 1px solid whitesmoke;
   }
 
-  .b-table .table.has-mobile-cards tr:not(.detail):not(.is-empty):not(.table-footer) td:before {
+  .b-table.has-mobile-cards tr:not(.detail):not(.is-empty):not(.table-footer) td:before {
     content: attr(data-label);
     font-weight: 600;
     padding-right: 0.5em;
     text-align: left;
   }
-}
-
-.b-table .level:not(.top) {
-  padding-bottom: 1.5rem;
 }
 
 .b-table.is-loading {
