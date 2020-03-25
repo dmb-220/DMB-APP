@@ -424,60 +424,25 @@ class PrekesController extends Controller
                     $ats[$ne]['preke'] = $ne;
                     //skaiciuojam kiek prekiu buvo perkelta
                     //reik skaiciuoti tik paskutinio perkelima
-                    $da = explode("-", $value['data']);
-                    $ats[$ne]['da'] = $da[1];
-                    if($da[1] == date('m')){
-                        if(array_key_exists("perkelta", $ats[$ne])){
-                            $sk = explode(",", $value['kiekis']);
-                            $ats[$ne]['perkelta'] += $sk[0];
-                        }else{
-                            $sk = explode(",", $value['kiekis']);
-                            $ats[$ne]['perkelta'] = $sk[0];
-                        }
-
-                        $ats[$ne][$value['data']][$value['sandelis_i']][] = $value;
+                    $ats[$ne]['info'][$value['data']]['data'] = $value['data'];
+                    //bendras kiekis
+                    if(array_key_exists("perkelta", $ats[$ne])){
+                        $sk = explode(",", $value['kiekis']);
+                        $ats[$ne]['perkelta'] += $sk[0];
                     }else{
-                        
+                        $sk = explode(",", $value['kiekis']);
+                        $ats[$ne]['perkelta'] = $sk[0];
                     }
-                    //$ats[$ne]['data'][$value['data']] = $value['data'];
-
-                    /*if(array_key_exists($ne.'|-|'.$value['sandelis_i'], $pardavimas)){
-                        $pardavimas[$ne.'|-|'.$value['sandelis_i']]['atsargos'][] = $value;
-                        $pardavimas[$ne.'|-|'.$value['sandelis_i']]['data'][] = $value['data'];
-
-                        if(array_key_exists("perkelta", $pardavimas[$ne.'|-|'.$value['sandelis_i']])){
-                            $sk = explode(",", $value['kiekis']);
-                            $pardavimas[$ne.'|-|'.$value['sandelis_i']]['perkelta'] += $sk[0];
-                        }else{
-                            $sk = explode(",", $value['kiekis']);
-                            $pardavimas[$ne.'|-|'.$value['sandelis_i']]['perkelta'] = $sk[0];
-                        }
-                        $pardavimas[$ne.'|-|'.$value['sandelis_i']]['data'] = array_unique($pardavimas[$ne.'|-|'.$value['sandelis_i']]['data']);
-                    }*/
-
-                    //$ats[$ne] = array_keys($ats[$ne]);
-                }
-            }
-            
-            /*if($value['salis'] == 1){
-                if($value['sandelis_is'] == '7777'){
-                    $ats[$ne]['EE'][$value['sandelis_i']][$value['data']][] = $value;
-                    $ats[$ne]['EE'][$value['sandelis_i']]['data'][$value['data']] = $value['data'];
-
-                    //$list[$ne]['EE'][$value['sandelis']]['atsargos'] = $value['sandelis'];
-                }else{
-                    if($value['sandelis_is'] == 'TELSIAI'){
-                        $ats[$ne]['LT'][$value['sandelis_i']][$value['data']][] = $value;
-                        $ats[$ne]['LT'][$value['sandelis_i']]['data'][$value['data']] = $value['data'];
+                    //kiekis pagal data
+                    if(array_key_exists("perkelta", $ats[$ne]['info'][$value['data']])){
+                        $sk = explode(",", $value['kiekis']);
+                        $ats[$ne]['info'][$value['data']]['perkelta'] += $sk[0];
+                    }else{
+                        $sk = explode(",", $value['kiekis']);
+                        $ats[$ne]['info'][$value['data']]['perkelta'] = $sk[0];
                     }
                 }
-            }
-            if($value['salis'] == 2){
-                if($value['sandelis_is'] == '5555'){
-                    $ats[$ne]['LV'][$value['sandelis_i']][$value['data']][] = $value;
-                    $ats[$ne]['LV'][$value['sandelis_i']]['data'][$value['data']] = $value['data'];
-                }
-            }*/
+            }       
         }
 
         //Cia reikia sudeti viska i LIST masyva
@@ -513,6 +478,8 @@ class PrekesController extends Controller
 
             //Atsargu duomenys, skaiciai
             if (array_key_exists($valu, $ats)) {
+                ksort($ats[$valu]['info']);
+                $ats[$valu]['info'] = array_values($ats[$valu]['info']);
                 $new[$i]['atsargos'] = $ats[$valu];
                 if($new[$i]['pavadinimas'] == ""){
                     $new[$i]['pavadinimas'] = "NEZINAU";

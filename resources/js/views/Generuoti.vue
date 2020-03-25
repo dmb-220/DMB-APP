@@ -2,8 +2,8 @@
   <div>
     <section class="section is-main-section">
       <card-component title="VALDYMAS" icon="account-multiple">
-        <b-field label="Pasirinkite:" class="has-check" horizontal>
-          <radio-picker :options="{1:'GAMYBA', 2:'PARDAVIMAI'}" v-model="tipas"></radio-picker>
+        <b-field label=" " class="has-check" horizontal>
+          <radio-picker :options="{1:'GAMYBA', 2:'PIRKIMAS'}" v-model="tipas"></radio-picker>
         </b-field>
         <b-field label="Grupė:" horizontal>
             <b-select placeholder="Pasirinkite" expanded>
@@ -17,17 +17,20 @@
         
         <b-field horizontal label="Gaminys:">
             <b-input name="kodas" placeholder="Kodas" expanded></b-input>
-            <multiselect v-model="sudetis" tag-placeholder="Pasirinkite sudėti" placeholder="Ieškoti" label="name" track-by="code" 
+            <multiselect v-model="sudetis" tag-placeholder="Pasirinkite sudėti" placeholder="Pasirinkite sudėtį" label="name" track-by="code" 
             :options="sudetys" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
         </b-field>
         <b-field v-if='kiek > 0' horizontal label=" ">
             <b-input type="number" v-for='(idx, id) in sudetis' :key='idx.code' v-model="sudetis[id].kiekis" :placeholder='idx.name' expanded></b-input>
         </b-field>
         <hr>
-        <b-field horizontal label="Didmena:">
-          
-            <b-input name="didmena" placeholder="Kaina" expanded></b-input>
-            <b-input name="didmena" placeholder="Kiekis" expanded></b-input>
+        <hr>
+        <b-field horizontal label=" ">
+            <b-checkbox v-model="didmena">DIDMENA</b-checkbox>
+        </b-field>
+        <b-field v-show="didmena" horizontal label="Didmena:">
+          <b-input name="didmena_kaina" placeholder="Kaina" expanded></b-input>
+          <b-input name="didmena_kiekis" placeholder="Kiekis" expanded></b-input>
         </b-field>
         <div class="buttons">
             <b-button type="is-black" expanded>GENERUOTI</b-button>
@@ -58,6 +61,7 @@ export default {
   components: {CardComponent, RadioPicker, CheckboxPicker, Multiselect},
   data () {
     return {
+      as: "",
       isLoading: false,
       sudetis: [
       ],
@@ -75,8 +79,9 @@ export default {
         "PALTAI",
       ],
       tipas: 1,
+      intervalas: 2,
       dydziai: [38, 54],
-      miestai: [],
+      didmena: false,
       checkbox: [],
       rodyti_lv: true,
       rodyti_ee: false,
@@ -89,6 +94,14 @@ export default {
   computed: {
     kiek: function(){
       return this.sudetis.length;
+    },
+    size:  function(){
+      var i;
+      var data = [];
+      for (i = this.dydziai[0]; i < this.dydziai[1]; i+this.intervalas) {
+        data.push(i);
+        } 
+        return data;
     }
   },
   created () {
