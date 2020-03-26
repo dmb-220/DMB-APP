@@ -2088,11 +2088,13 @@ __webpack_require__.r(__webpack_exports__);
         to: '/kelione',
         label: 'Kelionės lapas',
         icon: 'bus'
-      }, {
+      }
+      /*{
         to: '/generuoti',
         label: 'Generuoti duomenis',
-        icon: 'bus'
-      }], 'VEIKSMAI', [{
+        icon: 'bus',
+      },*/
+      ], 'VEIKSMAI', [{
         to: '/csv_sarasas',
         label: 'CSV failų įkėlimas',
         icon: 'view-list'

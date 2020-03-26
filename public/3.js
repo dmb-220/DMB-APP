@@ -145,6 +145,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ModalEditBox",
@@ -924,6 +929,19 @@ var render = function() {
                         "\n        "
                     )
                   ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-table-column",
+                  { attrs: { label: "Sandeliai", field: "sandeliai_i" } },
+                  _vm._l(props.row.sandeliai_i, function(idx) {
+                    return _c("small", { key: idx }, [
+                      _vm._v(
+                        "\n              " + _vm._s(idx) + ", \n              "
+                      )
+                    ])
+                  }),
+                  0
                 )
               ]
             }
@@ -1570,37 +1588,39 @@ var render = function() {
                                 "b-table-column",
                                 {
                                   style: { "background-color": "WhiteSmoke " },
-                                  attrs: {
-                                    label: "Perkelta",
-                                    field: "atsargos.data",
-                                    sortable: ""
-                                  }
+                                  attrs: { label: "Perkelimai" }
                                 },
                                 [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "button is-small is-primary",
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.viewModal(
-                                            props.row.atsargos &&
-                                              props.row.atsargos.preke,
-                                            props.row.atsargos &&
-                                              props.row.atsargos.info
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("b-icon", {
-                                        attrs: { icon: "eye", size: "is-small" }
-                                      })
-                                    ],
-                                    1
-                                  )
+                                  !Array.isArray(props.row.atsargos)
+                                    ? _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "button is-small is-primary",
+                                          attrs: { type: "button" },
+                                          on: {
+                                            click: function($event) {
+                                              $event.preventDefault()
+                                              return _vm.viewModal(
+                                                props.row.atsargos &&
+                                                  props.row.atsargos.preke,
+                                                props.row.atsargos &&
+                                                  props.row.atsargos.info
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("b-icon", {
+                                            attrs: {
+                                              icon: "eye",
+                                              size: "is-small"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    : _vm._e()
                                 ]
                               )
                             ]

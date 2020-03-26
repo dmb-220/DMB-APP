@@ -425,6 +425,8 @@ class PrekesController extends Controller
                     //skaiciuojam kiek prekiu buvo perkelta
                     //reik skaiciuoti tik paskutinio perkelima
                     $ats[$ne]['info'][$value['data']]['data'] = $value['data'];
+                    $ats[$ne]['info'][$value['data']]['sandeliai_i'][$value['sandelis_i']] = $value['sandelis_i'];
+                    //$ats[$ne]['info'][$value['data']]['sandeliai_is'][$value['sandelis_is']] = $value['sandelis_is'];
                     //bendras kiekis
                     if(array_key_exists("perkelta", $ats[$ne])){
                         $sk = explode(",", $value['kiekis']);
@@ -442,7 +444,8 @@ class PrekesController extends Controller
                         $ats[$ne]['info'][$value['data']]['perkelta'] = $sk[0];
                     }
                 }
-            }       
+            }
+                   
         }
 
         //Cia reikia sudeti viska i LIST masyva

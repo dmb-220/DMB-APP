@@ -101,8 +101,8 @@
           <b-table-column :style="{'background-color': 'WhiteSmoke '}" label="PARDAVIMAI" field="pardavimai.viso" sortable>
                 {{props.row.pardavimai && props.row.pardavimai.viso}}
           </b-table-column>
-          <b-table-column :style="{'background-color': 'WhiteSmoke '}" label="Perkelta" field="atsargos.data" sortable>
-            <button class="button is-small is-primary" type="button" 
+          <b-table-column :style="{'background-color': 'WhiteSmoke '}" label="Perkelimai">
+            <button v-if="!Array.isArray(props.row.atsargos)" class="button is-small is-primary" type="button" 
             @click.prevent="viewModal(props.row.atsargos && props.row.atsargos.preke, props.row.atsargos && props.row.atsargos.info)">
                 <b-icon icon="eye" size="is-small"/>
               </button>

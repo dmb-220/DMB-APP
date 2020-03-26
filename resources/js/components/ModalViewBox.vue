@@ -16,6 +16,11 @@
           <b-table-column label="Perkelta"  field="perkelta" sortable>
                 {{ props.row.perkelta }}
           </b-table-column>
+          <b-table-column label="Sandeliai"  field="sandeliai_i">
+                 <small v-for="idx in props.row.sandeliai_i" :key="idx">
+                {{ idx }}, 
+                </small>
+          </b-table-column>
         </template> 
       </b-table>
   </modal-box>
