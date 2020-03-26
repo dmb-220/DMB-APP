@@ -487,6 +487,7 @@ __webpack_require__.r(__webpack_exports__);
       paieska_big: false,
       viso: [],
       kainos: false,
+      perkelimai: true,
       isModalView: false,
       viewObject: null,
       viewInfo: null
@@ -514,6 +515,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     print: function print() {
       // Pass the element id here
+      this.perkelimai = false;
       this.mobile_card = false;
       this.$htmlToPaper('printMe');
     },
@@ -1588,7 +1590,10 @@ var render = function() {
                                 "b-table-column",
                                 {
                                   style: { "background-color": "WhiteSmoke " },
-                                  attrs: { label: "Perkelimai" }
+                                  attrs: {
+                                    visible: _vm.perkelimai,
+                                    label: "Perkelimai"
+                                  }
                                 },
                                 [
                                   !Array.isArray(props.row.atsargos)

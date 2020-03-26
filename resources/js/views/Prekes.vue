@@ -101,7 +101,7 @@
           <b-table-column :style="{'background-color': 'WhiteSmoke '}" label="PARDAVIMAI" field="pardavimai.viso" sortable>
                 {{props.row.pardavimai && props.row.pardavimai.viso}}
           </b-table-column>
-          <b-table-column :style="{'background-color': 'WhiteSmoke '}" label="Perkelimai">
+          <b-table-column :visible='perkelimai' :style="{'background-color': 'WhiteSmoke '}" label="Perkelimai">
             <button v-if="!Array.isArray(props.row.atsargos)" class="button is-small is-primary" type="button" 
             @click.prevent="viewModal(props.row.atsargos && props.row.atsargos.preke, props.row.atsargos && props.row.atsargos.info)">
                 <b-icon icon="eye" size="is-small"/>
@@ -283,7 +283,7 @@ export default {
      paieska_big: false,
      viso: [],
      kainos: false,
-
+     perkelimai: true,
     isModalView: false,
     viewObject: null,
     viewInfo: null,
@@ -309,6 +309,7 @@ export default {
   methods: {
       print() {
       // Pass the element id here
+      this.perkelimai = false;
       this.mobile_card = false;
       this.$htmlToPaper('printMe');
     },
