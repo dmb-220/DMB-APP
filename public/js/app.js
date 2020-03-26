@@ -2075,7 +2075,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         to: '/analize',
         label: 'Analizė',
-        icon: 'bell-ring'
+        icon: 'chart-tree'
       }, {
         to: '/sandeliai',
         label: 'Sandeliai',
@@ -2083,21 +2083,23 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         to: '/vaztarasciai',
         label: 'Važtarščių žurnalas',
-        icon: 'bus'
+        icon: 'eye'
       }, {
         to: '/kelione',
         label: 'Kelionės lapas',
         icon: 'bus'
-      }
-      /*{
+      }, {
         to: '/generuoti',
         label: 'Generuoti duomenis',
-        icon: 'bus',
-      },*/
-      ], 'VEIKSMAI', [{
+        icon: 'calculator'
+      }], 'VEIKSMAI', [{
         to: '/csv_sarasas',
         label: 'CSV failų įkėlimas',
         icon: 'view-list'
+      }, {
+        to: '/admin',
+        label: 'Administravimas',
+        icon: 'bullhorn'
       }]];
     }
   },
@@ -53616,7 +53618,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/statistika',
     name: 'Statistika',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ./views/Statistika.vue */ "./resources/js/views/Statistika.vue"));
+      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./views/Statistika.vue */ "./resources/js/views/Statistika.vue"));
     }
   }, {
     path: '/likuciai',
@@ -53646,7 +53648,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/sandeliai',
     name: 'sandeliai',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ./views/Sandeliai.vue */ "./resources/js/views/Sandeliai.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, /*! ./views/Sandeliai.vue */ "./resources/js/views/Sandeliai.vue"));
     }
   }, {
     path: '/vaztarasciai',
@@ -53676,7 +53678,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/generuoti',
     name: 'generuoti',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(13), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./views/Generuoti.vue */ "./resources/js/views/Generuoti.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(14), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./views/Generuoti.vue */ "./resources/js/views/Generuoti.vue"));
+    }
+  }, {
+    path: '/admin',
+    name: 'admin',
+    component: function component() {
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ./views/Admin/Admin.vue */ "./resources/js/views/Admin/Admin.vue"));
     }
   }],
   scrollBehavior: function scrollBehavior(to, from, savedPosition) {
