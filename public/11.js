@@ -302,9 +302,11 @@ var render = function() {
       "section",
       { staticClass: "section is-main-section" },
       [
-        _c("card-component", {
-          attrs: { title: "Administravimas", icon: "account-multiple" }
-        })
+        _c(
+          "card-component",
+          { attrs: { title: "Administravimas", icon: "account-multiple" } },
+          [_vm._v("\n      valstybes, parduotuves, prekiu grupes, ...\n    ")]
+        )
       ],
       1
     )
