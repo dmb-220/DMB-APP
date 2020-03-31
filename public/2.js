@@ -1090,7 +1090,7 @@ var render = function() {
     [
       _c("div", { staticClass: "modal-card" }, [
         _c("header", { staticClass: "modal-card-head" }, [
-          _c("p", { staticClass: "modal-card-title" }, [_vm._v("Veiksmai")])
+          _c("p", { staticClass: "modal-card-title" }, [_vm._v("Informacija")])
         ]),
         _vm._v(" "),
         _c(

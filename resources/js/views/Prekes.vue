@@ -1,5 +1,7 @@
 <template>
   <div>
+    <modal-view-box :is-active="isModalView" :view-subject="viewObjectName" :view-info="viewInfoName" @confirm="viewConfirm" @cancel="viewCancel"/>
+
     <section class="section is-main-section">
       <card-component title="VALDYMAS" icon="account-multiple">
           <b-field label="PAIEŠKA:" horizontal>
@@ -98,6 +100,12 @@
           </b-table-column>
           <b-table-column :style="{'background-color': 'WhiteSmoke '}" label="PARDAVIMAI" field="pardavimai.viso" sortable>
                 {{props.row.pardavimai && props.row.pardavimai.viso}}
+          </b-table-column>
+          <b-table-column :visible='perkelimai' :style="{'background-color': 'WhiteSmoke '}" label="Perkelimai">
+            <button v-if="!Array.isArray(props.row.atsargos)" class="button is-small is-primary" type="button" 
+            @click.prevent="viewModal(props.row.atsargos && props.row.atsargos.preke, props.row.atsargos && props.row.atsargos.info)">
+                <b-icon icon="eye" size="is-small"/>
+              </button>
           </b-table-column>
         </template> 
 
@@ -245,10 +253,11 @@
 import map from 'lodash/map'
 import CardComponent from '@/components/CardComponent'
 import CardToolbar from '@/components/CardToolbar'
+import ModalViewBox from '@/components/ModalViewBox'
 
 export default {
   name: "Prekes",
-  components: {CardToolbar, CardComponent},
+  components: {CardToolbar, CardComponent, ModalViewBox},
   data () {
     return {
       isPaginated: true,
@@ -273,10 +282,26 @@ export default {
      mobile_card: true,
      paieska_big: false,
      viso: [],
-     kainos: false
+     kainos: false,
+     perkelimai: true,
+    isModalView: false,
+    viewObject: null,
+    viewInfo: null,
     }
   },
   computed: {
+    viewObjectName () {
+      if (this.viewObject) {
+        return this.viewObject
+      }
+      return null
+    },
+    viewInfoName () {
+      if (this.viewInfo) {
+        return this.viewInfo
+      }
+      return null
+    },
   },
   created () {
     this.getData()
@@ -284,6 +309,7 @@ export default {
   methods: {
       print() {
       // Pass the element id here
+      this.perkelimai = false;
       this.mobile_card = false;
       this.$htmlToPaper('printMe');
     },
@@ -409,6 +435,19 @@ export default {
               queue: false
             })
           })
+    },
+
+    //Edit modal
+    viewModal (viewObject, viewInfo) {
+      this.viewObject = viewObject
+      this.viewInfo = viewInfo
+      this.isModalView = true
+    },
+    viewConfirm () {
+      this.isModalView = false
+    },
+    viewCancel () {
+      this.isModalView = false
     },
   }
 }

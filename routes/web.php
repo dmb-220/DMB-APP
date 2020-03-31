@@ -30,14 +30,19 @@ Route::resource('sandeliai', 'SandeliaiController');
  * */ 
 Route::prefix('/sandeliai')->group(function () {
     Route::get('', 'SandeliaiController@index');
-    Route::get('{sandeliai}', 'SandeliaiController@show');
     Route::post('store', 'SandeliaiController@store');
-    Route::patch('{sandeliai}', 'SandeliaiController@update');
-    Route::delete('{sandeliai}/destroy', 'SandeliaiController@destroy');
 });
 
 /*
- * Sandeliai
+ * Generuoti
+ * */ 
+Route::prefix('/generuoti')->group(function () {
+    Route::get('', 'GeneruotiController@index');
+    Route::post('store', 'GeneruotiController@store');
+});
+
+/*
+ * Vaztaraščiai
  * */ 
 Route::prefix('/vaztarasciai')->group(function () {
     Route::get('', 'VaztarasciaiController@index');
@@ -49,10 +54,7 @@ Route::prefix('/vaztarasciai')->group(function () {
  * */ 
 Route::prefix('/kelione')->group(function () {
     Route::get('', 'KelioneController@index');
-    Route::get('{kelione}', 'KelioneController@show');
     Route::post('store', 'KelioneController@store');
-    Route::patch('{kelione}', 'KelioneController@update');
-    Route::delete('{kelione}/destroy', 'KelioneController@destroy');
 });
 
 /*

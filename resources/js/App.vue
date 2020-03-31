@@ -61,7 +61,7 @@ export default {
           {
             to: '/analize',
             label: 'Analizė',
-            icon: 'bell-ring',
+            icon: 'chart-tree',
           },
           {
             to: '/sandeliai',
@@ -71,13 +71,19 @@ export default {
           {
             to: '/vaztarasciai',
             label: 'Važtarščių žurnalas',
-            icon: 'bus',
+            icon: 'eye',
           },
           {
             to: '/kelione',
             label: 'Kelionės lapas',
             icon: 'bus',
           },
+          {
+            to: '/generuoti',
+            label: 'Generuoti duomenis',
+            icon: 'calculator',
+          },
+          
         ],
         'VEIKSMAI',
         [
@@ -85,6 +91,11 @@ export default {
             to: '/csv_sarasas',
             label: 'CSV failų įkėlimas',
             icon: 'view-list'
+          },
+          {
+            to: '/admin',
+            label: 'Administravimas',
+            icon: 'bullhorn',
           },
         ]
       ]

@@ -63,9 +63,16 @@ export default new Router({
       name: 'analize',
       component: () => import('./views/Analize.vue')
     },
-
-    
-
+    {
+      path: '/generuoti',
+      name: 'generuoti',
+      component: () => import('./views/Generuoti.vue')
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('./views/Admin/Admin.vue')
+    },
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
