@@ -45,7 +45,6 @@ class VaztarasciaiController extends Controller
             "UKME" => "Vilnius, Ukmergės 369",
             "BABI" => "Panevėžys, Klaipėdos g.143A",
             "PANE" => "Panevėžys, Ukmergės g. 23",
-            "INTE" => "Telšiai, Kęstučio 20-1",
             "TELSIAI" => "Telšiai, Kęstučio 20-1",
             "BROK" => "Telšiai, Kęstučio 20-1",
             "SAND" => "Telšiai, Kęstučio 20-1",
@@ -80,7 +79,7 @@ class VaztarasciaiController extends Controller
             "JEKA" => "JĒKABPILS , Viestura iela 5",
             "AIZK" => "AIZKRAUKLE, Druvas iela 2, T/C Beta",
             "OGRE" => "OGRE, Rīgas iela 23",
-            "INTE" => "RīGA, Matīsa iela 25",
+            "INTE" => array("Telšiai, Kęstučio 20-1","RīGA, Matīsa iela 25"),
             "5555" => "RīGA, Matīsa iela 25",
             "4444" => "",
             "NOLI" => ""
@@ -133,12 +132,16 @@ class VaztarasciaiController extends Controller
         foreach ( $atsargos as $value ) {
             //ismetam sandelius, kai perkelimai buna viduje 
             if(!in_array($value['sandelis_is'], $sandeliai[$v]) || !in_array($value['sandelis_i'], $sandeliai[$v])){
-            $ats[$value['blanko_nr']]['list'][] = $value;
-            $ats[$value['blanko_nr']]['numeris'] = $value['blanko_nr'];
-            $ats[$value['blanko_nr']]['data'] = $value['data'];
-            $ats[$value['blanko_nr']]["sandelis_is"] = $value['sandelis_is'];
-            $ats[$value['blanko_nr']]["sandelis_i"] = $value['sandelis_i'];
-            $ats[$value['blanko_nr']]["adresas"] = $parduotuves[$value['sandelis_i']];
+                $ats[$value['blanko_nr']]['list'][] = $value;
+                $ats[$value['blanko_nr']]['numeris'] = $value['blanko_nr'];
+                $ats[$value['blanko_nr']]['data'] = $value['data'];
+                $ats[$value['blanko_nr']]["sandelis_is"] = $value['sandelis_is'];
+                $ats[$value['blanko_nr']]["sandelis_i"] = $value['sandelis_i'];
+                if($value['sandelis_i'] == 'INTE'){
+                    $ats[$value['blanko_nr']]["adresas"] = $parduotuves[$value['sandelis_i']][$valstybe-1];
+                }else{
+                    $ats[$value['blanko_nr']]["adresas"] = $parduotuves[$value['sandelis_i']];
+                }
             }
         }
         if($papildomai > 0){
