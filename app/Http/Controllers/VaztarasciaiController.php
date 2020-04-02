@@ -79,6 +79,7 @@ class VaztarasciaiController extends Controller
             "JEKA" => "JĒKABPILS , Viestura iela 5",
             "AIZK" => "AIZKRAUKLE, Druvas iela 2, T/C Beta",
             "OGRE" => "OGRE, Rīgas iela 23",
+            //lietuva ir latvija reikia skirtingu adresu
             "INTE" => array("Telšiai, Kęstučio 20-1","RīGA, Matīsa iela 25"),
             "5555" => "RīGA, Matīsa iela 25",
             "4444" => "",

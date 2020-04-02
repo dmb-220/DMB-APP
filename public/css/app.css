@@ -298,28 +298,7 @@
   width: 100%;
 }
 
-.slide-enter-active {
-  transition: 150ms ease-out;
-}
-
-.slide-leave-active {
-  transition: 150ms ease-out;
-  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-}
-
-.slide-enter-to,
-.slide-leave {
-  max-height: 100px;
-  overflow: hidden;
-}
-
-.slide-enter,
-.slide-leave-to {
-  overflow: hidden;
-  max-height: 0;
-}
-
-/*! bulma.io v0.8.1 | MIT License | github.com/jgthms/bulma */
+/*! bulma.io v0.8.0 | MIT License | github.com/jgthms/bulma */
 
 @-webkit-keyframes spinAround {
   from {
@@ -4124,19 +4103,9 @@ fieldset[disabled] .button {
   color: white;
 }
 
-.notification.is-primary.is-light {
-  background-color: #ebfffc;
-  color: #00947e;
-}
-
 .notification.is-link {
   background-color: #3273dc;
   color: white;
-}
-
-.notification.is-link.is-light {
-  background-color: #eef3fc;
-  color: #2160c4;
 }
 
 .notification.is-info {
@@ -4144,19 +4113,9 @@ fieldset[disabled] .button {
   color: #fff;
 }
 
-.notification.is-info.is-light {
-  background-color: #ecf4fe;
-  color: #0d68ce;
-}
-
 .notification.is-success {
   background-color: #48c774;
   color: #fff;
-}
-
-.notification.is-success.is-light {
-  background-color: #effaf3;
-  color: #257942;
 }
 
 .notification.is-warning {
@@ -4164,19 +4123,9 @@ fieldset[disabled] .button {
   color: rgba(0, 0, 0, 0.7);
 }
 
-.notification.is-warning.is-light {
-  background-color: #fffbeb;
-  color: #947600;
-}
-
 .notification.is-danger {
   background-color: #f14668;
   color: #fff;
-}
-
-.notification.is-danger.is-light {
-  background-color: #feecf0;
-  color: #cc0f35;
 }
 
 .progress {
@@ -5022,35 +4971,35 @@ a.tag:hover {
   background-color: white;
   border-color: #dbdbdb;
   border-radius: 4px;
-  color: inherit;
+  color: #363636;
 }
 
 .input::-moz-placeholder,
 .taginput .taginput-container.is-focusable::-moz-placeholder,
 .textarea::-moz-placeholder,
 .select select::-moz-placeholder {
-  color: inherit;
+  color: rgba(54, 54, 54, 0.3);
 }
 
 .input::-webkit-input-placeholder,
 .taginput .taginput-container.is-focusable::-webkit-input-placeholder,
 .textarea::-webkit-input-placeholder,
 .select select::-webkit-input-placeholder {
-  color: inherit;
+  color: rgba(54, 54, 54, 0.3);
 }
 
 .input:-moz-placeholder,
 .taginput .taginput-container.is-focusable:-moz-placeholder,
 .textarea:-moz-placeholder,
 .select select:-moz-placeholder {
-  color: inherit;
+  color: rgba(54, 54, 54, 0.3);
 }
 
 .input:-ms-input-placeholder,
 .taginput .taginput-container.is-focusable:-ms-input-placeholder,
 .textarea:-ms-input-placeholder,
 .select select:-ms-input-placeholder {
-  color: inherit;
+  color: rgba(54, 54, 54, 0.3);
 }
 
 .input:hover,
@@ -8327,6 +8276,7 @@ a.navbar-item.is-active,
 }
 
 .navbar-item {
+  display: block;
   flex-grow: 0;
   flex-shrink: 0;
 }
@@ -12361,18 +12311,21 @@ label.panel-block:hover {
 }
 
 .hero.is-small .hero-body {
-  padding: 1.5rem;
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem;
 }
 
 @media screen and (min-width: 769px), print {
   .hero.is-medium .hero-body {
-    padding: 9rem 1.5rem;
+    padding-bottom: 9rem;
+    padding-top: 9rem;
   }
 }
 
 @media screen and (min-width: 769px), print {
   .hero.is-large .hero-body {
-    padding: 18rem 1.5rem;
+    padding-bottom: 18rem;
+    padding-top: 18rem;
   }
 }
 
@@ -12663,27 +12616,6 @@ label.panel-block:hover {
   width: 100%;
 }
 
-.slide-enter-active {
-  transition: 150ms ease-out;
-}
-
-.slide-leave-active {
-  transition: 150ms ease-out;
-  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-}
-
-.slide-enter-to,
-.slide-leave {
-  max-height: 100px;
-  overflow: hidden;
-}
-
-.slide-enter,
-.slide-leave-to {
-  overflow: hidden;
-  max-height: 0;
-}
-
 .autocomplete {
   position: relative;
 }
@@ -12850,7 +12782,7 @@ label.panel-block:hover {
   border: 1px solid #00d1b2;
   background: white;
   outline: none;
-  transition: 150ms ease-out;
+  transition: 0.3s ease-out;
 }
 
 .carousel .carousel-indicator .indicator-item .indicator-style.is-boxes {
@@ -12919,7 +12851,7 @@ label.panel-block:hover {
 }
 
 .carousel-arrow {
-  transition: 150ms ease-out;
+  transition: 0.5s ease-out;
 }
 
 .carousel-arrow.is-hovered {
@@ -13903,23 +13835,6 @@ label.panel-block:hover {
   font-size: 1.5rem;
 }
 
-@media screen and (min-width: 1024px) {
-  .datepicker .footer-horizontal-timepicker {
-    border: none;
-    padding-left: 10px;
-    margin-left: 5px;
-    display: flex;
-  }
-
-  .datepicker .dropdown-horizonal-timepicker {
-    display: flex;
-  }
-
-  .datepicker .content-horizonal-timepicker {
-    border-right: 1px solid #dbdbdb;
-  }
-}
-
 .dialog .modal-card {
   max-width: 460px;
   width: auto;
@@ -14006,10 +13921,6 @@ label.panel-block:hover {
   }
 }
 
-.dropdown .dropdown-menu {
-  display: block;
-}
-
 .dropdown .dropdown-menu .dropdown-item.is-disabled,
 .dropdown .dropdown-menu .has-link a.is-disabled {
   cursor: not-allowed;
@@ -14024,14 +13935,6 @@ label.panel-block:hover {
 .dropdown .dropdown-menu .has-link a {
   padding-right: 3rem;
   white-space: nowrap;
-}
-
-.dropdown.is-hoverable:not(.is-active) .dropdown-menu {
-  display: none;
-}
-
-.dropdown.is-hoverable:hover .dropdown-menu {
-  display: inherit;
 }
 
 .dropdown.is-expanded {
@@ -14403,7 +14306,6 @@ label.panel-block:hover {
   display: none;
   justify-content: center;
   overflow: hidden;
-  z-index: 999;
 }
 
 .loading-overlay.is-active {
@@ -14411,6 +14313,7 @@ label.panel-block:hover {
 }
 
 .loading-overlay.is-full-page {
+  z-index: 999;
   position: fixed;
 }
 
@@ -15255,14 +15158,6 @@ label.panel-block:hover {
 
 .b-slider .b-slider-thumb-wrapper.is-dragging .b-slider-thumb {
   transform: scale(1.25);
-}
-
-.b-slider.slider-focus {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin-top: -20px;
-  margin-bottom: -20px;
-  cursor: pointer;
 }
 
 .b-slider.is-rounded .b-slider-thumb {
@@ -16161,7 +16056,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   padding: 0.2em;
   background: #b5b5b5;
   border-radius: 4px;
-  transition: background 150ms ease-out, box-shadow 150ms ease-out;
+  transition: background 150ms ease-out;
 }
 
 .switch input[type=checkbox] + .check:before {
@@ -16172,14 +16067,12 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   height: 1.175em;
   background: whitesmoke;
   box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 3px 0 rgba(0, 0, 0, 0.05);
-  transition: transform 150ms ease-out;
+  transition: transform 150ms ease-out, width 150ms ease-out;
   will-change: transform;
-  transform-origin: left;
 }
 
 .switch input[type=checkbox] + .check.is-elastic:before {
-  transform: scaleX(1.5);
-  border-radius: 100%;
+  width: 1.75em;
 }
 
 .switch input[type=checkbox]:checked + .check {
@@ -16231,71 +16124,58 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 }
 
 .switch input[type=checkbox]:checked + .check.is-elastic:before {
-  transform: translate3d(50%, 0, 0) scaleX(1.5);
+  transform: translate3d(36.36363636%, 0, 0);
 }
 
-.switch input[type=checkbox]:focus,
-.switch input[type=checkbox]:active {
+.switch input[type=checkbox]:focus {
   outline: none;
 }
 
-.switch input[type=checkbox]:focus + .check,
-.switch input[type=checkbox]:active + .check {
+.switch input[type=checkbox]:focus + .check {
   box-shadow: 0 0 0.5em rgba(122, 122, 122, 0.6);
 }
 
-.switch input[type=checkbox]:focus:checked + .check,
-.switch input[type=checkbox]:active:checked + .check {
+.switch input[type=checkbox]:focus:checked + .check {
   box-shadow: 0 0 0.5em rgba(0, 209, 178, 0.8);
 }
 
-.switch input[type=checkbox]:focus:checked + .check.is-white,
-.switch input[type=checkbox]:active:checked + .check.is-white {
+.switch input[type=checkbox]:focus:checked + .check.is-white {
   box-shadow: 0 0 0.5em rgba(255, 255, 255, 0.8);
 }
 
-.switch input[type=checkbox]:focus:checked + .check.is-black,
-.switch input[type=checkbox]:active:checked + .check.is-black {
+.switch input[type=checkbox]:focus:checked + .check.is-black {
   box-shadow: 0 0 0.5em rgba(10, 10, 10, 0.8);
 }
 
-.switch input[type=checkbox]:focus:checked + .check.is-light,
-.switch input[type=checkbox]:active:checked + .check.is-light {
+.switch input[type=checkbox]:focus:checked + .check.is-light {
   box-shadow: 0 0 0.5em rgba(245, 245, 245, 0.8);
 }
 
-.switch input[type=checkbox]:focus:checked + .check.is-dark,
-.switch input[type=checkbox]:active:checked + .check.is-dark {
+.switch input[type=checkbox]:focus:checked + .check.is-dark {
   box-shadow: 0 0 0.5em rgba(54, 54, 54, 0.8);
 }
 
-.switch input[type=checkbox]:focus:checked + .check.is-primary,
-.switch input[type=checkbox]:active:checked + .check.is-primary {
+.switch input[type=checkbox]:focus:checked + .check.is-primary {
   box-shadow: 0 0 0.5em rgba(0, 209, 178, 0.8);
 }
 
-.switch input[type=checkbox]:focus:checked + .check.is-link,
-.switch input[type=checkbox]:active:checked + .check.is-link {
+.switch input[type=checkbox]:focus:checked + .check.is-link {
   box-shadow: 0 0 0.5em rgba(50, 115, 220, 0.8);
 }
 
-.switch input[type=checkbox]:focus:checked + .check.is-info,
-.switch input[type=checkbox]:active:checked + .check.is-info {
+.switch input[type=checkbox]:focus:checked + .check.is-info {
   box-shadow: 0 0 0.5em rgba(22, 125, 240, 0.8);
 }
 
-.switch input[type=checkbox]:focus:checked + .check.is-success,
-.switch input[type=checkbox]:active:checked + .check.is-success {
+.switch input[type=checkbox]:focus:checked + .check.is-success {
   box-shadow: 0 0 0.5em rgba(72, 199, 116, 0.8);
 }
 
-.switch input[type=checkbox]:focus:checked + .check.is-warning,
-.switch input[type=checkbox]:active:checked + .check.is-warning {
+.switch input[type=checkbox]:focus:checked + .check.is-warning {
   box-shadow: 0 0 0.5em rgba(255, 221, 87, 0.8);
 }
 
-.switch input[type=checkbox]:focus:checked + .check.is-danger,
-.switch input[type=checkbox]:active:checked + .check.is-danger {
+.switch input[type=checkbox]:focus:checked + .check.is-danger {
   box-shadow: 0 0 0.5em rgba(241, 70, 104, 0.8);
 }
 
@@ -16626,14 +16506,6 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   margin-left: 10px;
 }
 
-.b-table .table th.is-sticky {
-  position: -webkit-sticky;
-  position: sticky;
-  left: 0;
-  z-index: 3 !important;
-  background: white;
-}
-
 .b-table .table tr.is-selected .checkbox input:checked + .check {
   background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Cpath style='fill:%2300d1b2' d='M 0.04038059,0.6267767 0.14644661,0.52071068 0.42928932,0.80355339 0.3232233,0.90961941 z M 0.21715729,0.80355339 0.85355339,0.16715729 0.95961941,0.2732233 0.3232233,0.90961941 z'%3E%3C/path%3E%3C/svg%3E") no-repeat center center;
 }
@@ -16682,81 +16554,73 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   background: whitesmoke;
 }
 
-.b-table .table td.is-sticky {
-  position: -webkit-sticky;
-  position: sticky;
-  left: 0;
-  z-index: 1;
-  background: white;
-}
-
 .b-table .level:not(.top) {
   padding-bottom: 1.5rem;
 }
 
-.b-table .table-wrapper.has-sticky-header {
+.b-table.has-sticky-header {
   height: 300px;
   overflow-y: auto;
 }
 
 @media screen and (max-width: 768px) {
-  .b-table .table-wrapper.has-sticky-header.has-mobile-cards {
+  .b-table.has-sticky-header.has-mobile-cards {
     height: initial !important;
     overflow-y: initial !important;
   }
 }
 
-.b-table .table-wrapper.has-sticky-header tr:first-child th {
+.b-table.has-sticky-header tr th {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 1;
   background: white;
 }
 
 @media screen and (max-width: 768px) {
-  .b-table .table-wrapper.has-mobile-cards thead {
+  .b-table.has-mobile-cards thead {
     display: none;
   }
 
-  .b-table .table-wrapper.has-mobile-cards tfoot th {
+  .b-table.has-mobile-cards tfoot th {
     border: 0;
     display: inherit;
   }
 
-  .b-table .table-wrapper.has-mobile-cards tr {
+  .b-table.has-mobile-cards tr {
     box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
     max-width: 100%;
     position: relative;
     display: block;
   }
 
-  .b-table .table-wrapper.has-mobile-cards tr td {
+  .b-table.has-mobile-cards tr td {
     border: 0;
     display: inherit;
   }
 
-  .b-table .table-wrapper.has-mobile-cards tr td:last-child {
+  .b-table.has-mobile-cards tr td:last-child {
     border-bottom: 0;
   }
 
-  .b-table .table-wrapper.has-mobile-cards tr:not(:last-child) {
+  .b-table.has-mobile-cards tr:not(:last-child) {
     margin-bottom: 1rem;
   }
 
-  .b-table .table-wrapper.has-mobile-cards tr:not([class*="is-"]) {
+  .b-table.has-mobile-cards tr:not([class*="is-"]) {
     background: inherit;
   }
 
-  .b-table .table-wrapper.has-mobile-cards tr:not([class*="is-"]):hover {
+  .b-table.has-mobile-cards tr:not([class*="is-"]):hover {
     background-color: inherit;
   }
 
-  .b-table .table-wrapper.has-mobile-cards tr.detail {
+  .b-table.has-mobile-cards tr.detail {
     margin-top: -1rem;
   }
 
-  .b-table .table-wrapper.has-mobile-cards tr:not(.detail):not(.is-empty):not(.table-footer) td {
+  .b-table.has-mobile-cards tr:not(.detail):not(.is-empty):not(.table-footer) td {
     display: flex;
     width: auto;
     justify-content: space-between;
@@ -16764,7 +16628,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
     border-bottom: 1px solid whitesmoke;
   }
 
-  .b-table .table-wrapper.has-mobile-cards tr:not(.detail):not(.is-empty):not(.table-footer) td:before {
+  .b-table.has-mobile-cards tr:not(.detail):not(.is-empty):not(.table-footer) td:before {
     content: attr(data-label);
     font-weight: 600;
     padding-right: 0.5em;

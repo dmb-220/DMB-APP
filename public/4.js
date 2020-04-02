@@ -179,6 +179,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -194,9 +197,31 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      as: "",
+      csv: {},
+      raides: {
+        36: "A",
+        38: "B",
+        40: "C",
+        42: "D",
+        44: "E",
+        46: "F",
+        48: "H",
+        50: "G",
+        52: "I",
+        54: "J",
+        56: "K"
+      },
       isLoading: false,
-      sudetis: [],
+      sudetis: [{
+        "name": "Viskozė",
+        "code": "visk",
+        "kiekis": "75"
+      }, {
+        "name": "Elastanas",
+        "code": "elas",
+        "kiekis": "25"
+      }],
+      list: [],
       sudetys: [{
         name: 'Polisteris',
         code: 'poly'
@@ -217,6 +242,7 @@ __webpack_require__.r(__webpack_exports__);
         code: 'lina'
       }],
       grupes: ["SUKNELES", "PALAIDINES", "PALTAI"],
+      kodas: 'TSD-1532',
       tipas: 1,
       intervalas: 2,
       dydziai: [38, 54],
@@ -224,25 +250,27 @@ __webpack_require__.r(__webpack_exports__);
       checkbox: [],
       rodyti_lv: true,
       rodyti_ee: false,
-      rodo: '',
-      data: '2020',
-      nr: '202000',
-      date: ''
+      rodo: ''
     };
   },
   computed: {
     kiek: function kiek() {
       return this.sudetis.length;
     },
-    size: function size() {
+    listas: function listas() {
+      var total = [];
       var i;
-      var data = [];
+      var x = 0;
 
-      for (i = this.dydziai[0]; i < this.dydziai[1]; i + this.intervalas) {
-        data.push(i);
+      for (i = this.dydziai[0]; i <= this.dydziai[1]; i = i + this.intervalas) {
+        total[x++] = {
+          dydis: i,
+          raide: this.raides[i]
+        };
       }
 
-      return data;
+      this.list = total;
+      return total;
     }
   },
   created: function created() {//this.paieska_post()
@@ -480,32 +508,19 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _vm.tipas == 1
-              ? _c(
-                  "b-field",
-                  { attrs: { label: "Dydžiai:", horizontal: "" } },
-                  [
-                    _c("b-slider", {
-                      attrs: { type: "is-danger", min: 36, max: 56, step: 2 },
-                      model: {
-                        value: _vm.dydziai,
-                        callback: function($$v) {
-                          _vm.dydziai = $$v
-                        },
-                        expression: "dydziai"
-                      }
-                    })
-                  ],
-                  1
-                )
-              : _vm._e(),
-            _vm._v(" "),
             _c(
               "b-field",
               { attrs: { horizontal: "", label: "Gaminys:" } },
               [
                 _c("b-input", {
-                  attrs: { name: "kodas", placeholder: "Kodas", expanded: "" }
+                  attrs: { placeholder: "Kodas", expanded: "" },
+                  model: {
+                    value: _vm.kodas,
+                    callback: function($$v) {
+                      _vm.kodas = $$v
+                    },
+                    expression: "kodas"
+                  }
                 }),
                 _vm._v(" "),
                 _c("multiselect", {
@@ -556,7 +571,46 @@ var render = function() {
                 )
               : _vm._e(),
             _vm._v(" "),
+            _vm.tipas == 1
+              ? _c(
+                  "b-field",
+                  { attrs: { label: "Dydžiai:", horizontal: "" } },
+                  [
+                    _c("b-slider", {
+                      attrs: { type: "is-danger", min: 36, max: 56, step: 2 },
+                      model: {
+                        value: _vm.dydziai,
+                        callback: function($$v) {
+                          _vm.dydziai = $$v
+                        },
+                        expression: "dydziai"
+                      }
+                    })
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c("hr"),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { horizontal: "", label: " " } },
+              _vm._l(_vm.listas, function(idx, id) {
+                return _c("b-input", {
+                  key: id,
+                  attrs: { placeholder: idx.raide, expanded: "" },
+                  model: {
+                    value: _vm.list[id].kiek,
+                    callback: function($$v) {
+                      _vm.$set(_vm.list[id], "kiek", $$v)
+                    },
+                    expression: "list[id].kiek"
+                  }
+                })
+              }),
+              1
+            ),
             _vm._v(" "),
             _c("hr"),
             _vm._v(" "),

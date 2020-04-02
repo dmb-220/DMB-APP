@@ -10,20 +10,22 @@
                 <option v-for='(idx, id) in grupes' :key='idx' :value="id">{{ idx }}</option>
             </b-select>
         </b-field>
-         <b-field v-if="tipas == 1" label="Dydžiai:" horizontal>
-            <b-slider v-model="dydziai" type="is-danger" :min="36" :max="56" :step="2">
-            </b-slider>
-        </b-field>
-        
         <b-field horizontal label="Gaminys:">
-            <b-input name="kodas" placeholder="Kodas" expanded></b-input>
+            <b-input v-model="kodas" placeholder="Kodas" expanded></b-input>
             <multiselect v-model="sudetis" tag-placeholder="Pasirinkite sudėti" placeholder="Pasirinkite sudėtį" label="name" track-by="code" 
             :options="sudetys" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
         </b-field>
         <b-field v-if='kiek > 0' horizontal label=" ">
             <b-input type="number" v-for='(idx, id) in sudetis' :key='idx.code' v-model="sudetis[id].kiekis" :placeholder='idx.name' expanded></b-input>
         </b-field>
+        <b-field v-if="tipas == 1" label="Dydžiai:" horizontal>
+          <b-slider v-model="dydziai" type="is-danger" :min="36" :max="56" :step="2">
+          </b-slider>
+        </b-field>
         <hr>
+        <b-field horizontal label=" ">
+        <b-input v-for='(idx, id) in listas' :key='id' v-model="list[id].kiek" :placeholder='idx.raide' expanded></b-input>
+        </b-field>
         <hr>
         <b-field horizontal label=" ">
             <b-checkbox v-model="didmena">DIDMENA</b-checkbox>
@@ -39,7 +41,8 @@
 
       <card-component title="GENERUOTI" icon="account-multiple">
         <div  id="printMe">
-          </div>
+
+        </div>
       <div class="buttons">
         <b-button size="is-medium" icon-left="printer" type="is-dark" @click="print">SPAUSDINTI</b-button>
       </div>
@@ -61,10 +64,16 @@ export default {
   components: {CardComponent, RadioPicker, CheckboxPicker, Multiselect},
   data () {
     return {
-      as: "",
+      csv: {
+        
+      },
+      raides: {36: "A", 38: "B", 40: "C", 42: "D", 44: "E", 46: "F", 48: "H", 50: "G", 52: "I", 54: "J", 56: "K"},
       isLoading: false,
       sudetis: [
-      ],
+        { "name": "Viskozė", "code": "visk", "kiekis": "75" },
+        { "name": "Elastanas", "code": "elas", "kiekis": "25" }
+        ],
+      list: [],
       sudetys: [
         { name: 'Polisteris', code: 'poly' },
         { name: 'Viskozė', code: 'visk' },
@@ -78,6 +87,7 @@ export default {
         "PALAIDINES",
         "PALTAI",
       ],
+      kodas: 'TSD-1532',
       tipas: 1,
       intervalas: 2,
       dydziai: [38, 54],
@@ -86,23 +96,22 @@ export default {
       rodyti_lv: true,
       rodyti_ee: false,
       rodo: '',
-      data: '2020',
-      nr: '202000',
-      date: '',
     }
   },
   computed: {
     kiek: function(){
       return this.sudetis.length;
     },
-    size:  function(){
-      var i;
-      var data = [];
-      for (i = this.dydziai[0]; i < this.dydziai[1]; i+this.intervalas) {
-        data.push(i);
-        } 
-        return data;
-    }
+    listas() {
+        var total = [];
+        var i;
+        var x = 0;
+        for (i = this.dydziai[0]; i <= this.dydziai[1]; i = i + this.intervalas) {
+            total[x++] = {dydis: i, raide: this.raides[i]};
+        }
+        this.list = total;
+        return total;
+      },
   },
   created () {
     //this.paieska_post()
