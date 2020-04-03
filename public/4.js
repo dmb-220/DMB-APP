@@ -224,7 +224,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
 
 
 
@@ -767,7 +766,6 @@ var render = function() {
           "card-component",
           { attrs: { title: "GENERUOTI", icon: "account-multiple" } },
           [
-            _vm._v("\n      " + _vm._s(_vm.csv) + "\n      "),
             _c(
               "b-table",
               {

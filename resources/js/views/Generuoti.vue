@@ -39,7 +39,6 @@
       </card-component>
 
       <card-component title="GENERUOTI" icon="account-multiple">
-        {{csv}}
         <b-table
         bordered
         :narrowed="true"
