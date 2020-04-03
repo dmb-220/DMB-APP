@@ -22,8 +22,7 @@
           <b-slider v-model="dydziai" type="is-danger" :min="36" :max="56" :step="2">
           </b-slider>
         </b-field>
-        <hr>
-        <b-field horizontal label=" ">
+        <b-field v-if="tipas == 1" horizontal label="Kiekiai">
         <b-input v-for='(idx, id) in listas' :key='id' v-model="list[id].kiek" :placeholder='idx.raide' expanded></b-input>
         </b-field>
         <hr>
@@ -35,16 +34,52 @@
           <b-input name="didmena_kiekis" placeholder="Kiekis" expanded></b-input>
         </b-field>
         <div class="buttons">
-            <b-button type="is-black" expanded>GENERUOTI</b-button>
+            <b-button type="is-black" @click="generuoti" expanded>GENERUOTI</b-button>
         </div>
       </card-component>
 
       <card-component title="GENERUOTI" icon="account-multiple">
-        <div  id="printMe">
-
-        </div>
+        {{csv}}
+        <b-table
+        bordered
+        :narrowed="true"
+        :data="csv"
+        sort-icon="arrow-up"
+        :loading="isLoading">
+        <template slot-scope="props">
+          <b-table-column label="Kodas" field="kodas" sortable>
+                {{props.row.kodas}}
+          </b-table-column>
+          <b-table-column label="P LT"  field="P_LT">
+                {{ props.row.P_LT }}
+          </b-table-column>
+          <b-table-column label="Sudetis" field="sudetis" sortable>
+                {{props.row.sudetis}}
+          </b-table-column>
+          <b-table-column label="Kiekis" field="kiekis" sortable>
+                {{props.row.kiekis}}
+          </b-table-column>
+        </template> 
+        <section class="section" slot="empty">
+          <div class="content has-text-centered">
+            <template v-if="isLoading">
+              <p>
+                <b-icon icon="dots-horizontal" size="is-large"/>
+              </p>
+              <p>Gaunami duomenys...</p>
+            </template>
+            <template v-else>
+              <p>
+                <b-icon icon="emoticon-sad" size="is-large"/>
+              </p>
+              <p>Duomenų nerasta &hellip;</p>
+            </template>
+          </div>
+        </section>
+      </b-table>
       <div class="buttons">
-        <b-button size="is-medium" icon-left="printer" type="is-dark" @click="print">SPAUSDINTI</b-button>
+        <b-button v-if="csv.length > 0" size="is-medium" icon-left="printer" type="is-dark" @click="csvExport(csv)">Atsisiusti</b-button>
+        <b-button v-else disable size="is-medium" icon-left="printer" type="is-dark">Atsisiusti</b-button>
       </div>
       </card-component>
     </section>
@@ -64,9 +99,7 @@ export default {
   components: {CardComponent, RadioPicker, CheckboxPicker, Multiselect},
   data () {
     return {
-      csv: {
-        
-      },
+      csv: [],
       raides: {36: "A", 38: "B", 40: "C", 42: "D", 44: "E", 46: "F", 48: "H", 50: "G", 52: "I", 54: "J", 56: "K"},
       isLoading: false,
       sudetis: [
@@ -129,6 +162,38 @@ export default {
       }
       this.options.push(tag)
       this.value.push(tag)
+    },
+    csvExport(arrData) {
+      let csvContent = "data:text/csv;charset=utf-8,";
+      csvContent += [
+        Object.keys(arrData[0]).join(";"),
+        ...arrData.map(item => Object.values(item).join(";"))
+      ]
+        .join("\n")
+        .replace(/(^\[)|(\]$)/gm, "");
+
+      const data = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", data);
+      link.setAttribute("download", "Si. (1).csv");
+      link.click();
+    },
+    generuoti(){
+      var total = [];
+      var i;
+      var x = 0;
+      var sud = "";
+      var kieka;
+      this.sudetis.forEach(function(item){
+        sud += item.name+" "+item.kiekis+"% ";
+      });
+      for (i = this.dydziai[0]; i <= this.dydziai[1]; i = i + this.intervalas) {
+        kieka = this.list[x];
+          total[x++] = {
+            kodas: this.kodas+"-"+this.raides[i], P_LT: "Suknelė", sudetis: sud, kiekis: kieka.kiek
+            };
+      }
+      this.csv = total;
     },
     paieska(){
         axios
