@@ -224,6 +224,12 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -255,32 +261,48 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       },
       isLoading: false,
       sudetis: [{
-        "name": "Viskozė",
-        "code": "visk",
-        "kiekis": "75"
+        name_LT: 'Viskozė',
+        name_LV: "Viskoze",
+        name_EE: "Viskoos",
+        code: 'visk',
+        kiekis: "75"
       }, {
-        "name": "Elastanas",
-        "code": "elas",
-        "kiekis": "25"
+        name_LT: 'Elastanas',
+        name_LV: "Elastāns",
+        name_EE: "Elastaan",
+        code: 'elas',
+        kiekis: "25"
       }],
       list: [],
       sudetys: [{
-        name: 'Polisteris',
+        name_LT: 'Polisteris',
+        name_LV: "Poliesters",
+        name_EE: "Polüester",
         code: 'poly'
       }, {
-        name: 'Viskozė',
+        name_LT: 'Viskozė',
+        name_LV: "Viskoze",
+        name_EE: "Viskoos",
         code: 'visk'
       }, {
-        name: 'Elastanas',
+        name_LT: 'Elastanas',
+        name_LV: "Elastāns",
+        name_EE: "Elastaan",
         code: 'elas'
       }, {
-        name: 'Medvilnė',
+        name_LT: 'Medvilnė',
+        name_LV: "Kokvilna",
+        name_EE: "Puuvill",
         code: 'medv'
       }, {
-        name: 'Vilna',
+        name_LT: 'Vilna',
+        name_LV: "Vilna",
+        name_EE: "Vill",
         code: 'viln'
       }, {
-        name: 'Linas',
+        name_LT: 'Linas',
+        name_LV: "Veļa",
+        name_EE: "Linane",
         code: 'lina'
       }],
       grupes: ["SUKNELES", "PALAIDINES", "PALTAI"],
@@ -332,7 +354,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       this.value.push(tag);
     },
     csvExport: function csvExport(arrData) {
-      var csvContent = "data:text/csv;charset=utf-8,";
+      var csvContent = "data:text/csv;charset=utf-8," + "\uFEFF";
       csvContent += [Object.keys(arrData[0]).join(";")].concat(_toConsumableArray(arrData.map(function (item) {
         return Object.values(item).join(";");
       }))).join("\n").replace(/(^\[)|(\]$)/gm, "");
@@ -346,18 +368,24 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       var total = [];
       var i;
       var x = 0;
-      var sud = "";
+      var sud_LT = "";
+      var sud_LV = "";
+      var sud_EE = "";
       var kieka;
       this.sudetis.forEach(function (item) {
-        sud += item.name + " " + item.kiekis + "% ";
+        sud_LT += item.name_LT + " " + item.kiekis + "% ";
+        sud_LV += item.name_LV + " " + item.kiekis + "% ";
+        sud_EE += item.name_EE + " " + item.kiekis + "% ";
       });
 
       for (i = this.dydziai[0]; i <= this.dydziai[1]; i = i + this.intervalas) {
         kieka = this.list[x];
         total[x++] = {
-          kodas: this.kodas + "-" + this.raides[i],
-          P_LT: "Suknelė",
-          sudetis: sud,
+          Kodas: this.kodas + "-" + this.raides[i],
+          Pav_LT: "Suknelė",
+          Sudetis_LT: sud_LT,
+          Sudetis_LV: sud_LV,
+          Sudetis_EE: sud_EE,
           kiekis: kieka.kiek
         };
       }
@@ -602,7 +630,7 @@ var render = function() {
                   attrs: {
                     "tag-placeholder": "Pasirinkite sudėti",
                     placeholder: "Pasirinkite sudėtį",
-                    label: "name",
+                    label: "name_LT",
                     "track-by": "code",
                     options: _vm.sudetys,
                     multiple: true,
@@ -786,14 +814,14 @@ var render = function() {
                           {
                             attrs: {
                               label: "Kodas",
-                              field: "kodas",
+                              field: "Kodas",
                               sortable: ""
                             }
                           },
                           [
                             _vm._v(
                               "\n              " +
-                                _vm._s(props.row.kodas) +
+                                _vm._s(props.row.Kodas) +
                                 "\n        "
                             )
                           ]
@@ -801,11 +829,11 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "b-table-column",
-                          { attrs: { label: "P LT", field: "P_LT" } },
+                          { attrs: { label: "Pav. LT", field: "Pav_LT" } },
                           [
                             _vm._v(
                               "\n              " +
-                                _vm._s(props.row.P_LT) +
+                                _vm._s(props.row.Pav_LT) +
                                 "\n        "
                             )
                           ]
@@ -815,15 +843,51 @@ var render = function() {
                           "b-table-column",
                           {
                             attrs: {
-                              label: "Sudetis",
-                              field: "sudetis",
+                              label: "Sudetis LT",
+                              field: "Sudetis_LT",
                               sortable: ""
                             }
                           },
                           [
                             _vm._v(
                               "\n              " +
-                                _vm._s(props.row.sudetis) +
+                                _vm._s(props.row.Sudetis_LT) +
+                                "\n        "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-table-column",
+                          {
+                            attrs: {
+                              label: "Sudetis LV",
+                              field: "Sudetis_LV",
+                              sortable: ""
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(props.row.Sudetis_LV) +
+                                "\n        "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-table-column",
+                          {
+                            attrs: {
+                              label: "Sudetis EE",
+                              field: "Sudetis_EE",
+                              sortable: ""
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(props.row.Sudetis_EE) +
                                 "\n        "
                             )
                           ]

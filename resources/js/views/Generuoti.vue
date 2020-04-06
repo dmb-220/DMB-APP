@@ -12,7 +12,7 @@
         </b-field>
         <b-field horizontal label="Gaminys:">
             <b-input v-model="kodas" placeholder="Kodas" expanded></b-input>
-            <multiselect v-model="sudetis" tag-placeholder="Pasirinkite sudėti" placeholder="Pasirinkite sudėtį" label="name" track-by="code" 
+            <multiselect v-model="sudetis" tag-placeholder="Pasirinkite sudėti" placeholder="Pasirinkite sudėtį" label="name_LT" track-by="code" 
             :options="sudetys" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
         </b-field>
         <b-field v-if='kiek > 0' horizontal label=" ">
@@ -46,14 +46,20 @@
         sort-icon="arrow-up"
         :loading="isLoading">
         <template slot-scope="props">
-          <b-table-column label="Kodas" field="kodas" sortable>
-                {{props.row.kodas}}
+          <b-table-column label="Kodas" field="Kodas" sortable>
+                {{props.row.Kodas}}
           </b-table-column>
-          <b-table-column label="P LT"  field="P_LT">
-                {{ props.row.P_LT }}
+          <b-table-column label="Pav. LT"  field="Pav_LT">
+                {{ props.row.Pav_LT }}
           </b-table-column>
-          <b-table-column label="Sudetis" field="sudetis" sortable>
-                {{props.row.sudetis}}
+          <b-table-column label="Sudetis LT" field="Sudetis_LT" sortable>
+                {{props.row.Sudetis_LT}}
+          </b-table-column>
+          <b-table-column label="Sudetis LV" field="Sudetis_LV" sortable>
+                {{props.row.Sudetis_LV}}
+          </b-table-column>
+          <b-table-column label="Sudetis EE" field="Sudetis_EE" sortable>
+                {{props.row.Sudetis_EE}}
           </b-table-column>
           <b-table-column label="Kiekis" field="kiekis" sortable>
                 {{props.row.kiekis}}
@@ -102,17 +108,17 @@ export default {
       raides: {36: "A", 38: "B", 40: "C", 42: "D", 44: "E", 46: "F", 48: "H", 50: "G", 52: "I", 54: "J", 56: "K"},
       isLoading: false,
       sudetis: [
-        { "name": "Viskozė", "code": "visk", "kiekis": "75" },
-        { "name": "Elastanas", "code": "elas", "kiekis": "25" }
+        { name_LT: 'Viskozė', name_LV: "Viskoze", name_EE: "Viskoos", code: 'visk', kiekis: "75" },
+        { name_LT: 'Elastanas', name_LV: "Elastāns", name_EE: "Elastaan", code: 'elas', kiekis: "25" }
         ],
       list: [],
       sudetys: [
-        { name: 'Polisteris', code: 'poly' },
-        { name: 'Viskozė', code: 'visk' },
-        { name: 'Elastanas', code: 'elas' },
-        { name: 'Medvilnė', code: 'medv' },
-        { name: 'Vilna', code: 'viln' },
-        { name: 'Linas', code: 'lina' },
+        { name_LT: 'Polisteris', name_LV: "Poliesters", name_EE: "Polüester", code: 'poly' },
+        { name_LT: 'Viskozė', name_LV: "Viskoze", name_EE: "Viskoos", code: 'visk' },
+        { name_LT: 'Elastanas', name_LV: "Elastāns", name_EE: "Elastaan", code: 'elas' },
+        { name_LT: 'Medvilnė', name_LV: "Kokvilna", name_EE: "Puuvill", code: 'medv' },
+        { name_LT: 'Vilna', name_LV: "Vilna", name_EE: "Vill", code: 'viln' },
+        { name_LT: 'Linas', name_LV: "Veļa", name_EE: "Linane", code: 'lina' },
       ],
       grupes: [
         "SUKNELES",
@@ -163,7 +169,7 @@ export default {
       this.value.push(tag)
     },
     csvExport(arrData) {
-      let csvContent = "data:text/csv;charset=utf-8,";
+      let csvContent = "data:text/csv;charset=utf-8,"+'\uFEFF';
       csvContent += [
         Object.keys(arrData[0]).join(";"),
         ...arrData.map(item => Object.values(item).join(";"))
@@ -181,15 +187,19 @@ export default {
       var total = [];
       var i;
       var x = 0;
-      var sud = "";
+      var sud_LT = "";
+      var sud_LV = "";
+      var sud_EE = "";
       var kieka;
       this.sudetis.forEach(function(item){
-        sud += item.name+" "+item.kiekis+"% ";
+        sud_LT += item.name_LT+" "+item.kiekis+"% ";
+        sud_LV += item.name_LV+" "+item.kiekis+"% ";
+        sud_EE += item.name_EE+" "+item.kiekis+"% ";
       });
       for (i = this.dydziai[0]; i <= this.dydziai[1]; i = i + this.intervalas) {
         kieka = this.list[x];
           total[x++] = {
-            kodas: this.kodas+"-"+this.raides[i], P_LT: "Suknelė", sudetis: sud, kiekis: kieka.kiek
+            Kodas: this.kodas+"-"+this.raides[i], Pav_LT: "Suknelė", Sudetis_LT: sud_LT, Sudetis_LV: sud_LV, Sudetis_EE: sud_EE, kiekis: kieka.kiek
             };
       }
       this.csv = total;
