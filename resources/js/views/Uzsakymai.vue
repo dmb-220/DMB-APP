@@ -168,18 +168,24 @@ export default {
       doc.setFillColor(255, 255, 255);
       doc.roundedRect(10, 5, 90, 135, 3, 3, "FD");
       //doc.addImage("http://app.test/images/Sidonas_logo.jpg", "JPEG", 5, 10, 100, 25);
-      doc.setFont("times");
+      doc.setFont("arial");
       doc.setFontStyle("bold");
       doc.setFontSize(24);
       doc.text("UAB Sidonas ir KO", 55, 20, null, null, "center");
       doc.setFontStyle("normal");
-      doc.setFontSize(12);
-      doc.text(10, 40, id.vardas);
-      doc.text(10, 45, id.telefonas);
-      doc.text(10, 50, id.email);
-      doc.text(10, 70, adresas);
-      doc.text(10, 75, adresas);
-       doc.text(10, 80, adresas);
+      doc.setFontSize(8);
+      doc.text("Imones kodas 180886050", 60, 25, null, null, "center");
+      doc.text("PVM moketojo kodas LT808860515", 65, 28, null, null, "center");
+      doc.text(decodeURI("Kestucio g. 20-1,"), 35, 31, null, null, "center");
+      doc.text("LT-87120 Telsiai", 45, 34, null, null, "center");
+doc.setFontSize(12);
+
+      doc.text(15, 60, id.telefonas);
+      doc.text(15, 65, id.email);
+      doc.text(15, 70, adresas);
+      doc.text(15, 75, adresas2);
+      if(adresas3){
+      doc.text(15, 80, adresas3);}
 
       doc.save('uzsakymas.pdf');
       console.log(id);
