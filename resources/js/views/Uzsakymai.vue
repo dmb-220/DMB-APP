@@ -161,16 +161,24 @@ export default {
           floatPrecision: 16 // or "smart", default is 16
           }
       );
+      var adresas = id.adresas.split(',')[0];
+      var adresas2 = id.adresas.split(',')[1]
+      var adresas3 = id.adresas.split(',')[2];
       doc.setDrawColor(0);
       doc.setFillColor(255, 255, 255);
-      doc.roundedRect(2, 2, 100, 145, 3, 3, "FD");
+      doc.roundedRect(10, 5, 95, 145, 3, 3, "FD");
       //doc.addImage("http://app.test/images/Sidonas_logo.jpg", "JPEG", 5, 10, 100, 25);
       doc.setFont("times");
       doc.setFontStyle("bold");
+      doc.setFontSize(36);
       doc.text("UAB Sidonas ir KO", 50, 10, null, null, "center");
       doc.setFontStyle("normal");
-      doc.text(5, 40, id.vardas);
-      doc.text(5, 50, id.adresas);
+      doc.setFontSize(16);
+      doc.text(10, 40, id.vardas);
+      doc.text(10, 50, id.telefonas);
+      doc.text(10, 70, adresas);
+      doc.text(10, 75, adresas);
+       doc.text(10, 85, adresas);
 
       doc.save('uzsakymas.pdf');
       console.log(id);
