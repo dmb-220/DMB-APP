@@ -29,6 +29,11 @@ export default {
             to: '/',
             icon: 'desktop-mac',
             label: 'Į pradžią'
+          },
+          {
+            to: '/uzsakymai',
+            icon: 'cart',
+            label: 'Užsakymai'
           }
         ],
         'DUOMENYS',

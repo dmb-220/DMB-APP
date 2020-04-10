@@ -149,7 +149,7 @@ class VaztarasciaiController extends Controller
             for($i =0; $i< $papildomai; $i++){
                 $ats['xxx'.$i]['list'][] = array();
                 $ats['xxx'.$i]['numeris'] = "";
-                $ats['xxx'.$i]['data'] = '9999';
+                $ats['xxx'.$i]['data'] = '';
                 $ats['xxx'.$i]["sandelis_is"] = "";
                 $ats['xxx'.$i]["sandelis_i"] = "";
                 $ats['xxx'.$i]["adresas"] = "";

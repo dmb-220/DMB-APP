@@ -73,6 +73,11 @@ export default new Router({
       name: 'admin',
       component: () => import('./views/Admin/Admin.vue')
     },
+    {
+      path: '/uzsakymai',
+      name: 'uzsakymai',
+      component: () => import('./views/Uzsakymai.vue')
+    },
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

@@ -2052,6 +2052,10 @@ __webpack_require__.r(__webpack_exports__);
         to: '/',
         icon: 'desktop-mac',
         label: 'Į pradžią'
+      }, {
+        to: '/uzsakymai',
+        icon: 'cart',
+        label: 'Užsakymai'
       }], 'DUOMENYS', [{
         to: '/statistika',
         label: 'Statistika',
@@ -53618,7 +53622,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/statistika',
     name: 'Statistika',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ./views/Statistika.vue */ "./resources/js/views/Statistika.vue"));
+      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ./views/Statistika.vue */ "./resources/js/views/Statistika.vue"));
     }
   }, {
     path: '/likuciai',
@@ -53678,13 +53682,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/generuoti',
     name: 'generuoti',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(14), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./views/Generuoti.vue */ "./resources/js/views/Generuoti.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(15), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./views/Generuoti.vue */ "./resources/js/views/Generuoti.vue"));
     }
   }, {
     path: '/admin',
     name: 'admin',
     component: function component() {
       return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ./views/Admin/Admin.vue */ "./resources/js/views/Admin/Admin.vue"));
+    }
+  }, {
+    path: '/uzsakymai',
+    name: 'uzsakymai',
+    component: function component() {
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, /*! ./views/Uzsakymai.vue */ "./resources/js/views/Uzsakymai.vue"));
     }
   }],
   scrollBehavior: function scrollBehavior(to, from, savedPosition) {

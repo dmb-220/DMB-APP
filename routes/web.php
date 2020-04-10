@@ -19,6 +19,16 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+/*
+ * UZSAKYMAI
+ * */ 
+Route::prefix('/uzsakymai')->group(function () {
+    Route::get('', 'UzsakymaiController@index');
+    Route::get('{uzsakymai}', 'UzsakymaiController@show');
+    Route::post('store', 'UzsakymaiController@store');
+    Route::patch('{uzsakymai}', 'UzsakymaiController@update');
+    Route::delete('{uzsakymai}/destroy', 'UzsakymaiController@destroy');
+});
 
 
 Route::resource('testas', 'TestasController');
