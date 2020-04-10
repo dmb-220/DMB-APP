@@ -82,6 +82,7 @@
 </template>
 
 <script>
+
 import map from 'lodash/map'
 import CardComponent from '@/components/CardComponent'
 import RadioPicker from '@/components/RadioPicker'
@@ -102,6 +103,10 @@ export default {
     }
   },
   computed: {
+
+},
+  filters: {
+    
   },
   created () {
     //this.paieska_post()
@@ -161,9 +166,10 @@ export default {
           floatPrecision: 16 // or "smart", default is 16
           }
       );
-      var adresas = id.adresas.split(',')[0];
-      var adresas2 = id.adresas.split(',')[1]
-      var adresas3 = id.adresas.split(',')[2];
+
+      var adresas = id.adresas.split(', ')[0];
+      var adresas2 = id.adresas.split(', ')[1]
+      var adresas3 = id.adresas.split(', ')[2];
       doc.setDrawColor(0);
       doc.setFillColor(255, 255, 255);
       doc.roundedRect(10, 5, 90, 135, 3, 3, "FD");
@@ -174,18 +180,40 @@ export default {
       doc.text("UAB Sidonas ir KO", 55, 20, null, null, "center");
       doc.setFontStyle("normal");
       doc.setFontSize(8);
-      doc.text("Imones kodas 180886050", 60, 25, null, null, "center");
-      doc.text("PVM moketojo kodas LT808860515", 65, 28, null, null, "center");
-      doc.text(decodeURI("Kestucio g. 20-1,"), 35, 31, null, null, "center");
-      doc.text("LT-87120 Telsiai", 45, 34, null, null, "center");
-doc.setFontSize(12);
+      doc.text("Imones kodas: 180886050", 55, 23, null, null, "center");
+      doc.text("PVM moketojo kodas: LT808860515", 55, 26, null, null, "center");
+      doc.text("Kestucio g. 20-1, LT-87120 Telšiai", 55, 29, null, null, "center");
+      doc.setLineWidth(1);
+      doc.line(15, 31, 95, 31);
 
-      doc.text(15, 60, id.telefonas);
-      doc.text(15, 65, id.email);
-      doc.text(15, 70, adresas);
-      doc.text(15, 75, adresas2);
+      doc.setFontSize(16);
+      doc.setFontStyle("bold");
+      doc.text(15, 40, "GAVEJAS:");
+      doc.setFontSize(12);
+      doc.setFontStyle("normal");
+      doc.text(15, 45, id.vardas);
+      doc.text(15, 50, adresas);
+      doc.text(15, 55, adresas2);
       if(adresas3){
-      doc.text(15, 80, adresas3);}
+      doc.text(15, 60, adresas3);}
+
+      doc.setLineWidth(1);
+      doc.line(15, 63, 95, 63);
+
+      doc.setFontSize(16);
+      doc.setFontStyle("bold");
+      doc.text("KONTAKTAI", 95, 70, null, null, "right");
+      doc.setFontSize(12);
+      doc.setFontStyle("normal");
+      doc.text(id.telefonas, 95, 75, null, null, "right");
+      doc.text(id.email, 95, 80, null, null, "right");
+      doc.setFontSize(24);
+      doc.setFontStyle("bold");
+      doc.setLineWidth(1);
+      doc.line(15, 120, 95, 120);
+      doc.text(id.numeris, 55, 130, null, null, "center");
+      doc.setLineWidth(1);
+      doc.line(15, 135, 95, 135);
 
       doc.save('uzsakymas.pdf');
       console.log(id);
