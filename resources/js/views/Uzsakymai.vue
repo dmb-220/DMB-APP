@@ -85,6 +85,7 @@
 import map from 'lodash/map'
 import CardComponent from '@/components/CardComponent'
 import RadioPicker from '@/components/RadioPicker'
+import * as jsPDF  from "jspdf"
 
 export default {
   name: "Užsakymai",
@@ -151,6 +152,27 @@ export default {
       })
     },
     print_uzsakymas(id){
+      var doc = new jsPDF(
+        {
+          orientation: 'p',
+          unit: 'mm',
+          format: 'a6',
+          putOnlyUsedFonts:true,
+          floatPrecision: 16 // or "smart", default is 16
+          }
+      );
+      doc.setDrawColor(0);
+      doc.setFillColor(255, 255, 255);
+      doc.roundedRect(2, 2, 100, 145, 3, 3, "FD");
+      //doc.addImage("http://app.test/images/Sidonas_logo.jpg", "JPEG", 5, 10, 100, 25);
+      doc.setFont("times");
+      doc.setFontStyle("bold");
+      doc.text("UAB Sidonas ir KO", 50, 10, null, null, "center");
+      doc.setFontStyle("normal");
+      doc.text(5, 40, id.vardas);
+      doc.text(5, 50, id.adresas);
+
+      doc.save('uzsakymas.pdf');
       console.log(id);
     },
     issaugoti(){
