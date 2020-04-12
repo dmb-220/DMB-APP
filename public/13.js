@@ -211,6 +211,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -413,6 +417,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     issaugoti: function issaugoti() {
       var _this4 = this;
+
+      if (this.email == "") {
+        this.email = "nera@elpasto.lt";
+      }
 
       axios.post("/uzsakymai/store", {
         vardas: this.vardas,
@@ -665,6 +673,20 @@ var render = function() {
           "card-component",
           { attrs: { title: "UŽSAKYMAI", icon: "account-multiple" } },
           [
+            _c("div", { staticClass: "columns" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "column has-text-centered has-text-weight-bold"
+                },
+                [
+                  _vm._v(
+                    "Užsakymai: " + _vm._s(_vm.duomenys.length) + "\n      "
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
             _c(
               "b-field",
               { attrs: { grouped: "", "group-multiline": "" } },
@@ -1109,7 +1131,7 @@ var render = function() {
                       { attrs: { horizontal: "", label: "El. paštas:" } },
                       [
                         _c("b-input", {
-                          attrs: { type: "email", expanded: "" },
+                          attrs: { expanded: "" },
                           model: {
                             value: _vm.edit.email,
                             callback: function($$v) {

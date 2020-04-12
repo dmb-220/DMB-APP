@@ -26,6 +26,10 @@
         </div>
       </card-component>
       <card-component title="UŽSAKYMAI" icon="account-multiple">
+        <div class="columns">
+          <div class="column has-text-centered has-text-weight-bold">Užsakymai: {{duomenys.length }}
+        </div>
+        </div>
         <b-field grouped group-multiline>
             <b-select v-model="perPage" :disabled="!isPaginated">
                 <option value="50">50 įrašų puslapyje</option>
@@ -122,7 +126,7 @@
                         <b-input v-model="edit.telefonas" expanded required></b-input>
                       </b-field>
                       <b-field horizontal label="El. paštas:">
-                        <b-input v-model="edit.email" type='email' expanded></b-input>
+                        <b-input v-model="edit.email" expanded></b-input>
                       </b-field>
                       <div class="buttons">
                           <b-button type="is-black" @click="edit_uzsakymas(edit.id)" expanded>Atnaujinti</b-button>
@@ -350,6 +354,9 @@ export default {
       doc.save('uzsakymas.pdf');
     },
     issaugoti(){
+      if(this.email == ""){
+        this.email = "nera@elpasto.lt";
+      }
       axios
           .post(`/uzsakymai/store`, {
             vardas: this.vardas,
