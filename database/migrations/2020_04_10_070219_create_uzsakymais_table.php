@@ -21,6 +21,7 @@ class CreateUzsakymaisTable extends Migration
             $table->string('telefonas');
             $table->string('email');
             $table->string('patvirtinta');
+            $table->string('isvesta');
             $table->timestamps();
         });
     }
