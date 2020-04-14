@@ -119,67 +119,78 @@ class CSVController extends Controller
                     DB::table('pardavimais')->where('salis', 2)->delete();
                 }
                 $flag = true;
+                $da = [];
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                     //praleidziam pirma eilute
                     if($flag) { $flag = false; continue; }
-                    $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-                    $kiek = explode(",", $duomenys[6]);
+                    $val = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                    $kiek = explode(",", $val[6]);
                     $kiek = $kiek[0];
 
-                    $q = new Pardavimai;
-                    $q->preke = $duomenys[2];
-                    $q->pavadinimas = $duomenys[3];
-                    $q->barkodas = $duomenys[1];
-                    $q->grupe = $duomenys[3];
-                    $q->sandelis = $duomenys[0];
-                    $q->kiekis = $kiek;
-                    $q->pardavimo_kaina = $duomenys[7];
-                    $q->pardavimo_suma = $duomenys[7];
-                    $q->pvm = $duomenys[8];
-                    $q->pvm_suma = $duomenys[9];
-                    $q->suma = $duomenys[10];
-                    $q->grupes_pavadinimas = $duomenys[3];
-                    $q->registras = $duomenys[4];
-                    $q->salis = $valstybe;
-                    $q->save();
+                    $da[] = [
+                        'preke' => $val[2],
+                        'pavadinimas' => $val[3],
+                        'barkodas' => $val[1],
+                        'grupe' => $val[3],
+                        'sandelis' => $val[0],
+                        'kiekis' => $kiek,
+                        'pardavimo_kaina' => $val[7],
+                        'pardavimo_suma' => $val[7],
+                        'pvm' => $val[8],
+                        'pvm_suma' => $val[9],
+                        'suma' => $val[10],
+                        'grupes_pavadinimas' => $val[3],
+                        'registras' => $val[4],
+                        'salis' => $valstybe
+                    ];
                 }
                 fclose($handle);
                 }
                 
+                $chunks = array_chunk($da, 5000);
+                foreach($chunks as $val){
+                    Pardavimai::insert($val);
+                }
             }
             //uzkeliame ESTIJOS pardavimu duomenis
             if($valstybe == 3){
                 DB::table('pardavimais')->where('salis', 3)->delete();
                 //reikia EST Gamyba irasant pakeisti i GAM, o Pirkimas i PIRK
+                $da = [];
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                        $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-                        if($duomenys[0] == "Gamyba"){
+                        $val = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                        if($val[0] == "Gamyba"){
                             $reg = "GAM";
                         }
-                        if($duomenys[0] == "Pirk"){
+                        if($val[0] == "Pirk"){
                             $reg = "PIRK";
                         }
 
-                        $q = new Pardavimai;
-                        $q->preke = $duomenys[8];
-                        $q->pavadinimas = $duomenys[3];
-                        $q->barkodas = $duomenys[8];
-                        $q->grupe = $duomenys[1];
-                        $q->sandelis = $duomenys[2];
-                        $q->kiekis = $duomenys[5];
-                        $q->pardavimo_kaina = 0;
-                        $q->pardavimo_suma = 0;
-                        $q->pvm = 0;
-                        $q->pvm_suma = 0;
-                        $q->suma = 0;
-                        $q->grupes_pavadinimas = 0;
-                        $q->registras = $reg;
-                        $q->salis = $valstybe;
-                        $q->save();
+                        $da[] = [
+                            'preke' => $val[8],
+                            'pavadinimas' => $val[3],
+                            'barkodas' => $val[8],
+                            'grupe' => $val[1],
+                            'sandelis' => $val[2],
+                            'kiekis' => $val[5],
+                            'pardavimo_kaina' => 0,
+                            'pardavimo_suma' => 0,
+                            'pvm' => 0,
+                            'pvm_suma' => 0,
+                            'suma' => 0,
+                            'grupes_pavadinimas' => 0,
+                            'registras' => $reg,
+                            'salis' => $valstybe
+                        ];                     
                     }
                     fclose($handle);
+                }
+
+                $chunks = array_chunk($da, 5000);
+                foreach($chunks as $val){
+                    Pardavimai::insert($val);
                 }
             }
         }
@@ -195,25 +206,31 @@ class CSVController extends Controller
                     DB::table('likutis')->where('salis', 2)->delete();
                 }
                 $flag = true;
+                $da = [];
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                     if($flag) { $flag = false; continue; }
-                    $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-                    $kiek = explode(",", $duomenys[4]);
+                    $val = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                    $kiek = explode(",", $val[4]);
                     $kiek = $kiek[0];
 
-                    $q = new Likutis;
-                    $q->preke = $duomenys[0];
-                    $q->pavadinimas = $duomenys[1];
-                    $q->kaina = $duomenys[3];
-                    $q->kiekis = $kiek;
-                    $q->suma = $duomenys[5];
-                    $q->sandelis = $duomenys[6];
-                    $q->registras = $duomenys[7];
-                    $q->salis = $valstybe;
-                    $q->save();
+                    $da[] = [
+                        'preke' => $val[0],
+                        'pavadinimas' => $val[1],
+                        'kaina' => $val[3],
+                        'kiekis' => $kiek,
+                        'suma' => $val[5],
+                        'sandelis' => $val[6],
+                        'registras' => $val[7],
+                        'salis' => $valstybe
+                    ];
                 }
                 fclose($handle);
+                }
+
+                $chunks = array_chunk($da, 5000);
+                foreach($chunks as $val){
+                    Likutis::insert($val);
                 }
             }
             //uzkeliame ESTIJOS duomenis
@@ -222,26 +239,31 @@ class CSVController extends Controller
                 //reikia EST Gamyba irasant pakeisti i GAM, o Pirkimas i PIRK
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                        $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-                        if($duomenys[2] == "Gamyba"){
+                        $val = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                        if($val[2] == "Gamyba"){
                             $reg = "GAM";
                         }
-                        if($duomenys[2] == "Pirk"){
+                        if($val[2] == "Pirk"){
                             $reg = "PIRK";
                         }
-                        
-                        $q = new Likutis;
-                        $q->preke = $duomenys[6];
-                        $q->pavadinimas = $duomenys[1];
-                        $q->kaina = 0;
-                        $q->kiekis = $duomenys[7];
-                        $q->suma = $duomenys[8];
-                        $q->sandelis = $duomenys[5];
-                        $q->registras = $reg;
-                        $q->salis = $valstybe;
-                        $q->save();
+
+                        $da[] = [
+                            'preke' => $val[6],
+                            'pavadinimas' => $val[1],
+                            'kaina' => 0,
+                            'kiekis' =>$val[7],
+                            'suma' => $val[8],
+                            'sandelis' => $val[5],
+                            'registras' => $reg,
+                            'salis' => $valstybe
+                        ];
                     }
                     fclose($handle);
+                }
+
+                $chunks = array_chunk($da, 5000);
+                foreach($chunks as $val){
+                    Likutis::insert($val);
                 }
             }
         }
@@ -257,28 +279,34 @@ class CSVController extends Controller
                     DB::table('akcijos')->where('salis', 2)->delete();
                 }
                 $flag = true;
+                $da = [];
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                     if($flag) { $flag = false; continue; }
-                    $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-                    if(strtotime($duomenys[2]) > strtotime(date("Y-m-d H:i:s"))){
+                    $val = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                    if(strtotime($val[2]) > strtotime(date("Y-m-d H:i:s"))){
 
-                    $q = new Akcijos;
-                    $q->akcija = $duomenys[0];
-                    $q->galioja_nuo = $duomenys[1];
-                    $q->galioja_iki = $duomenys[2];
-                    $q->pavadinimas = $duomenys[4];
-                    $q->preke = $duomenys[3];
-                    $q->sandelis = $duomenys[8];
-                    $q->kaina = $duomenys[5];
-                    $q->salis = $valstybe;
-                    $q->save();
-                    }
-                }
-                fclose($handle);
+                        $da[] = [
+                            'akcija' => $val[0],
+                            'galioja_nuo' => $val[1],
+                            'galioja_iki' => $val[2],
+                            'pavadinimas' => $val[4],
+                            'preke' => $val[3],
+                            'sandelis' => $val[8],
+                            'kaina' => $val[5],
+                            'salis' => $valstybe
+                        ];
                 }
             }
+            fclose($handle);
+            }
+
+            $chunks = array_chunk($da, 5000);
+            foreach($chunks as $val){
+                Akcijos::insert($val);
+            }
         }
+    }
 
         //daromas KELIONES LAPŲ uzkelimas
         if($tipas == 4){
@@ -291,26 +319,33 @@ class CSVController extends Controller
                     DB::table('keliones')->where('salis', 2)->delete();
                 }
                 $flag = true;
+                $da = [];
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                     if($flag) { $flag = false; continue; }
-                    $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                    $val = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
 
-                    $q = new Kelione;
-                    $q->data = $duomenys[0];
-                    $q->doc_nr = $duomenys[2];
-                    $q->blanko_nr = $duomenys[3];
-                    $q->sandelis_is = $duomenys[4];
-                    $q->sandelis_i = $duomenys[5];
-                    $q->preke = $duomenys[6];
-                    $q->kiekis = $duomenys[7];
-                    $q->kaina = $duomenys[8];
-                    $q->grupe = $duomenys[9];
-                    $q->pavadinimas = $duomenys[10];
-                    $q->salis = $valstybe;
-                    $q->save();
+                    $da[] = [
+                        'data' => $val[0],
+                        'doc_nr' => $val[2],
+                        'blanko_nr' => $val[3],
+                        'sandelis_is' => $val[4],
+                        'sandelis_i' => $val[5],
+                        'preke' => $val[6],
+                        'kiekis' => $val[7],
+                        'kaina' => $val[8],
+                        'grupe' => $val[9],
+                        'pavadinimas' => $val[10],
+                        //'registras' => $val[11],
+                        'salis' => $valstybe
+                    ];
                 }
                 fclose($handle);
+                }
+
+                $chunks = array_chunk($da, 5000);
+                foreach($chunks as $val){
+                    Kelione::insert($val);
                 }
             }
         }
@@ -329,27 +364,32 @@ class CSVController extends Controller
                 //su naujais irasais
 
                 $flag = true;
+                $da = [];
                 if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                     if($flag) { $flag = false; continue; }
-                    $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-
-                    $q = new Atsargos;
-                    $q->data = $duomenys[0];
-                    $q->doc_nr = $duomenys[2];
-                    $q->blanko_nr = $duomenys[3];
-                    $q->sandelis_is = $duomenys[4];
-                    $q->sandelis_i = $duomenys[5];
-                    $q->preke = $duomenys[6];
-                    $q->kiekis = $duomenys[7];
-                    $q->kaina = $duomenys[8];
-                    $q->grupe = $duomenys[9];
-                    $q->pavadinimas = $duomenys[10];
-                    $q->registras = $duomenys[11];
-                    $q->salis = $valstybe;
-                    $q->save();
+                    $val = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                    $da[] = [
+                        'data' => $val[0],
+                        'doc_nr' => $val[2],
+                        'blanko_nr' => $val[3],
+                        'sandelis_is' => $val[4],
+                        'sandelis_i' => $val[5],
+                        'preke' => $val[6],
+                        'kiekis' => $val[7],
+                        'kaina' => $val[8],
+                        'grupe' => $val[9],
+                        'pavadinimas' => $val[10],
+                        'registras' => $val[11],
+                        'salis' => $valstybe
+                    ];
                 }
                 fclose($handle);
+                }
+
+                $chunks = array_chunk($da, 5000);
+                foreach($chunks as $val){
+                    Atsargos::insert($val);
                 }
             }
         }

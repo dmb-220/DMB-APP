@@ -14,7 +14,7 @@ class UzsakymaiController extends Controller
      */
     public function index()
     {
-        $data = Uzsakymai::all();
+        $data = Uzsakymai::orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'data' => $data,
@@ -54,6 +54,7 @@ class UzsakymaiController extends Controller
         $q->telefonas = $request->telefonas;
         $q->email = $request->email;
         $q->patvirtinta = 0;
+        $q->isvesta = 0;
         $q->save();
 
         return response()->json([
@@ -98,7 +99,8 @@ class UzsakymaiController extends Controller
             'adresas' => $request->adresas,
             'telefonas' => $request->telefonas,
             'email' => $request->email,
-            //'adresas' => $request->adresas,
+            'patvirtinta' => $request->patvirtinta,
+            'isvesta' => $request->isvesta,
         ];
         Uzsakymai::where('id',$uzsakymai->id)->update($update);
 
