@@ -1209,6 +1209,7 @@ var render = function() {
                 2: "LIKUTIS",
                 3: "AKCIJOS",
                 5: "ATSARGŲ ATASKAITA",
+                6: "PIRKIMAI LV",
                 4: "KELIONĖS LAPAS"
               }
             },

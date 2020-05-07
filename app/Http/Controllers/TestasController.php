@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Pardavimai;
 use App\Atsargos;
-use App\Likutis;
-use App\Akcijos;
+use App\Pirkimai;
 
 class TestasController extends Controller
 {
@@ -45,9 +44,12 @@ class TestasController extends Controller
         }
 
         //$da = array();
+
         $data = Atsargos::whereIn('blanko_nr', ['AIZK0138', 'ALUK0164', 'CESI0114', 'DAUG0087', 'LIMB0136', 'MADO0170', 'SIGU0131', 'VALM0131'])->get();
         foreach($data as $val){
             $val = $val->toArray();
+            $list[$val['preke']] = $val['preke'];
+
             $da[$val['preke']]['preke'] = $val['preke'];
             $da[$val['preke']]['kaina'] = $val['kaina'];
             $kai = round(tofloat($val['kaina'])*0.5, 4);
@@ -61,11 +63,20 @@ class TestasController extends Controller
                 $da[$val['preke']]['kiekis'] = $k[0];
             }
         }
+        
+        $list = array_values($list);
+        $pirk = Pirkimai::whereIn('preke', $list)->get();
+        foreach($pirk as $va){
+            $pi[$va['preke']][] = $va;
+            $da[$va['preke']]['pirk_kaina'] = $va['pirk_kaina'];
+            $da[$va['preke']]['pardavimas'] = $va['data'];
+        }
 
         $da = array_values($da);
 
         return response()->json([
-            'd' => $da
+            'd' => $da,
+            'pirk' => $pi
         ]);
     }
 

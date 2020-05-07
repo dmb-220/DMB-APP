@@ -19,10 +19,13 @@
                 {{ props.row.preke }}
           </b-table-column>
            <b-table-column field="kaina" label="Kaina" sortable>
-                  {{ props.row.kaina }} ({{ props.row.kaina2 }})
+                  {{ props.row.kaina }} ({{ props.row.pirk_kaina }})
               </b-table-column>
               <b-table-column field="kiek" label="Kiekis" sortable>
-                {{ props.row.kiekis }} - {{ props.row.kiek }}
+                <small>{{ props.row.kiekis }} - {{ props.row.kiek }}</small>
+              </b-table-column>
+              <b-table-column field="pardavimas" label="DATA" sortable>
+                <small>{{ props.row.pardavimas }}</small>
               </b-table-column>
         </template> 
         <section class="section" slot="empty">

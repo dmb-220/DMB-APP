@@ -124,6 +124,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -403,7 +406,7 @@ var render = function() {
                                   "\n                " +
                                     _vm._s(props.row.kaina) +
                                     " (" +
-                                    _vm._s(props.row.kaina2) +
+                                    _vm._s(props.row.pirk_kaina) +
                                     ")\n            "
                                 )
                               ]
@@ -419,13 +422,29 @@ var render = function() {
                                 }
                               },
                               [
-                                _vm._v(
-                                  "\n              " +
+                                _c("small", [
+                                  _vm._v(
                                     _vm._s(props.row.kiekis) +
-                                    " - " +
-                                    _vm._s(props.row.kiek) +
-                                    "\n            "
-                                )
+                                      " - " +
+                                      _vm._s(props.row.kiek)
+                                  )
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-table-column",
+                              {
+                                attrs: {
+                                  field: "pardavimas",
+                                  label: "DATA",
+                                  sortable: ""
+                                }
+                              },
+                              [
+                                _c("small", [
+                                  _vm._v(_vm._s(props.row.pardavimas))
+                                ])
                               ]
                             )
                           ]

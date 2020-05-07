@@ -7,6 +7,7 @@ use App\Likutis;
 use App\Akcijos;
 use App\Kelione;
 use App\Atsargos;
+use App\Pirkimai;
 
 use App\File;
 use App\Http\Requests\FileUploadRequest;
@@ -390,6 +391,50 @@ class CSVController extends Controller
                 $chunks = array_chunk($da, 5000);
                 foreach($chunks as $val){
                     Atsargos::insert($val);
+                }
+            }
+        }
+        //daromas KELIONES LAPŲ uzkelimas
+        if($tipas == 6){
+            //Uzkelime LIETUVOS ir LATVIJOS duomenis
+            if($valstybe == 1 || $valstybe == 2){
+                if($valstybe == 1){
+                    DB::table('pirkimais')->where('salis', 1)->delete();
+                }
+                if($valstybe == 2){
+                    DB::table('pirkimais')->where('salis', 2)->delete();
+                }
+                //reikia duomenu pildyma toliau
+                //su naujais irasais
+
+                $flag = true;
+                $da = [];
+                if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    if($flag) { $flag = false; continue; }
+                    $val = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                    $da[] = [
+                        'data' => $val[0],
+                        'doc_nr' => $val[2],
+                        'blanko_nr' => $val[3],
+                        'sandelis_is' => $val[4],
+                        'sandelis_i' => $val[5],
+                        'preke' => $val[6],
+                        'kiekis' => $val[7],
+                        'kaina' => $val[8],
+                        'grupe' => $val[9],
+                        'pavadinimas' => $val[10],
+                        'registras' => $val[11],
+                        'pirk_kaina' => $val[12],
+                        'salis' => $valstybe
+                    ];
+                }
+                fclose($handle);
+                }
+
+                $chunks = array_chunk($da, 3000);
+                foreach($chunks as $val){
+                    Pirkimai::insert($val);
                 }
             }
         }
