@@ -31,7 +31,11 @@ Route::prefix('/uzsakymai')->group(function () {
 });
 
 
-Route::resource('testas', 'TestasController');
+//Route::resource('testas', 'TestasController');
+Route::prefix('/testas')->group(function () {
+    Route::get('', 'TestasController@index');
+    Route::get('idx', 'TestasController@idx');
+});
 
 Route::resource('sandeliai', 'SandeliaiController');
 

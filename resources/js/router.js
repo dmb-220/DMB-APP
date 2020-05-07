@@ -78,6 +78,11 @@ export default new Router({
       name: 'uzsakymai',
       component: () => import('./views/Uzsakymai.vue')
     },
+    {
+      path: '/testas',
+      name: 'testas',
+      component: () => import('./views/Testas.vue')
+    },
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
