@@ -34,7 +34,12 @@ export default {
             to: '/uzsakymai',
             icon: 'cart',
             label: 'Užsakymai'
-          }
+          },
+          {
+            to: '/testas',
+            label: 'Testas',
+            icon: 'calculator',
+          },
         ],
         'DUOMENYS',
         [
