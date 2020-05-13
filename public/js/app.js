@@ -2056,6 +2056,10 @@ __webpack_require__.r(__webpack_exports__);
         to: '/uzsakymai',
         icon: 'cart',
         label: 'Užsakymai'
+      }, {
+        to: '/testas',
+        label: 'Testas',
+        icon: 'calculator'
       }], 'DUOMENYS', [{
         to: '/statistika',
         label: 'Statistika',

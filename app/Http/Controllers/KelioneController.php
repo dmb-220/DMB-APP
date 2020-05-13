@@ -151,7 +151,7 @@ class KelioneController extends Controller
         $miestai = array(
           'EE' => array("JOHV", "MUST", "NARV", "RAKV", "SOPR", "VORU", "UMER", "EDEN", "HAPS", "KOHT", "KOPL", "PARN", "RIIA"),
           'LV' => array('LIEP', 'VENT', 'KULD', 'SALD', 'TAL2', 'TUKU', 'DOBE', 'SIGU', 'ALUK', 'VALM', 'CESI', 'BALV', 'LIMB', 'MADO',
-            'VALD', 'MELN', 'MATI', 'DOLE', 'BRIV', 'GOBA', 'INTE','DAUG', 'DITO', 'JEKA', 'AIZK', 'OGRE')
+            'VALD', 'MELN', 'MATI', 'DOLE', 'BRIV', 'GOBA', 'INTE','DAUG', 'DITO', 'JEKA', 'AIZK', /*'OGRE'*/)
           );
 
         $sarasas = array(
