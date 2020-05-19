@@ -2651,6 +2651,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'pagrindinis',
@@ -2661,6 +2693,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       isLoading: false,
       info: [],
+      duomenys: [],
       sk: ''
     };
   },
@@ -2675,7 +2708,8 @@ __webpack_require__.r(__webpack_exports__);
       this.isLoading = true;
       this.axios.get('/testas').then(function (response) {
         _this.isLoading = false;
-        _this.info = response.data.data; //this.sk = response.data.sk;
+        _this.info = response.data.data;
+        _this.duomenys = response.data.likutis; //this.sk = response.data.sk;
       })["catch"](function (err) {
         _this.isLoading = false;
 
@@ -36573,8 +36607,145 @@ var render = function() {
           _vm._v("\n      Pardavimai: " + _vm._s(_vm.info.pardavimai)),
           _c("br"),
           _vm._v(" "),
-          _c("br")
-        ]
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "b-table",
+            {
+              attrs: {
+                bordered: "",
+                hoverable: "",
+                narrowed: true,
+                data: _vm.duomenys,
+                "sort-icon": "arrow-up",
+                loading: _vm.isLoading
+              },
+              on: {
+                "details-open": function(row, index) {
+                  return _vm.$buefy.toast.open(
+                    "Išskleista " + row.preke + " prekė!"
+                  )
+                }
+              },
+              scopedSlots: _vm._u([
+                {
+                  key: "default",
+                  fn: function(props) {
+                    return [
+                      _c(
+                        "b-table-column",
+                        {
+                          attrs: {
+                            label: "Grupė",
+                            field: "pavadinimas",
+                            sortable: ""
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(props.row.pavadinimas) +
+                              "\n        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-table-column",
+                        {
+                          attrs: {
+                            label: "Parduota",
+                            field: "pardavimas",
+                            sortable: ""
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(props.row.pardavimas) +
+                              "\n        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-table-column",
+                        {
+                          attrs: {
+                            label: "Likutis",
+                            field: "likutis",
+                            sortable: ""
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(props.row.likutis) +
+                              "\n        "
+                          )
+                        ]
+                      )
+                    ]
+                  }
+                }
+              ])
+            },
+            [
+              _vm._v(" "),
+              _c(
+                "section",
+                {
+                  staticClass: "section",
+                  attrs: { slot: "empty" },
+                  slot: "empty"
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "content has-text-centered" },
+                    [
+                      _vm.isLoading
+                        ? [
+                            _c(
+                              "p",
+                              [
+                                _c("b-icon", {
+                                  attrs: {
+                                    icon: "dots-horizontal",
+                                    size: "is-large"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("Gaunami duomenys...")])
+                          ]
+                        : [
+                            _c(
+                              "p",
+                              [
+                                _c("b-icon", {
+                                  attrs: {
+                                    icon: "emoticon-sad",
+                                    size: "is-large"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("Duomenų nerasta …")])
+                          ]
+                    ],
+                    2
+                  )
+                ]
+              )
+            ]
+          )
+        ],
+        1
       )
     ],
     1

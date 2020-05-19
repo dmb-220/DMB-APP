@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Pardavimai;
+use App\Likutis;
 use App\Atsargos;
 use App\Pirkimai;
 
@@ -18,11 +19,47 @@ class TestasController extends Controller
      */
     public function index()
     {
+        $LT = array("MINS", "TELS", "MADA", "MARI", "MOLA", "NORF", "BIGA", "BABI", "UKME", "MANT", "VISA", "KEDA","AREN", "MAXI", "PANE", "KREV", "MAZE", "TAIK", "SAUL", "TAUB");
+        $LV = array("DOLE", "KULD", "BRIV", "DITO", "MATI", /*"OGRE",*/ "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO");
+        $EE = array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera","Eden", "Haapsalu", "Kopli", "Parnu", "Riia Parnu");
+    
+        $likutis = Likutis::where('salis', '1')->select('pavadinimas','kiekis')->get();
+        $pardavimai = Pardavimai::where('salis', '1')->select('pavadinimas','kiekis', 'registras')->get();
+        //$likutis["LV"] = Likutis::where('salis', '2')->get()->groupBy('pavadinimas');
+        /*$query_p->when(!$gam, function ($q) {
+            return $q->where('registras', "GAM");
+        });*/
+        //$likutis = collect($likutis);
+        //$grouped = $likutis->groupBy('pavadinimas');
+        //$grouped->toArray();
+        $grouped = array();
+        foreach($likutis as $val){
+            if(array_key_exists($val['pavadinimas'], $grouped)){
+            $grouped[$val['pavadinimas']]['likutis'] += $val['kiekis']; 
+            }else{
+                $grouped[$val['pavadinimas']]['likutis'] = $val['kiekis']; 
+                $grouped[$val['pavadinimas']]['pavadinimas'] = $val['pavadinimas']; 
+            }
+        }
+        foreach($pardavimai as $val){
+            if($val['registras'] != "PERS" && $val['kiekis'] > 0 && $val['pavadinimas'] != "Siuntimo išlaidos"){
+            if(array_key_exists('pardavimas', $grouped[$val['pavadinimas']])){
+            $grouped[$val['pavadinimas']]['pardavimas'] += $val['kiekis']; 
+            }else{
+                $grouped[$val['pavadinimas']]['pardavimas'] = $val['kiekis']; 
+            }
+        }
+    }
+
+    $grouped = array_values($grouped);
+
         return response()->json([
             'data' => array(
-                'pardavimai' => "2019-12-24 --- 2020-01-24", 
-                'likutis' => "2020-01-24"
-                )
+                'pardavimai' => "2020-04-18 --- 2020-05-18", 
+                'likutis' => "2020-05-18"
+            ),
+            'likutis' => $grouped,
+            //'pardavimai' => $grouped2,
         ]);
     }
 
