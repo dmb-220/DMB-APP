@@ -23,15 +23,10 @@ class TestasController extends Controller
         $LV = array("DOLE", "KULD", "BRIV", "DITO", "MATI", /*"OGRE",*/ "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO");
         $EE = array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera","Eden", "Haapsalu", "Kopli", "Parnu", "Riia Parnu");
     
-        $likutis = Likutis::where('salis', '1')->select('pavadinimas','kiekis')->get();
-        $pardavimai = Pardavimai::where('salis', '1')->select('pavadinimas','kiekis', 'registras')->get();
-        //$likutis["LV"] = Likutis::where('salis', '2')->get()->groupBy('pavadinimas');
-        /*$query_p->when(!$gam, function ($q) {
-            return $q->where('registras', "GAM");
-        });*/
-        //$likutis = collect($likutis);
-        //$grouped = $likutis->groupBy('pavadinimas');
-        //$grouped->toArray();
+        //LIETUVA
+        $likutis = Likutis::where('salis', '1')->whereIn('sandelis', $LT)->select('pavadinimas','kiekis')->get();
+        $pardavimai = Pardavimai::where('salis', '1')->whereIn('sandelis', $LT)->select('pavadinimas','kiekis', 'registras')->get();
+
         $grouped = array();
         foreach($likutis as $val){
             if(array_key_exists($val['pavadinimas'], $grouped)){
@@ -51,7 +46,60 @@ class TestasController extends Controller
         }
     }
 
+    //LATVIJA
+    $likutis2 = Likutis::where('salis', '2')->whereIn('sandelis', $LV)->select('pavadinimas','kiekis')->get();
+        $pardavimai2 = Pardavimai::where('salis', '2')->whereIn('sandelis', $LV)->select('pavadinimas','kiekis', 'registras')->get();
+        
+        $grouped2 = array();
+        foreach($likutis2 as $val){
+            if(array_key_exists($val['pavadinimas'], $grouped2)){
+            $grouped2[$val['pavadinimas']]['likutis'] += $val['kiekis']; 
+            }else{
+                $grouped2[$val['pavadinimas']]['likutis'] = $val['kiekis']; 
+                $grouped2[$val['pavadinimas']]['pavadinimas'] = $val['pavadinimas']; 
+            }
+        }
+        foreach($pardavimai2 as $val){
+            if($val['kiekis'] > 0 && $val['pavadinimas']){
+            if(array_key_exists('pardavimas', $grouped2[$val['pavadinimas']])){
+            $grouped2[$val['pavadinimas']]['pardavimas'] += $val['kiekis']; 
+            }else{
+                $grouped2[$val['pavadinimas']]['pardavimas'] = $val['kiekis']; 
+            }
+        }
+    }
+
+    //ESTIJA
+    $likutis3 = Likutis::where('salis', '3')->whereIn('sandelis', $EE)->select('pavadinimas','kiekis')->get();
+    $pardavimai3 = Pardavimai::where('salis', '3')->whereIn('sandelis', $EE)->select('pavadinimas','kiekis', 'registras')->get();
+    
+    $grouped3 = array();
+    foreach($likutis3 as $val){
+        if(array_key_exists($val['pavadinimas'], $grouped3)){
+        $grouped3[$val['pavadinimas']]['likutis'] += $val['kiekis']; 
+        }else{
+            $grouped3[$val['pavadinimas']]['likutis'] = $val['kiekis']; 
+            $grouped3[$val['pavadinimas']]['pavadinimas'] = $val['pavadinimas']; 
+        }
+    }
+    foreach($pardavimai3 as $val){
+        if($val['kiekis'] > 0 && $val['pavadinimas']){
+            if(array_key_exists($val['pavadinimas'], $grouped3)){
+        if(array_key_exists('pardavimas', $grouped3[$val['pavadinimas']])){
+        $grouped3[$val['pavadinimas']]['pardavimas'] += $val['kiekis']; 
+        }else{
+            $grouped3[$val['pavadinimas']]['pardavimas'] = $val['kiekis']; 
+        }
+    }
+}else{
+    $grouped3[$val['pavadinimas']]['pardavimas'] = $val['kiekis']; 
+    $grouped3[$val['pavadinimas']]['pavadinimas'] = $val['pavadinimas']; 
+}
+}
+
     $grouped = array_values($grouped);
+    $grouped2 = array_values($grouped2);
+    $grouped3 = array_values($grouped3);
 
         return response()->json([
             'data' => array(
@@ -59,7 +107,8 @@ class TestasController extends Controller
                 'likutis' => "2020-05-18"
             ),
             'likutis' => $grouped,
-            //'pardavimai' => $grouped2,
+            'likutis2' => $grouped2,
+            'likutis3' => $grouped3,
         ]);
     }
 
