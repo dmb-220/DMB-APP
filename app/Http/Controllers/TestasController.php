@@ -103,8 +103,8 @@ class TestasController extends Controller
 
         return response()->json([
             'data' => array(
-                'pardavimai' => "2020-04-18 --- 2020-05-18", 
-                'likutis' => "2020-05-18"
+                'pardavimai' => "2020-04-29 --- 2020-05-29", 
+                'likutis' => "2020-05-29"
             ),
             'likutis' => $grouped,
             'likutis2' => $grouped2,
