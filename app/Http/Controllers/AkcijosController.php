@@ -58,7 +58,8 @@ class AkcijosController extends Controller
                 $duomenys = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
                 //sudedam duomenis i masyva
                 $r[] = $duomenys[0];
-                $rr[$duomenys[0]] = array();
+                //padidinam raides, irasom prekes koda, jei kartais nebutu nei akcijose nei likutyje
+                $rr[strtoupper($duomenys[0])] = array("preke" => strtoupper($duomenys[0]));
             }
             fclose($handle);
         }
@@ -133,11 +134,15 @@ class AkcijosController extends Controller
         $bendras = 0;
 
          //Istraukiam likucius, pagal ieskoma sarasa
-         $re = Likutis::query()->whereIn('preke', $r)->get();
+        $re = Likutis::query()->whereIn('preke', $r)->get();
          //sudedam papildomus duomenis i masyva
          foreach ( $re as $value ) {
             $value = $value->toArray();
             //Uzdedam pradine kaina
+            //jei neegzistuoja pradine kaina
+            if(!array_key_exists($value['preke'], $group)){
+                $group[$value['preke']]['preke'] = $value['preke'];
+            }else{
             if (!array_key_exists('pradine', $group[$value['preke']])){
                 $group[$value['preke']]['pradine'] = $value['kaina'];
             }else{
@@ -150,6 +155,7 @@ class AkcijosController extends Controller
             if (!array_key_exists('preke', $group[$value['preke']])){
                 $group[$value['preke']]['preke'] = $value['preke'];
             }
+        }
 
             //surandam kokiuose sandeliuose yra likuciu, ir kiekis
             //reik suskirstyti pagal valstybe
