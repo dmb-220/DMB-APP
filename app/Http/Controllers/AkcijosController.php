@@ -134,7 +134,7 @@ class AkcijosController extends Controller
         $bendras = 0;
 
          //Istraukiam likucius, pagal ieskoma sarasa
-        $re = Likutis::query()->whereIn('preke', $r)->get();
+        $re = Likutis::query()->where('salis', 1)->where('sandelis', '!=', 'TELSIAI')->whereIn('preke', $r)->get();
          //sudedam papildomus duomenis i masyva
          foreach ( $re as $value ) {
             $value = $value->toArray();

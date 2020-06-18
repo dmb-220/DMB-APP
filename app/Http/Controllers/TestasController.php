@@ -37,7 +37,7 @@ class TestasController extends Controller
             }
         }
         foreach($pardavimai as $val){
-            if($val['registras'] != "PERS" && $val['kiekis'] > 0 && $val['pavadinimas'] != "Siuntimo išlaidos"){
+		if($val['registras'] != "PERS" && $val['kiekis'] > 0 && $val['pavadinimas'] != "Siuntimo išlaidos" && $val['pavadinimas'] != 'Pėdutės'){
             if(array_key_exists('pardavimas', $grouped[$val['pavadinimas']])){
             $grouped[$val['pavadinimas']]['pardavimas'] += $val['kiekis']; 
             }else{
@@ -103,8 +103,8 @@ class TestasController extends Controller
 
         return response()->json([
             'data' => array(
-                'pardavimai' => "2020-04-29 --- 2020-05-29", 
-                'likutis' => "2020-05-29"
+                'pardavimai' => "2020-05-15 --- 2020-06-15", 
+                'likutis' => "2020-06-15"
             ),
             'likutis' => $grouped,
             'likutis2' => $grouped2,
