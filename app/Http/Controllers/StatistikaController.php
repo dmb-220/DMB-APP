@@ -29,6 +29,69 @@ class StatistikaController extends Controller
             $EE = array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera","Eden", "Haapsalu", "Kopli", "Parnu", "Riia Parnu");
         //);
 
+        $sara = array(
+            "Suknelė" => "Kleita",
+            "Palaidinė" => "Blūze",
+            "Palaidinės" => "Blūze",
+            "Kelnės" => "Bikses",
+            "Švarkas" => "Žakete",
+            "Sijonas" => "Svārki",
+            "Striukė" => "Jaka",
+            "Sport. kelnės" => "Sport. bikses",
+            "Sport.kelnės" => "Sport. bikses",
+            "Skara" => "Plecu lakats",
+            "Šalikas" => "Šalle",
+            "Rankinė" => "Soma",
+            "Tamprės" => "Leging",
+            "Tamprės" => "Legingi",
+            "Pižama" => "Pidžama",
+            "Paltas" => "Mētelis",
+            "Pirštinės" => "Cimdi",
+            "Pėdkelnės" => "Zeķubikses",
+            "Naktiniai" => "Naktskrekls",
+            "Kostiumas" => "Kostīms",
+            "Megztinis" => "Džemperis",
+            "Maud. kostiumas" => "Peldkostims",
+            "Maišelis" => "Maisiņi", //Latvija
+            //"Maišelis" => "Kilekott", //Estija
+            "Med. kelnės" => "Med. bikses",
+            "Liekninanti palaidinė" => "Blūze figūras korekcijai",
+            "Liemenėlė" => "Krūšturis",
+            "Vyr. kelnaitės" => "Vīr. apakšbikses",
+            "Kelnaitės" => "Apakšbikses",
+            "Kelnatės" => "Apakšbikses",
+            "Vyr. kojinės" => "Vīr. zeķes",
+            "Vaik. kojinė" => "Bēr. zeķes",
+            "Kojinės" => "Zeķes",
+            "Džinsai" => "Džinsi",
+            "Chalatas" => "Halāts",
+            "Sport. kostiumas" => "Sport. kostīms",
+            "Sarafanas" => "Sarafāns",
+            "Med. švarkas" => "Med. jaka",
+            "Med.Švarkas" => "Med. jaka", 
+            "Komplektas" => "Komplekts",
+            "Liemenė" => "Veste",
+            "Diržas" => "Siksna",
+            "Vyr. pėdutės" => "Vīr. pēdiņas",
+            "Kepurė" => "Cepure",
+            "Šortai" => "Šorti",
+            "Suknelė + apatinukas" => "Kleita + apakšveļa",
+            "Kombinezonas" => "Kombinezons",
+            "Skarelė" => "Lakats",
+            "Pėdutės" => "Pēdiņas",
+            "Med. chalatas" => "Med. halāts",
+            "Rankšluostis" => "Dvielis",
+            "Vyr. džinsai" => "Vīr. džinsi",
+            "Skraistė" => "Plecu lakats",
+            "Vaik. kelnaitės" => "Bēr. apakšbikses",
+            "Chalat.+ naktiniai" => "Halāts + naktskrekls",
+            "Vaik. kojinės" => "Bēr. zeķes",
+            "Vyr.kelnaitės" => "Vīr. apakšbikses",
+            "Naktinai" => "Naktskrekls",
+            "Džemperis" => "Džemperis",
+            "Lietpaltis" => "Mētelis",
+        ); 
+
 
         $failas = "paieska.txt";
         $directory  = "app/";
@@ -46,6 +109,15 @@ class StatistikaController extends Controller
         $gam = $key[5];
         $pirk = $key[6];
 
+        $grupe = $key[8];
+
+        //jei nera ivestas paieskos raktazodis, nustatyti pradini
+        //jei grupe nustatyta, tada galima buti ir tuscias
+        if($grupe == 0){
+            if($keyword == ""){
+                $keyword = "DM-";
+            }
+        }
 
         //paieska, paprasta, isplestine
         if($key[7]){
@@ -80,9 +152,43 @@ class StatistikaController extends Controller
         //$ke = "DM-9";
         //$not = "{$ke}%";
 
+        $grupes_likutis = array();
+        $grupes_pardavimai = array();
+
+        //reikia issitraukti GRUPIU pavadinimus, pagal kuriuos galetų filtruoti
+        //traukiam grupes pagal LT, pagal LV gali buti papildomai
+        //Geriausia butu susivesti tas grupes i masyva ir viskas.
+        $gru = Likutis::select('pavadinimas', 'salis')->where('kiekis','>','0')->distinct()->get();
+        foreach ( $gru as $value ) {
+            if(!in_array($value, $grupes_likutis) && $value['salis'] == 1){
+                $grupes_likutis[] = $value['pavadinimas'];
+            }
+        }
+
+        $gru = Pardavimai::select('pavadinimas','registras', 'salis')->where('kiekis','>','0')->distinct()->get();
+        foreach ( $gru as $value ) {
+            if($value['registras'] != "PERS"){
+            if(!in_array($value, $grupes_pardavimai) && $value['salis'] == 1){
+                $grupes_pardavimai[] = $value['pavadinimas'];
+            }
+        }
+        }
+
+        //reik sujungti pardavimus su likutis
+        $grupes = $grupes_likutis + $grupes_pardavimai;
+        $grupes = array_unique($grupes);
+
+        sort($grupes);
+        $g = array('Paieška tarp grupių išjungta');
+        //i masyvo pradzia idedam grupes isjungima
+        $grupes = $g + $grupes;
+
         $query_p = Likutis::query();
         $query_p->where('preke', 'like', $pa);
         //$query_p->orWhere('preke', 'NOT LIKE', $not);
+        if($grupe != 0 && $grupes[$grupe]){
+            $query_p->whereIn('pavadinimas',[$grupes[$grupe], $sara[$grupes[$grupe]]]);
+        }
         $query_p->when(!$gam, function ($q) {
             return $q->where('registras', "GAM");
         });
@@ -147,6 +253,9 @@ class StatistikaController extends Controller
         $query_p = Pardavimai::query();
         $query_p->where('preke', 'like', $pa);
         //$query_p->orWhere('preke', 'NOT LIKE', $not);
+        if($grupe != 0 && $grupes[$grupe]){
+            $query_p->whereIn('pavadinimas',[$grupes[$grupe], $sara[$grupes[$grupe]]]);
+        }
         $query_p->when(!$gam, function ($q) {
             return $q->where('registras', "GAM");
         });
@@ -272,6 +381,9 @@ class StatistikaController extends Controller
             'paieska_big' => $key[7],
             'gam' => $gam,
             'pirk' => $pirk,
+            'grupes' => $grupes,
+            'grupes_lv' => $sara,
+            'grupe' => $grupe,
             //'parduotuves' => $sarasas
         ]);
     }
@@ -303,12 +415,13 @@ class StatistikaController extends Controller
         $gam = $data['gam'];
         $pirk = $data['pirk'];
         $paieska_big= $data['paieska_big'];
+        $grupe= $data['grupe'];
 
         $failas = "paieska.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
 
-        $eilute = strtoupper($ieskoti)."||".$lt."||".$lv."||".$ee."||".$rikiuoti."||".$gam."||".$pirk."||".$paieska_big;
+        $eilute = strtoupper($ieskoti)."||".$lt."||".$lv."||".$ee."||".$rikiuoti."||".$gam."||".$pirk."||".$paieska_big."||". $grupe;
 
         $myfile = fopen(storage_path($failas), "w");
         fwrite($myfile, $eilute);

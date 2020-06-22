@@ -298,6 +298,27 @@
   width: 100%;
 }
 
+.slide-down-enter-active,
+.slide-down-leave-active,
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: transform 250ms cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+.slide-up-leave-to,
+.slide-down-enter {
+  transform: translate3d(0, -100%, 0);
+  position: absolute;
+  height: 100%;
+}
+
+.slide-up-enter,
+.slide-down-leave-to {
+  transform: translate3d(0, 100%, 0);
+  position: absolute;
+  height: 100%;
+}
+
 .slide-enter-active {
   transition: 150ms ease-out;
 }
@@ -319,7 +340,7 @@
   max-height: 0;
 }
 
-/*! bulma.io v0.8.1 | MIT License | github.com/jgthms/bulma */
+/*! bulma.io v0.8.2 | MIT License | github.com/jgthms/bulma */
 
 @-webkit-keyframes spinAround {
   from {
@@ -5022,35 +5043,35 @@ a.tag:hover {
   background-color: white;
   border-color: #dbdbdb;
   border-radius: 4px;
-  color: inherit;
+  color: #363636;
 }
 
 .input::-moz-placeholder,
 .taginput .taginput-container.is-focusable::-moz-placeholder,
 .textarea::-moz-placeholder,
 .select select::-moz-placeholder {
-  color: inherit;
+  color: rgba(54, 54, 54, 0.3);
 }
 
 .input::-webkit-input-placeholder,
 .taginput .taginput-container.is-focusable::-webkit-input-placeholder,
 .textarea::-webkit-input-placeholder,
 .select select::-webkit-input-placeholder {
-  color: inherit;
+  color: rgba(54, 54, 54, 0.3);
 }
 
 .input:-moz-placeholder,
 .taginput .taginput-container.is-focusable:-moz-placeholder,
 .textarea:-moz-placeholder,
 .select select:-moz-placeholder {
-  color: inherit;
+  color: rgba(54, 54, 54, 0.3);
 }
 
 .input:-ms-input-placeholder,
 .taginput .taginput-container.is-focusable:-ms-input-placeholder,
 .textarea:-ms-input-placeholder,
 .select select:-ms-input-placeholder {
-  color: inherit;
+  color: rgba(54, 54, 54, 0.3);
 }
 
 .input:hover,
@@ -8523,10 +8544,6 @@ a.navbar-item.is-active,
   .navbar-item,
   .navbar-link {
     align-items: center;
-    display: flex;
-  }
-
-  .navbar-item {
     display: flex;
   }
 
@@ -12663,6 +12680,27 @@ label.panel-block:hover {
   width: 100%;
 }
 
+.slide-down-enter-active,
+.slide-down-leave-active,
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: transform 250ms cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+.slide-up-leave-to,
+.slide-down-enter {
+  transform: translate3d(0, -100%, 0);
+  position: absolute;
+  height: 100%;
+}
+
+.slide-up-enter,
+.slide-down-leave-to {
+  transform: translate3d(0, 100%, 0);
+  position: absolute;
+  height: 100%;
+}
+
 .slide-enter-active {
   transition: 150ms ease-out;
 }
@@ -12962,8 +13000,12 @@ label.panel-block:hover {
   align-items: center;
 }
 
-.b-checkbox.checkbox + .checkbox {
-  margin-left: 0.5em;
+.b-checkbox.checkbox:not(.button) {
+  margin-right: 0.5em;
+}
+
+.b-checkbox.checkbox:not(.button) + .checkbox:last-child {
+  margin-right: 0;
 }
 
 .b-checkbox.checkbox input[type=checkbox] {
@@ -13429,6 +13471,43 @@ label.panel-block:hover {
   width: 100%;
 }
 
+.b-clockpicker .dropdown .input[readonly],
+.b-clockpicker .dropdown .taginput .taginput-container.is-focusable[readonly],
+.taginput .b-clockpicker .dropdown .taginput-container.is-focusable[readonly],
+.b-clockpicker .dropdown-trigger .input[readonly],
+.b-clockpicker .dropdown-trigger .taginput .taginput-container.is-focusable[readonly],
+.taginput .b-clockpicker .dropdown-trigger .taginput-container.is-focusable[readonly] {
+  cursor: pointer;
+  box-shadow: inset 0 0.0625em 0.125em rgba(10, 10, 10, 0.05);
+}
+
+.b-clockpicker .dropdown .input[readonly]:focus,
+.b-clockpicker .dropdown .taginput .taginput-container.is-focusable[readonly]:focus,
+.taginput .b-clockpicker .dropdown .taginput-container.is-focusable[readonly]:focus,
+.b-clockpicker .dropdown .input[readonly].is-focused,
+.b-clockpicker .dropdown .taginput .taginput-container.is-focusable[readonly].is-focused,
+.taginput .b-clockpicker .dropdown .taginput-container.is-focusable[readonly].is-focused,
+.b-clockpicker .dropdown .input[readonly]:active,
+.b-clockpicker .dropdown .taginput .taginput-container.is-focusable[readonly]:active,
+.taginput .b-clockpicker .dropdown .taginput-container.is-focusable[readonly]:active,
+.b-clockpicker .dropdown .input[readonly].is-active,
+.b-clockpicker .dropdown .taginput .taginput-container.is-focusable[readonly].is-active,
+.taginput .b-clockpicker .dropdown .taginput-container.is-focusable[readonly].is-active,
+.b-clockpicker .dropdown-trigger .input[readonly]:focus,
+.b-clockpicker .dropdown-trigger .taginput .taginput-container.is-focusable[readonly]:focus,
+.taginput .b-clockpicker .dropdown-trigger .taginput-container.is-focusable[readonly]:focus,
+.b-clockpicker .dropdown-trigger .input[readonly].is-focused,
+.b-clockpicker .dropdown-trigger .taginput .taginput-container.is-focusable[readonly].is-focused,
+.taginput .b-clockpicker .dropdown-trigger .taginput-container.is-focusable[readonly].is-focused,
+.b-clockpicker .dropdown-trigger .input[readonly]:active,
+.b-clockpicker .dropdown-trigger .taginput .taginput-container.is-focusable[readonly]:active,
+.taginput .b-clockpicker .dropdown-trigger .taginput-container.is-focusable[readonly]:active,
+.b-clockpicker .dropdown-trigger .input[readonly].is-active,
+.b-clockpicker .dropdown-trigger .taginput .taginput-container.is-focusable[readonly].is-active,
+.taginput .b-clockpicker .dropdown-trigger .taginput-container.is-focusable[readonly].is-active {
+  box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
+}
+
 .b-clockpicker .dropdown-item,
 .b-clockpicker .dropdown .dropdown-menu .has-link a,
 .dropdown .dropdown-menu .has-link .b-clockpicker a {
@@ -13666,6 +13745,43 @@ label.panel-block:hover {
 .datepicker .dropdown,
 .datepicker .dropdown-trigger {
   width: 100%;
+}
+
+.datepicker .dropdown .input[readonly],
+.datepicker .dropdown .taginput .taginput-container.is-focusable[readonly],
+.taginput .datepicker .dropdown .taginput-container.is-focusable[readonly],
+.datepicker .dropdown-trigger .input[readonly],
+.datepicker .dropdown-trigger .taginput .taginput-container.is-focusable[readonly],
+.taginput .datepicker .dropdown-trigger .taginput-container.is-focusable[readonly] {
+  cursor: pointer;
+  box-shadow: inset 0 0.0625em 0.125em rgba(10, 10, 10, 0.05);
+}
+
+.datepicker .dropdown .input[readonly]:focus,
+.datepicker .dropdown .taginput .taginput-container.is-focusable[readonly]:focus,
+.taginput .datepicker .dropdown .taginput-container.is-focusable[readonly]:focus,
+.datepicker .dropdown .input[readonly].is-focused,
+.datepicker .dropdown .taginput .taginput-container.is-focusable[readonly].is-focused,
+.taginput .datepicker .dropdown .taginput-container.is-focusable[readonly].is-focused,
+.datepicker .dropdown .input[readonly]:active,
+.datepicker .dropdown .taginput .taginput-container.is-focusable[readonly]:active,
+.taginput .datepicker .dropdown .taginput-container.is-focusable[readonly]:active,
+.datepicker .dropdown .input[readonly].is-active,
+.datepicker .dropdown .taginput .taginput-container.is-focusable[readonly].is-active,
+.taginput .datepicker .dropdown .taginput-container.is-focusable[readonly].is-active,
+.datepicker .dropdown-trigger .input[readonly]:focus,
+.datepicker .dropdown-trigger .taginput .taginput-container.is-focusable[readonly]:focus,
+.taginput .datepicker .dropdown-trigger .taginput-container.is-focusable[readonly]:focus,
+.datepicker .dropdown-trigger .input[readonly].is-focused,
+.datepicker .dropdown-trigger .taginput .taginput-container.is-focusable[readonly].is-focused,
+.taginput .datepicker .dropdown-trigger .taginput-container.is-focusable[readonly].is-focused,
+.datepicker .dropdown-trigger .input[readonly]:active,
+.datepicker .dropdown-trigger .taginput .taginput-container.is-focusable[readonly]:active,
+.taginput .datepicker .dropdown-trigger .taginput-container.is-focusable[readonly]:active,
+.datepicker .dropdown-trigger .input[readonly].is-active,
+.datepicker .dropdown-trigger .taginput .taginput-container.is-focusable[readonly].is-active,
+.taginput .datepicker .dropdown-trigger .taginput-container.is-focusable[readonly].is-active {
+  box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
 }
 
 .datepicker .dropdown.is-disabled {
@@ -14006,7 +14122,7 @@ label.panel-block:hover {
   }
 }
 
-.dropdown .dropdown-menu {
+.dropdown.dropdown-menu-animation .dropdown-menu {
   display: block;
 }
 
@@ -14093,7 +14209,7 @@ label.panel-block:hover {
 
 @media screen and (max-width: 1023px) {
   .dropdown.is-mobile-modal > .dropdown-menu {
-    position: fixed;
+    position: fixed !important;
     width: calc(100vw - 40px);
     max-width: 460px;
     max-height: calc(100vh - 120px);
@@ -14104,11 +14220,12 @@ label.panel-block:hover {
     transform: translate3d(-50%, -25%, 0);
     white-space: normal;
     overflow-y: auto;
-    z-index: 50;
+    z-index: 50 !important;
   }
 
   .dropdown.is-mobile-modal > .dropdown-menu > .dropdown-content > .dropdown-item,
-  .dropdown .dropdown-menu .has-link .dropdown.is-mobile-modal > .dropdown-menu > .dropdown-content > a {
+  .dropdown .dropdown-menu .has-link .dropdown.is-mobile-modal > .dropdown-menu > .dropdown-content > a,
+  .dropdown.is-mobile-modal > .dropdown-menu > .dropdown-content > .has-link a {
     padding: 1rem 1.5rem;
   }
 }
@@ -14362,6 +14479,18 @@ label.panel-block:hover {
 .field.is-floating-label.has-numberinput-compact.has-numberinput-is-large .label,
 .field.is-floating-in-label.has-numberinput-compact.has-numberinput-is-large .label {
   margin-left: calc(1.5rem * 2.25);
+}
+
+.field.is-grouped-right.is-floating-in-label .label,
+.field.has-addons-right.is-floating-in-label .label {
+  position: relative;
+  left: calc(3.25em + 2em);
+}
+
+.field.is-grouped-right.is-floating-label .label,
+.field.has-addons-right.is-floating-label .label {
+  position: relative;
+  left: calc(3.25em + 2em);
 }
 
 .control .help.counter {
@@ -14847,8 +14976,16 @@ label.panel-block:hover {
   align-items: center;
 }
 
+.b-radio.radio:not(.button) {
+  margin-right: 0.5em;
+}
+
+.b-radio.radio:not(.button) + .radio:last-child {
+  margin-right: 0;
+}
+
 .b-radio.radio + .radio {
-  margin-left: 0.5em;
+  margin-left: 0;
 }
 
 .b-radio.radio input[type=radio] {
@@ -15200,6 +15337,218 @@ label.panel-block:hover {
   color: rgba(122, 122, 122, 0.7);
 }
 
+.b-skeleton {
+  width: 100%;
+}
+
+.b-skeleton > .b-skeleton-item {
+  background: linear-gradient(90deg, #dbdbdb 25%, rgba(219, 219, 219, 0.5) 50%, #dbdbdb 75%);
+  background-size: 400% 100%;
+  width: 100%;
+}
+
+.b-skeleton > .b-skeleton-item.is-rounded {
+  border-radius: 4px;
+}
+
+.b-skeleton > .b-skeleton-item::after {
+  content: "\A0";
+}
+
+.b-skeleton > .b-skeleton-item + .b-skeleton-item {
+  margin-top: 0.5rem;
+}
+
+.b-skeleton.is-animated > .b-skeleton-item {
+  -webkit-animation: skeleton-loading 1.5s infinite;
+          animation: skeleton-loading 1.5s infinite;
+}
+
+.b-skeleton + .b-skeleton {
+  margin-top: 0.5rem;
+}
+
+.b-skeleton > .b-skeleton-item {
+  line-height: 1rem;
+}
+
+.b-skeleton.is-small > .b-skeleton-item {
+  line-height: 0.75rem;
+}
+
+.b-skeleton.is-medium > .b-skeleton-item {
+  line-height: 1.25rem;
+}
+
+.b-skeleton.is-large > .b-skeleton-item {
+  line-height: 1.5rem;
+}
+
+@-webkit-keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.b-sidebar .sidebar-content {
+  background-color: whitesmoke;
+  box-shadow: 5px 0px 13px 3px rgba(10, 10, 10, 0.1);
+  width: 260px;
+  z-index: 41;
+}
+
+.b-sidebar .sidebar-content.is-white {
+  background-color: white;
+}
+
+.b-sidebar .sidebar-content.is-black {
+  background-color: #0a0a0a;
+}
+
+.b-sidebar .sidebar-content.is-light {
+  background-color: whitesmoke;
+}
+
+.b-sidebar .sidebar-content.is-dark {
+  background-color: #363636;
+}
+
+.b-sidebar .sidebar-content.is-primary {
+  background-color: #00d1b2;
+}
+
+.b-sidebar .sidebar-content.is-link {
+  background-color: #3273dc;
+}
+
+.b-sidebar .sidebar-content.is-info {
+  background-color: #167df0;
+}
+
+.b-sidebar .sidebar-content.is-success {
+  background-color: #48c774;
+}
+
+.b-sidebar .sidebar-content.is-warning {
+  background-color: #ffdd57;
+}
+
+.b-sidebar .sidebar-content.is-danger {
+  background-color: #f14668;
+}
+
+.b-sidebar .sidebar-content.is-fixed {
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.b-sidebar .sidebar-content.is-fixed.is-right {
+  left: auto;
+  right: 0;
+}
+
+.b-sidebar .sidebar-content.is-absolute {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.b-sidebar .sidebar-content.is-absolute.is-right {
+  left: auto;
+  right: 0;
+}
+
+.b-sidebar .sidebar-content.is-mini {
+  width: 80px;
+}
+
+.b-sidebar .sidebar-content.is-mini.is-mini-expand:hover {
+  transition: width 150ms ease-out;
+}
+
+.b-sidebar .sidebar-content.is-mini.is-mini-expand:hover:not(.is-fullwidth) {
+  width: 260px;
+}
+
+.b-sidebar .sidebar-content.is-mini.is-mini-expand:hover:not(.is-fullwidth).is-mini-expand-fixed {
+  position: fixed;
+}
+
+.b-sidebar .sidebar-content.is-static {
+  position: static;
+}
+
+.b-sidebar .sidebar-content.is-absolute,
+.b-sidebar .sidebar-content.is-static {
+  transition: width 150ms ease-out;
+}
+
+.b-sidebar .sidebar-content.is-fullwidth {
+  width: 100%;
+  max-width: 100%;
+}
+
+.b-sidebar .sidebar-content.is-fullheight {
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
+}
+
+@media screen and (max-width: 1023px) {
+  .b-sidebar .sidebar-content.is-mini-mobile {
+    width: 80px;
+  }
+
+  .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:hover:not(.is-fullwidth-mobile) {
+    width: 260px;
+  }
+
+  .b-sidebar .sidebar-content.is-mini-mobile.is-mini-expand:hover:not(.is-fullwidth-mobile).is-mini-expand-fixed {
+    position: fixed;
+  }
+
+  .b-sidebar .sidebar-content.is-hidden-mobile {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .b-sidebar .sidebar-content.is-fullwidth-mobile {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.b-sidebar .sidebar-background {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: rgba(10, 10, 10, 0.86);
+  position: fixed;
+  z-index: 40;
+}
+
 .b-slider {
   margin: 1em 0;
   background: transparent;
@@ -15426,11 +15775,6 @@ Wikiki (https://github.com/Wikiki) licensed under
 MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 */
 
-.b-steps .steps {
-  font-size: 1rem;
-  min-height: 2rem;
-}
-
 .b-steps .steps .step-items {
   display: flex;
   flex-wrap: wrap;
@@ -15444,6 +15788,10 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 }
 
 .b-steps .steps .step-items .step-item .step-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   color: #4a4a4a;
 }
 
@@ -15454,13 +15802,14 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .b-steps .steps .step-items .step-item .step-marker {
   align-items: center;
   display: flex;
-  border-radius: 50%;
+  border-radius: 4px;
   font-weight: 700;
   justify-content: center;
   background: #b5b5b5;
   color: white;
   border: 0.2em solid #fff;
   z-index: 1;
+  overflow: hidden;
 }
 
 .b-steps .steps .step-items .step-item.is-white::before,
@@ -15749,6 +16098,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .b-steps .steps .step-items .step-item .step-details {
   text-align: center;
+  z-index: 1;
 }
 
 .b-steps .steps .step-items .step-item:not(:first-child),
@@ -15761,12 +16111,28 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   content: " ";
   display: block;
   position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: -50%;
 }
 
 .b-steps .steps .step-items .step-item:only-child::after {
   content: " ";
   display: block;
   position: absolute;
+  height: 0.2em;
+  bottom: 0;
+}
+
+.b-steps .steps .step-items .step-item:only-child::before,
+.b-steps .steps .step-items .step-item:only-child::after {
+  width: 25%;
+  left: 50%;
+}
+
+.b-steps .steps .step-items .step-item:only-child::before {
+  right: 50%;
+  left: auto;
 }
 
 .b-steps .steps .step-items .step-item::before,
@@ -15818,11 +16184,38 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   overflow: hidden;
 }
 
+.b-steps .steps.is-rounded .step-item .step-marker {
+  border-radius: 290486px;
+}
+
+.b-steps .steps.is-animated .step-item:not(:first-child)::before,
+.b-steps .steps.is-animated .step-item:only-child::before {
+  transition: background 150ms ease-out;
+}
+
+.b-steps .steps.has-label-right .step-items .step-item .step-link,
+.b-steps .steps.has-label-left .step-items .step-item .step-link {
+  flex-direction: row;
+}
+
+.b-steps .steps.has-label-right .step-items .step-item .step-link > .step-details,
+.b-steps .steps.has-label-left .step-items .step-item .step-link > .step-details {
+  background-color: #f8f8f8;
+  padding: .2em;
+}
+
+.b-steps .steps.has-label-left .step-items .step-item .step-link {
+  flex-direction: row-reverse;
+}
+
+.b-steps .steps {
+  font-size: 1rem;
+  min-height: 2rem;
+}
+
 .b-steps .steps .step-items .step-item .step-marker {
   height: 2rem;
   width: 2rem;
-  position: absolute;
-  left: calc(50% - 1rem);
 }
 
 .b-steps .steps .step-items .step-item .step-marker .icon *,
@@ -15830,292 +16223,426 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   font-size: 1rem;
 }
 
-.b-steps .steps .step-items .step-item .step-details {
-  margin-top: 2rem;
-  margin-left: .5em;
-  margin-right: .5em;
-  padding-top: .2em;
-}
-
 .b-steps .steps .step-items .step-item .step-details .step-title {
   font-size: 1.2rem;
   font-weight: 600;
+  line-height: 1rem;
 }
 
 .b-steps .steps .step-items .step-item:not(:first-child)::before,
 .b-steps .steps .step-items .step-item:only-child::before {
   height: 0.2em;
-  width: 100%;
-  bottom: 0;
-  left: -50%;
   top: 1rem;
 }
 
 .b-steps .steps .step-items .step-item:only-child::after {
-  height: 0.2em;
-  bottom: 0;
   top: 1rem;
-}
-
-.b-steps .steps .step-items .step-item:only-child::before,
-.b-steps .steps .step-items .step-item:only-child::after {
-  width: 25%;
-  left: 50%;
-}
-
-.b-steps .steps .step-items .step-item:only-child::before {
-  right: 50%;
-  left: auto;
 }
 
 @media screen and (max-width: 768px) {
-  .b-steps .steps .step-items .step-item:not(.is-active) {
-    display: none;
-  }
-
   .b-steps .steps .step-items .step-item::before,
   .b-steps .steps .step-items .step-item::after,
   .b-steps .steps .step-items .step-item:not(:first-child)::before {
-    content: " ";
-    display: block;
-    position: absolute;
-    height: 0.2em;
-    width: 25%;
-    bottom: 0;
-    left: 50%;
     top: 1rem;
-  }
-
-  .b-steps .steps .step-items .step-item::before,
-  .b-steps .steps .step-items .step-item:not(:first-child)::before {
-    right: 50%;
-    left: auto;
   }
 }
 
-.b-steps .steps.is-small {
+.b-steps.is-vertical > .steps.has-label-right .step-items .step-item:not(:first-child)::before,
+.b-steps.is-vertical > .steps.has-label-right .step-items .step-item:not(:first-child)::after,
+.b-steps.is-vertical > .steps.has-label-right .step-items .step-item:only-child::before,
+.b-steps.is-vertical > .steps.has-label-right .step-items .step-item:only-child::after {
+  left: calc(1rem - 0.1em);
+}
+
+.b-steps.is-vertical > .steps.has-label-left .step-items .step-item:not(:first-child)::before,
+.b-steps.is-vertical > .steps.has-label-left .step-items .step-item:not(:first-child)::after,
+.b-steps.is-vertical > .steps.has-label-left .step-items .step-item:only-child::before,
+.b-steps.is-vertical > .steps.has-label-left .step-items .step-item:only-child::after {
+  left: auto;
+  right: calc(1rem - 0.1em);
+}
+
+.b-steps.is-vertical.is-right > .steps.has-label-right .step-items .step-item:not(:first-child)::before,
+.b-steps.is-vertical.is-right > .steps.has-label-right .step-items .step-item:not(:first-child)::after,
+.b-steps.is-vertical.is-right > .steps.has-label-right .step-items .step-item:only-child::before,
+.b-steps.is-vertical.is-right > .steps.has-label-right .step-items .step-item:only-child::after {
+  left: calc(1rem - 0.1em);
+}
+
+.b-steps.is-vertical.is-right > .steps.has-label-left .step-items .step-item:not(:first-child)::before,
+.b-steps.is-vertical.is-right > .steps.has-label-left .step-items .step-item:not(:first-child)::after,
+.b-steps.is-vertical.is-right > .steps.has-label-left .step-items .step-item:only-child::before,
+.b-steps.is-vertical.is-right > .steps.has-label-left .step-items .step-item:only-child::after {
+  left: auto;
+  right: calc(1rem - 0.1em);
+}
+
+.b-steps.is-small .steps {
   font-size: 0.75rem;
   min-height: 1.5rem;
 }
 
-.b-steps .steps.is-small .step-items .step-item .step-marker {
+.b-steps.is-small .steps .step-items .step-item .step-marker {
   height: 1.5rem;
   width: 1.5rem;
-  position: absolute;
-  left: calc(50% - 0.75rem);
 }
 
-.b-steps .steps.is-small .step-items .step-item .step-marker .icon *,
-.b-steps .steps.is-small .step-items .step-item .step-marker .icon *:before {
+.b-steps.is-small .steps .step-items .step-item .step-marker .icon *,
+.b-steps.is-small .steps .step-items .step-item .step-marker .icon *:before {
   font-size: 0.75rem;
 }
 
-.b-steps .steps.is-small .step-items .step-item .step-details {
-  margin-top: 1.5rem;
-  margin-left: .5em;
-  margin-right: .5em;
-  padding-top: .2em;
-}
-
-.b-steps .steps.is-small .step-items .step-item .step-details .step-title {
+.b-steps.is-small .steps .step-items .step-item .step-details .step-title {
   font-size: 0.9rem;
   font-weight: 600;
+  line-height: 0.75rem;
 }
 
-.b-steps .steps.is-small .step-items .step-item:not(:first-child)::before,
-.b-steps .steps.is-small .step-items .step-item:only-child::before {
+.b-steps.is-small .steps .step-items .step-item:not(:first-child)::before,
+.b-steps.is-small .steps .step-items .step-item:only-child::before {
   height: 0.2em;
-  width: 100%;
-  bottom: 0;
-  left: -50%;
   top: 0.75rem;
 }
 
-.b-steps .steps.is-small .step-items .step-item:only-child::after {
-  height: 0.2em;
-  bottom: 0;
+.b-steps.is-small .steps .step-items .step-item:only-child::after {
   top: 0.75rem;
-}
-
-.b-steps .steps.is-small .step-items .step-item:only-child::before,
-.b-steps .steps.is-small .step-items .step-item:only-child::after {
-  width: 25%;
-  left: 50%;
-}
-
-.b-steps .steps.is-small .step-items .step-item:only-child::before {
-  right: 50%;
-  left: auto;
 }
 
 @media screen and (max-width: 768px) {
-  .b-steps .steps.is-small .step-items .step-item:not(.is-active) {
-    display: none;
-  }
-
-  .b-steps .steps.is-small .step-items .step-item::before,
-  .b-steps .steps.is-small .step-items .step-item::after,
-  .b-steps .steps.is-small .step-items .step-item:not(:first-child)::before {
-    content: " ";
-    display: block;
-    position: absolute;
-    height: 0.2em;
-    width: 25%;
-    bottom: 0;
-    left: 50%;
+  .b-steps.is-small .steps .step-items .step-item::before,
+  .b-steps.is-small .steps .step-items .step-item::after,
+  .b-steps.is-small .steps .step-items .step-item:not(:first-child)::before {
     top: 0.75rem;
-  }
-
-  .b-steps .steps.is-small .step-items .step-item::before,
-  .b-steps .steps.is-small .step-items .step-item:not(:first-child)::before {
-    right: 50%;
-    left: auto;
   }
 }
 
-.b-steps .steps.is-medium {
+.b-steps.is-small.is-vertical > .steps.has-label-right .step-items .step-item:not(:first-child)::before,
+.b-steps.is-small.is-vertical > .steps.has-label-right .step-items .step-item:not(:first-child)::after,
+.b-steps.is-small.is-vertical > .steps.has-label-right .step-items .step-item:only-child::before,
+.b-steps.is-small.is-vertical > .steps.has-label-right .step-items .step-item:only-child::after {
+  left: calc(0.75rem - 0.1em);
+}
+
+.b-steps.is-small.is-vertical > .steps.has-label-left .step-items .step-item:not(:first-child)::before,
+.b-steps.is-small.is-vertical > .steps.has-label-left .step-items .step-item:not(:first-child)::after,
+.b-steps.is-small.is-vertical > .steps.has-label-left .step-items .step-item:only-child::before,
+.b-steps.is-small.is-vertical > .steps.has-label-left .step-items .step-item:only-child::after {
+  left: auto;
+  right: calc(0.75rem - 0.1em);
+}
+
+.b-steps.is-small.is-vertical.is-right > .steps.has-label-right .step-items .step-item:not(:first-child)::before,
+.b-steps.is-small.is-vertical.is-right > .steps.has-label-right .step-items .step-item:not(:first-child)::after,
+.b-steps.is-small.is-vertical.is-right > .steps.has-label-right .step-items .step-item:only-child::before,
+.b-steps.is-small.is-vertical.is-right > .steps.has-label-right .step-items .step-item:only-child::after {
+  left: calc(0.75rem - 0.1em);
+}
+
+.b-steps.is-small.is-vertical.is-right > .steps.has-label-left .step-items .step-item:not(:first-child)::before,
+.b-steps.is-small.is-vertical.is-right > .steps.has-label-left .step-items .step-item:not(:first-child)::after,
+.b-steps.is-small.is-vertical.is-right > .steps.has-label-left .step-items .step-item:only-child::before,
+.b-steps.is-small.is-vertical.is-right > .steps.has-label-left .step-items .step-item:only-child::after {
+  left: auto;
+  right: calc(0.75rem - 0.1em);
+}
+
+.b-steps.is-medium .steps {
   font-size: 1.25rem;
   min-height: 2.5rem;
 }
 
-.b-steps .steps.is-medium .step-items .step-item .step-marker {
+.b-steps.is-medium .steps .step-items .step-item .step-marker {
   height: 2.5rem;
   width: 2.5rem;
-  position: absolute;
-  left: calc(50% - 1.25rem);
 }
 
-.b-steps .steps.is-medium .step-items .step-item .step-marker .icon *,
-.b-steps .steps.is-medium .step-items .step-item .step-marker .icon *:before {
+.b-steps.is-medium .steps .step-items .step-item .step-marker .icon *,
+.b-steps.is-medium .steps .step-items .step-item .step-marker .icon *:before {
   font-size: 1.25rem;
 }
 
-.b-steps .steps.is-medium .step-items .step-item .step-details {
-  margin-top: 2.5rem;
-  margin-left: .5em;
-  margin-right: .5em;
-  padding-top: .2em;
-}
-
-.b-steps .steps.is-medium .step-items .step-item .step-details .step-title {
+.b-steps.is-medium .steps .step-items .step-item .step-details .step-title {
   font-size: 1.5rem;
   font-weight: 600;
+  line-height: 1.25rem;
 }
 
-.b-steps .steps.is-medium .step-items .step-item:not(:first-child)::before,
-.b-steps .steps.is-medium .step-items .step-item:only-child::before {
+.b-steps.is-medium .steps .step-items .step-item:not(:first-child)::before,
+.b-steps.is-medium .steps .step-items .step-item:only-child::before {
   height: 0.2em;
-  width: 100%;
-  bottom: 0;
-  left: -50%;
   top: 1.25rem;
 }
 
-.b-steps .steps.is-medium .step-items .step-item:only-child::after {
-  height: 0.2em;
-  bottom: 0;
+.b-steps.is-medium .steps .step-items .step-item:only-child::after {
   top: 1.25rem;
-}
-
-.b-steps .steps.is-medium .step-items .step-item:only-child::before,
-.b-steps .steps.is-medium .step-items .step-item:only-child::after {
-  width: 25%;
-  left: 50%;
-}
-
-.b-steps .steps.is-medium .step-items .step-item:only-child::before {
-  right: 50%;
-  left: auto;
 }
 
 @media screen and (max-width: 768px) {
-  .b-steps .steps.is-medium .step-items .step-item:not(.is-active) {
-    display: none;
-  }
-
-  .b-steps .steps.is-medium .step-items .step-item::before,
-  .b-steps .steps.is-medium .step-items .step-item::after,
-  .b-steps .steps.is-medium .step-items .step-item:not(:first-child)::before {
-    content: " ";
-    display: block;
-    position: absolute;
-    height: 0.2em;
-    width: 25%;
-    bottom: 0;
-    left: 50%;
+  .b-steps.is-medium .steps .step-items .step-item::before,
+  .b-steps.is-medium .steps .step-items .step-item::after,
+  .b-steps.is-medium .steps .step-items .step-item:not(:first-child)::before {
     top: 1.25rem;
-  }
-
-  .b-steps .steps.is-medium .step-items .step-item::before,
-  .b-steps .steps.is-medium .step-items .step-item:not(:first-child)::before {
-    right: 50%;
-    left: auto;
   }
 }
 
-.b-steps .steps.is-large {
+.b-steps.is-medium.is-vertical > .steps.has-label-right .step-items .step-item:not(:first-child)::before,
+.b-steps.is-medium.is-vertical > .steps.has-label-right .step-items .step-item:not(:first-child)::after,
+.b-steps.is-medium.is-vertical > .steps.has-label-right .step-items .step-item:only-child::before,
+.b-steps.is-medium.is-vertical > .steps.has-label-right .step-items .step-item:only-child::after {
+  left: calc(1.25rem - 0.1em);
+}
+
+.b-steps.is-medium.is-vertical > .steps.has-label-left .step-items .step-item:not(:first-child)::before,
+.b-steps.is-medium.is-vertical > .steps.has-label-left .step-items .step-item:not(:first-child)::after,
+.b-steps.is-medium.is-vertical > .steps.has-label-left .step-items .step-item:only-child::before,
+.b-steps.is-medium.is-vertical > .steps.has-label-left .step-items .step-item:only-child::after {
+  left: auto;
+  right: calc(1.25rem - 0.1em);
+}
+
+.b-steps.is-medium.is-vertical.is-right > .steps.has-label-right .step-items .step-item:not(:first-child)::before,
+.b-steps.is-medium.is-vertical.is-right > .steps.has-label-right .step-items .step-item:not(:first-child)::after,
+.b-steps.is-medium.is-vertical.is-right > .steps.has-label-right .step-items .step-item:only-child::before,
+.b-steps.is-medium.is-vertical.is-right > .steps.has-label-right .step-items .step-item:only-child::after {
+  left: calc(1.25rem - 0.1em);
+}
+
+.b-steps.is-medium.is-vertical.is-right > .steps.has-label-left .step-items .step-item:not(:first-child)::before,
+.b-steps.is-medium.is-vertical.is-right > .steps.has-label-left .step-items .step-item:not(:first-child)::after,
+.b-steps.is-medium.is-vertical.is-right > .steps.has-label-left .step-items .step-item:only-child::before,
+.b-steps.is-medium.is-vertical.is-right > .steps.has-label-left .step-items .step-item:only-child::after {
+  left: auto;
+  right: calc(1.25rem - 0.1em);
+}
+
+.b-steps.is-large .steps {
   font-size: 1.5rem;
   min-height: 3rem;
 }
 
-.b-steps .steps.is-large .step-items .step-item .step-marker {
+.b-steps.is-large .steps .step-items .step-item .step-marker {
   height: 3rem;
   width: 3rem;
-  position: absolute;
-  left: calc(50% - 1.5rem);
 }
 
-.b-steps .steps.is-large .step-items .step-item .step-marker .icon *,
-.b-steps .steps.is-large .step-items .step-item .step-marker .icon *:before {
+.b-steps.is-large .steps .step-items .step-item .step-marker .icon *,
+.b-steps.is-large .steps .step-items .step-item .step-marker .icon *:before {
   font-size: 1.5rem;
 }
 
-.b-steps .steps.is-large .step-items .step-item .step-details {
-  margin-top: 3rem;
-  margin-left: .5em;
-  margin-right: .5em;
-  padding-top: .2em;
-}
-
-.b-steps .steps.is-large .step-items .step-item .step-details .step-title {
+.b-steps.is-large .steps .step-items .step-item .step-details .step-title {
   font-size: 1.8rem;
   font-weight: 600;
+  line-height: 1.5rem;
 }
 
-.b-steps .steps.is-large .step-items .step-item:not(:first-child)::before,
-.b-steps .steps.is-large .step-items .step-item:only-child::before {
+.b-steps.is-large .steps .step-items .step-item:not(:first-child)::before,
+.b-steps.is-large .steps .step-items .step-item:only-child::before {
   height: 0.2em;
-  width: 100%;
-  bottom: 0;
-  left: -50%;
   top: 1.5rem;
 }
 
-.b-steps .steps.is-large .step-items .step-item:only-child::after {
-  height: 0.2em;
-  bottom: 0;
+.b-steps.is-large .steps .step-items .step-item:only-child::after {
   top: 1.5rem;
-}
-
-.b-steps .steps.is-large .step-items .step-item:only-child::before,
-.b-steps .steps.is-large .step-items .step-item:only-child::after {
-  width: 25%;
-  left: 50%;
-}
-
-.b-steps .steps.is-large .step-items .step-item:only-child::before {
-  right: 50%;
-  left: auto;
 }
 
 @media screen and (max-width: 768px) {
-  .b-steps .steps.is-large .step-items .step-item:not(.is-active) {
+  .b-steps.is-large .steps .step-items .step-item::before,
+  .b-steps.is-large .steps .step-items .step-item::after,
+  .b-steps.is-large .steps .step-items .step-item:not(:first-child)::before {
+    top: 1.5rem;
+  }
+}
+
+.b-steps.is-large.is-vertical > .steps.has-label-right .step-items .step-item:not(:first-child)::before,
+.b-steps.is-large.is-vertical > .steps.has-label-right .step-items .step-item:not(:first-child)::after,
+.b-steps.is-large.is-vertical > .steps.has-label-right .step-items .step-item:only-child::before,
+.b-steps.is-large.is-vertical > .steps.has-label-right .step-items .step-item:only-child::after {
+  left: calc(1.5rem - 0.1em);
+}
+
+.b-steps.is-large.is-vertical > .steps.has-label-left .step-items .step-item:not(:first-child)::before,
+.b-steps.is-large.is-vertical > .steps.has-label-left .step-items .step-item:not(:first-child)::after,
+.b-steps.is-large.is-vertical > .steps.has-label-left .step-items .step-item:only-child::before,
+.b-steps.is-large.is-vertical > .steps.has-label-left .step-items .step-item:only-child::after {
+  left: auto;
+  right: calc(1.5rem - 0.1em);
+}
+
+.b-steps.is-large.is-vertical.is-right > .steps.has-label-right .step-items .step-item:not(:first-child)::before,
+.b-steps.is-large.is-vertical.is-right > .steps.has-label-right .step-items .step-item:not(:first-child)::after,
+.b-steps.is-large.is-vertical.is-right > .steps.has-label-right .step-items .step-item:only-child::before,
+.b-steps.is-large.is-vertical.is-right > .steps.has-label-right .step-items .step-item:only-child::after {
+  left: calc(1.5rem - 0.1em);
+}
+
+.b-steps.is-large.is-vertical.is-right > .steps.has-label-left .step-items .step-item:not(:first-child)::before,
+.b-steps.is-large.is-vertical.is-right > .steps.has-label-left .step-items .step-item:not(:first-child)::after,
+.b-steps.is-large.is-vertical.is-right > .steps.has-label-left .step-items .step-item:only-child::before,
+.b-steps.is-large.is-vertical.is-right > .steps.has-label-left .step-items .step-item:only-child::after {
+  left: auto;
+  right: calc(1.5rem - 0.1em);
+}
+
+.b-steps.is-vertical {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.b-steps.is-vertical > .steps .step-items {
+  height: 100%;
+  flex-direction: column;
+  border-bottom-color: transparent;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em 0;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item::before,
+.b-steps.is-vertical > .steps .step-items .step-item::after {
+  background: linear-gradient(to top, #dbdbdb 50%, #00d1b2 50%);
+  background-size: 100% 200%;
+  background-position: left bottom;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item.is-white::before,
+.b-steps.is-vertical > .steps .step-items .step-item.is-white::after {
+  background: linear-gradient(to top, #dbdbdb 50%, white 50%);
+  background-size: 100% 200%;
+  background-position: left bottom;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item.is-black::before,
+.b-steps.is-vertical > .steps .step-items .step-item.is-black::after {
+  background: linear-gradient(to top, #dbdbdb 50%, #0a0a0a 50%);
+  background-size: 100% 200%;
+  background-position: left bottom;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item.is-light::before,
+.b-steps.is-vertical > .steps .step-items .step-item.is-light::after {
+  background: linear-gradient(to top, #dbdbdb 50%, whitesmoke 50%);
+  background-size: 100% 200%;
+  background-position: left bottom;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item.is-dark::before,
+.b-steps.is-vertical > .steps .step-items .step-item.is-dark::after {
+  background: linear-gradient(to top, #dbdbdb 50%, #363636 50%);
+  background-size: 100% 200%;
+  background-position: left bottom;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item.is-primary::before,
+.b-steps.is-vertical > .steps .step-items .step-item.is-primary::after {
+  background: linear-gradient(to top, #dbdbdb 50%, #00d1b2 50%);
+  background-size: 100% 200%;
+  background-position: left bottom;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item.is-link::before,
+.b-steps.is-vertical > .steps .step-items .step-item.is-link::after {
+  background: linear-gradient(to top, #dbdbdb 50%, #3273dc 50%);
+  background-size: 100% 200%;
+  background-position: left bottom;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item.is-info::before,
+.b-steps.is-vertical > .steps .step-items .step-item.is-info::after {
+  background: linear-gradient(to top, #dbdbdb 50%, #167df0 50%);
+  background-size: 100% 200%;
+  background-position: left bottom;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item.is-success::before,
+.b-steps.is-vertical > .steps .step-items .step-item.is-success::after {
+  background: linear-gradient(to top, #dbdbdb 50%, #48c774 50%);
+  background-size: 100% 200%;
+  background-position: left bottom;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item.is-warning::before,
+.b-steps.is-vertical > .steps .step-items .step-item.is-warning::after {
+  background: linear-gradient(to top, #dbdbdb 50%, #ffdd57 50%);
+  background-size: 100% 200%;
+  background-position: left bottom;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item.is-danger::before,
+.b-steps.is-vertical > .steps .step-items .step-item.is-danger::after {
+  background: linear-gradient(to top, #dbdbdb 50%, #f14668 50%);
+  background-size: 100% 200%;
+  background-position: left bottom;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item:not(:first-child)::before,
+.b-steps.is-vertical > .steps .step-items .step-item:only-child::before {
+  height: 100%;
+  width: 0.2em;
+  top: -50%;
+  left: calc(50% - 0.1em);
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item.is-active::before,
+.b-steps.is-vertical > .steps .step-items .step-item.is-active::after,
+.b-steps.is-vertical > .steps .step-items .step-item.is-previous::before,
+.b-steps.is-vertical > .steps .step-items .step-item.is-previous::after {
+  background-position: right top;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item:only-child::before {
+  top: 50%;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item:only-child::after {
+  width: 0.2em;
+  top: auto;
+  bottom: 50%;
+}
+
+.b-steps.is-vertical > .steps .step-items .step-item:only-child::before,
+.b-steps.is-vertical > .steps .step-items .step-item:only-child::after {
+  height: 25%;
+}
+
+.b-steps.is-vertical > .steps.has-label-right .step-items .step-item {
+  justify-content: flex-start;
+}
+
+.b-steps.is-vertical > .steps.has-label-left .step-items .step-item {
+  justify-content: flex-end;
+}
+
+.b-steps.is-vertical > .steps:not(.has-label-right):not(.has-label-left) .step-items .step-item .step-link > .step-details {
+  background-color: #f8f8f8;
+}
+
+.b-steps.is-vertical > .step-content {
+  flex-grow: 1;
+}
+
+.b-steps.is-vertical > .step-navigation {
+  flex-basis: 100%;
+}
+
+.b-steps.is-vertical.is-right {
+  flex-direction: row-reverse;
+}
+
+@media screen and (max-width: 768px) {
+  .b-steps:not(.is-vertical) .steps.mobile-minimalist .step-items .step-item:not(.is-active) {
     display: none;
   }
 
-  .b-steps .steps.is-large .step-items .step-item::before,
-  .b-steps .steps.is-large .step-items .step-item::after,
-  .b-steps .steps.is-large .step-items .step-item:not(:first-child)::before {
+  .b-steps:not(.is-vertical) .steps.mobile-minimalist .step-items .step-item::before,
+  .b-steps:not(.is-vertical) .steps.mobile-minimalist .step-items .step-item::after,
+  .b-steps:not(.is-vertical) .steps.mobile-minimalist .step-items .step-item:not(:first-child)::before {
     content: " ";
     display: block;
     position: absolute;
@@ -16123,13 +16650,16 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
     width: 25%;
     bottom: 0;
     left: 50%;
-    top: 1.5rem;
   }
 
-  .b-steps .steps.is-large .step-items .step-item::before,
-  .b-steps .steps.is-large .step-items .step-item:not(:first-child)::before {
+  .b-steps:not(.is-vertical) .steps.mobile-minimalist .step-items .step-item::before,
+  .b-steps:not(.is-vertical) .steps.mobile-minimalist .step-items .step-item:not(:first-child)::before {
     right: 50%;
     left: auto;
+  }
+
+  .b-steps:not(.is-vertical) .steps.mobile-compact .step-items .step-item:not(.is-active) .step-details {
+    display: none;
   }
 }
 
@@ -16138,10 +16668,11 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   display: inline-flex;
   align-items: center;
   position: relative;
+  margin-right: 0.5em;
 }
 
-.switch + .switch {
-  margin-left: 0.5em;
+.switch + .switch:last-child {
+  margin-right: 0;
 }
 
 .switch input[type=checkbox] {
@@ -16164,6 +16695,116 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   transition: background 150ms ease-out, box-shadow 150ms ease-out;
 }
 
+.switch input[type=checkbox] + .check.is-white-passive,
+.switch input[type=checkbox] + .check:hover {
+  background: white;
+}
+
+.switch input[type=checkbox] + .check.input[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.switch .taginput input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.taginput .switch input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check {
+  background: 'pink';
+}
+
+.switch input[type=checkbox] + .check.is-black-passive,
+.switch input[type=checkbox] + .check:hover {
+  background: #0a0a0a;
+}
+
+.switch input[type=checkbox] + .check.input[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.switch .taginput input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.taginput .switch input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check {
+  background: 'pink';
+}
+
+.switch input[type=checkbox] + .check.is-light-passive,
+.switch input[type=checkbox] + .check:hover {
+  background: whitesmoke;
+}
+
+.switch input[type=checkbox] + .check.input[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.switch .taginput input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.taginput .switch input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check {
+  background: 'pink';
+}
+
+.switch input[type=checkbox] + .check.is-dark-passive,
+.switch input[type=checkbox] + .check:hover {
+  background: #363636;
+}
+
+.switch input[type=checkbox] + .check.input[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.switch .taginput input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.taginput .switch input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check {
+  background: 'pink';
+}
+
+.switch input[type=checkbox] + .check.is-primary-passive,
+.switch input[type=checkbox] + .check:hover {
+  background: #00d1b2;
+}
+
+.switch input[type=checkbox] + .check.input[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.switch .taginput input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.taginput .switch input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check {
+  background: 'pink';
+}
+
+.switch input[type=checkbox] + .check.is-link-passive,
+.switch input[type=checkbox] + .check:hover {
+  background: #3273dc;
+}
+
+.switch input[type=checkbox] + .check.input[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.switch .taginput input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.taginput .switch input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check {
+  background: 'pink';
+}
+
+.switch input[type=checkbox] + .check.is-info-passive,
+.switch input[type=checkbox] + .check:hover {
+  background: #167df0;
+}
+
+.switch input[type=checkbox] + .check.input[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.switch .taginput input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.taginput .switch input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check {
+  background: 'pink';
+}
+
+.switch input[type=checkbox] + .check.is-success-passive,
+.switch input[type=checkbox] + .check:hover {
+  background: #48c774;
+}
+
+.switch input[type=checkbox] + .check.input[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.switch .taginput input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.taginput .switch input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check {
+  background: 'pink';
+}
+
+.switch input[type=checkbox] + .check.is-warning-passive,
+.switch input[type=checkbox] + .check:hover {
+  background: #ffdd57;
+}
+
+.switch input[type=checkbox] + .check.input[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.switch .taginput input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.taginput .switch input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check {
+  background: 'pink';
+}
+
+.switch input[type=checkbox] + .check.is-danger-passive,
+.switch input[type=checkbox] + .check:hover {
+  background: #f14668;
+}
+
+.switch input[type=checkbox] + .check.input[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.switch .taginput input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check,
+.taginput .switch input[type=checkbox] + .check.taginput-container.is-focusable[type=checkbox] + .switch input[type=checkbox] + .check.check {
+  background: 'pink';
+}
+
 .switch input[type=checkbox] + .check:before {
   content: "";
   display: block;
@@ -16179,7 +16820,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 
 .switch input[type=checkbox] + .check.is-elastic:before {
   transform: scaleX(1.5);
-  border-radius: 100%;
+  border-radius: 4px;
 }
 
 .switch input[type=checkbox]:checked + .check {
@@ -16242,6 +16883,56 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .switch input[type=checkbox]:focus + .check,
 .switch input[type=checkbox]:active + .check {
   box-shadow: 0 0 0.5em rgba(122, 122, 122, 0.6);
+}
+
+.switch input[type=checkbox]:focus + .check.is-white-passive,
+.switch input[type=checkbox]:active + .check.is-white-passive {
+  box-shadow: 0 0 0.5em rgba(255, 255, 255, 0.8);
+}
+
+.switch input[type=checkbox]:focus + .check.is-black-passive,
+.switch input[type=checkbox]:active + .check.is-black-passive {
+  box-shadow: 0 0 0.5em rgba(10, 10, 10, 0.8);
+}
+
+.switch input[type=checkbox]:focus + .check.is-light-passive,
+.switch input[type=checkbox]:active + .check.is-light-passive {
+  box-shadow: 0 0 0.5em rgba(245, 245, 245, 0.8);
+}
+
+.switch input[type=checkbox]:focus + .check.is-dark-passive,
+.switch input[type=checkbox]:active + .check.is-dark-passive {
+  box-shadow: 0 0 0.5em rgba(54, 54, 54, 0.8);
+}
+
+.switch input[type=checkbox]:focus + .check.is-primary-passive,
+.switch input[type=checkbox]:active + .check.is-primary-passive {
+  box-shadow: 0 0 0.5em rgba(0, 209, 178, 0.8);
+}
+
+.switch input[type=checkbox]:focus + .check.is-link-passive,
+.switch input[type=checkbox]:active + .check.is-link-passive {
+  box-shadow: 0 0 0.5em rgba(50, 115, 220, 0.8);
+}
+
+.switch input[type=checkbox]:focus + .check.is-info-passive,
+.switch input[type=checkbox]:active + .check.is-info-passive {
+  box-shadow: 0 0 0.5em rgba(22, 125, 240, 0.8);
+}
+
+.switch input[type=checkbox]:focus + .check.is-success-passive,
+.switch input[type=checkbox]:active + .check.is-success-passive {
+  box-shadow: 0 0 0.5em rgba(72, 199, 116, 0.8);
+}
+
+.switch input[type=checkbox]:focus + .check.is-warning-passive,
+.switch input[type=checkbox]:active + .check.is-warning-passive {
+  box-shadow: 0 0 0.5em rgba(255, 221, 87, 0.8);
+}
+
+.switch input[type=checkbox]:focus + .check.is-danger-passive,
+.switch input[type=checkbox]:active + .check.is-danger-passive {
+  box-shadow: 0 0 0.5em rgba(241, 70, 104, 0.8);
 }
 
 .switch input[type=checkbox]:focus:checked + .check,
@@ -16307,6 +16998,46 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   background: rgba(181, 181, 181, 0.9);
 }
 
+.switch:hover input[type=checkbox] + .check.is-white-passive {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.switch:hover input[type=checkbox] + .check.is-black-passive {
+  background: rgba(10, 10, 10, 0.9);
+}
+
+.switch:hover input[type=checkbox] + .check.is-light-passive {
+  background: rgba(245, 245, 245, 0.9);
+}
+
+.switch:hover input[type=checkbox] + .check.is-dark-passive {
+  background: rgba(54, 54, 54, 0.9);
+}
+
+.switch:hover input[type=checkbox] + .check.is-primary-passive {
+  background: rgba(0, 209, 178, 0.9);
+}
+
+.switch:hover input[type=checkbox] + .check.is-link-passive {
+  background: rgba(50, 115, 220, 0.9);
+}
+
+.switch:hover input[type=checkbox] + .check.is-info-passive {
+  background: rgba(22, 125, 240, 0.9);
+}
+
+.switch:hover input[type=checkbox] + .check.is-success-passive {
+  background: rgba(72, 199, 116, 0.9);
+}
+
+.switch:hover input[type=checkbox] + .check.is-warning-passive {
+  background: rgba(255, 221, 87, 0.9);
+}
+
+.switch:hover input[type=checkbox] + .check.is-danger-passive {
+  background: rgba(241, 70, 104, 0.9);
+}
+
 .switch:hover input[type=checkbox]:checked + .check {
   background: rgba(0, 209, 178, 0.9);
 }
@@ -16359,9 +17090,134 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   border-radius: 290486px;
 }
 
+.switch.is-rounded input[type=checkbox].is-elastic:before {
+  transform: scaleX(1.5);
+  border-radius: 290486px;
+}
+
 .switch.is-outlined input[type=checkbox] + .check {
   background: transparent;
   border: 0.1rem solid #b5b5b5;
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-white-passive {
+  border: 0.1rem solid rgba(255, 255, 255, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-white-passive:before {
+  background: white;
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-white-passive:hover {
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-black-passive {
+  border: 0.1rem solid rgba(10, 10, 10, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-black-passive:before {
+  background: #0a0a0a;
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-black-passive:hover {
+  border-color: rgba(10, 10, 10, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-light-passive {
+  border: 0.1rem solid rgba(245, 245, 245, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-light-passive:before {
+  background: whitesmoke;
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-light-passive:hover {
+  border-color: rgba(245, 245, 245, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-dark-passive {
+  border: 0.1rem solid rgba(54, 54, 54, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-dark-passive:before {
+  background: #363636;
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-dark-passive:hover {
+  border-color: rgba(54, 54, 54, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-primary-passive {
+  border: 0.1rem solid rgba(0, 209, 178, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-primary-passive:before {
+  background: #00d1b2;
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-primary-passive:hover {
+  border-color: rgba(0, 209, 178, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-link-passive {
+  border: 0.1rem solid rgba(50, 115, 220, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-link-passive:before {
+  background: #3273dc;
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-link-passive:hover {
+  border-color: rgba(50, 115, 220, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-info-passive {
+  border: 0.1rem solid rgba(22, 125, 240, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-info-passive:before {
+  background: #167df0;
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-info-passive:hover {
+  border-color: rgba(22, 125, 240, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-success-passive {
+  border: 0.1rem solid rgba(72, 199, 116, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-success-passive:before {
+  background: #48c774;
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-success-passive:hover {
+  border-color: rgba(72, 199, 116, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-warning-passive {
+  border: 0.1rem solid rgba(255, 221, 87, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-warning-passive:before {
+  background: #ffdd57;
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-warning-passive:hover {
+  border-color: rgba(255, 221, 87, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-danger-passive {
+  border: 0.1rem solid rgba(241, 70, 104, 0.9);
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-danger-passive:before {
+  background: #f14668;
+}
+
+.switch.is-outlined input[type=checkbox] + .check.is-danger-passive:hover {
+  border-color: rgba(241, 70, 104, 0.9);
 }
 
 .switch.is-outlined input[type=checkbox] + .check:before {
@@ -16772,6 +17628,62 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   }
 }
 
+.b-table .table-wrapper.is-card-list thead {
+  display: none;
+}
+
+.b-table .table-wrapper.is-card-list tfoot th {
+  border: 0;
+  display: inherit;
+}
+
+.b-table .table-wrapper.is-card-list tr {
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  max-width: 100%;
+  position: relative;
+  display: block;
+}
+
+.b-table .table-wrapper.is-card-list tr td {
+  border: 0;
+  display: inherit;
+}
+
+.b-table .table-wrapper.is-card-list tr td:last-child {
+  border-bottom: 0;
+}
+
+.b-table .table-wrapper.is-card-list tr:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.b-table .table-wrapper.is-card-list tr:not([class*="is-"]) {
+  background: inherit;
+}
+
+.b-table .table-wrapper.is-card-list tr:not([class*="is-"]):hover {
+  background-color: inherit;
+}
+
+.b-table .table-wrapper.is-card-list tr.detail {
+  margin-top: -1rem;
+}
+
+.b-table .table-wrapper.is-card-list tr:not(.detail):not(.is-empty):not(.table-footer) td {
+  display: flex;
+  width: auto;
+  justify-content: space-between;
+  text-align: right;
+  border-bottom: 1px solid whitesmoke;
+}
+
+.b-table .table-wrapper.is-card-list tr:not(.detail):not(.is-empty):not(.table-footer) td:before {
+  content: attr(data-label);
+  font-weight: 600;
+  padding-right: 0.5em;
+  text-align: left;
+}
+
 .b-table.is-loading {
   position: relative;
   pointer-events: none;
@@ -16921,6 +17833,106 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
   text-overflow: ellipsis;
 }
 
+.tag .delete.is-white,
+.tag.is-delete.is-white {
+  background: white;
+}
+
+.tag .delete.is-white:hover,
+.tag.is-delete.is-white:hover {
+  background-color: #e6e5e5;
+}
+
+.tag .delete.is-black,
+.tag.is-delete.is-black {
+  background: #0a0a0a;
+}
+
+.tag .delete.is-black:hover,
+.tag.is-delete.is-black:hover {
+  background-color: black;
+}
+
+.tag .delete.is-light,
+.tag.is-delete.is-light {
+  background: whitesmoke;
+}
+
+.tag .delete.is-light:hover,
+.tag.is-delete.is-light:hover {
+  background-color: #dbdbdb;
+}
+
+.tag .delete.is-dark,
+.tag.is-delete.is-dark {
+  background: #363636;
+}
+
+.tag .delete.is-dark:hover,
+.tag.is-delete.is-dark:hover {
+  background-color: #1c1c1c;
+}
+
+.tag .delete.is-primary,
+.tag.is-delete.is-primary {
+  background: #00d1b2;
+}
+
+.tag .delete.is-primary:hover,
+.tag.is-delete.is-primary:hover {
+  background-color: #009e86;
+}
+
+.tag .delete.is-link,
+.tag.is-delete.is-link {
+  background: #3273dc;
+}
+
+.tag .delete.is-link:hover,
+.tag.is-delete.is-link:hover {
+  background-color: #205bbc;
+}
+
+.tag .delete.is-info,
+.tag.is-delete.is-info {
+  background: #167df0;
+}
+
+.tag .delete.is-info:hover,
+.tag.is-delete.is-info:hover {
+  background-color: #0d64c6;
+}
+
+.tag .delete.is-success,
+.tag.is-delete.is-success {
+  background: #48c774;
+}
+
+.tag .delete.is-success:hover,
+.tag.is-delete.is-success:hover {
+  background-color: #34a85c;
+}
+
+.tag .delete.is-warning,
+.tag.is-delete.is-warning {
+  background: #ffdd57;
+}
+
+.tag .delete.is-warning:hover,
+.tag.is-delete.is-warning:hover {
+  background-color: #ffd324;
+}
+
+.tag .delete.is-danger,
+.tag.is-delete.is-danger {
+  background: #f14668;
+}
+
+.tag .delete.is-danger:hover,
+.tag.is-delete.is-danger:hover {
+  background-color: #ee1742;
+}
+
 .taginput .taginput-container {
   display: flex;
 }
@@ -16977,6 +17989,7 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 }
 
 .taginput .taginput-container .autocomplete {
+  position: static;
   flex: 1;
 }
 
@@ -17009,6 +18022,43 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .timepicker .dropdown,
 .timepicker .dropdown-trigger {
   width: 100%;
+}
+
+.timepicker .dropdown .input[readonly],
+.timepicker .dropdown .taginput .taginput-container.is-focusable[readonly],
+.taginput .timepicker .dropdown .taginput-container.is-focusable[readonly],
+.timepicker .dropdown-trigger .input[readonly],
+.timepicker .dropdown-trigger .taginput .taginput-container.is-focusable[readonly],
+.taginput .timepicker .dropdown-trigger .taginput-container.is-focusable[readonly] {
+  cursor: pointer;
+  box-shadow: inset 0 0.0625em 0.125em rgba(10, 10, 10, 0.05);
+}
+
+.timepicker .dropdown .input[readonly]:focus,
+.timepicker .dropdown .taginput .taginput-container.is-focusable[readonly]:focus,
+.taginput .timepicker .dropdown .taginput-container.is-focusable[readonly]:focus,
+.timepicker .dropdown .input[readonly].is-focused,
+.timepicker .dropdown .taginput .taginput-container.is-focusable[readonly].is-focused,
+.taginput .timepicker .dropdown .taginput-container.is-focusable[readonly].is-focused,
+.timepicker .dropdown .input[readonly]:active,
+.timepicker .dropdown .taginput .taginput-container.is-focusable[readonly]:active,
+.taginput .timepicker .dropdown .taginput-container.is-focusable[readonly]:active,
+.timepicker .dropdown .input[readonly].is-active,
+.timepicker .dropdown .taginput .taginput-container.is-focusable[readonly].is-active,
+.taginput .timepicker .dropdown .taginput-container.is-focusable[readonly].is-active,
+.timepicker .dropdown-trigger .input[readonly]:focus,
+.timepicker .dropdown-trigger .taginput .taginput-container.is-focusable[readonly]:focus,
+.taginput .timepicker .dropdown-trigger .taginput-container.is-focusable[readonly]:focus,
+.timepicker .dropdown-trigger .input[readonly].is-focused,
+.timepicker .dropdown-trigger .taginput .taginput-container.is-focusable[readonly].is-focused,
+.taginput .timepicker .dropdown-trigger .taginput-container.is-focusable[readonly].is-focused,
+.timepicker .dropdown-trigger .input[readonly]:active,
+.timepicker .dropdown-trigger .taginput .taginput-container.is-focusable[readonly]:active,
+.taginput .timepicker .dropdown-trigger .taginput-container.is-focusable[readonly]:active,
+.timepicker .dropdown-trigger .input[readonly].is-active,
+.timepicker .dropdown-trigger .taginput .taginput-container.is-focusable[readonly].is-active,
+.taginput .timepicker .dropdown-trigger .taginput-container.is-focusable[readonly].is-active {
+  box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
 }
 
 .timepicker .dropdown.is-disabled {
@@ -17651,6 +18701,14 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 .upload .upload-draggable.is-hovered.is-danger {
   border-color: #f14668;
   background: rgba(241, 70, 104, 0.05);
+}
+
+.upload .upload-draggable.is-expanded {
+  width: 100%;
+}
+
+.upload.is-expanded {
+  width: 100%;
 }
 
 @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {

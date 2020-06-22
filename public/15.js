@@ -144,6 +144,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'statistika',
@@ -170,7 +179,10 @@ __webpack_require__.r(__webpack_exports__);
       gam: true,
       pirk: true,
       paieska_big: false,
-      mobile_card: true
+      mobile_card: true,
+      grupes: [],
+      grupes_lv: [],
+      grupe: ''
     };
   },
   computed: {},
@@ -209,6 +221,13 @@ __webpack_require__.r(__webpack_exports__);
       this.ieskoti = this.paieska;
       this.paieska_post();
     },
+    keisti_grupe: function keisti_grupe() {
+      if (!this.ieskoti) {
+        this.ieskoti = this.paieska;
+      }
+
+      this.paieska_post();
+    },
     switch_post: function switch_post() {
       var _this = this;
 
@@ -241,34 +260,27 @@ __webpack_require__.r(__webpack_exports__);
     paieska_post: function paieska_post() {
       var _this2 = this;
 
-      if (this.ieskoti != "") {
-        axios.post("/statistika/store", {
-          ieskoti: this.ieskoti,
-          lt: this.rodyti_lt,
-          lv: this.rodyti_lv,
-          ee: this.rodyti_ee,
-          rikiuoti: "1",
-          gam: this.gam,
-          pirk: this.pirk,
-          paieska_big: this.paieska_big
-        }).then(function (response) {
-          console.log(response.data.data);
+      axios.post("/statistika/store", {
+        ieskoti: this.ieskoti,
+        lt: this.rodyti_lt,
+        lv: this.rodyti_lv,
+        ee: this.rodyti_ee,
+        rikiuoti: "1",
+        gam: this.gam,
+        pirk: this.pirk,
+        paieska_big: this.paieska_big,
+        grupe: this.grupe
+      }).then(function (response) {
+        console.log(response.data.data);
 
-          _this2.getData();
-        })["catch"](function (err) {
-          _this2.$buefy.toast.open({
-            message: "Error: ".concat(err.message),
-            type: 'is-danger',
-            queue: false
-          });
-        });
-      } else {
-        this.$buefy.toast.open({
-          message: "KLAIDA: \u012Fveskite paie\u0161kos rakta\u017Eod\u012F!",
+        _this2.getData();
+      })["catch"](function (err) {
+        _this2.$buefy.toast.open({
+          message: "Error: ".concat(err.message),
           type: 'is-danger',
           queue: false
         });
-      }
+      });
     },
     getData: function getData() {
       var _this3 = this;
@@ -280,6 +292,9 @@ __webpack_require__.r(__webpack_exports__);
         _this3.paieska = response.data.paieska;
         _this3.viso_pard = response.data.viso_pard;
         _this3.viso_lik = response.data.viso_lik;
+        _this3.grupes = response.data.grupes;
+        _this3.grupes_lv = response.data.grupes_lv;
+        _this3.grupe = response.data.grupe;
         _this3.rikiuoti = response.data.rikiuoti ? false : true;
         _this3.paieska_big = response.data.paieska_big ? true : false;
         _this3.gam = response.data.gam ? true : false;
@@ -386,6 +401,52 @@ var render = function() {
                   }
                 },
                 [_vm._v("Aktivuoti išplėstinę paieška")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-field",
+            { attrs: { label: "" } },
+            [
+              _c(
+                "b-select",
+                {
+                  attrs: {
+                    placeholder: "Pasirinkite...",
+                    icon: "earth",
+                    expanded: ""
+                  },
+                  nativeOn: {
+                    change: function($event) {
+                      return _vm.keisti_grupe($event)
+                    }
+                  },
+                  model: {
+                    value: _vm.grupe,
+                    callback: function($$v) {
+                      _vm.grupe = $$v
+                    },
+                    expression: "grupe"
+                  }
+                },
+                _vm._l(_vm.grupes, function(grup, index) {
+                  return _c(
+                    "option",
+                    { key: index, domProps: { value: index } },
+                    [
+                      _vm._v(
+                        "\n            " +
+                          _vm._s(grup) +
+                          " - " +
+                          _vm._s(_vm.grupes_lv[grup]) +
+                          "\n          "
+                      )
+                    ]
+                  )
+                }),
+                0
               )
             ],
             1
@@ -512,7 +573,11 @@ var render = function() {
                   {
                     staticClass: "column has-text-centered has-text-weight-bold"
                   },
-                  [_vm._v(_vm._s(_vm.paieska))]
+                  [
+                    _vm._v("\n          Rasta: " + _vm._s(_vm.paieska)),
+                    _c("br"),
+                    _vm._v(_vm._s(_vm.grupes[_vm.grupe]) + "\n        ")
+                  ]
                 )
               ]),
               _vm._v(" "),

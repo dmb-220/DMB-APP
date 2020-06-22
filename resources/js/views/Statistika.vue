@@ -16,6 +16,13 @@
         <b-field>
             <b-checkbox :value="false" v-model="paieska_big" type="is-info">Aktivuoti išplėstinę paieška</b-checkbox>
         </b-field>
+        <b-field label="">
+            <b-select placeholder="Pasirinkite..." @change.native="keisti_grupe" v-model="grupe" icon="earth" expanded>
+              <option v-for="(grup, index) in grupes" :key="index" :value="index">
+                {{ grup }} - {{ grupes_lv[grup] }}
+              </option>
+            </b-select>
+          </b-field>
         <b-field horizontal>
           <b-button :type="rodyti_lt ? 'is-primary' : 'is-dark'" @click="change_lt()">LIETUVA</b-button>
           <b-button :type="rodyti_lv ? 'is-warning' : 'is-dark'" @click="change_lv()">LATVIJA</b-button>
@@ -35,7 +42,9 @@
       <card-component title="STATISTIKA" icon="account-multiple">
         <div  id="printMe">
           <div class="columns">
-            <div class="column has-text-centered has-text-weight-bold">{{ paieska }}</div>
+            <div class="column has-text-centered has-text-weight-bold">
+              Rasta: {{paieska}}<br>{{grupes[grupe]}}
+            </div>
           </div>
           <b-table
           :mobile-cards="mobile_card"
@@ -158,6 +167,9 @@ export default {
      pirk: true,
      paieska_big: false,
      mobile_card: true,
+     grupes: [],
+      grupes_lv: [],
+      grupe: '',
     }
   },
   computed: {
@@ -198,6 +210,12 @@ export default {
       this.ieskoti = this.paieska
       this.paieska_post()
     },
+     keisti_grupe(){
+      if(!this.ieskoti){
+      this.ieskoti = this.paieska;
+      }
+      this.paieska_post();
+    },
     switch_post(){
       //this.rikiuotic = !this.rikiuoti;
       if(this.ieskoti == ""){
@@ -227,7 +245,6 @@ export default {
           })
     },
     paieska_post(){
-      if(this.ieskoti != ""){
         axios
           .post(`/statistika/store`, {
             ieskoti: this.ieskoti,
@@ -239,6 +256,7 @@ export default {
             gam: this.gam,
             pirk: this.pirk,
             paieska_big: this.paieska_big,
+            grupe: this.grupe
             })
           .then(response => {
             console.log(response.data.data)
@@ -251,13 +269,6 @@ export default {
               queue: false
             })
           })
-        }else{
-          this.$buefy.toast.open({
-              message: `KLAIDA: įveskite paieškos raktažodį!`,
-              type: 'is-danger',
-              queue: false
-            })
-          }
     },
     getData () {
       this.isLoading = true
@@ -269,6 +280,10 @@ export default {
         this.paieska = response.data.paieska;
         this.viso_pard = response.data.viso_pard;
         this.viso_lik = response.data.viso_lik;
+
+        this.grupes = response.data.grupes;
+        this.grupes_lv = response.data.grupes_lv;
+        this.grupe = response.data.grupe;
 
         this.rikiuoti = response.data.rikiuoti ? false : true;
         this.paieska_big = response.data.paieska_big ? true : false
