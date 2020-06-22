@@ -51,6 +51,7 @@ class StatistikaController extends Controller
             "Naktiniai" => "Naktskrekls",
             "Kostiumas" => "Kostīms",
             "Megztinis" => "Džemperis",
+            "Veido kaukė" => "Sejas maska",
             "Maud. kostiumas" => "Peldkostims",
             "Maišelis" => "Maisiņi", //Latvija
             //"Maišelis" => "Kilekott", //Estija
@@ -58,6 +59,7 @@ class StatistikaController extends Controller
             "Liekninanti palaidinė" => "Blūze figūras korekcijai",
             "Liemenėlė" => "Krūšturis",
             "Vyr. kelnaitės" => "Vīr. apakšbikses",
+            "Vyr. kelnatės" => "Vīr. apakšbikses",
             "Kelnaitės" => "Apakšbikses",
             "Kelnatės" => "Apakšbikses",
             "Vyr. kojinės" => "Vīr. zeķes",

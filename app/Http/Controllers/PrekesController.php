@@ -45,6 +45,7 @@ class PrekesController extends Controller
             "Kostiumas" => "Kostīms",
             "Megztinis" => "Džemperis",
             "Maud. kostiumas" => "Peldkostims",
+            "Veido kaukė" => "Sejas maska",
             "Maišelis" => "Maisiņi", //Latvija
             //"Maišelis" => "Kilekott", //Estija
             "Med. kelnės" => "Med. bikses",
