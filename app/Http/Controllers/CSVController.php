@@ -149,7 +149,7 @@ class CSVController extends Controller
                 fclose($handle);
                 }
                 
-                $chunks = array_chunk($da, 5000);
+                $chunks = array_chunk($da, 300);
                 foreach($chunks as $val){
                     Pardavimai::insert($val);
                 }
@@ -189,7 +189,7 @@ class CSVController extends Controller
                     fclose($handle);
                 }
 
-                $chunks = array_chunk($da, 5000);
+                $chunks = array_chunk($da, 3000);
                 foreach($chunks as $val){
                     Pardavimai::insert($val);
                 }

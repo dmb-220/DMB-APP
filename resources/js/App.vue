@@ -30,7 +30,7 @@ export default {
             icon: 'desktop-mac',
             label: 'Į pradžią'
           },
-          {
+          /*{
             to: '/uzsakymai',
             icon: 'cart',
             label: 'Užsakymai'
@@ -39,7 +39,7 @@ export default {
             to: '/testas',
             label: 'Testas',
             icon: 'calculator',
-          },
+          },*/
         ],
         'DUOMENYS',
         [
@@ -89,11 +89,10 @@ export default {
             icon: 'bus',
           },
           {
-            to: '/generuoti',
-            label: 'Generuoti duomenis',
-            icon: 'calculator',
-          },
-          
+            to: '/perkelimai',
+            label: 'Perkėlimai',
+            icon: 'bus',
+          },        
         ],
         'VEIKSMAI',
         [
@@ -101,6 +100,11 @@ export default {
             to: '/csv_sarasas',
             label: 'CSV failų įkėlimas',
             icon: 'view-list'
+          },
+          {
+            to: '/generuoti',
+            label: 'Generuoti duomenis',
+            icon: 'calculator',
           },
           {
             to: '/admin',

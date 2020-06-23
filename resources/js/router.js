@@ -64,6 +64,11 @@ export default new Router({
       component: () => import('./views/Analize.vue')
     },
     {
+      path: '/perkelimai',
+      name: 'perkelimai',
+      component: () => import('./views/Perkelimai.vue')
+    },
+    {
       path: '/generuoti',
       name: 'generuoti',
       component: () => import('./views/Generuoti.vue')
