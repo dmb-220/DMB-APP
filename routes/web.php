@@ -31,6 +31,17 @@ Route::prefix('/uzsakymai')->group(function () {
 });
 
 
+/*
+ *PERKELIMAI
+ * */ 
+Route::prefix('/perkelimai')->group(function () {
+    Route::get('', 'PerkelimaiController@index');
+    Route::get('{perkelimai}', 'PerkelimaiController@show');
+    Route::post('store', 'PerkelimaiController@store');
+    Route::patch('{perkelimai}', 'PerkelimaiController@update');
+    Route::delete('{perkelimai}/destroy', 'PerkelimaiController@destroy');
+});
+
 //Route::resource('testas', 'TestasController');
 Route::prefix('/testas')->group(function () {
     Route::get('', 'TestasController@index');

@@ -59,11 +59,7 @@
         bordered
         :narrowed="true"
         :data="sarasas"
-        :opened-detailed="defaultOpenedDetails"
-        detailed
         sort-icon="arrow-up"
-        detail-key="preke"
-        @details-open="(row, index) => $buefy.toast.open(`Išskleista ${ row.preke } prekė!`)"
         :loading="isLoading"
         :row-class="onRowClass"
         default-sort-direction="asc"
@@ -72,65 +68,25 @@
           <b-table-column label="Preke"  field="preke" sortable>
                 {{ props.row.preke }}
           </b-table-column>
-          <b-table-column label="Likutis" field="likutis" sortable>
-                {{props.row.likutis}}
+          <b-table-column label="Sandelis" field="sandelis" sortable>
+                {{props.row.sandelis}}
           </b-table-column>
           <b-table-column label="Parduota" field="parduota" sortable>
                 {{props.row.parduota}}
           </b-table-column>
-          <b-table-column label="Perkelta" field="atsargos" sortable>
-                <div v-for="idx in props.row.data" :key="idx">
-                  {{ idx }} - {{ props.row[idx] }}
-                </div>
+          <b-table-column label="Likutis" field="likutis" sortable>
+               {{props.row.likutis}}
           </b-table-column>
-          <b-table-column label="Sandelis" field="sandelis" sortable>
-                {{props.row.sandelis}}
+          <b-table-column label="Perkelimas" field="data" sortable>
+               {{props.row.data}} - {{props.row.kiekis}}
+          </b-table-column>
+          <b-table-column :style="{'background-color': '#b8b894'}" label="PARD" field="pard" sortable>
+                {{props.row.pard}}
+          </b-table-column>
+          <b-table-column :style="{'background-color': '#b8b894'}" label="LIKUT" field="yra" sortable>
+                {{props.row.yra}}
           </b-table-column>
         </template> 
-
-         <template slot="detail" slot-scope="props">
-            <b-table
-            :data="props.row.akcija"
-            default-sort-direction="desc"
-            default-sort="kaina">
-            <template slot-scope="props">
-                <b-table-column field="akcija" label="Akcija" sortable>
-                    <small>{{ props.row.akcija }}</small>
-                </b-table-column>
-                <b-table-column field="preke" label="Prekė" sortable>
-                    <small>{{ props.row.preke }}</small>
-                </b-table-column>
-                <b-table-column field="kaina" label="Kaina" sortable>
-                    <small>{{ props.row.kaina }}</small>
-                </b-table-column>
-                <b-table-column v-if="props.row.salis == 1" field="salis" label="Valstybė" sortable>
-                    <small>LIETUVA</small>
-                </b-table-column>
-                <b-table-column v-if="props.row.salis == 2" field="salis" label="Valstybė" sortable>
-                    <small>LATVIJA</small>
-                </b-table-column>
-                <b-table-column field="galioja_iki" label="Galioja IKI" sortable>
-                    <small>{{ props.row.galioja_iki && props.row.galioja_iki.split(" ")[0] }}</small>
-                </b-table-column>
-            </template>
-            <section class="section" slot="empty">
-          <div class="content has-text-centered">
-            <template v-if="isLoading">
-              <p>
-                <b-icon icon="dots-horizontal" size="is-large"/>
-              </p>
-              <p>Gaunami duomenys...</p>
-            </template>
-            <template v-else>
-              <p>
-                <b-icon icon="emoticon-sad" size="is-large"/>
-              </p>
-              <p>Duomenų nerasta &hellip;</p>
-            </template>
-          </div>
-        </section>
-            </b-table>
-        </template>
 
         <section class="section" slot="empty">
           <div class="content has-text-centered">
@@ -181,9 +137,7 @@ export default {
       ],
       isPaginated: true,
       paginationPosition: 'bottom',
-      perPage: 50,
-      defaultOpenedDetails: [1],
-      showDetailIcon: false,
+      perPage: 100,
       isLoading: false,
       sarasas: [],
       grupes: [],
@@ -248,14 +202,15 @@ export default {
         this.ieskoti = this.paieska;
       }
         axios
-          .post(`/analize/store`, {
+          .post(`/perkelimai/store`, {
             ieskoti: this.ieskoti,
             rikiuoti: this.rikiuoti,
             gam: this.gam,
             pirk: this.pirk,
             paieska_big: this.paieska_big,
             grupe: this.grupe,
-            sandeliai: this.sandeliai
+            sandeliai: this.sandeliai,
+            perkelti: this.perkelti
             })
           .then(response => {
             this.getData()
@@ -270,14 +225,15 @@ export default {
     },
     paieska_post(){
         axios
-          .post(`/analize/store`, {
+          .post(`/perkelimai/store`, {
             ieskoti: this.ieskoti,
             rikiuoti: "1",
             gam: this.gam,
             pirk: this.pirk,
             paieska_big: this.paieska_big,
             grupe: this.grupe,
-            sandeliai: this.sandeliai
+            sandeliai: this.sandeliai,
+            perkelti: this.perkelti
             })
           .then(response => {
             console.log(response.data.data)
@@ -295,12 +251,13 @@ export default {
   getData () {
       this.isLoading = true
       this.axios
-      .get('/analize')
+      .get('/perkelimai')
       .then(response => {
         this.isLoading = false
-        this.sarasas = response.data.sarasas;
+        this.sarasas = response.data.sold;
         this.paieska = response.data.paieska;
         this.sandeliai = response.data.sandeliai;
+        this.perkelti = response.data.perkelti;
 
         this.rikiuoti = response.data.rikiuoti ? false : true;
         this.grupes = response.data.grupes;
