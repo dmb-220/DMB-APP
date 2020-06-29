@@ -49,6 +49,7 @@ class PerkelimaiController extends Controller
             "Liemenėlė" => "Krūšturis",
             "Vyr. kelnaitės" => "Vīr. apakšbikses",
             "Kelnaitės" => "Apakšbikses",
+            "Kelnatės" => "Apakšbikses",
             "Vyr. kojinės" => "Vīr. zeķes",
             "Vaik. kojinė" => "Bēr. zeķes",
             "Kojinės" => "Zeķes",
@@ -355,9 +356,9 @@ class PerkelimaiController extends Controller
                     $likutis = 0;
                 }
                 if($likutis != 0){
+                    if($parduota < 3 && $likutis >= 5){
                 if(array_key_exists($val['preke'], $sande)){
                     //mazai parduota, didelis likutis
-                    //if($parduota <= 5 && $likutis >= 3){
                         $sold[$val['preke']."|-|".$ke]['preke'] = $val['preke'];
                         $sold[$val['preke']."|-|".$ke]['sandelis'] = $ke;
                         $sold[$val['preke']."|-|".$ke]['likutis'] = $likutis;
@@ -372,9 +373,12 @@ class PerkelimaiController extends Controller
                         }else{
                             $sold[$val['preke']."|-|".$ke]['pard'] = 0;
                         }
-                        if(array_key_exists($val['preke'], $ats[$ke])){
-                            $sold[$val['preke']."|-|".$ke]['data'] = $ats[$ke][$val['preke']]['data'];
-                            $sold[$val['preke']."|-|".$ke]['kiekis'] = $ats[$ke][$val['preke']]['kiekis'];
+
+                        if(array_key_exists($ke, $ats)){
+                            if(array_key_exists($val['preke'], $ats[$ke])){
+                                $sold[$val['preke']."|-|".$ke]['data'] = $ats[$ke][$val['preke']]['data'];
+                                $sold[$val['preke']."|-|".$ke]['kiekis'] = $ats[$ke][$val['preke']]['kiekis'];
+                            }
                         }
                 }else{
                     $sold[$val['preke']."|+|".$ke]['preke'] = $val['preke'];
@@ -382,11 +386,14 @@ class PerkelimaiController extends Controller
                     $sold[$val['preke']."|+|".$ke]['likutis'] = $likutis;
                     $sold[$val['preke']."|+|".$ke]['parduota'] = $parduota;
 
-                    if(array_key_exists($val['preke'], $ats[$ke])){
-                        $sold[$val['preke']."|+|".$ke]['data'] = $ats[$ke][$val['preke']]['data'];
-                        $sold[$val['preke']."|+|".$ke]['kiekis'] = $ats[$ke][$val['preke']]['kiekis'];
+                    if(array_key_exists($ke, $ats)){
+                        if(array_key_exists($val['preke'], $ats[$ke])){
+                            $sold[$val['preke']."|+|".$ke]['data'] = $ats[$ke][$val['preke']]['data'];
+                            $sold[$val['preke']."|+|".$ke]['kiekis'] = $ats[$ke][$val['preke']]['kiekis'];
+                        }
                     }
                 }
+            }
             }
             }
         }
