@@ -26,6 +26,9 @@
           <b-button :type="pirk? 'is-info' : 'is-dark'" @click="change_pirk()">GAMYBA</b-button>
           <b-button :type="gam ? 'is-info' : 'is-dark'" @click="change_gam()">PIRKIMAI</b-button>
         </b-field>
+        <b-field label="PERKĖKIMAI IKI:" horizontal>
+            <b-input type="date" v-model="date" icon="calendar-month"></b-input>    
+        </b-field>
         <hr>
         <b-field  label=" " horizontal>
         <div class="buttons">
@@ -147,6 +150,7 @@ export default {
       paieska: '',
       sandeliai: '',
       perkelti: '',
+      date: '',
      salis: '',
      rikiuoti: false,
      gam: true,
@@ -210,7 +214,8 @@ export default {
             paieska_big: this.paieska_big,
             grupe: this.grupe,
             sandeliai: this.sandeliai,
-            perkelti: this.perkelti
+            perkelti: this.perkelti,
+            date: this.date
             })
           .then(response => {
             this.getData()
@@ -233,7 +238,8 @@ export default {
             paieska_big: this.paieska_big,
             grupe: this.grupe,
             sandeliai: this.sandeliai,
-            perkelti: this.perkelti
+            perkelti: this.perkelti,
+            date: this.date
             })
           .then(response => {
             console.log(response.data.data)
@@ -258,6 +264,7 @@ export default {
         this.paieska = response.data.paieska;
         this.sandeliai = response.data.sandeliai;
         this.perkelti = response.data.perkelti;
+        this.date = response.data.date;
 
         this.rikiuoti = response.data.rikiuoti ? false : true;
         this.grupes = response.data.grupes;

@@ -173,6 +173,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -197,6 +200,7 @@ __webpack_require__.r(__webpack_exports__);
       paieska: '',
       sandeliai: '',
       perkelti: '',
+      date: '',
       salis: '',
       rikiuoti: false,
       gam: true,
@@ -262,7 +266,8 @@ __webpack_require__.r(__webpack_exports__);
         paieska_big: this.paieska_big,
         grupe: this.grupe,
         sandeliai: this.sandeliai,
-        perkelti: this.perkelti
+        perkelti: this.perkelti,
+        date: this.date
       }).then(function (response) {
         _this.getData();
       })["catch"](function (err) {
@@ -284,7 +289,8 @@ __webpack_require__.r(__webpack_exports__);
         paieska_big: this.paieska_big,
         grupe: this.grupe,
         sandeliai: this.sandeliai,
-        perkelti: this.perkelti
+        perkelti: this.perkelti,
+        date: this.date
       }).then(function (response) {
         console.log(response.data.data);
         _this2.rikiuoti = false;
@@ -308,6 +314,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.paieska = response.data.paieska;
         _this3.sandeliai = response.data.sandeliai;
         _this3.perkelti = response.data.perkelti;
+        _this3.date = response.data.date;
         _this3.rikiuoti = response.data.rikiuoti ? false : true;
         _this3.grupes = response.data.grupes;
         _this3.grupes_lv = response.data.grupes_lv;
@@ -662,6 +669,24 @@ var render = function() {
                   },
                   [_vm._v("PIRKIMAI")]
                 )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "PERKĖKIMAI IKI:", horizontal: "" } },
+              [
+                _c("b-input", {
+                  attrs: { type: "date", icon: "calendar-month" },
+                  model: {
+                    value: _vm.date,
+                    callback: function($$v) {
+                      _vm.date = $$v
+                    },
+                    expression: "date"
+                  }
+                })
               ],
               1
             ),

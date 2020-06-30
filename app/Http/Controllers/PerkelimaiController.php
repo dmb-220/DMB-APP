@@ -100,6 +100,7 @@ class PerkelimaiController extends Controller
         $pirk = $key[4];
         $grupe = $key[6];
         $perkelti = $key[7];
+        $date = $key[8];
         
 
         $pardavimas = array();
@@ -366,6 +367,14 @@ class PerkelimaiController extends Controller
                         //jei patys neisprekiave, nereikia  kelti
 
                         if(array_key_exists($val['preke'], $sande)){
+                            //patikrinam data, ar senai perkelta
+                            if(array_key_exists($ke, $ats)){
+                                if(array_key_exists($val['preke'], $ats[$ke])){
+                                        $sold[$val['preke']."|-|".$ke]['data'] = $ats[$ke][$val['preke']]['data'];
+                                        $sold[$val['preke']."|-|".$ke]['kiekis'] = $ats[$ke][$val['preke']]['kiekis'];
+                                    }
+                                }
+    
                             //mazai parduota, didelis likutis
                             $sold[$val['preke']."|-|".$ke]['preke'] = $val['preke'];
                             $sold[$val['preke']."|-|".$ke]['sandelis'] = $ke;
@@ -380,13 +389,6 @@ class PerkelimaiController extends Controller
                                 $sold[$val['preke']."|-|".$ke]['pard'] = $sande[$val['preke']]['parduota'];
                             }else{
                                 $sold[$val['preke']."|-|".$ke]['pard'] = 0;
-                            }
-
-                            if(array_key_exists($ke, $ats)){
-                                if(array_key_exists($val['preke'], $ats[$ke])){
-                                    $sold[$val['preke']."|-|".$ke]['data'] = $ats[$ke][$val['preke']]['data'];
-                                    $sold[$val['preke']."|-|".$ke]['kiekis'] = $ats[$ke][$val['preke']]['kiekis'];
-                                }
                             }
                         }else{
                             $sold[$val['preke']."|+|".$ke]['preke'] = $val['preke'];
@@ -416,7 +418,7 @@ class PerkelimaiController extends Controller
             'grupes' => $grupes,
             'grupes_lv' => $sara,
             'grupe' => $grupe,
-            //'sarasas' => $pardavimas,
+            'date' => $date,
             //'list' => $list,
             //'sande' => $sande,
             'sold' => $sold,
@@ -460,12 +462,13 @@ class PerkelimaiController extends Controller
         $grupe= $data['grupe'];
         $sandeliai = $data['sandeliai'];
         $perkelti = $data['perkelti'];
+        $date = $data['date'];
 
         $failas = "perkelimai.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
 
-        $eilute = strtoupper($ieskoti)."||".strtoupper($sandeliai)."||".$rikiuoti."||".$gam."||".$pirk."||".$paieska_big."||".$grupe."||".$perkelti;
+        $eilute = strtoupper($ieskoti)."||".strtoupper($sandeliai)."||".$rikiuoti."||".$gam."||".$pirk."||".$paieska_big."||".$grupe."||".$perkelti."||".$date;
 
         $myfile = fopen(storage_path($failas), "w");
         fwrite($myfile, $eilute);
