@@ -355,46 +355,54 @@ class PerkelimaiController extends Controller
                 }else{
                     $likutis = 0;
                 }
+
+                //reik patikrinti ar perkelimo data yra sena ar nauja
+                //nustatyti 1-2 menesiu nereguoti.
                 if($likutis != 0){
+                    //nustatom salygas, pagal kurias sudedam i masyva
+                    //tikrinam kokie kiekiai parduotuvėse is kuriu perkelti norime
                     if($parduota < 3 && $likutis >= 5){
-                if(array_key_exists($val['preke'], $sande)){
-                    //mazai parduota, didelis likutis
-                        $sold[$val['preke']."|-|".$ke]['preke'] = $val['preke'];
-                        $sold[$val['preke']."|-|".$ke]['sandelis'] = $ke;
-                        $sold[$val['preke']."|-|".$ke]['likutis'] = $likutis;
-                        $sold[$val['preke']."|-|".$ke]['parduota'] = $parduota;
-                        if(array_key_exists('likutis',  $sande[$val['preke']])){
-                            $sold[$val['preke']."|-|".$ke]['yra'] = $sande[$val['preke']]['likutis'];
-                        }else{
-                            $sold[$val['preke']."|-|".$ke]['yra'] = 0;
-                        }
-                        if(array_key_exists('parduota',  $sande[$val['preke']])){
-                            $sold[$val['preke']."|-|".$ke]['pard'] = $sande[$val['preke']]['parduota'];
-                        }else{
-                            $sold[$val['preke']."|-|".$ke]['pard'] = 0;
-                        }
+                        //tikrinamam kokie kiekiai yra parduotuveje i kuria norime perkelti
+                        //jei patys neisprekiave, nereikia  kelti
 
-                        if(array_key_exists($ke, $ats)){
-                            if(array_key_exists($val['preke'], $ats[$ke])){
-                                $sold[$val['preke']."|-|".$ke]['data'] = $ats[$ke][$val['preke']]['data'];
-                                $sold[$val['preke']."|-|".$ke]['kiekis'] = $ats[$ke][$val['preke']]['kiekis'];
+                        if(array_key_exists($val['preke'], $sande)){
+                            //mazai parduota, didelis likutis
+                            $sold[$val['preke']."|-|".$ke]['preke'] = $val['preke'];
+                            $sold[$val['preke']."|-|".$ke]['sandelis'] = $ke;
+                            $sold[$val['preke']."|-|".$ke]['likutis'] = $likutis;
+                            $sold[$val['preke']."|-|".$ke]['parduota'] = $parduota;
+                            if(array_key_exists('likutis',  $sande[$val['preke']])){
+                                $sold[$val['preke']."|-|".$ke]['yra'] = $sande[$val['preke']]['likutis'];
+                            }else{
+                                $sold[$val['preke']."|-|".$ke]['yra'] = 0;
                             }
-                        }
-                }else{
-                    $sold[$val['preke']."|+|".$ke]['preke'] = $val['preke'];
-                    $sold[$val['preke']."|+|".$ke]['sandelis'] = $ke;
-                    $sold[$val['preke']."|+|".$ke]['likutis'] = $likutis;
-                    $sold[$val['preke']."|+|".$ke]['parduota'] = $parduota;
+                            if(array_key_exists('parduota',  $sande[$val['preke']])){
+                                $sold[$val['preke']."|-|".$ke]['pard'] = $sande[$val['preke']]['parduota'];
+                            }else{
+                                $sold[$val['preke']."|-|".$ke]['pard'] = 0;
+                            }
 
-                    if(array_key_exists($ke, $ats)){
-                        if(array_key_exists($val['preke'], $ats[$ke])){
-                            $sold[$val['preke']."|+|".$ke]['data'] = $ats[$ke][$val['preke']]['data'];
-                            $sold[$val['preke']."|+|".$ke]['kiekis'] = $ats[$ke][$val['preke']]['kiekis'];
+                            if(array_key_exists($ke, $ats)){
+                                if(array_key_exists($val['preke'], $ats[$ke])){
+                                    $sold[$val['preke']."|-|".$ke]['data'] = $ats[$ke][$val['preke']]['data'];
+                                    $sold[$val['preke']."|-|".$ke]['kiekis'] = $ats[$ke][$val['preke']]['kiekis'];
+                                }
+                            }
+                        }else{
+                            $sold[$val['preke']."|+|".$ke]['preke'] = $val['preke'];
+                            $sold[$val['preke']."|+|".$ke]['sandelis'] = $ke;
+                            $sold[$val['preke']."|+|".$ke]['likutis'] = $likutis;
+                            $sold[$val['preke']."|+|".$ke]['parduota'] = $parduota;
+
+                            if(array_key_exists($ke, $ats)){
+                                if(array_key_exists($val['preke'], $ats[$ke])){
+                                    $sold[$val['preke']."|+|".$ke]['data'] = $ats[$ke][$val['preke']]['data'];
+                                    $sold[$val['preke']."|+|".$ke]['kiekis'] = $ats[$ke][$val['preke']]['kiekis'];
+                                }
+                            }
                         }
                     }
                 }
-            }
-            }
             }
         }
 
