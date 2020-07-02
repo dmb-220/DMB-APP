@@ -362,7 +362,9 @@ class PerkelimaiController extends Controller
                 if($likutis != 0){
                     //nustatom salygas, pagal kurias sudedam i masyva
                     //tikrinam kokie kiekiai parduotuvėse is kuriu perkelti norime
-                    if($parduota < 3 && $likutis >= 5){
+
+                    //PIRK tinka, GAM reikia isjungti
+                    //if($parduota < 3 && $likutis >= 5){
                         //tikrinamam kokie kiekiai yra parduotuveje i kuria norime perkelti
                         //jei patys neisprekiave, nereikia  kelti
 
@@ -403,7 +405,7 @@ class PerkelimaiController extends Controller
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             }
         }
@@ -411,6 +413,18 @@ class PerkelimaiController extends Controller
 
         //$pardavimas = array_values($pardavimas);
         $sold = array_values($sold);
+        //filtruojam pagal nustatyta data
+        //kad neitrauktu nauju perkelimu
+        $so = array();
+        foreach($sold as $val){
+            if(array_key_exists('data', $val)){
+            if($date >= $val['data']){
+                $so[] = $val; 
+            }
+        }else{           
+                $so[] = $val; 
+        }
+    }
 
        return response()->json([
             'status' => true,
@@ -419,9 +433,9 @@ class PerkelimaiController extends Controller
             'grupes_lv' => $sara,
             'grupe' => $grupe,
             'date' => $date,
-            //'list' => $list,
+            'list' => $sold,
             //'sande' => $sande,
-            'sold' => $sold,
+            'sold' => $so,
             //'kk' => $kk,
             'rikiuoti' => $rikiuoti,
             'gam' => $gam,
