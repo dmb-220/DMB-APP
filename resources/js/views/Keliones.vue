@@ -16,6 +16,14 @@
         <b-field label="Numeris:" horizontal>
             <b-input type="input" v-model="nr" icon="variable"></b-input>    
         </b-field>
+        <b-field label="..." horizontal>
+          <b-switch type="is-info" v-model="nr_rodyti">
+            Rašyti antrą numerį
+          </b-switch>
+        </b-field>
+        <b-field v-if="nr_rodyti" label="Numeris 2:" horizontal>
+            <b-input type="input" v-model="nr2" icon="variable"></b-input>    
+        </b-field>
         <div class="buttons">
             <b-button type="is-black" @click="paieska" expanded>Skaičiuoti</b-button>
         </div>
@@ -23,8 +31,15 @@
 
       <card-component title="SANDELIS" icon="account-multiple">
         <div  id="printMe">
-          <div class="has-text-centered">
-            Serija GAB  Nr. {{nr}}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{date}}
+          <div v-if="nr_rodyti" class="has-text-centered">
+            Serija GAB  Nr. {{nr}}
+            <br>
+            Serija GAB  Nr. {{nr2}}
+            <br> 
+            {{date}}
+            </div>
+            <div v-else class="has-text-centered">
+            Serija GAB  Nr. {{nr}}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{date}}
             </div>
             <br>
             <div class="columns">
@@ -169,7 +184,9 @@ export default {
       rodyti_ee: false,
       rodo: '',
       data: '2020',
-      nr: '202000',
+      nr: '20200',
+      nr_rodyti: false,
+      nr2: '20200',
       date: '',
     }
   },

@@ -774,7 +774,6 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
      -moz-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
           text-size-adjust: 100%;
 }
 
@@ -12934,13 +12933,11 @@ label.panel-block:hover {
 }
 
 .carousel-list .carousel-slides.has-grayscale .carousel-slide img {
-  -webkit-filter: grayscale(100%);
-          filter: grayscale(100%);
+  filter: grayscale(100%);
 }
 
 .carousel-list .carousel-slides.has-grayscale .carousel-slide.is-active img {
-  -webkit-filter: grayscale(0%);
-          filter: grayscale(0%);
+  filter: grayscale(0%);
 }
 
 .carousel-list .carousel-slides.has-opacity .carousel-slide img {
@@ -18763,19 +18760,11 @@ nav.navbar .navbar-item .control .taginput .taginput-container.is-focusable,
   background: transparent;
 }
 
-nav.navbar .navbar-item .control .input::-webkit-input-placeholder, nav.navbar .navbar-item .control .taginput .taginput-container.is-focusable::-webkit-input-placeholder, .taginput nav.navbar .navbar-item .control .taginput-container.is-focusable::-webkit-input-placeholder {
-  color: #dbdbdb;
-}
-
 nav.navbar .navbar-item .control .input::-moz-placeholder, nav.navbar .navbar-item .control .taginput .taginput-container.is-focusable::-moz-placeholder, .taginput nav.navbar .navbar-item .control .taginput-container.is-focusable::-moz-placeholder {
   color: #dbdbdb;
 }
 
 nav.navbar .navbar-item .control .input:-ms-input-placeholder, nav.navbar .navbar-item .control .taginput .taginput-container.is-focusable:-ms-input-placeholder, .taginput nav.navbar .navbar-item .control .taginput-container.is-focusable:-ms-input-placeholder {
-  color: #dbdbdb;
-}
-
-nav.navbar .navbar-item .control .input::-ms-input-placeholder, nav.navbar .navbar-item .control .taginput .taginput-container.is-focusable::-ms-input-placeholder, .taginput nav.navbar .navbar-item .control .taginput-container.is-focusable::-ms-input-placeholder {
   color: #dbdbdb;
 }
 

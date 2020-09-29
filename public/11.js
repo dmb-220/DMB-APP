@@ -73,7 +73,7 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
@@ -81,6 +81,21 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -253,7 +268,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       rodyti_ee: false,
       rodo: '',
       data: '2020',
-      nr: '202000',
+      nr: '20200',
+      nr_rodyti: false,
+      nr2: '20200',
       date: ''
     };
   },
@@ -637,6 +654,48 @@ var render = function() {
             ),
             _vm._v(" "),
             _c(
+              "b-field",
+              { attrs: { label: "...", horizontal: "" } },
+              [
+                _c(
+                  "b-switch",
+                  {
+                    attrs: { type: "is-info" },
+                    model: {
+                      value: _vm.nr_rodyti,
+                      callback: function($$v) {
+                        _vm.nr_rodyti = $$v
+                      },
+                      expression: "nr_rodyti"
+                    }
+                  },
+                  [_vm._v("\n          Rašyti antrą numerį\n        ")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm.nr_rodyti
+              ? _c(
+                  "b-field",
+                  { attrs: { label: "Numeris 2:", horizontal: "" } },
+                  [
+                    _c("b-input", {
+                      attrs: { type: "input", icon: "variable" },
+                      model: {
+                        value: _vm.nr2,
+                        callback: function($$v) {
+                          _vm.nr2 = $$v
+                        },
+                        expression: "nr2"
+                      }
+                    })
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
               "div",
               { staticClass: "buttons" },
               [
@@ -663,15 +722,33 @@ var render = function() {
               "div",
               { attrs: { id: "printMe" } },
               [
-                _c("div", { staticClass: "has-text-centered" }, [
-                  _vm._v(
-                    "\n          Serija GAB  Nr. " +
-                      _vm._s(_vm.nr) +
-                      "        " +
-                      _vm._s(_vm.date) +
-                      "\n          "
-                  )
-                ]),
+                _vm.nr_rodyti
+                  ? _c("div", { staticClass: "has-text-centered" }, [
+                      _vm._v(
+                        "\n          Serija GAB  Nr. " +
+                          _vm._s(_vm.nr) +
+                          "\n          "
+                      ),
+                      _c("br"),
+                      _vm._v(
+                        "\n          Serija GAB  Nr. " +
+                          _vm._s(_vm.nr2) +
+                          "\n          "
+                      ),
+                      _c("br"),
+                      _vm._v(
+                        " \n          " + _vm._s(_vm.date) + "\n          "
+                      )
+                    ])
+                  : _c("div", { staticClass: "has-text-centered" }, [
+                      _vm._v(
+                        "\n          Serija GAB  Nr. " +
+                          _vm._s(_vm.nr) +
+                          "         " +
+                          _vm._s(_vm.date) +
+                          "\n          "
+                      )
+                    ]),
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
