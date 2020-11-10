@@ -29,6 +29,7 @@ Vue.use(VueHtmlToPaper, options);
 // or, using the defaults with no stylesheet
 //Vue.use(VueHtmlToPaper);
 
+import ApexCharts from 'apexcharts'
 
 /* Router & Store */
 import router from './router'

@@ -126,24 +126,28 @@ class CSVController extends Controller
                     //praleidziam pirma eilute
                     if($flag) { $flag = false; continue; }
                     $val = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-                    $kiek = explode(",", $val[6]);
+                    $kiek = explode(",", $val[10]);
                     $kiek = $kiek[0];
 
                     $da[] = [
-                        'preke' => $val[2],
-                        'pavadinimas' => $val[3],
-                        'barkodas' => $val[1],
-                        'grupe' => $val[3],
+                        'preke' => $val[6],
+                        'pavadinimas' => $val[7],
+                        'barkodas' => $val[5],
+                        'grupe' => $val[7],
                         'sandelis' => $val[0],
                         'kiekis' => $kiek,
-                        'pardavimo_kaina' => $val[7],
-                        'pardavimo_suma' => $val[7],
-                        'pvm' => $val[8],
-                        'pvm_suma' => $val[9],
-                        'suma' => $val[10],
-                        'grupes_pavadinimas' => $val[3],
-                        'registras' => $val[4],
-                        'salis' => $valstybe
+                        'pardavimo_kaina' => $val[11],
+                        'pardavimo_suma' => $val[11],
+                        'pvm' => $val[12],
+                        'pvm_suma' => $val[13],
+                        'suma' => $val[14],
+                        'grupes_pavadinimas' => $val[7],
+                        'registras' => $val[8],
+                        'salis' => $valstybe,
+                        'dok_nr' => $val[1],
+                        'dok_data' => $val[2],
+                        'blanko_nr' => $val[3],
+                        'pirkejas' => $val[4],
                     ];
                 }
                 fclose($handle);

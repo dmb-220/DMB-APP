@@ -1,6 +1,7 @@
 <template>
   <div>
     <modal-view-box :is-active="isModalView" :view-subject="viewObjectName" :view-info="viewInfoName" @confirm="viewConfirm" @cancel="viewCancel"/>
+    <modal-pardavimai-box :is-active="isModalViewP" :view-subject="viewObjectNameP" :view-info="viewPardavimaiName" @confirm="viewConfirm_pardavimai" @cancel="viewCancel_pardavimai"/>
 
     <section class="section is-main-section">
       <card-component title="VALDYMAS" icon="account-multiple">
@@ -100,6 +101,12 @@
           </b-table-column>
           <b-table-column :style="{'background-color': 'WhiteSmoke '}" label="PARDAVIMAI" field="pardavimai.viso" sortable>
                 {{props.row.pardavimai && props.row.pardavimai.viso}}
+          </b-table-column>
+          <b-table-column :style="{'background-color': 'WhiteSmoke '}" label="Pardavimai">
+            <button v-if="!Array.isArray(props.row.buy)" class="button is-small is-primary" type="button" 
+            @click.prevent="viewModal_pardavimai(props.row.buy && props.row.buy.preke, props.row.buy && props.row.buy.diena)">
+                <b-icon icon="eye" size="is-small"/>
+              </button>
           </b-table-column>
           <b-table-column :visible='perkelimai' :style="{'background-color': 'WhiteSmoke '}" label="Perkelimai">
             <button v-if="!Array.isArray(props.row.atsargos)" class="button is-small is-primary" type="button" 
@@ -254,10 +261,11 @@ import map from 'lodash/map'
 import CardComponent from '@/components/CardComponent'
 import CardToolbar from '@/components/CardToolbar'
 import ModalViewBox from '@/components/ModalViewBox'
+import ModalPardavimaiBox from '@/components/ModalPardavimaiBox'
 
 export default {
   name: "Prekes",
-  components: {CardToolbar, CardComponent, ModalViewBox},
+  components: {CardToolbar, CardComponent, ModalViewBox, ModalPardavimaiBox},
   data () {
     return {
       isPaginated: true,
@@ -287,6 +295,9 @@ export default {
     isModalView: false,
     viewObject: null,
     viewInfo: null,
+    isModalViewP: false,
+    viewObjectP: null,
+    viewPardavimai: null,
     }
   },
   computed: {
@@ -296,9 +307,22 @@ export default {
       }
       return null
     },
+    viewObjectNameP () {
+      if (this.viewObjectP) {
+        return this.viewObjectP
+      }
+      return null
+    },
+    
     viewInfoName () {
       if (this.viewInfo) {
         return this.viewInfo
+      }
+      return null
+    },
+    viewPardavimaiName () {
+      if (this.viewPardavimai) {
+        return this.viewPardavimai
       }
       return null
     },
@@ -435,6 +459,18 @@ export default {
               queue: false
             })
           })
+    },
+
+    viewModal_pardavimai (viewObject, viewPardavimai) {
+      this.viewObjectP = viewObject
+      this.viewPardavimai = viewPardavimai
+      this.isModalViewP = true
+    },
+    viewConfirm_pardavimai () {
+      this.isModalViewP = false
+    },
+    viewCancel_pardavimai () {
+      this.isModalViewP = false
     },
 
     //Edit modal

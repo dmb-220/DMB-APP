@@ -28,7 +28,12 @@ class CreatePardavimaisTable extends Migration
             $table->string('suma');
             $table->string('grupes_pavadinimas');
             $table->string('registras');
-	        $table->string('salis');
+            $table->string('salis');
+            $table->string('registras');
+            $table->string('dok_nr');
+            $table->date('dok_data');
+            $table->string('blanko_nr');
+            $table->string('pirkejas');
             $table->timestamps();
         });
     }

@@ -196,6 +196,8 @@ class PrekesController extends Controller
         });
         $res = $query_p->get();
 
+
+
         foreach ( $res as $value ) {
             if($value['sandelis'] != "TELSIAI" && $value['sandelis'] != "3333"){
                 if($value['kiekis'] > 0){
@@ -213,6 +215,29 @@ class PrekesController extends Controller
                 }
             }
         }
+
+        
+        //skeliam duomenis pagal data ir pardavimus
+        $buy = array();
+        foreach ( $pardavimas as $id => $val ) {
+            $buy[$id]['preke'] = $id;
+            foreach($val as $va){
+                if($va['dok_data'] != "0000-00-00"){
+                    $buy[$id]['diena'][$va['dok_data']]['data'] = $va['dok_data']; 
+                    $buy[$id]['diena'][$va['dok_data']]['sandelis'][] = $va['sandelis']; 
+
+                    if(array_key_exists('kiekis', $buy[$id]['diena'][$va['dok_data']])){
+                        $buy[$id]['diena'][$va['dok_data']]['kiekis'] += $va['kiekis'];
+                    }else{
+                        $buy[$id]['diena'][$va['dok_data']]['kiekis'] = $va['kiekis'];
+                    }
+                }
+                
+            }     
+            //$buy[$id]['diena'] = array_values($buy[$id]['diena']);  
+                //ksort($buy[$id]['diena']);
+        }
+        //$buy = array_values($buy); 
 
         //$i=0;
         $lt_viso = 0;
@@ -480,6 +505,12 @@ class PrekesController extends Controller
                 $new[$i]['pardavimai'] = array();
             }
 
+            if (array_key_exists($valu, $buy)) {
+                $new[$i]['buy'] = $buy[$valu];
+            }else{
+                $new[$i]['buy'] = array();
+            }
+
             //Atsargu duomenys, skaiciai
             if (array_key_exists($valu, $ats)) {
                 ksort($ats[$valu]['info']);
@@ -568,7 +599,8 @@ class PrekesController extends Controller
             'pirk' => $pirk,
             'paieska_big' => $key[7],
             'viso' => $viso,
-            'atsargos' => $ats
+            'atsargos' => $ats,
+            'buy' => $buy
         ]);
 
     }
