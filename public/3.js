@@ -255,14 +255,11 @@ __webpack_require__.r(__webpack_exports__);
       label: []
     };
   },
-  mounted: function mounted() {
-    this.$nextTick(function () {
-      //execute your code
-      console.log('Finished rendering the complete view');
-    });
-    this.fillChartData();
+  mounted: function mounted() {},
+  created: function created() {
+    console.log(this.viewPardavimai);
+    this.$parent.$on('update', this.fillChartData);
   },
-  created: function created() {},
   methods: {
     cancel: function cancel() {
       this.$emit('cancel');
@@ -856,7 +853,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     viewModal_pardavimai: function viewModal_pardavimai(viewObjectP, viewPardavimai) {
-      console.log(viewPardavimai);
+      //console.log(viewPardavimai);
       var data = [];
       var label = [];
       var i;
@@ -871,8 +868,6 @@ __webpack_require__.r(__webpack_exports__);
       this.viewPardavimai = data;
       this.labelPardavimai = label;
       this.isModalViewP = true; //this.$emit('update');
-
-      this.$emit('clicked');
     },
     viewConfirm_pardavimai: function viewConfirm_pardavimai() {
       this.isModalViewP = false;

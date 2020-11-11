@@ -1,5 +1,5 @@
 <template>
-  <modal-box-full :is-active.sync="isActive" @confirm="confirm" confirm-type="is-success" confirm-label="Uždaryti">
+  <modal-box-full  :is-active.sync="isActive" @confirm="confirm" confirm-type="is-success" confirm-label="Uždaryti">
     <div>{{viewSubject}}</div>
       <hr>
       <card-component title="Pardavimai" @header-icon-click="fillChartData" icon="finance" header-icon="reload">
@@ -56,6 +56,8 @@ export default {
    mounted() {
     },
   created: function() {
+    console.log(this.viewPardavimai);
+    this.$parent.$on('update', this.fillChartData);
   },
   methods: {
     cancel () {
