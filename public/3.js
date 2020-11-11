@@ -216,9 +216,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -253,13 +250,19 @@ __webpack_require__.r(__webpack_exports__);
       defaultChart: {
         chartData: null,
         extraOptions: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartOptionsMain"]
-      } //pardavimai: this.viewPardavimai
-
+      },
+      pardavimai: [],
+      label: []
     };
   },
-  ready: function ready() {
+  mounted: function mounted() {
+    this.$nextTick(function () {
+      //execute your code
+      console.log('Finished rendering the complete view');
+    });
     this.fillChartData();
   },
+  created: function created() {},
   methods: {
     cancel: function cancel() {
       this.$emit('cancel');
@@ -868,6 +871,8 @@ __webpack_require__.r(__webpack_exports__);
       this.viewPardavimai = data;
       this.labelPardavimai = label;
       this.isModalViewP = true; //this.$emit('update');
+
+      this.$emit('clicked');
     },
     viewConfirm_pardavimai: function viewConfirm_pardavimai() {
       this.isModalViewP = false;
@@ -1099,9 +1104,7 @@ var render = function() {
       _c("div", [_vm._v(_vm._s(_vm.viewSubject))]),
       _vm._v(" "),
       _c("hr"),
-      _vm._v("\n    " + _vm._s(_vm.viewPardavimai) + "\n    "),
-      _c("hr"),
-      _vm._v("\n    " + _vm._s(_vm.labelPardavimai) + "\n    "),
+      _vm._v(" "),
       _c(
         "card-component",
         {

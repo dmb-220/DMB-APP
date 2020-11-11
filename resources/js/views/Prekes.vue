@@ -484,8 +484,8 @@ export default {
       this.viewPardavimai = data
       this.labelPardavimai = label
       this.isModalViewP = true
-
       //this.$emit('update');
+      this.$emit('clicked');
     },
 
     viewConfirm_pardavimai () {

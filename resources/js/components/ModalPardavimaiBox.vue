@@ -2,9 +2,6 @@
   <modal-box-full :is-active.sync="isActive" @confirm="confirm" confirm-type="is-success" confirm-label="Uždaryti">
     <div>{{viewSubject}}</div>
       <hr>
-      {{viewPardavimai}}
-      <hr>
-      {{viewLabel}}
       <card-component title="Pardavimai" @header-icon-click="fillChartData" icon="finance" header-icon="reload">
         <div v-if="defaultChart.chartData" class="chart-area">
           <line-chart style="height: 100%"
@@ -51,13 +48,15 @@ export default {
         chartData: null,
         extraOptions: chartConfig.chartOptionsMain
       },
-      //pardavimai: this.viewPardavimai
+      pardavimai: [],
+      label: [],
     }
   },
 
-  ready() {
-    this.fillChartData()
-  },  
+   mounted() {
+    },
+  created: function() {
+  },
   methods: {
     cancel () {
       this.$emit('cancel')
