@@ -1,7 +1,7 @@
 <template>
   <div>
     <modal-view-box :is-active="isModalView" :view-subject="viewObjectName" :view-info="viewInfoName" @confirm="viewConfirm" @cancel="viewCancel"/>
-    <modal-pardavimai-box :is-active="isModalViewP" :view-subject="viewObjectNameP" :view-info="viewPardavimaiName" @confirm="viewConfirm_pardavimai" @cancel="viewCancel_pardavimai"/>
+    <modal-pardavimai-box :is-active="isModalViewP" :view-subject="viewObjectNameP" :view-pardavimai="viewPardavimaiName" :view-label="labelPardavimaiName"  @confirm="viewConfirm_pardavimai"/>
 
     <section class="section is-main-section">
       <card-component title="VALDYMAS" icon="account-multiple">
@@ -102,13 +102,12 @@
           <b-table-column :style="{'background-color': 'WhiteSmoke '}" label="PARDAVIMAI" field="pardavimai.viso" sortable>
                 {{props.row.pardavimai && props.row.pardavimai.viso}}
           </b-table-column>
-          <b-table-column :style="{'background-color': 'WhiteSmoke '}" label="Pardavimai">
-            <button v-if="!Array.isArray(props.row.buy)" class="button is-small is-primary" type="button" 
+          <b-table-column :style="{'background-color': 'WhiteSmoke '}" label="Informacija">
+            <button v-if="!Array.isArray(props.row.buy)" class="button is-small is-danger" type="button" 
             @click.prevent="viewModal_pardavimai(props.row.buy && props.row.buy.preke, props.row.buy && props.row.buy.diena)">
-                <b-icon icon="eye" size="is-small"/>
+                <b-icon icon="chart-bar" size="is-small"/>
               </button>
-          </b-table-column>
-          <b-table-column :visible='perkelimai' :style="{'background-color': 'WhiteSmoke '}" label="Perkelimai">
+               - 
             <button v-if="!Array.isArray(props.row.atsargos)" class="button is-small is-primary" type="button" 
             @click.prevent="viewModal(props.row.atsargos && props.row.atsargos.preke, props.row.atsargos && props.row.atsargos.info)">
                 <b-icon icon="eye" size="is-small"/>
@@ -292,12 +291,15 @@ export default {
      viso: [],
      kainos: false,
      perkelimai: true,
+
     isModalView: false,
     viewObject: null,
     viewInfo: null,
+
     isModalViewP: false,
     viewObjectP: null,
     viewPardavimai: null,
+    labelPardavimai: null,
     }
   },
   computed: {
@@ -306,23 +308,29 @@ export default {
         return this.viewObject
       }
       return null
-    },
-    viewObjectNameP () {
-      if (this.viewObjectP) {
-        return this.viewObjectP
-      }
-      return null
-    },
-    
+    },  
     viewInfoName () {
       if (this.viewInfo) {
         return this.viewInfo
       }
       return null
     },
+
+    viewObjectNameP () {
+      if (this.viewObjectP) {
+        return this.viewObjectP
+      }
+      return null
+    },  
     viewPardavimaiName () {
       if (this.viewPardavimai) {
         return this.viewPardavimai
+      }
+      return null
+    },
+    labelPardavimaiName () {
+      if (this.labelPardavimai) {
+        return this.labelPardavimai
       }
       return null
     },
@@ -461,11 +469,25 @@ export default {
           })
     },
 
-    viewModal_pardavimai (viewObject, viewPardavimai) {
-      this.viewObjectP = viewObject
-      this.viewPardavimai = viewPardavimai
+    viewModal_pardavimai (viewObjectP, viewPardavimai) {
+      console.log(viewPardavimai);
+      let data = []
+      let label = []
+      let  i;
+      let sk = viewPardavimai.length
+      for (i = 0; i < sk; i++) {
+        data.push(viewPardavimai[i]['kiekis'])
+        label.push(viewPardavimai[i]['data'])
+        
+      }
+      this.viewObjectP = viewObjectP
+      this.viewPardavimai = data
+      this.labelPardavimai = label
       this.isModalViewP = true
+
+      //this.$emit('update');
     },
+
     viewConfirm_pardavimai () {
       this.isModalViewP = false
     },

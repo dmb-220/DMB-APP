@@ -112,6 +112,80 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalBoxFull.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModalBoxFull.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'ModalBoxFull',
+  props: {
+    isActive: {
+      type: Boolean,
+      "default": false
+    },
+    confirmLabel: {
+      type: String,
+      "default": 'Patvirtinti'
+    },
+    confirmType: {
+      type: String,
+      "default": 'is-info'
+    }
+  },
+  data: function data() {
+    return {
+      isModalActive: false
+    };
+  },
+  computed: {
+    confirmButtonClass: function confirmButtonClass() {
+      return "button ".concat(this.confirmType);
+    }
+  },
+  methods: {
+    cancel: function cancel() {
+      this.$emit('cancel');
+    },
+    confirm: function confirm() {
+      this.$emit('confirm');
+    }
+  },
+  watch: {
+    isActive: function isActive(newValue) {
+      this.isModalActive = newValue;
+    },
+    isModalActive: function isModalActive(newValue) {
+      if (!newValue) {
+        this.cancel();
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalPardavimaiBox.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModalPardavimaiBox.vue?vue&type=script&lang=js& ***!
@@ -121,7 +195,22 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ModalBox__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModalBox */ "./resources/js/components/ModalBox.vue");
+/* harmony import */ var _ModalBoxFull__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModalBoxFull */ "./resources/js/components/ModalBoxFull.vue");
+/* harmony import */ var _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/Charts/chart.config */ "./resources/js/components/Charts/chart.config.js");
+/* harmony import */ var _components_Charts_LineChart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/Charts/LineChart */ "./resources/js/components/Charts/LineChart.js");
+/* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -131,35 +220,72 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ModalPardavimaitBox",
   components: {
-    ModalBox: _ModalBox__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  data: function data() {
-    return {};
+    ModalBoxFull: _ModalBoxFull__WEBPACK_IMPORTED_MODULE_0__["default"],
+    LineChart: _components_Charts_LineChart__WEBPACK_IMPORTED_MODULE_2__["default"],
+    CardComponent: _components_CardComponent__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   props: {
     isActive: {
       type: Boolean,
       "default": false
     },
-    viewSubjectP: {
+    viewSubject: {
       type: String,
-      "default": []
+      "default": ''
     },
     viewPardavimai: {
       type: Array,
       "default": null
+    },
+    viewLabel: {
+      type: Array,
+      "default": null
     }
   },
-  computed: {},
+  data: function data() {
+    return {
+      defaultChart: {
+        chartData: null,
+        extraOptions: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartOptionsMain"]
+      } //pardavimai: this.viewPardavimai
+
+    };
+  },
+  ready: function ready() {
+    this.fillChartData();
+  },
   methods: {
     cancel: function cancel() {
       this.$emit('cancel');
     },
     confirm: function confirm() {
       this.$emit('confirm');
+    },
+    fillChartData: function fillChartData() {
+      this.defaultChart.chartData = {
+        datasets: [{
+          fill: false,
+          borderColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].danger,
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].danger,
+          pointBorderColor: 'rgba(255,255,255,0)',
+          pointHoverBackgroundColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].danger,
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 4,
+          data: this.viewPardavimai
+        }],
+        labels: this.viewLabel
+      };
     }
   }
 });
@@ -512,7 +638,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -557,7 +682,8 @@ __webpack_require__.r(__webpack_exports__);
       viewInfo: null,
       isModalViewP: false,
       viewObjectP: null,
-      viewPardavimai: null
+      viewPardavimai: null,
+      labelPardavimai: null
     };
   },
   computed: {
@@ -575,9 +701,23 @@ __webpack_require__.r(__webpack_exports__);
 
       return null;
     },
+    viewObjectNameP: function viewObjectNameP() {
+      if (this.viewObjectP) {
+        return this.viewObjectP;
+      }
+
+      return null;
+    },
     viewPardavimaiName: function viewPardavimaiName() {
       if (this.viewPardavimai) {
         return this.viewPardavimai;
+      }
+
+      return null;
+    },
+    labelPardavimaiName: function labelPardavimaiName() {
+      if (this.labelPardavimai) {
+        return this.labelPardavimai;
       }
 
       return null;
@@ -712,10 +852,22 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    viewModal_pardavimai: function viewModal_pardavimai(viewObject, viewPardavimai) {
-      this.viewObjectP = viewObject;
-      this.viewPardavimai = viewPardavimai;
-      this.isModalViewP = true;
+    viewModal_pardavimai: function viewModal_pardavimai(viewObjectP, viewPardavimai) {
+      console.log(viewPardavimai);
+      var data = [];
+      var label = [];
+      var i;
+      var sk = viewPardavimai.length;
+
+      for (i = 0; i < sk; i++) {
+        data.push(viewPardavimai[i]['kiekis']);
+        label.push(viewPardavimai[i]['data']);
+      }
+
+      this.viewObjectP = viewObjectP;
+      this.viewPardavimai = data;
+      this.labelPardavimai = label;
+      this.isModalViewP = true; //this.$emit('update');
     },
     viewConfirm_pardavimai: function viewConfirm_pardavimai() {
       this.isModalViewP = false;
@@ -737,103 +889,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   }
 });
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseMap.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_baseMap.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseEach = __webpack_require__(/*! ./_baseEach */ "./node_modules/lodash/_baseEach.js"),
-    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js");
-
-/**
- * The base implementation of `_.map` without support for iteratee shorthands.
- *
- * @private
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
- */
-function baseMap(collection, iteratee) {
-  var index = -1,
-      result = isArrayLike(collection) ? Array(collection.length) : [];
-
-  baseEach(collection, function(value, key, collection) {
-    result[++index] = iteratee(value, key, collection);
-  });
-  return result;
-}
-
-module.exports = baseMap;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/map.js":
-/*!************************************!*\
-  !*** ./node_modules/lodash/map.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayMap = __webpack_require__(/*! ./_arrayMap */ "./node_modules/lodash/_arrayMap.js"),
-    baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js"),
-    baseMap = __webpack_require__(/*! ./_baseMap */ "./node_modules/lodash/_baseMap.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js");
-
-/**
- * Creates an array of values by running each element in `collection` thru
- * `iteratee`. The iteratee is invoked with three arguments:
- * (value, index|key, collection).
- *
- * Many lodash methods are guarded to work as iteratees for methods like
- * `_.every`, `_.filter`, `_.map`, `_.mapValues`, `_.reject`, and `_.some`.
- *
- * The guarded methods are:
- * `ary`, `chunk`, `curry`, `curryRight`, `drop`, `dropRight`, `every`,
- * `fill`, `invert`, `parseInt`, `random`, `range`, `rangeRight`, `repeat`,
- * `sampleSize`, `slice`, `some`, `sortBy`, `split`, `take`, `takeRight`,
- * `template`, `trim`, `trimEnd`, `trimStart`, and `words`
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Collection
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
- * @example
- *
- * function square(n) {
- *   return n * n;
- * }
- *
- * _.map([4, 8], square);
- * // => [16, 64]
- *
- * _.map({ 'a': 4, 'b': 8 }, square);
- * // => [16, 64] (iteration order is not guaranteed)
- *
- * var users = [
- *   { 'user': 'barney' },
- *   { 'user': 'fred' }
- * ];
- *
- * // The `_.property` iteratee shorthand.
- * _.map(users, 'user');
- * // => ['barney', 'fred']
- */
-function map(collection, iteratee) {
-  var func = isArray(collection) ? arrayMap : baseMap;
-  return func(collection, baseIteratee(iteratee, 3));
-}
-
-module.exports = map;
-
 
 /***/ }),
 
@@ -937,6 +992,76 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalBoxFull.vue?vue&type=template&id=6756ccf8&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModalBoxFull.vue?vue&type=template&id=6756ccf8& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "b-modal",
+    {
+      attrs: {
+        "full-screen": "",
+        active: _vm.isModalActive,
+        "has-modal-card": ""
+      },
+      on: {
+        "update:active": function($event) {
+          _vm.isModalActive = $event
+        }
+      }
+    },
+    [
+      _c("div", { staticClass: "modal-card" }, [
+        _c("header", { staticClass: "modal-card-head" }, [
+          _c("p", { staticClass: "modal-card-title" }, [_vm._v("Informacija")])
+        ]),
+        _vm._v(" "),
+        _c(
+          "section",
+          { staticClass: "modal-card-body" },
+          [_vm._t("default")],
+          2
+        ),
+        _vm._v(" "),
+        _c("footer", { staticClass: "modal-card-foot" }, [
+          _c(
+            "button",
+            {
+              staticClass: "button",
+              attrs: { type: "button" },
+              on: { click: _vm.cancel }
+            },
+            [_vm._v("Atšaukti")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            { class: _vm.confirmButtonClass, on: { click: _vm.confirm } },
+            [_vm._v(_vm._s(_vm.confirmLabel))]
+          )
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalPardavimaiBox.vue?vue&type=template&id=806142f6&":
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModalPardavimaiBox.vue?vue&type=template&id=806142f6& ***!
@@ -953,7 +1078,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "modal-box",
+    "modal-box-full",
     {
       attrs: {
         "is-active": _vm.isActive,
@@ -967,16 +1092,49 @@ var render = function() {
         "update:is-active": function($event) {
           _vm.isActive = $event
         },
-        confirm: _vm.confirm,
-        cancel: _vm.cancel
+        confirm: _vm.confirm
       }
     },
     [
       _c("div", [_vm._v(_vm._s(_vm.viewSubject))]),
       _vm._v(" "),
       _c("hr"),
-      _vm._v("\n    duomenis statistika\n")
-    ]
+      _vm._v("\n    " + _vm._s(_vm.viewPardavimai) + "\n    "),
+      _c("hr"),
+      _vm._v("\n    " + _vm._s(_vm.labelPardavimai) + "\n    "),
+      _c(
+        "card-component",
+        {
+          attrs: {
+            title: "Pardavimai",
+            icon: "finance",
+            "header-icon": "reload"
+          },
+          on: { "header-icon-click": _vm.fillChartData }
+        },
+        [
+          _vm.defaultChart.chartData
+            ? _c(
+                "div",
+                { staticClass: "chart-area" },
+                [
+                  _c("line-chart", {
+                    ref: "bigChart",
+                    staticStyle: { height: "100%" },
+                    attrs: {
+                      "chart-id": "big-line-chart",
+                      "chart-data": _vm.defaultChart.chartData,
+                      "extra-options": _vm.defaultChart.extraOptions
+                    }
+                  })
+                ],
+                1
+              )
+            : _vm._e()
+        ]
+      )
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -1125,13 +1283,11 @@ var render = function() {
       _c("modal-pardavimai-box", {
         attrs: {
           "is-active": _vm.isModalViewP,
-          "view-subject": _vm.viewObjectName,
-          "view-info": _vm.viewPardavimaiName
+          "view-subject": _vm.viewObjectNameP,
+          "view-pardavimai": _vm.viewPardavimaiName,
+          "view-label": _vm.labelPardavimaiName
         },
-        on: {
-          confirm: _vm.viewConfirm_pardavimai,
-          cancel: _vm.viewCancel_pardavimai
-        }
+        on: { confirm: _vm.viewConfirm_pardavimai }
       }),
       _vm._v(" "),
       _c(
@@ -1736,7 +1892,7 @@ var render = function() {
                                 "b-table-column",
                                 {
                                   style: { "background-color": "WhiteSmoke " },
-                                  attrs: { label: "Pardavimai" }
+                                  attrs: { label: "Informacija" }
                                 },
                                 [
                                   !Array.isArray(props.row.buy)
@@ -1744,7 +1900,7 @@ var render = function() {
                                         "button",
                                         {
                                           staticClass:
-                                            "button is-small is-primary",
+                                            "button is-small is-danger",
                                           attrs: { type: "button" },
                                           on: {
                                             click: function($event) {
@@ -1761,27 +1917,15 @@ var render = function() {
                                         [
                                           _c("b-icon", {
                                             attrs: {
-                                              icon: "eye",
+                                              icon: "chart-bar",
                                               size: "is-small"
                                             }
                                           })
                                         ],
                                         1
                                       )
-                                    : _vm._e()
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-table-column",
-                                {
-                                  style: { "background-color": "WhiteSmoke " },
-                                  attrs: {
-                                    visible: _vm.perkelimai,
-                                    label: "Perkelimai"
-                                  }
-                                },
-                                [
+                                    : _vm._e(),
+                                  _vm._v("\n             - \n          "),
                                   !Array.isArray(props.row.atsargos)
                                     ? _c(
                                         "button",
@@ -2663,6 +2807,117 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Charts/LineChart.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/Charts/LineChart.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'line-chart',
+  "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Line"],
+  mixins: [vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["mixins"].reactiveProp],
+  props: {
+    extraOptions: Object
+  },
+  data: function data() {
+    return {
+      ctx: null
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$watch('chartData', function (newVal, oldVal) {
+      if (!oldVal) {
+        _this.renderChart(_this.chartData, _this.extraOptions);
+      }
+    }, {
+      immediate: true
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/components/Charts/chart.config.js":
+/*!********************************************************!*\
+  !*** ./resources/js/components/Charts/chart.config.js ***!
+  \********************************************************/
+/*! exports provided: chartColors, baseChartOptions, chartOptionsMain */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "chartColors", function() { return chartColors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "baseChartOptions", function() { return baseChartOptions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "chartOptionsMain", function() { return chartOptionsMain; });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var chartColors = {
+  "default": {
+    primary: '#00D1B2',
+    info: '#209CEE',
+    danger: '#FF3860'
+  }
+};
+var baseChartOptions = {
+  maintainAspectRatio: false,
+  legend: {
+    display: false
+  },
+  responsive: true
+};
+var chartOptionsMain = _objectSpread(_objectSpread({}, baseChartOptions), {}, {
+  tooltips: {
+    backgroundColor: '#f5f5f5',
+    titleFontColor: '#333',
+    bodyFontColor: '#666',
+    bodySpacing: 4,
+    xPadding: 12,
+    mode: 'nearest',
+    intersect: 0,
+    position: 'nearest'
+  },
+  scales: {
+    yAxes: [{
+      barPercentage: 1.6,
+      gridLines: {
+        drawBorder: false,
+        color: 'rgba(29,140,248,0.0)',
+        zeroLineColor: 'transparent'
+      },
+      ticks: {
+        padding: 20,
+        fontColor: '#9a9a9a'
+      }
+    }],
+    xAxes: [{
+      barPercentage: 1.6,
+      gridLines: {
+        drawBorder: false,
+        color: 'rgba(225,78,202,0.1)',
+        zeroLineColor: 'transparent'
+      },
+      ticks: {
+        padding: 20,
+        fontColor: '#9a9a9a'
+      }
+    }]
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/components/ModalBox.vue":
 /*!**********************************************!*\
   !*** ./resources/js/components/ModalBox.vue ***!
@@ -2727,6 +2982,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalBox_vue_vue_type_template_id_75bd336e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalBox_vue_vue_type_template_id_75bd336e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ModalBoxFull.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/ModalBoxFull.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ModalBoxFull_vue_vue_type_template_id_6756ccf8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModalBoxFull.vue?vue&type=template&id=6756ccf8& */ "./resources/js/components/ModalBoxFull.vue?vue&type=template&id=6756ccf8&");
+/* harmony import */ var _ModalBoxFull_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModalBoxFull.vue?vue&type=script&lang=js& */ "./resources/js/components/ModalBoxFull.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ModalBoxFull_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ModalBoxFull_vue_vue_type_template_id_6756ccf8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ModalBoxFull_vue_vue_type_template_id_6756ccf8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ModalBoxFull.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ModalBoxFull.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/ModalBoxFull.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalBoxFull_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ModalBoxFull.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalBoxFull.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalBoxFull_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ModalBoxFull.vue?vue&type=template&id=6756ccf8&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/ModalBoxFull.vue?vue&type=template&id=6756ccf8& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalBoxFull_vue_vue_type_template_id_6756ccf8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ModalBoxFull.vue?vue&type=template&id=6756ccf8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModalBoxFull.vue?vue&type=template&id=6756ccf8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalBoxFull_vue_vue_type_template_id_6756ccf8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalBoxFull_vue_vue_type_template_id_6756ccf8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

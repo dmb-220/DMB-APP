@@ -233,9 +233,13 @@ class PrekesController extends Controller
                     }
                 }
                 
-            }     
-            //$buy[$id]['diena'] = array_values($buy[$id]['diena']);  
-                //ksort($buy[$id]['diena']);
+            }
+            if(array_key_exists('diena', $buy[$id])){
+            //var_dump($buy[$id]);
+            //echo count($buy[$id]['diena'])." -<br>";
+            ksort($buy[$id]['diena']);  
+            $buy[$id]['diena'] = array_values($buy[$id]['diena']);
+            }   
         }
         //$buy = array_values($buy); 
 
@@ -505,7 +509,7 @@ class PrekesController extends Controller
                 $new[$i]['pardavimai'] = array();
             }
 
-            if (array_key_exists($valu, $buy)) {
+            if (array_key_exists($valu, $buy)) { 
                 $new[$i]['buy'] = $buy[$valu];
             }else{
                 $new[$i]['buy'] = array();

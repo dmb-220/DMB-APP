@@ -59398,7 +59398,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/statistika',
     name: 'Statistika',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ./views/Statistika.vue */ "./resources/js/views/Statistika.vue"));
+      return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ./views/Statistika.vue */ "./resources/js/views/Statistika.vue"));
     }
   }, {
     path: '/likuciai',
@@ -59422,7 +59422,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/prekes',
     name: 'Prekes',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./views/Prekes.vue */ "./resources/js/views/Prekes.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(16), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./views/Prekes.vue */ "./resources/js/views/Prekes.vue"));
     }
   }, {
     path: '/sandeliai',
@@ -59464,7 +59464,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/generuoti',
     name: 'generuoti',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(18), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./views/Generuoti.vue */ "./resources/js/views/Generuoti.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(19), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./views/Generuoti.vue */ "./resources/js/views/Generuoti.vue"));
     }
   }, {
     path: '/admin',
@@ -59476,7 +59476,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/uzsakymai',
     name: 'uzsakymai',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(17), __webpack_require__.e(15)]).then(__webpack_require__.bind(null, /*! ./views/Uzsakymai.vue */ "./resources/js/views/Uzsakymai.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(18), __webpack_require__.e(15)]).then(__webpack_require__.bind(null, /*! ./views/Uzsakymai.vue */ "./resources/js/views/Uzsakymai.vue"));
     }
   }, {
     path: '/testas',
