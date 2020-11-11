@@ -1,7 +1,7 @@
 <template>
   <div>
     <modal-view-box :is-active="isModalView" :view-subject="viewObjectName" :view-info="viewInfoName" @confirm="viewConfirm" @cancel="viewCancel"/>
-    <modal-pardavimai-box  :is-active="isModalViewP" :view-subject="viewObjectNameP" :view-pardavimai.sync="viewPardavimaiName" :view-label.sync="labelPardavimaiName"  @confirm="viewConfirm_pardavimai"/>
+    <modal-pardavimai-box  :is-active="isModalViewP" :view-subject="viewObjectNameP" :view-pardavimai="viewPardavimaiName" :view-label="labelPardavimaiName"  @confirm="viewConfirm_pardavimai"/>
 
     <section class="section is-main-section">
       <card-component title="VALDYMAS" icon="account-multiple">
@@ -484,7 +484,7 @@ export default {
       this.viewPardavimai = data
       this.labelPardavimai = label
       this.isModalViewP = true
-      this.$emit('update');
+      //this.$emit('update');
     },
 
     viewConfirm_pardavimai () {

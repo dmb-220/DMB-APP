@@ -1,8 +1,10 @@
 <template>
   <modal-box-full  :is-active.sync="isActive" @confirm="confirm" confirm-type="is-success" confirm-label="Uždaryti">
-    <div>{{viewSubject}}</div>
+      {{viewPardavimai}}
       <hr>
-      <card-component title="Pardavimai" @header-icon-click="fillChartData" icon="finance" header-icon="reload">
+      {{viewLabel}}
+      <hr>
+      <card-component :title="viewSubject" @header-icon-click="fillChartData" icon="finance" header-icon="reload">
         <div v-if="defaultChart.chartData" class="chart-area">
           <line-chart style="height: 100%"
                       ref="bigChart"
@@ -48,16 +50,28 @@ export default {
         chartData: null,
         extraOptions: chartConfig.chartOptionsMain
       },
-      pardavimai: [],
-      label: [],
+      pardavimai: this.viewPardavimai,
+      label: this.viewLabel,
     }
   },
+  computed: {
+  },
+
+watch: {
+    $props: {
+      handler() {
+        this.fillChartData();
+      },
+      deep: true,
+      immediate: true,
+    },
+},
 
    mounted() {
     },
   created: function() {
-    console.log(this.viewPardavimai);
-    this.$parent.$on('update', this.fillChartData);
+    //console.log(this.viewPardavimai);
+    //this.$parent.$on('update', this.uzklausa);
   },
   methods: {
     cancel () {

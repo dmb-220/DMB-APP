@@ -216,6 +216,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -251,14 +253,23 @@ __webpack_require__.r(__webpack_exports__);
         chartData: null,
         extraOptions: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartOptionsMain"]
       },
-      pardavimai: [],
-      label: []
+      pardavimai: this.viewPardavimai,
+      label: this.viewLabel
     };
   },
+  computed: {},
+  watch: {
+    $props: {
+      handler: function handler() {
+        this.fillChartData();
+      },
+      deep: true,
+      immediate: true
+    }
+  },
   mounted: function mounted() {},
-  created: function created() {
-    console.log(this.viewPardavimai);
-    this.$parent.$on('update', this.fillChartData);
+  created: function created() {//console.log(this.viewPardavimai);
+    //this.$parent.$on('update', this.uzklausa);
   },
   methods: {
     cancel: function cancel() {
@@ -1096,15 +1107,16 @@ var render = function() {
       }
     },
     [
-      _c("div", [_vm._v(_vm._s(_vm.viewSubject))]),
-      _vm._v(" "),
+      _vm._v("\n    " + _vm._s(_vm.viewPardavimai) + "\n    "),
+      _c("hr"),
+      _vm._v("\n    " + _vm._s(_vm.viewLabel) + "\n    "),
       _c("hr"),
       _vm._v(" "),
       _c(
         "card-component",
         {
           attrs: {
-            title: "Pardavimai",
+            title: _vm.viewSubject,
             icon: "finance",
             "header-icon": "reload"
           },
