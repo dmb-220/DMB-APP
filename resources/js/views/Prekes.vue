@@ -1,7 +1,12 @@
 <template>
   <div>
     <modal-view-box :is-active="isModalView" :view-subject="viewObjectName" :view-info="viewInfoName" @confirm="viewConfirm" @cancel="viewCancel"/>
-    <modal-pardavimai-box  :is-active="isModalViewP" :view-subject="viewObjectNameP" :view-pardavimai="viewPardavimaiName" :view-label="labelPardavimaiName"  @confirm="viewConfirm_pardavimai"/>
+    <modal-pardavimai-box  :is-active="isModalViewP" 
+                          :view-subject="viewObjectNameP" 
+                          :view-pardavimai="viewPardavimaiName"
+                          :view-pardavimai-lt="viewPardavimaiLTName"  
+                          :view-pardavimai-lv="viewPardavimaiLVName" 
+                          :view-label="labelPardavimaiName"  @confirm="viewConfirm_pardavimai"/>
 
     <section class="section is-main-section">
       <card-component title="VALDYMAS" icon="account-multiple">
@@ -104,7 +109,8 @@
           </b-table-column>
           <b-table-column :style="{'background-color': 'WhiteSmoke '}" label="Informacija">
             <button v-if="!Array.isArray(props.row.buy)" class="button is-small is-danger" type="button" 
-            @click.prevent="viewModal_pardavimai(props.row.buy && props.row.buy.preke, props.row.buy && props.row.buy.diena)">
+            @click.prevent="viewModal_pardavimai(props.row.buy && props.row.buy.preke, props.row.buy && props.row.buy.viso,
+             props.row.buy && props.row.buy.LT, props.row.buy && props.row.buy.LV)">
                 <b-icon icon="chart-bar" size="is-small"/>
               </button>
                - 
@@ -299,6 +305,8 @@ export default {
     isModalViewP: false,
     viewObjectP: null,
     viewPardavimai: null,
+    viewPardavimaiLT: null,
+    viewPardavimaiLV: null,
     labelPardavimai: null,
     }
   },
@@ -317,21 +325,24 @@ export default {
     },
 
     viewObjectNameP () {
-      if (this.viewObjectP) {
-        return this.viewObjectP
-      }
+      if (this.viewObjectP) {return this.viewObjectP}
       return null
     },  
     viewPardavimaiName () {
-      if (this.viewPardavimai) {
-        return this.viewPardavimai
-      }
+      if (this.viewPardavimai) {return this.viewPardavimai}
+      return null
+    },
+    viewPardavimaiLTName () {
+      if (this.viewPardavimaiLT) {return this.viewPardavimaiLT}
+      return null
+    },
+    viewPardavimaiLVName () {
+      if (this.viewPardavimaiLV) {return this.viewPardavimaiLV}
       return null
     },
     labelPardavimaiName () {
-      if (this.labelPardavimai) {
-        return this.labelPardavimai
-      }
+      if (this.labelPardavimai) {return this.labelPardavimai
+}
       return null
     },
   },
@@ -469,19 +480,34 @@ export default {
           })
     },
 
-    viewModal_pardavimai (viewObjectP, viewPardavimai) {
+    viewModal_pardavimai (viewObjectP, viewPardavimai, viewPardavimaiLT, viewPardavimaiLV) {
       //console.log(viewPardavimai);
-      let data = []
+      let pardavimai = [];
+      let pardavimaiLT = [];
+      let pardavimaiLV = [];
+
       let label = []
       let  i;
+
       let sk = viewPardavimai.length
       for (i = 0; i < sk; i++) {
-        data.push(viewPardavimai[i]['kiekis'])
+        pardavimai.push(viewPardavimai[i]['kiekis'])
         label.push(viewPardavimai[i]['data'])
         
       }
+      let skLT = viewPardavimaiLT.length
+      for (i = 0; i < skLT; i++) {
+        pardavimaiLT.push(viewPardavimaiLT[i]['kiekis'])
+      }
+      let skLV = viewPardavimaiLV.length
+      for (i = 0; i < skLV; i++) {
+        pardavimaiLV.push(viewPardavimaiLV[i]['kiekis'])
+      }
+
       this.viewObjectP = viewObjectP
-      this.viewPardavimai = data
+      this.viewPardavimai = pardavimai
+      this.viewPardavimaiLT = pardavimaiLT
+      this.viewPardavimaiLV = pardavimaiLV
       this.labelPardavimai = label
       this.isModalViewP = true
       //this.$emit('update');

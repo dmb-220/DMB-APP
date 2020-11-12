@@ -137,7 +137,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ModalBoxFull',
   props: {
@@ -165,9 +164,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    cancel: function cancel() {
-      this.$emit('cancel');
-    },
     confirm: function confirm() {
       this.$emit('confirm');
     }
@@ -214,10 +210,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -239,6 +231,14 @@ __webpack_require__.r(__webpack_exports__);
       "default": ''
     },
     viewPardavimai: {
+      type: Array,
+      "default": null
+    },
+    viewPardavimaiLt: {
+      type: Array,
+      "default": null
+    },
+    viewPardavimaiLv: {
       type: Array,
       "default": null
     },
@@ -280,20 +280,54 @@ __webpack_require__.r(__webpack_exports__);
     },
     fillChartData: function fillChartData() {
       this.defaultChart.chartData = {
-        datasets: [{
+        datasets: [//viso
+        {
+          label: 'VISO',
           fill: false,
-          borderColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].danger,
+          borderColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].info,
           borderWidth: 2,
           borderDash: [],
           borderDashOffset: 0.0,
-          pointBackgroundColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].danger,
+          pointBackgroundColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].info,
           pointBorderColor: 'rgba(255,255,255,0)',
-          pointHoverBackgroundColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].danger,
+          pointHoverBackgroundColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].info,
           pointBorderWidth: 20,
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
           data: this.viewPardavimai
+        }, //LT
+        {
+          label: 'LT',
+          fill: false,
+          borderColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].lietuva,
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].lietuva,
+          pointBorderColor: 'rgba(255,255,255,0)',
+          pointHoverBackgroundColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].lietuva,
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 4,
+          data: this.viewPardavimaiLt
+        }, //LV
+        {
+          label: 'LV',
+          fill: false,
+          borderColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].latvija,
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].latvija,
+          pointBorderColor: 'rgba(255,255,255,0)',
+          pointHoverBackgroundColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].latvija,
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 4,
+          data: this.viewPardavimaiLv
         }],
         labels: this.viewLabel
       };
@@ -649,6 +683,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -694,6 +734,8 @@ __webpack_require__.r(__webpack_exports__);
       isModalViewP: false,
       viewObjectP: null,
       viewPardavimai: null,
+      viewPardavimaiLT: null,
+      viewPardavimaiLV: null,
       labelPardavimai: null
     };
   },
@@ -722,6 +764,20 @@ __webpack_require__.r(__webpack_exports__);
     viewPardavimaiName: function viewPardavimaiName() {
       if (this.viewPardavimai) {
         return this.viewPardavimai;
+      }
+
+      return null;
+    },
+    viewPardavimaiLTName: function viewPardavimaiLTName() {
+      if (this.viewPardavimaiLT) {
+        return this.viewPardavimaiLT;
+      }
+
+      return null;
+    },
+    viewPardavimaiLVName: function viewPardavimaiLVName() {
+      if (this.viewPardavimaiLV) {
+        return this.viewPardavimaiLV;
       }
 
       return null;
@@ -863,20 +919,36 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    viewModal_pardavimai: function viewModal_pardavimai(viewObjectP, viewPardavimai) {
+    viewModal_pardavimai: function viewModal_pardavimai(viewObjectP, viewPardavimai, viewPardavimaiLT, viewPardavimaiLV) {
       //console.log(viewPardavimai);
-      var data = [];
+      var pardavimai = [];
+      var pardavimaiLT = [];
+      var pardavimaiLV = [];
       var label = [];
       var i;
       var sk = viewPardavimai.length;
 
       for (i = 0; i < sk; i++) {
-        data.push(viewPardavimai[i]['kiekis']);
+        pardavimai.push(viewPardavimai[i]['kiekis']);
         label.push(viewPardavimai[i]['data']);
       }
 
+      var skLT = viewPardavimaiLT.length;
+
+      for (i = 0; i < skLT; i++) {
+        pardavimaiLT.push(viewPardavimaiLT[i]['kiekis']);
+      }
+
+      var skLV = viewPardavimaiLV.length;
+
+      for (i = 0; i < skLV; i++) {
+        pardavimaiLV.push(viewPardavimaiLV[i]['kiekis']);
+      }
+
       this.viewObjectP = viewObjectP;
-      this.viewPardavimai = data;
+      this.viewPardavimai = pardavimai;
+      this.viewPardavimaiLT = pardavimaiLT;
+      this.viewPardavimaiLV = pardavimaiLV;
       this.labelPardavimai = label;
       this.isModalViewP = true; //this.$emit('update');
     },
@@ -1035,7 +1107,7 @@ var render = function() {
     [
       _c("div", { staticClass: "modal-card" }, [
         _c("header", { staticClass: "modal-card-head" }, [
-          _c("p", { staticClass: "modal-card-title" }, [_vm._v("Informacija")])
+          _c("p", { staticClass: "modal-card-title" }, [_vm._v("PARDAVIMAI")])
         ]),
         _vm._v(" "),
         _c(
@@ -1046,16 +1118,6 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("footer", { staticClass: "modal-card-foot" }, [
-          _c(
-            "button",
-            {
-              staticClass: "button",
-              attrs: { type: "button" },
-              on: { click: _vm.cancel }
-            },
-            [_vm._v("Atšaukti")]
-          ),
-          _vm._v(" "),
           _c(
             "button",
             { class: _vm.confirmButtonClass, on: { click: _vm.confirm } },
@@ -1107,11 +1169,6 @@ var render = function() {
       }
     },
     [
-      _vm._v("\n    " + _vm._s(_vm.viewPardavimai) + "\n    "),
-      _c("hr"),
-      _vm._v("\n    " + _vm._s(_vm.viewLabel) + "\n    "),
-      _c("hr"),
-      _vm._v(" "),
       _c(
         "card-component",
         {
@@ -1295,6 +1352,8 @@ var render = function() {
           "is-active": _vm.isModalViewP,
           "view-subject": _vm.viewObjectNameP,
           "view-pardavimai": _vm.viewPardavimaiName,
+          "view-pardavimai-lt": _vm.viewPardavimaiLTName,
+          "view-pardavimai-lv": _vm.viewPardavimaiLVName,
           "view-label": _vm.labelPardavimaiName
         },
         on: { confirm: _vm.viewConfirm_pardavimai }
@@ -1919,7 +1978,11 @@ var render = function() {
                                                 props.row.buy &&
                                                   props.row.buy.preke,
                                                 props.row.buy &&
-                                                  props.row.buy.diena
+                                                  props.row.buy.viso,
+                                                props.row.buy &&
+                                                  props.row.buy.LT,
+                                                props.row.buy &&
+                                                  props.row.buy.LV
                                               )
                                             }
                                           }
@@ -2877,13 +2940,17 @@ var chartColors = {
   "default": {
     primary: '#00D1B2',
     info: '#209CEE',
-    danger: '#FF3860'
+    danger: '#FF3860',
+    lietuva: '#5b9600',
+    latvija: 'GoldenRod',
+    estija: 'tomato',
+    viso: 'black'
   }
 };
 var baseChartOptions = {
   maintainAspectRatio: false,
   legend: {
-    display: false
+    display: true
   },
   responsive: true
 };

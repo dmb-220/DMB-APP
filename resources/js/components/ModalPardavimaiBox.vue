@@ -1,9 +1,5 @@
 <template>
   <modal-box-full  :is-active.sync="isActive" @confirm="confirm" confirm-type="is-success" confirm-label="Uždaryti">
-      {{viewPardavimai}}
-      <hr>
-      {{viewLabel}}
-      <hr>
       <card-component :title="viewSubject" @header-icon-click="fillChartData" icon="finance" header-icon="reload">
         <div v-if="defaultChart.chartData" class="chart-area">
           <line-chart style="height: 100%"
@@ -36,6 +32,14 @@ export default {
       default: ''
     },
     viewPardavimai: {
+      type: Array,
+      default: null
+    },
+    viewPardavimaiLt: {
+      type: Array,
+      default: null
+    },
+    viewPardavimaiLv: {
       type: Array,
       default: null
     },
@@ -84,20 +88,56 @@ watch: {
     fillChartData () {
       this.defaultChart.chartData = {
         datasets: [
+          //viso
           {
+            label: 'VISO',
             fill: false,
-            borderColor: chartConfig.chartColors.default.danger,
+            borderColor: chartConfig.chartColors.default.info,
             borderWidth: 2,
             borderDash: [],
             borderDashOffset: 0.0,
-            pointBackgroundColor: chartConfig.chartColors.default.danger,
+            pointBackgroundColor: chartConfig.chartColors.default.info,
             pointBorderColor: 'rgba(255,255,255,0)',
-            pointHoverBackgroundColor: chartConfig.chartColors.default.danger,
+            pointHoverBackgroundColor: chartConfig.chartColors.default.info,
             pointBorderWidth: 20,
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
             data: this.viewPardavimai
+          },
+          //LT
+          {
+            label: 'LT',
+            fill: false,
+            borderColor: chartConfig.chartColors.default.lietuva,
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: chartConfig.chartColors.default.lietuva,
+            pointBorderColor: 'rgba(255,255,255,0)',
+            pointHoverBackgroundColor: chartConfig.chartColors.default.lietuva,
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 4,
+            data: this.viewPardavimaiLt
+          },
+          //LV
+          {
+            label: 'LV',
+            fill: false,
+            borderColor: chartConfig.chartColors.default.latvija,
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: chartConfig.chartColors.default.latvija,
+            pointBorderColor: 'rgba(255,255,255,0)',
+            pointHoverBackgroundColor: chartConfig.chartColors.default.latvija,
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 4,
+            data: this.viewPardavimaiLv
           }
         ],
         labels: this.viewLabel

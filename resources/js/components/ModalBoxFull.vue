@@ -2,13 +2,12 @@
   <b-modal full-screen :active.sync="isModalActive" has-modal-card>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Informacija</p>
+        <p class="modal-card-title">PARDAVIMAI</p>
       </header>
       <section class="modal-card-body">
         <slot/>
       </section>
       <footer class="modal-card-foot">
-        <button class="button" type="button" @click="cancel">Atšaukti</button>
         <button :class="confirmButtonClass" @click="confirm">{{ confirmLabel }}</button>
       </footer>
     </div>
@@ -43,9 +42,6 @@ export default {
     }
   },
   methods: {
-    cancel () {
-      this.$emit('cancel')
-    },
     confirm () {
       this.$emit('confirm')
     }

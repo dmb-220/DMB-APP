@@ -2,14 +2,18 @@ export const chartColors = {
   default: {
     primary: '#00D1B2',
     info: '#209CEE',
-    danger: '#FF3860'
+    danger: '#FF3860',
+    lietuva: '#5b9600',
+    latvija: 'GoldenRod',
+    estija: 'tomato',
+    viso: 'black'
   }
 }
 
 export const baseChartOptions = {
   maintainAspectRatio: false,
   legend: {
-    display: false
+    display: true
   },
   responsive: true
 }

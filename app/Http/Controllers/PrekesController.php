@@ -85,6 +85,51 @@ class PrekesController extends Controller
             "Lietpaltis" => "Mētelis",
         ); 
 
+        function createDateRangeArray($strDateFrom,$strDateTo)
+            {
+                // takes two dates formatted as YYYY-MM-DD and creates an
+                // inclusive array of the dates between the from and to dates.
+
+                // could test validity of dates here but I'm already doing
+                // that in the main script
+
+                $aryRange = [];
+
+                $iDateFrom=mktime(1,0,0,substr($strDateFrom,5,2),     substr($strDateFrom,8,2),substr($strDateFrom,0,4));
+                $iDateTo=mktime(1,0,0,substr($strDateTo,5,2),     substr($strDateTo,8,2),substr($strDateTo,0,4));
+
+                if ($iDateTo>=$iDateFrom)
+                {
+                    //array_push($aryRange,date('Y-m-d',$iDateFrom)); // first entry
+                    $aryRange[date('Y-m-d',$iDateFrom)]['data'] = date('Y-m-d',$iDateFrom);
+                    $aryRange[date('Y-m-d',$iDateFrom)]['kiekis'] = 0;
+                    $aryRange[date('Y-m-d',$iDateFrom)]['sandelis'] = array();
+                    while ($iDateFrom<$iDateTo)
+                    {
+                        $iDateFrom+=86400; // add 24 hours
+                        //array_push($aryRange,date('Y-m-d',$iDateFrom));
+                        $aryRange[date('Y-m-d',$iDateFrom)]['data'] = date('Y-m-d',$iDateFrom);
+                        $aryRange[date('Y-m-d',$iDateFrom)]['kiekis'] = 0;
+                    $aryRange[date('Y-m-d',$iDateFrom)]['sandelis'] = array();
+                    }
+                }
+                return $aryRange;
+            }
+
+        //pasiimam datas pardavimo ribu
+        $failas = "data.txt";
+        $directory  = "app/";
+        $failas = $directory.$failas;
+
+        $myfile = fopen(storage_path($failas), "r");
+        $ke = fread($myfile,filesize(storage_path($failas)));
+        fclose($myfile);
+
+        $ke = explode("|||", $ke);
+        $dt = explode(" --- ", $ke[0]);
+
+
+        //nustatymai
         $failas = "prekes.txt";
         $directory  = "app/";
         $failas = $directory.$failas;
@@ -219,29 +264,53 @@ class PrekesController extends Controller
         
         //skeliam duomenis pagal data ir pardavimus
         $buy = array();
+        $valstybe = "";
+        $bu = createDateRangeArray($dt[0], $dt[1]);
         foreach ( $pardavimas as $id => $val ) {
             $buy[$id]['preke'] = $id;
+            $buy[$id]['LT'] = $bu;
+            $buy[$id]['LV'] = $bu;
+            $buy[$id]['viso'] = $bu;
             foreach($val as $va){
                 if($va['dok_data'] != "0000-00-00"){
-                    $buy[$id]['diena'][$va['dok_data']]['data'] = $va['dok_data']; 
-                    $buy[$id]['diena'][$va['dok_data']]['sandelis'][] = $va['sandelis']; 
+                    if($va['salis'] == 1){$valstybe = "LT";}
+                    if($va['salis'] == 2){$valstybe = "LV";}
+                    if($va['salis'] == 3){$valstybe = "EE";}
 
-                    if(array_key_exists('kiekis', $buy[$id]['diena'][$va['dok_data']])){
-                        $buy[$id]['diena'][$va['dok_data']]['kiekis'] += $va['kiekis'];
+                    $buy[$id][$valstybe][$va['dok_data']]['data'] = $va['dok_data']; 
+                    $buy[$id][$valstybe][$va['dok_data']]['sandelis'][] = $va['sandelis']; 
+
+                    if(array_key_exists('kiekis', $buy[$id][$valstybe][$va['dok_data']])){
+                        $buy[$id][$valstybe][$va['dok_data']]['kiekis'] += $va['kiekis'];
                     }else{
-                        $buy[$id]['diena'][$va['dok_data']]['kiekis'] = $va['kiekis'];
+                        $buy[$id][$valstybe][$va['dok_data']]['kiekis'] = $va['kiekis'];
+                    }
+                    //VISO
+                    $buy[$id]['viso'][$va['dok_data']]['data'] = $va['dok_data']; 
+                    $buy[$id]['viso'][$va['dok_data']]['sandelis'][] = $va['sandelis']; 
+
+                    if(array_key_exists('kiekis', $buy[$id]['viso'][$va['dok_data']])){
+                        $buy[$id]['viso'][$va['dok_data']]['kiekis'] += $va['kiekis'];
+                    }else{
+                        $buy[$id]['viso'][$va['dok_data']]['kiekis'] = $va['kiekis'];
                     }
                 }
-                
             }
-            if(array_key_exists('diena', $buy[$id])){
-            //var_dump($buy[$id]);
-            //echo count($buy[$id]['diena'])." -<br>";
-            ksort($buy[$id]['diena']);  
-            $buy[$id]['diena'] = array_values($buy[$id]['diena']);
-            }   
+            if(array_key_exists('viso', $buy[$id])){
+                ksort($buy[$id]['viso']);  
+                $buy[$id]['viso'] = array_values($buy[$id]['viso']);
         }
-        //$buy = array_values($buy); 
+
+            if(array_key_exists('LT', $buy[$id])){
+                    ksort($buy[$id]['LT']);  
+                    $buy[$id]['LT'] = array_values($buy[$id]['LT']);
+            }
+            
+            if(array_key_exists('LV', $buy[$id])){
+                    ksort($buy[$id]['LV']);  
+                    $buy[$id]['LV'] = array_values($buy[$id]['LV']);
+            }
+        }
 
         //$i=0;
         $lt_viso = 0;
@@ -590,6 +659,8 @@ class PrekesController extends Controller
             "EE" => array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera",
             "Eden", "Haapsalu", "Kohtla Järve", "Kopli", "Parnu", "Riia Parnu"),
         );*/
+
+        
        return response()->json([
             'status' => true,
             'paieska' => $keyword,
@@ -604,7 +675,8 @@ class PrekesController extends Controller
             'paieska_big' => $key[7],
             'viso' => $viso,
             'atsargos' => $ats,
-            'buy' => $buy
+            'buy' => $buy,
+            'date_range' =>  $bu
         ]);
 
     }
