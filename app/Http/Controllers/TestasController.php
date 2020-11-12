@@ -37,7 +37,8 @@ class TestasController extends Controller
             }
         }
         foreach($pardavimai as $val){
-		if($val['registras'] != "PERS" && $val['kiekis'] > 0 && $val['pavadinimas'] != "Siuntimo išlaidos" && $val['pavadinimas'] != 'Pėdutės'){
+		if($val['registras'] != "PERS" && $val['kiekis'] > 0 && $val['pavadinimas'] != "Siuntimo išlaidos" && $val['pavadinimas'] != "Rankšluostis" && $val['pavadinimas'] != "Skraistė" &&
+		$val['pavadinimas'] != "Lietpaltis" && $val['pavadinimas'] != 'Pėdutės' && $val['pavadinimas'] != 'Veido kaukė' && $val['pavadinimas'] != 'Med.Švarkas'){
             if(array_key_exists('pardavimas', $grouped[$val['pavadinimas']])){
             $grouped[$val['pavadinimas']]['pardavimas'] += $val['kiekis']; 
             }else{
@@ -60,7 +61,10 @@ class TestasController extends Controller
             }
         }
         foreach($pardavimai2 as $val){
-            if($val['kiekis'] > 0 && $val['pavadinimas']){
+		if($val['kiekis'] > 0 && $val['pavadinimas'] && $val['pavadinimas'] != "Kombinezons"  
+		&& $val['pavadinimas'] != "Bēr. džinsi" && $val['pavadinimas'] != "Apakšveļa" 
+		&& $val['pavadinimas'] != 'Bēr. pidžama'
+		&& $val['pavadinimas'] != 'Vīr. pēdiņas' && $val['pavadinimas'] != "Med. halāts"){
             if(array_key_exists('pardavimas', $grouped2[$val['pavadinimas']])){
             $grouped2[$val['pavadinimas']]['pardavimas'] += $val['kiekis']; 
             }else{
@@ -97,14 +101,24 @@ class TestasController extends Controller
 }
 }
 
+		$failas = "data.txt";
+        $directory  = "app/";
+        $failas = $directory.$failas;
+
+        $myfile = fopen(storage_path($failas), "r");
+        $key = fread($myfile,filesize(storage_path($failas)));
+        fclose($myfile);
+
+        $key = explode("|||", $key);
+
     $grouped = array_values($grouped);
     $grouped2 = array_values($grouped2);
     $grouped3 = array_values($grouped3);
 
         return response()->json([
             'data' => array(
-                'pardavimai' => "2020-05-22 --- 2020-06-22", 
-                'likutis' => "2020-06-22"
+                'pardavimai' => $key[0], 
+                'likutis' => $key[1]
             ),
             'likutis' => $grouped,
             'likutis2' => $grouped2,
