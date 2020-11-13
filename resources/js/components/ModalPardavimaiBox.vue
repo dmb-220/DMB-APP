@@ -108,6 +108,7 @@ watch: {
           //LT
           {
             label: 'LT',
+            //type: 'bar',
             fill: false,
             borderColor: chartConfig.chartColors.default.lietuva,
             borderWidth: 2,
@@ -125,6 +126,7 @@ watch: {
           //LV
           {
             label: 'LV',
+            //type: 'bar',
             fill: false,
             borderColor: chartConfig.chartColors.default.latvija,
             borderWidth: 2,

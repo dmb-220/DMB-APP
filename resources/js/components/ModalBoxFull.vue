@@ -52,7 +52,7 @@ export default {
     },
     isModalActive (newValue) {
       if (!newValue) {
-        this.cancel()
+        //this.cancel()
       }
     }
   }

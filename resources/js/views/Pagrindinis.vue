@@ -5,6 +5,17 @@
         Likučiai: {{ info.likutis }}<br>
         Pardavimai: {{ info.pardavimai}}<br>
         <br>
+        <card-component title="Pardavimai" @header-icon-click="fillChartData" icon="finance" header-icon="reload">
+        <div v-if="defaultChart.chartData" class="chart-area">
+          <line-chart style="height: 100%"
+                      ref="bigChart"
+                      chart-id="big-line-chart"
+                      :chart-data="defaultChart.chartData"
+                      :extra-options="defaultChart.extraOptions">
+          </line-chart>
+        </div>
+      </card-component>
+      <br>
          <div  class="columns">
            <div class="column" :style="{'border': '1px dotted', 'background-color': 'greenyellow'}">
         <b-table
@@ -133,26 +144,65 @@
 
 <script>
 import CardComponent from '@/components/CardComponent'
+import * as chartConfig from '@/components/Charts/chart.config'
+import LineChart from '@/components/Charts/LineChart'
+
 
 export default {
   name: 'pagrindinis',
-  components: {CardComponent},
+  components: {CardComponent, LineChart},
   data () {
     return {
+      defaultChart: {
+        chartData: null,
+        extraOptions: chartConfig.chartOptionsMain
+      },
       isLoading: false,
       info: [],
       duomenys: [],
       duomenys2: [],
       duomenys3: [],
-      sk: ''
+      buy: [],
+      buyLT: [],
+      buyLV: [],
+      pardavimai: [],
+      pardavimaiLT: [],
+      pardavimaiLV: [],
+      label: []
     }
   },
   computed: {
   },
   created () {
     this.getData()
+    this.fillChartData ()
+  },
+
+watch: {
+      buy: function() {
+        this.fillChartData () ;
+      }
   },
   methods: {
+        view_pardavimai () {
+      //console.log(viewPardavimai);
+      let  i;
+
+      let sk = this.buy.length
+      for (i = 0; i < sk; i++) {
+        this.pardavimai.push(this.buy[i]['kiekis'])
+        this.label.push(this.buy[i]['data'])
+        
+      }
+      let skLT = this.buyLT.length
+      for (i = 0; i < skLT; i++) {
+        this.pardavimaiLT.push(this.buyLT[i]['kiekis'])
+      }
+      let skLV = this.buyLV.length
+      for (i = 0; i < skLV; i++) {
+        this.pardavimaiLV.push(this.buyLV[i]['kiekis'])
+      }
+    },
       getData () {
       this.isLoading = true
       this.axios
@@ -163,7 +213,10 @@ export default {
         this.duomenys = response.data.likutis;
         this.duomenys2 = response.data.likutis2;
         this.duomenys3 = response.data.likutis3;
-        //this.sk = response.data.sk;
+        this.buy = response.data.buy['viso'];
+        this.buyLT = response.data.buy['LT'];
+        this.buyLV = response.data.buy['LV'];
+
       })
       .catch( err => {
             this.isLoading = false
@@ -174,6 +227,67 @@ export default {
             })
           })
     },
+        fillChartData () {
+          this.view_pardavimai ();
+      this.defaultChart.chartData = {
+        datasets: [
+          //viso
+          {
+            label: 'VISO',
+            fill: false,
+            borderColor: chartConfig.chartColors.default.info,
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: chartConfig.chartColors.default.info,
+            pointBorderColor: 'rgba(255,255,255,0)',
+            pointHoverBackgroundColor: chartConfig.chartColors.default.info,
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 4,
+            data: this.pardavimai
+          },
+          //LT
+          {
+            label: 'LT',
+            //type: 'bar',
+            fill: false,
+            borderColor: chartConfig.chartColors.default.lietuva,
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: chartConfig.chartColors.default.lietuva,
+            pointBorderColor: 'rgba(255,255,255,0)',
+            pointHoverBackgroundColor: chartConfig.chartColors.default.lietuva,
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 4,
+            data: this.pardavimaiLT
+          },
+          //LV
+          {
+            label: 'LV',
+            //type: 'bar',
+            fill: false,
+            borderColor: chartConfig.chartColors.default.latvija,
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: chartConfig.chartColors.default.latvija,
+            pointBorderColor: 'rgba(255,255,255,0)',
+            pointHoverBackgroundColor: chartConfig.chartColors.default.latvija,
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 4,
+            data: this.pardavimaiLV
+          }
+        ],
+        labels: this.label
+      }
+    }
   }
 }
 </script>

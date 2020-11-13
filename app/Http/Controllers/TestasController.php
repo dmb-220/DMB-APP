@@ -19,12 +19,56 @@ class TestasController extends Controller
      */
     public function index()
     {
+
+        function createDateRangeArray($strDateFrom,$strDateTo)
+            {
+                // takes two dates formatted as YYYY-MM-DD and creates an
+                // inclusive array of the dates between the from and to dates.
+
+                // could test validity of dates here but I'm already doing
+                // that in the main script
+
+                $aryRange = [];
+
+                $iDateFrom=mktime(1,0,0,substr($strDateFrom,5,2),     substr($strDateFrom,8,2),substr($strDateFrom,0,4));
+                $iDateTo=mktime(1,0,0,substr($strDateTo,5,2),     substr($strDateTo,8,2),substr($strDateTo,0,4));
+
+                if ($iDateTo>=$iDateFrom)
+                {
+                    //array_push($aryRange,date('Y-m-d',$iDateFrom)); // first entry
+                    $aryRange[date('Y-m-d',$iDateFrom)]['data'] = date('Y-m-d',$iDateFrom);
+                    $aryRange[date('Y-m-d',$iDateFrom)]['kiekis'] = 0;
+                    //$aryRange[date('Y-m-d',$iDateFrom)]['sandelis'] = array();
+                    while ($iDateFrom<$iDateTo)
+                    {
+                        $iDateFrom+=86400; // add 24 hours
+                        //array_push($aryRange,date('Y-m-d',$iDateFrom));
+                        $aryRange[date('Y-m-d',$iDateFrom)]['data'] = date('Y-m-d',$iDateFrom);
+                        $aryRange[date('Y-m-d',$iDateFrom)]['kiekis'] = 0;
+                    //$aryRange[date('Y-m-d',$iDateFrom)]['sandelis'] = array();
+                    }
+                }
+                return $aryRange;
+            }
+
+            $failas = "data.txt";
+            $directory  = "app/";
+            $failas = $directory.$failas;
+    
+            $myfile = fopen(storage_path($failas), "r");
+            $key = fread($myfile,filesize(storage_path($failas)));
+            fclose($myfile);
+    
+            $key = explode("|||", $key);
+            $dt = explode(" --- ", $key[0]);
+
+
         $LT = array("MINS", "TELS", "MADA", "MARI", "MOLA", "NORF", "BIGA", "BABI", "UKME", "MANT", "VISA", "KEDA","AREN", "MAXI", "PANE", "KREV", "MAZE", "TAIK", "SAUL", "TAUB");
-        $LV = array("DOLE", "KULD", "BRIV", "DITO", "MATI", /*"OGRE",*/ "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO");
+        $LV = array("DOLE", "KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO");
         $EE = array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera","Eden", "Haapsalu", "Kopli", "Parnu", "Riia Parnu");
     
         //LIETUVA
-        $likutis = Likutis::where('salis', '1')->whereIn('sandelis', $LT)->select('pavadinimas','kiekis')->get();
+        /*$likutis = Likutis::where('salis', '1')->whereIn('sandelis', $LT)->select('pavadinimas','kiekis')->get();
         $pardavimai = Pardavimai::where('salis', '1')->whereIn('sandelis', $LT)->select('pavadinimas','kiekis', 'registras')->get();
 
         $grouped = array();
@@ -114,7 +158,66 @@ class TestasController extends Controller
     $grouped = array_values($grouped);
     $grouped2 = array_values($grouped2);
     $grouped3 = array_values($grouped3);
+*/
 
+    //diagrama CHART
+    $query_p = Pardavimai::query();
+    $query_p->whereIn('registras',['GAM', 'PIRK']);
+    $query_p->whereIn('sandelis', array_merge($LT, $LV, $EE));
+    $res = $query_p->get();
+
+    
+        //skeliam duomenis pagal data ir pardavimus
+        $buy = array();
+        $valstybe = "";
+        $bu = createDateRangeArray($dt[0], $dt[1]);
+        $buy['LT'] = $bu;
+        $buy['LV'] = $bu;
+        $buy['viso'] = $bu;
+        foreach ( $res as $va ) {
+            if($va['dok_data'] != "2020-01-01"){
+                if($va['salis'] == 1){$valstybe = "LT";}
+                if($va['salis'] == 2){$valstybe = "LV";}
+                if($va['salis'] == 3){$valstybe = "EE";}
+
+                $buy[$valstybe][$va['dok_data']]['data'] = $va['dok_data']; 
+                //$buy[$id][$valstybe][$va['dok_data']]['sandelis'][] = $va['sandelis']; 
+
+                if(array_key_exists('kiekis', $buy[$valstybe][$va['dok_data']])){
+                    $buy[$valstybe][$va['dok_data']]['kiekis'] += $va['kiekis'];
+                }else{
+                    $buy[$valstybe][$va['dok_data']]['kiekis'] = $va['kiekis'];
+                }
+                //VISO
+                $buy['viso'][$va['dok_data']]['data'] = $va['dok_data']; 
+                //$buy[$id]['viso'][$va['dok_data']]['sandelis'][] = $va['sandelis']; 
+
+                if(array_key_exists('kiekis', $buy['viso'][$va['dok_data']])){
+                    $buy['viso'][$va['dok_data']]['kiekis'] += $va['kiekis'];
+                }else{
+                    $buy['viso'][$va['dok_data']]['kiekis'] = $va['kiekis'];
+                }
+            }
+        }
+
+        if(array_key_exists('viso', $buy)){
+            ksort($buy['viso']);  
+            $buy['viso'] = array_values($buy['viso']);
+    }
+
+        if(array_key_exists('LT', $buy)){
+                ksort($buy['LT']);  
+                $buy['LT'] = array_values($buy['LT']);
+        }
+        
+        if(array_key_exists('LV', $buy)){
+                ksort($buy['LV']);  
+                $buy['LV'] = array_values($buy['LV']);
+        }
+
+$grouped = array();
+$grouped2 = array();
+$grouped3 = array();
         return response()->json([
             'data' => array(
                 'pardavimai' => $key[0], 
@@ -123,8 +226,21 @@ class TestasController extends Controller
             'likutis' => $grouped,
             'likutis2' => $grouped2,
             'likutis3' => $grouped3,
+            'buy' => $buy
         ]);
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function idx(){
         function tofloat($num) {

@@ -173,8 +173,7 @@ __webpack_require__.r(__webpack_exports__);
       this.isModalActive = newValue;
     },
     isModalActive: function isModalActive(newValue) {
-      if (!newValue) {
-        this.cancel();
+      if (!newValue) {//this.cancel()
       }
     }
   }
@@ -299,6 +298,7 @@ __webpack_require__.r(__webpack_exports__);
         }, //LT
         {
           label: 'LT',
+          //type: 'bar',
           fill: false,
           borderColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].lietuva,
           borderWidth: 2,
@@ -315,6 +315,7 @@ __webpack_require__.r(__webpack_exports__);
         }, //LV
         {
           label: 'LV',
+          //type: 'bar',
           fill: false,
           borderColor: _components_Charts_chart_config__WEBPACK_IMPORTED_MODULE_1__["chartColors"]["default"].latvija,
           borderWidth: 2,
@@ -972,6 +973,103 @@ __webpack_require__.r(__webpack_exports__);
     }
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseMap.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_baseMap.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseEach = __webpack_require__(/*! ./_baseEach */ "./node_modules/lodash/_baseEach.js"),
+    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js");
+
+/**
+ * The base implementation of `_.map` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ */
+function baseMap(collection, iteratee) {
+  var index = -1,
+      result = isArrayLike(collection) ? Array(collection.length) : [];
+
+  baseEach(collection, function(value, key, collection) {
+    result[++index] = iteratee(value, key, collection);
+  });
+  return result;
+}
+
+module.exports = baseMap;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/map.js":
+/*!************************************!*\
+  !*** ./node_modules/lodash/map.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayMap = __webpack_require__(/*! ./_arrayMap */ "./node_modules/lodash/_arrayMap.js"),
+    baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js"),
+    baseMap = __webpack_require__(/*! ./_baseMap */ "./node_modules/lodash/_baseMap.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js");
+
+/**
+ * Creates an array of values by running each element in `collection` thru
+ * `iteratee`. The iteratee is invoked with three arguments:
+ * (value, index|key, collection).
+ *
+ * Many lodash methods are guarded to work as iteratees for methods like
+ * `_.every`, `_.filter`, `_.map`, `_.mapValues`, `_.reject`, and `_.some`.
+ *
+ * The guarded methods are:
+ * `ary`, `chunk`, `curry`, `curryRight`, `drop`, `dropRight`, `every`,
+ * `fill`, `invert`, `parseInt`, `random`, `range`, `rangeRight`, `repeat`,
+ * `sampleSize`, `slice`, `some`, `sortBy`, `split`, `take`, `takeRight`,
+ * `template`, `trim`, `trimEnd`, `trimStart`, and `words`
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Collection
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ * @example
+ *
+ * function square(n) {
+ *   return n * n;
+ * }
+ *
+ * _.map([4, 8], square);
+ * // => [16, 64]
+ *
+ * _.map({ 'a': 4, 'b': 8 }, square);
+ * // => [16, 64] (iteration order is not guaranteed)
+ *
+ * var users = [
+ *   { 'user': 'barney' },
+ *   { 'user': 'fred' }
+ * ];
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.map(users, 'user');
+ * // => ['barney', 'fred']
+ */
+function map(collection, iteratee) {
+  var func = isArray(collection) ? arrayMap : baseMap;
+  return func(collection, baseIteratee(iteratee, 3));
+}
+
+module.exports = map;
+
 
 /***/ }),
 
@@ -2877,121 +2975,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardToolbar_vue_vue_type_template_id_46e0f3b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
-
-/***/ }),
-
-/***/ "./resources/js/components/Charts/LineChart.js":
-/*!*****************************************************!*\
-  !*** ./resources/js/components/Charts/LineChart.js ***!
-  \*****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'line-chart',
-  "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Line"],
-  mixins: [vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["mixins"].reactiveProp],
-  props: {
-    extraOptions: Object
-  },
-  data: function data() {
-    return {
-      ctx: null
-    };
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.$watch('chartData', function (newVal, oldVal) {
-      if (!oldVal) {
-        _this.renderChart(_this.chartData, _this.extraOptions);
-      }
-    }, {
-      immediate: true
-    });
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/components/Charts/chart.config.js":
-/*!********************************************************!*\
-  !*** ./resources/js/components/Charts/chart.config.js ***!
-  \********************************************************/
-/*! exports provided: chartColors, baseChartOptions, chartOptionsMain */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "chartColors", function() { return chartColors; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "baseChartOptions", function() { return baseChartOptions; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "chartOptionsMain", function() { return chartOptionsMain; });
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var chartColors = {
-  "default": {
-    primary: '#00D1B2',
-    info: '#209CEE',
-    danger: '#FF3860',
-    lietuva: '#5b9600',
-    latvija: 'GoldenRod',
-    estija: 'tomato',
-    viso: 'black'
-  }
-};
-var baseChartOptions = {
-  maintainAspectRatio: false,
-  legend: {
-    display: true
-  },
-  responsive: true
-};
-var chartOptionsMain = _objectSpread(_objectSpread({}, baseChartOptions), {}, {
-  tooltips: {
-    backgroundColor: '#f5f5f5',
-    titleFontColor: '#333',
-    bodyFontColor: '#666',
-    bodySpacing: 4,
-    xPadding: 12,
-    mode: 'nearest',
-    intersect: 0,
-    position: 'nearest'
-  },
-  scales: {
-    yAxes: [{
-      barPercentage: 1.6,
-      gridLines: {
-        drawBorder: false,
-        color: 'rgba(29,140,248,0.0)',
-        zeroLineColor: 'transparent'
-      },
-      ticks: {
-        padding: 20,
-        fontColor: '#9a9a9a'
-      }
-    }],
-    xAxes: [{
-      barPercentage: 1.6,
-      gridLines: {
-        drawBorder: false,
-        color: 'rgba(225,78,202,0.1)',
-        zeroLineColor: 'transparent'
-      },
-      ticks: {
-        padding: 20,
-        fontColor: '#9a9a9a'
-      }
-    }]
-  }
-});
 
 /***/ }),
 

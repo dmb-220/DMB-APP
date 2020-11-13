@@ -94,6 +94,47 @@ class StatistikaController extends Controller
             "Lietpaltis" => "Mētelis",
         ); 
 
+        function createDateRangeArray($strDateFrom,$strDateTo)
+            {
+                // takes two dates formatted as YYYY-MM-DD and creates an
+                // inclusive array of the dates between the from and to dates.
+
+                // could test validity of dates here but I'm already doing
+                // that in the main script
+
+                $aryRange = [];
+
+                $iDateFrom=mktime(1,0,0,substr($strDateFrom,5,2),     substr($strDateFrom,8,2),substr($strDateFrom,0,4));
+                $iDateTo=mktime(1,0,0,substr($strDateTo,5,2),     substr($strDateTo,8,2),substr($strDateTo,0,4));
+
+                if ($iDateTo>=$iDateFrom)
+                {
+                    //array_push($aryRange,date('Y-m-d',$iDateFrom)); // first entry
+                    $aryRange[date('Y-m-d',$iDateFrom)]['data'] = date('Y-m-d',$iDateFrom);
+                    $aryRange[date('Y-m-d',$iDateFrom)]['kiekis'] = 0;
+                    while ($iDateFrom<$iDateTo)
+                    {
+                        $iDateFrom+=86400; // add 24 hours
+                        //array_push($aryRange,date('Y-m-d',$iDateFrom));
+                        $aryRange[date('Y-m-d',$iDateFrom)]['data'] = date('Y-m-d',$iDateFrom);
+                        $aryRange[date('Y-m-d',$iDateFrom)]['kiekis'] = 0;
+                    }
+                }
+                return $aryRange;
+            }
+
+        //pasiimam datas pardavimo ribu
+        $failas = "data.txt";
+        $directory  = "app/";
+        $failas = $directory.$failas;
+
+        $myfile = fopen(storage_path($failas), "r");
+        $ke = fread($myfile,filesize(storage_path($failas)));
+        fclose($myfile);
+
+        $ke = explode("|||", $ke);
+        $dt = explode(" --- ", $ke[0]);
+
 
         $failas = "paieska.txt";
         $directory  = "app/";
@@ -273,6 +314,31 @@ class StatistikaController extends Controller
             }
         }
 
+        //skeliam duomenis pagal data ir pardavimus
+        $buy = array();
+        $valstybe = "";
+        $bu = createDateRangeArray($dt[0], $dt[1]);
+        foreach ( $pard as $id => $val ) {
+            $buy[$id]['sandelis'] = $id;
+            $buy[$id]['viso'] = $bu;
+            foreach($val as $va){
+                if($va['dok_data'] != "2020-01-01" || $va['kiekis'] < 0){
+                    //VISO
+                    $buy[$id]['viso'][$va['dok_data']]['data'] = $va['dok_data']; 
+
+                    if(array_key_exists('kiekis', $buy[$id]['viso'][$va['dok_data']])){
+                        $buy[$id]['viso'][$va['dok_data']]['kiekis'] += $va['kiekis'];
+                    }else{
+                        $buy[$id]['viso'][$va['dok_data']]['kiekis'] = $va['kiekis'];
+                    }
+                }
+            }
+            if(array_key_exists('viso', $buy[$id])){
+                ksort($buy[$id]['viso']);  
+                $buy[$id]['viso'] = array_values($buy[$id]['viso']);
+        }
+        }
+
         $lt_viso = 0;
         $lv_viso = 0;
         $ee_viso = 0;
@@ -348,6 +414,9 @@ class StatistikaController extends Controller
             if (array_key_exists($valu, $list)) {
                 $new[$i]['list'] = $list[$valu];
             }
+            if (array_key_exists($valu, $buy)) {
+                $new[$i]['buy'] = $buy[$valu];
+            }
             $i++;
         }
 
@@ -386,7 +455,7 @@ class StatistikaController extends Controller
             'grupes' => $grupes,
             'grupes_lv' => $sara,
             'grupe' => $grupe,
-            //'parduotuves' => $sarasas
+            'buy' => $buy
         ]);
     }
 

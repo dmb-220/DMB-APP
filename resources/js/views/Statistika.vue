@@ -1,5 +1,13 @@
 <template>
     <section class="section is-main-section">
+
+      <modal-statistika-box  
+        :is-active="isModalView" 
+        :view-subject="viewObjectName" 
+        :view-pardavimai="viewName"
+        :view-label="labelName" 
+        @confirm="viewConfirm"/>
+
       <card-component title="VALDYMAS" icon="finance">
         <b-field position="is-centered">
             <b-input placeholder="Paieška..."
@@ -80,6 +88,12 @@
             <b-table-column label="Viso" field="viso" sortable>
               <b>{{ props.row.viso }}</b>
             </b-table-column>
+            <b-table-column width="50px" :style="{'background-color': 'WhiteSmoke'}"  label="INFO"  field="info">
+                   <button v-if="!Array.isArray(props.row.buy)" class="button is-small is-danger" type="button" 
+            @click.prevent="viewModal_pardavimai(props.row.buy && props.row.buy.sandelis, props.row.buy && props.row.buy.viso)">
+                <b-icon icon="chart-bar" size="is-small"/>
+              </button>
+            </b-table-column>
           </template>  
 
           <template slot="detail" slot-scope="props">
@@ -143,9 +157,11 @@
 
 <script>
 import CardComponent from '@/components/CardComponent'
+import ModalStatistikaBox from '@/components/ModalStatistikaBox'
+
 export default {
   name: 'statistika',
-  components: { CardComponent },
+  components: { CardComponent, ModalStatistikaBox },
   data () {
     return {
      isLoading: false,
@@ -170,9 +186,32 @@ export default {
      grupes: [],
       grupes_lv: [],
       grupe: '',
+
+      isModalView: false,
+    viewObject: null,
+    viewPardavimai: null,
+    viewLabel: null,
     }
   },
   computed: {
+    viewObjectName () {
+      if (this.viewObject) {
+        return this.viewObject
+      }
+      return null
+    },  
+    viewName () {
+      if (this.viewPardavimai) {
+        return this.viewPardavimai
+      }
+      return null
+    },
+    labelName () {
+      if (this.viewLabel) {
+        return this.viewLabel
+      }
+      return null
+    },
   },
   created() {
     this.getData()
@@ -303,6 +342,33 @@ export default {
               queue: false
             })
           })
+    },
+
+    viewModal_pardavimai (viewObject, viewPard) {
+      //console.log(viewPardavimai);
+      let pardavimai = [];
+
+      let label = []
+      let  i;
+
+      let sk = viewPard.length
+      for (i = 0; i < sk; i++) {
+        pardavimai.push(viewPard[i]['kiekis'])
+        label.push(viewPard[i]['data'])  
+      }
+
+      this.viewObject = viewObject
+      this.viewPardavimai = pardavimai
+      this.viewLabel = label
+      this.isModalView = true
+      //this.$emit('update');
+    },
+
+    viewConfirm () {
+      this.isModalView = false
+    },
+    viewCancel () {
+      this.isModalView = false
     },
   }
 }

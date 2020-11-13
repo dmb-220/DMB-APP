@@ -272,7 +272,7 @@ class PrekesController extends Controller
             $buy[$id]['LV'] = $bu;
             $buy[$id]['viso'] = $bu;
             foreach($val as $va){
-                if($va['dok_data'] != "0000-00-00"){
+                if($va['dok_data'] != "2020-01-01"){
                     if($va['salis'] == 1){$valstybe = "LT";}
                     if($va['salis'] == 2){$valstybe = "LV";}
                     if($va['salis'] == 3){$valstybe = "EE";}

@@ -187,7 +187,11 @@ class CSVController extends Controller
                             'suma' => 0,
                             'grupes_pavadinimas' => 0,
                             'registras' => $reg,
-                            'salis' => $valstybe
+                            'salis' => $valstybe,
+                            'dok_nr' => " ",
+                        'dok_data' => "2020-01-01",
+                        'blanko_nr' => " ",
+                        'pirkejas' => " ",
                         ];                     
                     }
                     fclose($handle);
