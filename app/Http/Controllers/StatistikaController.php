@@ -25,7 +25,7 @@ class StatistikaController extends Controller
 
          //$store = array(
             $LT = array("MINS", "TELS", "MADA", "MARI", "MOLA", "NORF", "BIGA", "BABI", "UKME", "MANT", "VISA", "KEDA","AREN", "MAXI", "PANE", "MAZE", "TAIK", "SAUL", "TAUB");
-            $LV = array("DOLE", "KULD", "BRIV", "DITO", "MATI", "VALK", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "SIGU", "MADO");
+            $LV = array("DOLE", "KULD", "BRIV", "DITO", "MATI", "VALK", "TAL2", "TUKU", "VALD", "VENT", "LIEP", "AIZK", "DAUG", "LIMB", "MELN", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "SIGU", "MADO", "OGRE");
             $EE = array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera","Eden", "Haapsalu", "Kopli", "Parnu", "Riia Parnu");
         //);
 
@@ -258,30 +258,22 @@ class StatistikaController extends Controller
                // $ke = explode("-", $val['preke']);
                 //$k = str_split($ke[1]);
                 //if($k[0] != 9 ){
+                $group[$idx][] = $val;
                 if($key[1] && $val['salis'] == 1){
-                    $group[$idx][] = $val;
                     $lt_viso = $lt_viso + $val['kiekis'];
                     $gr[$idx]['likutis'] = $lt_viso;
-
-                    $list[$idx][$val['preke']]['likutis'] = $val['kiekis'];
-                    $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
                 if($key[2] && $val['salis'] == 2){
-                    $group[$idx][] = $val;
                     $lv_viso = $lv_viso + $val['kiekis'];
                     $gr[$idx]['likutis'] = $lv_viso;
-
-                    $list[$idx][$val['preke']]['likutis'] = $val['kiekis'];
-                    $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
                 if($key[3] && $val['salis'] == 3){
-                    $group[$idx][] = $val;
                     $ee_viso = $ee_viso + $val['kiekis'];
                     $gr[$idx]['likutis'] = $ee_viso;
-
-                    $list[$idx][$val['preke']]['likutis'] = $val['kiekis'];
-                    $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
+
+                $list[$idx][$val['preke']]['likutis'] = $val['kiekis'];
+                $list[$idx][$val['preke']]['preke'] = $val['preke'];
             //}//
             }
 
@@ -348,32 +340,39 @@ class StatistikaController extends Controller
                 //$ke = explode("-", $val['preke']);
                 //$k = str_split($ke[1]);
                 //if($k[0] != 9 ){
+                $pardavimai[$idx][] = $val;
                 if($key[1] && $val['salis'] == 1){
-                    $pardavimai[$idx][] = $val;
                     $lt_viso = $lt_viso + $val['kiekis'];
                     $par[$idx]['pardavimai'] = $lt_viso;
-
-                    $list[$idx][$val['preke']]['pardavimai'] = $val['kiekis'];
-                    $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
                 if($key[2] && $val['salis'] == 2){
-                    $pardavimai[$idx][] = $val;
                     $lv_viso = $lv_viso + $val['kiekis'];
-                    $par[$idx]['pardavimai'] = $lv_viso;
-
+                    $par[$idx]['pardavimai'] = $lv_viso;   
+                }
+                if($key[3] && $val['salis'] == 3){
+                    $ee_viso = $ee_viso + $val['kiekis'];
+                    $par[$idx]['pardavimai'] = $ee_viso;
+            }
+            //uzkeliam parduotas prekes i statistikos skilti
+            //tikrinam ar sandelis turi likuciu, jei buvo pardavimai itraukiami
+            if(array_key_exists($idx, $list)){
+                //ar preke egzituoja
+                if(array_key_exists($val['preke'], $list[$idx])){
+                    //jei jau kiekis yra, pridadam dar
+                    if(array_key_exists('pardavimai', $list[$idx][$val['preke']])){
+                        $list[$idx][$val['preke']]['pardavimai'] += $val['kiekis'];
+                    }else{
+                        $list[$idx][$val['preke']]['pardavimai'] = $val['kiekis'];
+                    }
+                }else{
                     $list[$idx][$val['preke']]['pardavimai'] = $val['kiekis'];
                     $list[$idx][$val['preke']]['preke'] = $val['preke'];
                 }
-                if($key[3] && $val['salis'] == 3){
-                    $pardavimai[$idx][] = $val;
-                    $ee_viso = $ee_viso + $val['kiekis'];
-                    $par[$idx]['pardavimai'] = $ee_viso;
-
-                    $list[$idx][$val['preke']]['pardavimai'] = $val['kiekis'];
-                    $list[$idx][$val['preke']]['preke'] = $val['preke'];
+            }else{
+                $list[$idx][$val['preke']]['pardavimai'] = $val['kiekis'];
+                $list[$idx][$val['preke']]['preke'] = $val['preke'];
             }
         //}//
-
         }
 
             $lt_viso = 0;
@@ -433,14 +432,7 @@ class StatistikaController extends Controller
         }
 
         $arr = array("LT" => $key[1], "LV" => $key[2], "EE" => $key[3]);
-        /*$store = array(
-            "LT" => array("MINS", "TELS", "MADA", "MARI", "UKME", "MOLA", "NORF", "BIGA", "BABI", "UTEN", "MANT", "VISA", "KEDA",
-                "AREN", "MAXI", "PANE", "KREV", "MAZE", "TAIK", "SAUL", "TAUB"),
-            "LV" => array("KULD", "BRIV", "DITO", "MATI", "OGRE", "TAL2", "TUKU", "VALD", "VENT", "AIZK", "DAUG", "LIMB", "MELN",
-            "PRUS", "SALD", "VALM",  "ALUK", "BALV", "CESI", "DOBE", "GOBA", "JEKA", "LIEP", "SIGU", "MADO"),
-            "EE" => array("Johvi", "Mustamäe", "Narva", "Rakvere", "Sopruse", "Võru 55 Tartu", "Ümera",
-            "Eden", "Haapsalu", "Kohtla Järve", "Kopli", "Parnu", "Riia Parnu"),
-        );*/
+
         return response()->json([
             'status' => true,
             'paieska' => $keyword,
