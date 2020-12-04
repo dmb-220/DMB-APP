@@ -2130,19 +2130,30 @@ __webpack_require__.r(__webpack_exports__);
         to: '/perkelimai',
         label: 'Perkėlimai',
         icon: 'bus'
-      }], 'VEIKSMAI', [{
-        to: '/csv_sarasas',
-        label: 'CSV failų įkėlimas',
-        icon: 'view-list'
       }, {
-        to: '/generuoti',
-        label: 'Generuoti duomenis',
-        icon: 'calculator'
-      }, {
-        to: '/admin',
-        label: 'Administravimas',
-        icon: 'bullhorn'
-      }]];
+        to: '/inte',
+        label: 'Internetinė',
+        icon: 'bus'
+      }]
+      /*'VEIKSMAI',
+      [
+        {
+          to: '/csv_sarasas',
+          label: 'CSV failų įkėlimas',
+          icon: 'view-list'
+        },
+        {
+          to: '/generuoti',
+          label: 'Generuoti duomenis',
+          icon: 'calculator',
+        },
+        {
+          to: '/admin',
+          label: 'Administravimas',
+          icon: 'bullhorn',
+        },
+      ]*/
+      ];
     }
   },
   created: function created() {}
@@ -2479,6 +2490,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -57519,8 +57532,8 @@ var render = function() {
     [
       _c("aside-tools", { attrs: { "is-main-menu": true } }, [
         _c("span", { attrs: { slot: "label" }, slot: "label" }, [
-          _c("b", [_vm._v("DMB-220")]),
-          _vm._v(" APP'S\n    ")
+          _c("b", [_vm._v("SIDONAS")]),
+          _vm._v(" ir KO\n    ")
         ])
       ]),
       _vm._v(" "),
@@ -57811,7 +57824,7 @@ var render = function() {
               _vm._v(
                 "\n          © " +
                   _vm._s(_vm.year) +
-                  ", DMB-220 APP's\n        "
+                  ", SIDONAS ir KO\n        "
               )
             ])
           ]),
@@ -57917,79 +57930,89 @@ var render = function() {
           class: { "is-active": _vm.isMenuNavBarActive }
         },
         [
-          _c("div", { staticClass: "navbar-end" }, [
-            _c("div", { staticClass: "navbar-item is-desktop-icon-only" }, [
-              _vm._v("\n        DMB-220\n      ")
-            ]),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "navbar-item is-desktop-icon-only",
-                attrs: { title: "Profilis" },
-                on: { click: _vm.logout }
-              },
-              [
-                _c("b-icon", {
-                  attrs: { icon: "account-edit", "custom-size": "default" }
-                }),
-                _vm._v(" "),
-                _c("span", [_vm._v("Profilis")])
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "navbar-item is-desktop-icon-only",
-                attrs: { title: "Nustatymai" },
-                on: { click: _vm.logout }
-              },
-              [
-                _c("b-icon", {
-                  attrs: { icon: "settings", "custom-size": "default" }
-                }),
-                _vm._v(" "),
-                _c("span", [_vm._v("Nustatymai")])
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "navbar-item is-desktop-icon-only",
-                attrs: { title: "Pranešimai" },
-                on: { click: _vm.logout }
-              },
-              [
-                _c("b-icon", {
-                  attrs: { icon: "email", "custom-size": "default" }
-                }),
-                _vm._v(" "),
-                _c("span", [_vm._v("Pranešimai")])
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "navbar-item is-desktop-icon-only",
-                attrs: { title: "Atsijungti" },
-                on: { click: _vm.logout }
-              },
-              [
-                _c("b-icon", {
-                  attrs: { icon: "logout", "custom-size": "default" }
-                }),
-                _vm._v(" "),
-                _c("span", [_vm._v("Atsijungti")])
-              ],
-              1
-            )
-          ])
+          _c(
+            "div",
+            { staticClass: "navbar-end" },
+            [
+              _c("div", { staticClass: "navbar-item is-desktop-icon-only" }, [
+                _vm._v("\n        SIDONAS\n      ")
+              ]),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "navbar-item is-desktop-icon-only",
+                  attrs: {
+                    tag: "a",
+                    to: "/csv_sarasas",
+                    title: "CSV failų įkėlimas"
+                  }
+                },
+                [
+                  _c("b-icon", {
+                    attrs: { icon: "view-list", "custom-size": "default" }
+                  }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("CSV failų įkėlimas")])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "navbar-item is-desktop-icon-only",
+                  attrs: {
+                    tag: "a",
+                    to: "/generuoti",
+                    title: "Generuoti duomenis"
+                  }
+                },
+                [
+                  _c("b-icon", {
+                    attrs: { icon: "calculator", "custom-size": "default" }
+                  }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Generuoti duomenis")])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "navbar-item is-desktop-icon-only",
+                  attrs: { tag: "a", to: "/admin", title: "Administravimas" }
+                },
+                [
+                  _c("b-icon", {
+                    attrs: { icon: "bullhorn", "custom-size": "default" }
+                  }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Administravimas")])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "navbar-item is-desktop-icon-only",
+                  attrs: { title: "Atsijungti" },
+                  on: { click: _vm.logout }
+                },
+                [
+                  _c("b-icon", {
+                    attrs: { icon: "logout", "custom-size": "default" }
+                  }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Atsijungti")])
+                ],
+                1
+              )
+            ],
+            1
+          )
         ]
       )
     ]
@@ -76114,13 +76137,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/likuciai',
     name: 'Likuciai',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ./views/Likuciai.vue */ "./resources/js/views/Likuciai.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, /*! ./views/Likuciai.vue */ "./resources/js/views/Likuciai.vue"));
     }
   }, {
     path: '/pardavimai',
     name: 'Pardavimai',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, /*! ./views/Pardavimai.vue */ "./resources/js/views/Pardavimai.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, /*! ./views/Pardavimai.vue */ "./resources/js/views/Pardavimai.vue"));
     }
   }, {
     path: '/CSV_sarasas',
@@ -76138,19 +76161,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/sandeliai',
     name: 'sandeliai',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, /*! ./views/Sandeliai.vue */ "./resources/js/views/Sandeliai.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(15)]).then(__webpack_require__.bind(null, /*! ./views/Sandeliai.vue */ "./resources/js/views/Sandeliai.vue"));
     }
   }, {
     path: '/vaztarasciai',
     name: 'vaztarasciai',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ./views/Vaztarasciai.vue */ "./resources/js/views/Vaztarasciai.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, /*! ./views/Vaztarasciai.vue */ "./resources/js/views/Vaztarasciai.vue"));
     }
   }, {
     path: '/kelione',
     name: 'kelione',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, /*! ./views/Keliones.vue */ "./resources/js/views/Keliones.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, /*! ./views/Keliones.vue */ "./resources/js/views/Keliones.vue"));
     }
   }, {
     path: '/akcijos',
@@ -76168,31 +76191,37 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/perkelimai',
     name: 'perkelimai',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, /*! ./views/Perkelimai.vue */ "./resources/js/views/Perkelimai.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ./views/Perkelimai.vue */ "./resources/js/views/Perkelimai.vue"));
     }
   }, {
     path: '/generuoti',
     name: 'generuoti',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(18), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./views/Generuoti.vue */ "./resources/js/views/Generuoti.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(19), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./views/Generuoti.vue */ "./resources/js/views/Generuoti.vue"));
     }
   }, {
     path: '/admin',
     name: 'admin',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, /*! ./views/Admin/Admin.vue */ "./resources/js/views/Admin/Admin.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, /*! ./views/Admin/Admin.vue */ "./resources/js/views/Admin/Admin.vue"));
     }
   }, {
     path: '/uzsakymai',
     name: 'uzsakymai',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(17), __webpack_require__.e(16)]).then(__webpack_require__.bind(null, /*! ./views/Uzsakymai.vue */ "./resources/js/views/Uzsakymai.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(18), __webpack_require__.e(17)]).then(__webpack_require__.bind(null, /*! ./views/Uzsakymai.vue */ "./resources/js/views/Uzsakymai.vue"));
     }
   }, {
     path: '/testas',
     name: 'testas',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(15)]).then(__webpack_require__.bind(null, /*! ./views/Testas.vue */ "./resources/js/views/Testas.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(16)]).then(__webpack_require__.bind(null, /*! ./views/Testas.vue */ "./resources/js/views/Testas.vue"));
+    }
+  }, {
+    path: '/inte',
+    name: 'inte',
+    component: function component() {
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ./views/Inte.vue */ "./resources/js/views/Inte.vue"));
     }
   }],
   scrollBehavior: function scrollBehavior(to, from, savedPosition) {

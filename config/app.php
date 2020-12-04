@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'DMB-220 APPs'),
+    'name' => env('APP_NAME', 'SIDONAS ir KO APPS'),
 
     /*
     |--------------------------------------------------------------------------

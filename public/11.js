@@ -38,10 +38,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Vaztarasciai.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Vaztarasciai.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Perkelimai.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Perkelimai.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -51,19 +51,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_map__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_map__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_CardComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/CardComponent */ "./resources/js/components/CardComponent.vue");
 /* harmony import */ var _components_CardToolbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/CardToolbar */ "./resources/js/components/CardToolbar.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -200,41 +187,88 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      menesiai: ['Sausio', 'Vasario', 'Kovo', 'Balandžio', 'Gegužės', 'Birželio', 'Liepos', 'Rugpjūčio', 'Rugsėjo', 'Spalio', 'Lapkričio', 'Gruodžio'],
-      showDetailIcon: false,
+      color: ['is-one', 'is-two', 'is-three'],
+      isPaginated: true,
+      paginationPosition: 'bottom',
+      perPage: 100,
       isLoading: false,
       sarasas: [],
-      metai: '2020',
-      menesis: '',
-      papildomai: 0,
-      valstybe: '',
-      isvezta: true
+      grupes: [],
+      grupes_lv: [],
+      grupe: '',
+      ieskoti: '',
+      paieska: '',
+      sandeliai: '',
+      perkelti: '',
+      date: '',
+      salis: '',
+      rikiuoti: false,
+      gam: true,
+      pirk: true,
+      mobile_card: true,
+      paieska_big: false,
+      viso: []
     };
   },
-  computed: {},
+  computed: {
+    explode: function explode() {
+      return this.sandeliai.split("::");
+    }
+  },
   created: function created() {
     this.getData();
   },
   methods: {
+    onRowClass: function onRowClass(row, index) {
+      var i;
+
+      for (i = 0; i < this.explode.length; i++) {
+        if (row.sandelis.toUpperCase() == this.explode[i]) {
+          return this.color[i];
+        }
+      }
+    },
     print: function print() {
       // Pass the element id here
       this.mobile_card = false;
-      this.isvezta = false;
       this.$htmlToPaper('printMe');
     },
-    keisti_menesi: function keisti_menesi() {},
-    keisti_valstybe: function keisti_valstybe() {},
-    paieska_post: function paieska_post() {
+    change_gam: function change_gam() {
+      this.gam = !this.gam;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
+    },
+    change_pirk: function change_pirk() {
+      this.pirk = !this.pirk;
+      this.ieskoti = this.paieska;
+      this.paieska_post();
+    },
+    keisti_grupe: function keisti_grupe() {
+      if (!this.ieskoti) {
+        this.ieskoti = this.paieska;
+      }
+
+      this.paieska_post();
+    },
+    switch_post: function switch_post() {
       var _this = this;
 
-      axios.post("/vaztarasciai/store", {
-        menesis: this.menesis,
-        metai: this.metai,
-        papildomai: this.papildomai,
-        valstybe: this.valstybe
-      }).then(function (response) {
-        console.log(response.data.data);
+      //this.rikiuotic = !this.rikiuoti;
+      if (this.ieskoti == "") {
+        this.ieskoti = this.paieska;
+      }
 
+      axios.post("/perkelimai/store", {
+        ieskoti: this.ieskoti,
+        rikiuoti: this.rikiuoti,
+        gam: this.gam,
+        pirk: this.pirk,
+        paieska_big: this.paieska_big,
+        grupe: this.grupe,
+        sandeliai: this.sandeliai,
+        perkelti: this.perkelti,
+        date: this.date
+      }).then(function (response) {
         _this.getData();
       })["catch"](function (err) {
         _this.$buefy.toast.open({
@@ -244,21 +278,54 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    getData: function getData() {
+    paieska_post: function paieska_post() {
       var _this2 = this;
 
-      this.isLoading = true;
-      this.axios.get('/vaztarasciai').then(function (response) {
-        _this2.isLoading = false;
-        _this2.sarasas = response.data.sarasas;
-        _this2.metai = response.data.metai;
-        _this2.menesis = response.data.menesis;
-        _this2.papildomai = response.data.papildomai;
-        _this2.valstybe = response.data.valstybe;
-      })["catch"](function (err) {
-        _this2.isLoading = false;
+      axios.post("/perkelimai/store", {
+        ieskoti: this.ieskoti,
+        rikiuoti: "1",
+        gam: this.gam,
+        pirk: this.pirk,
+        paieska_big: this.paieska_big,
+        grupe: this.grupe,
+        sandeliai: this.sandeliai,
+        perkelti: this.perkelti,
+        date: this.date
+      }).then(function (response) {
+        console.log(response.data.data);
+        _this2.rikiuoti = false;
 
+        _this2.getData();
+      })["catch"](function (err) {
         _this2.$buefy.toast.open({
+          message: "Error: ".concat(err.message),
+          type: 'is-danger',
+          queue: false
+        });
+      });
+    },
+    getData: function getData() {
+      var _this3 = this;
+
+      this.isLoading = true;
+      this.axios.get('/perkelimai').then(function (response) {
+        _this3.isLoading = false;
+        _this3.sarasas = response.data.sold;
+        _this3.paieska = response.data.paieska;
+        _this3.sandeliai = response.data.sandeliai;
+        _this3.perkelti = response.data.perkelti;
+        _this3.date = response.data.date;
+        _this3.rikiuoti = response.data.rikiuoti ? false : true;
+        _this3.grupes = response.data.grupes;
+        _this3.grupes_lv = response.data.grupes_lv;
+        _this3.grupe = response.data.grupe;
+        _this3.gam = response.data.gam ? true : false;
+        _this3.pirk = response.data.pirk ? true : false;
+        _this3.paieska_big = response.data.paieska_big ? true : false;
+      })["catch"](function (err) {
+        _this3.isLoading = false;
+
+        _this3.$buefy.toast.open({
           message: "Error: ".concat(err.message),
           type: 'is-danger',
           queue: false
@@ -401,10 +468,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Vaztarasciai.vue?vue&type=template&id=96d05516&scoped=true&":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Vaztarasciai.vue?vue&type=template&id=96d05516&scoped=true& ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Perkelimai.vue?vue&type=template&id=7426afc0&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Perkelimai.vue?vue&type=template&id=7426afc0&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -427,53 +494,31 @@ var render = function() {
           [
             _c(
               "b-field",
-              { attrs: { label: "VALSTYBES:", horizontal: "" } },
-              [
-                _c(
-                  "b-select",
-                  {
-                    attrs: { placeholder: "Pasirinkite...", expanded: "" },
-                    nativeOn: {
-                      change: function($event) {
-                        return _vm.keisti_valstybe($event)
-                      }
-                    },
-                    model: {
-                      value: _vm.valstybe,
-                      callback: function($$v) {
-                        _vm.valstybe = $$v
-                      },
-                      expression: "valstybe"
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { value: "1" } }, [
-                      _vm._v("LIETUVA")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "2" } }, [
-                      _vm._v("LATVIJA")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "3" } }, [_vm._v("ESTIJA")])
-                  ]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-field",
-              { attrs: { label: "METAI:", horizontal: "" } },
+              { attrs: { label: "PAIEŠKA:", horizontal: "" } },
               [
                 _c("b-input", {
-                  attrs: { type: "text" },
+                  attrs: {
+                    placeholder: "Paieška...",
+                    type: "search",
+                    icon: "magnify"
+                  },
+                  nativeOn: {
+                    keyup: function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      return _vm.paieska_post($event)
+                    }
+                  },
                   model: {
-                    value: _vm.metai,
+                    value: _vm.ieskoti,
                     callback: function($$v) {
-                      _vm.metai = $$v
+                      _vm.ieskoti = $$v
                     },
-                    expression: "metai"
+                    expression: "ieskoti"
                   }
                 })
               ],
@@ -482,32 +527,62 @@ var render = function() {
             _vm._v(" "),
             _c(
               "b-field",
-              { attrs: { label: "MĖNESIS:", horizontal: "" } },
+              { attrs: { label: " ", horizontal: "" } },
+              [
+                _c(
+                  "b-checkbox",
+                  {
+                    attrs: { value: false, type: "is-info" },
+                    model: {
+                      value: _vm.paieska_big,
+                      callback: function($$v) {
+                        _vm.paieska_big = $$v
+                      },
+                      expression: "paieska_big"
+                    }
+                  },
+                  [_vm._v("Aktivuoti išplėstinę paieška")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "GRUPĖ:", horizontal: "" } },
               [
                 _c(
                   "b-select",
                   {
-                    attrs: { placeholder: "Pasirinkite...", expanded: "" },
+                    attrs: {
+                      placeholder: "Pasirinkite...",
+                      icon: "earth",
+                      expanded: ""
+                    },
                     nativeOn: {
                       change: function($event) {
-                        return _vm.keisti_menesi($event)
+                        return _vm.keisti_grupe($event)
                       }
                     },
                     model: {
-                      value: _vm.menesis,
+                      value: _vm.grupe,
                       callback: function($$v) {
-                        _vm.menesis = $$v
+                        _vm.grupe = $$v
                       },
-                      expression: "menesis"
+                      expression: "grupe"
                     }
                   },
-                  _vm._l(_vm.menesiai, function(men, index) {
+                  _vm._l(_vm.grupes, function(grup, index) {
                     return _c(
                       "option",
-                      { key: index, domProps: { value: index + 1 } },
+                      { key: index, domProps: { value: index } },
                       [
                         _vm._v(
-                          "\n              " + _vm._s(men) + "\n            "
+                          "\n              " +
+                            _vm._s(grup) +
+                            " - " +
+                            _vm._s(_vm.grupes_lv[grup]) +
+                            "\n            "
                         )
                       ]
                     )
@@ -520,33 +595,120 @@ var render = function() {
             _vm._v(" "),
             _c(
               "b-field",
-              { attrs: { label: "PAPIL. EILUTES:", horizontal: "" } },
+              { attrs: { label: "PERKELTI Į:", horizontal: "" } },
               [
                 _c("b-input", {
-                  attrs: { type: "number" },
+                  attrs: { type: "text" },
                   model: {
-                    value: _vm.papildomai,
+                    value: _vm.perkelti,
                     callback: function($$v) {
-                      _vm.papildomai = $$v
+                      _vm.perkelti = $$v
                     },
-                    expression: "papildomai"
+                    expression: "perkelti"
                   }
                 })
               ],
               1
             ),
             _vm._v(" "),
-            _c("b-field", { attrs: { label: " ", horizontal: "" } }, [
-              _c("p", { staticClass: "control" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "button is-sark",
-                    on: { click: _vm.paieska_post }
+            _c(
+              "b-field",
+              { attrs: { label: "SANDELIAI IŠ:", horizontal: "" } },
+              [
+                _c("b-input", {
+                  attrs: { type: "text" },
+                  nativeOn: {
+                    keyup: function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      return _vm.switch_post($event)
+                    }
                   },
-                  [_vm._v("Suformuoti")]
+                  model: {
+                    value: _vm.sandeliai,
+                    callback: function($$v) {
+                      _vm.sandeliai = $$v
+                    },
+                    expression: "sandeliai"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "PREKĖS:", horizontal: "" } },
+              [
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.pirk ? "is-info" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_pirk()
+                      }
+                    }
+                  },
+                  [_vm._v("GAMYBA")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-button",
+                  {
+                    attrs: { type: _vm.gam ? "is-info" : "is-dark" },
+                    on: {
+                      click: function($event) {
+                        return _vm.change_gam()
+                      }
+                    }
+                  },
+                  [_vm._v("PIRKIMAI")]
                 )
-              ])
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-field",
+              { attrs: { label: "PERKĖKIMAI IKI:", horizontal: "" } },
+              [
+                _c("b-input", {
+                  attrs: { type: "date", icon: "calendar-month" },
+                  model: {
+                    value: _vm.date,
+                    callback: function($$v) {
+                      _vm.date = $$v
+                    },
+                    expression: "date"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("b-field", { attrs: { label: " ", horizontal: "" } }, [
+              _c(
+                "div",
+                { staticClass: "buttons" },
+                [
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { type: "is-dark" },
+                      on: { click: _vm.paieska_post }
+                    },
+                    [_vm._v("Suformuoti")]
+                  )
+                ],
+                1
+              )
             ])
           ],
           1
@@ -554,98 +716,199 @@ var render = function() {
         _vm._v(" "),
         _c(
           "card-component",
-          {
-            attrs: { title: "Važtaraščių žurnalas", icon: "account-multiple" }
-          },
+          { attrs: { title: "Analizė", icon: "account-multiple" } },
           [
             _c(
               "div",
               { attrs: { id: "printMe" } },
               [
-                _c("div", { staticClass: "has-text-centered" }, [
-                  _c("b", [_vm._v("UAB Sidonas ir Ko")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "has-text-centered" }, [
-                  _vm._v("\n        Įm. kodas: 180886050\n      ")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "has-text-centered" }, [
-                  _vm._v(
-                    "\n        Kęstučio 20-1, LT-87120, Telšiai, Lietuva\n      "
+                _c("div", { staticClass: "columns" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "column has-text-centered has-text-weight-bold"
+                    },
+                    [
+                      _vm._v(
+                        "\n          Rasta: " + _vm._s(_vm.sarasas.length)
+                      ),
+                      _c("br"),
+                      _vm._v(_vm._s(_vm.paieska)),
+                      _c("br"),
+                      _vm._v(_vm._s(_vm.grupes[_vm.grupe]) + "\n          ")
+                    ]
                   )
                 ]),
                 _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("div", { staticClass: "has-text-centered is-size-5" }, [
-                  _c("b", [_vm._v("VAŽTARAŠČIŲ REGISTRAVIMO ŽURNALAS")])
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("div", { staticClass: "has-text-left" }, [
-                  _c("b", [
-                    _vm._v(
-                      "Pradėta pildyti 2020m. " +
-                        _vm._s(_vm.menesiai[_vm.menesis - 1]) +
-                        " 1d."
+                _c(
+                  "b-field",
+                  { attrs: { grouped: "", "group-multiline": "" } },
+                  [
+                    _c(
+                      "b-select",
+                      {
+                        attrs: { disabled: !_vm.isPaginated },
+                        model: {
+                          value: _vm.perPage,
+                          callback: function($$v) {
+                            _vm.perPage = $$v
+                          },
+                          expression: "perPage"
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "50" } }, [
+                          _vm._v("50 įrašų puslapyje")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "100" } }, [
+                          _vm._v("100 įrašų puslapyje")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "150" } }, [
+                          _vm._v("150 įrašų puslapyje")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "200" } }, [
+                          _vm._v("200 įrašų puslapyje")
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "control is-flex" },
+                      [
+                        _c(
+                          "b-switch",
+                          {
+                            model: {
+                              value: _vm.isPaginated,
+                              callback: function($$v) {
+                                _vm.isPaginated = $$v
+                              },
+                              expression: "isPaginated"
+                            }
+                          },
+                          [_vm._v("Puslapiai")]
+                        )
+                      ],
+                      1
                     )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "has-text-left" }, [
-                  _c("b", [
-                    _vm._v(
-                      "Baigta pildyti 2020m. " +
-                        _vm._s(_vm.menesiai[_vm.menesis - 1]) +
-                        " " +
-                        _vm._s(new Date(_vm.metai, _vm.menesis, 0).getDate()) +
-                        "d."
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("br"),
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c(
                   "b-table",
                   {
                     attrs: {
+                      paginated: _vm.isPaginated,
+                      "per-page": _vm.perPage,
+                      "pagination-position": _vm.paginationPosition,
+                      "mobile-cards": _vm.mobile_card,
                       bordered: "",
                       narrowed: true,
                       data: _vm.sarasas,
                       "sort-icon": "arrow-up",
                       loading: _vm.isLoading,
+                      "row-class": _vm.onRowClass,
                       "default-sort-direction": "asc",
-                      "default-sort": "data"
+                      "default-sort": "preke"
                     },
                     scopedSlots: _vm._u([
                       {
                         key: "default",
                         fn: function(props) {
                           return [
-                            _c("b-table-column", { attrs: { label: "Nr." } }, [
-                              _vm._v(
-                                "\n           " +
-                                  _vm._s(props.index + 1) +
-                                  "\n        "
-                              )
-                            ]),
+                            _c(
+                              "b-table-column",
+                              {
+                                attrs: {
+                                  label: "Preke",
+                                  field: "preke",
+                                  sortable: ""
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(props.row.preke) +
+                                    "\n        "
+                                )
+                              ]
+                            ),
                             _vm._v(" "),
                             _c(
                               "b-table-column",
                               {
                                 attrs: {
-                                  label: "Išvežimo data",
+                                  label: "Sandelis",
+                                  field: "sandelis",
+                                  sortable: ""
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(props.row.sandelis) +
+                                    "\n        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-table-column",
+                              {
+                                attrs: {
+                                  label: "Parduota",
+                                  field: "parduota",
+                                  sortable: ""
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(props.row.parduota) +
+                                    "\n        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-table-column",
+                              {
+                                attrs: {
+                                  label: "Likutis",
+                                  field: "likutis",
+                                  sortable: ""
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n             " +
+                                    _vm._s(props.row.likutis) +
+                                    "\n        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-table-column",
+                              {
+                                attrs: {
+                                  label: "Perkelimas",
                                   field: "data",
                                   sortable: ""
                                 }
                               },
                               [
                                 _vm._v(
-                                  "\n              " +
+                                  "\n             " +
                                     _vm._s(props.row.data) +
+                                    " - " +
+                                    _vm._s(props.row.kiekis) +
                                     "\n        "
                                 )
                               ]
@@ -654,16 +917,17 @@ var render = function() {
                             _c(
                               "b-table-column",
                               {
+                                style: { "background-color": "#b8b894" },
                                 attrs: {
-                                  label: "Numeris",
-                                  field: "numeris",
+                                  label: "PARD",
+                                  field: "pard",
                                   sortable: ""
                                 }
                               },
                               [
                                 _vm._v(
                                   "\n              " +
-                                    _vm._s(props.row.numeris) +
+                                    _vm._s(props.row.pard) +
                                     "\n        "
                                 )
                               ]
@@ -672,61 +936,21 @@ var render = function() {
                             _c(
                               "b-table-column",
                               {
+                                style: { "background-color": "#b8b894" },
                                 attrs: {
-                                  visible: _vm.isvezta,
-                                  label: "Išvežta",
-                                  field: "sandelis_i",
+                                  label: "LIKUT",
+                                  field: "yra",
                                   sortable: ""
                                 }
                               },
                               [
                                 _vm._v(
                                   "\n              " +
-                                    _vm._s(props.row.sandelis_is) +
+                                    _vm._s(props.row.yra) +
                                     "\n        "
                                 )
                               ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                attrs: {
-                                  label: "Pavadinimas",
-                                  field: "sandelis_i",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(props.row.sandelis_i) +
-                                    "\n        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-table-column",
-                              {
-                                attrs: {
-                                  label: "Adresas",
-                                  field: "adresas",
-                                  sortable: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(props.row.adresas) +
-                                    "\n        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("b-table-column", {
-                              attrs: { label: "Atsakingo asmens parašas" }
-                            })
+                            )
                           ]
                         }
                       }
@@ -785,44 +1009,7 @@ var render = function() {
                       ]
                     )
                   ]
-                ),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("div", { staticClass: "has-text-left" }, [
-                  _vm._v(
-                    "\n        Šiame žurnale sunumeruota, perverta virvele ir užantspauduota ________ lapų."
-                  ),
-                  _c("br"),
-                  _vm._v(
-                    "\n        20___m. ___________________________  ____d.\n    "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _c("br"),
-                _vm._v(" "),
-                _c("div", { staticClass: "columns" }, [
-                  _c("div", { staticClass: "column" }, [
-                    _c("div", { staticClass: "has-text-centered is-size-7" }, [
-                      _vm._v("(pareigų pavadinimas)\n        ")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "column" }, [
-                    _c("div", { staticClass: "has-text-centered is-size-7" }, [
-                      _vm._v("(parašas)\n        ")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "column" }, [
-                    _c("div", { staticClass: "has-text-centered is-size-7" }, [
-                      _vm._v("(vardas, pavardė)\n        ")
-                    ])
-                  ])
-                ])
+                )
               ],
               1
             ),
@@ -931,17 +1118,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/Vaztarasciai.vue":
-/*!*********************************************!*\
-  !*** ./resources/js/views/Vaztarasciai.vue ***!
-  \*********************************************/
+/***/ "./resources/js/views/Perkelimai.vue":
+/*!*******************************************!*\
+  !*** ./resources/js/views/Perkelimai.vue ***!
+  \*******************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Vaztarasciai_vue_vue_type_template_id_96d05516_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Vaztarasciai.vue?vue&type=template&id=96d05516&scoped=true& */ "./resources/js/views/Vaztarasciai.vue?vue&type=template&id=96d05516&scoped=true&");
-/* harmony import */ var _Vaztarasciai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Vaztarasciai.vue?vue&type=script&lang=js& */ "./resources/js/views/Vaztarasciai.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Perkelimai_vue_vue_type_template_id_7426afc0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Perkelimai.vue?vue&type=template&id=7426afc0&scoped=true& */ "./resources/js/views/Perkelimai.vue?vue&type=template&id=7426afc0&scoped=true&");
+/* harmony import */ var _Perkelimai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Perkelimai.vue?vue&type=script&lang=js& */ "./resources/js/views/Perkelimai.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -951,50 +1138,50 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Vaztarasciai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Vaztarasciai_vue_vue_type_template_id_96d05516_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Vaztarasciai_vue_vue_type_template_id_96d05516_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Perkelimai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Perkelimai_vue_vue_type_template_id_7426afc0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Perkelimai_vue_vue_type_template_id_7426afc0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "96d05516",
+  "7426afc0",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/Vaztarasciai.vue"
+component.options.__file = "resources/js/views/Perkelimai.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/Vaztarasciai.vue?vue&type=script&lang=js&":
-/*!**********************************************************************!*\
-  !*** ./resources/js/views/Vaztarasciai.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************/
+/***/ "./resources/js/views/Perkelimai.vue?vue&type=script&lang=js&":
+/*!********************************************************************!*\
+  !*** ./resources/js/views/Perkelimai.vue?vue&type=script&lang=js& ***!
+  \********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Vaztarasciai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Vaztarasciai.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Vaztarasciai.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Vaztarasciai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Perkelimai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Perkelimai.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Perkelimai.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Perkelimai_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/Vaztarasciai.vue?vue&type=template&id=96d05516&scoped=true&":
-/*!****************************************************************************************!*\
-  !*** ./resources/js/views/Vaztarasciai.vue?vue&type=template&id=96d05516&scoped=true& ***!
-  \****************************************************************************************/
+/***/ "./resources/js/views/Perkelimai.vue?vue&type=template&id=7426afc0&scoped=true&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/views/Perkelimai.vue?vue&type=template&id=7426afc0&scoped=true& ***!
+  \**************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Vaztarasciai_vue_vue_type_template_id_96d05516_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Vaztarasciai.vue?vue&type=template&id=96d05516&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Vaztarasciai.vue?vue&type=template&id=96d05516&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Vaztarasciai_vue_vue_type_template_id_96d05516_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Perkelimai_vue_vue_type_template_id_7426afc0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Perkelimai.vue?vue&type=template&id=7426afc0&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Perkelimai.vue?vue&type=template&id=7426afc0&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Perkelimai_vue_vue_type_template_id_7426afc0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Vaztarasciai_vue_vue_type_template_id_96d05516_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Perkelimai_vue_vue_type_template_id_7426afc0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

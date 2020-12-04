@@ -309,6 +309,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -1209,8 +1210,8 @@ var render = function() {
                 2: "LIKUTIS",
                 3: "AKCIJOS",
                 5: "ATSARGŲ ATASKAITA",
-                6: "PIRKIMAI LV",
-                4: "KELIONĖS LAPAS"
+                4: "KELIONĖS LAPAS",
+                7: "APYVARTA"
               }
             },
             on: { input: _vm.edit_data },

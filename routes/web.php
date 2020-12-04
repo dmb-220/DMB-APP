@@ -48,6 +48,11 @@ Route::prefix('/testas')->group(function () {
     Route::get('idx', 'TestasController@idx');
 });
 
+Route::prefix('/pvz')->group(function () {
+    Route::get('', 'PvzController@index');
+    //Route::get('idx', 'PvzController@idx');
+});
+
 Route::resource('sandeliai', 'SandeliaiController');
 
 /*
@@ -72,6 +77,14 @@ Route::prefix('/generuoti')->group(function () {
 Route::prefix('/vaztarasciai')->group(function () {
     Route::get('', 'VaztarasciaiController@index');
     Route::post('store', 'VaztarasciaiController@store');
+});
+
+/*
+ * Inte
+ * */ 
+Route::prefix('/inte')->group(function () {
+    Route::get('', 'InteController@index');
+    Route::post('store', 'InteController@store');
 });
 
 /*

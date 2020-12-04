@@ -88,6 +88,11 @@ export default new Router({
       name: 'testas',
       component: () => import('./views/Testas.vue')
     },
+    {
+      path: '/inte',
+      name: 'inte',
+      component: () => import('./views/Inte.vue')
+    },
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

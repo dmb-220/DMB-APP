@@ -5,7 +5,7 @@
         @component('components.card')
             @slot('title')
                 <span class="icon"><i class="mdi mdi-laravel"></i></span>
-                <span>DMB-APP's</span>
+                <span>SIDONAS ir KO APP's</span>
             @endslot
 
             <div class="content">

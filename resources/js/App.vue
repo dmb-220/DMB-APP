@@ -92,9 +92,14 @@ export default {
             to: '/perkelimai',
             label: 'Perkėlimai',
             icon: 'bus',
-          },        
+          },  
+          {
+            to: '/inte',
+            label: 'Internetinė',
+            icon: 'bus',
+          },       
         ],
-        'VEIKSMAI',
+        /*'VEIKSMAI',
         [
           {
             to: '/csv_sarasas',
@@ -111,7 +116,7 @@ export default {
             label: 'Administravimas',
             icon: 'bullhorn',
           },
-        ]
+        ]*/
       ]
     }
   },

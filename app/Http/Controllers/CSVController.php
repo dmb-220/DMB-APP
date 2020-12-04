@@ -9,6 +9,8 @@ use App\Kelione;
 use App\Atsargos;
 use App\Pirkimai;
 
+use App\Inte;
+
 use App\File;
 use App\Http\Requests\FileUploadRequest;
 use Illuminate\Http\Request;
@@ -402,7 +404,7 @@ class CSVController extends Controller
                 }
             }
         }
-        //daromas KELIONES LAPŲ uzkelimas
+        //daromas PIRKIMu uzkelimas
         if($tipas == 6){
             //Uzkelime LIETUVOS ir LATVIJOS duomenis
             if($valstybe == 1 || $valstybe == 2){
@@ -443,6 +445,57 @@ class CSVController extends Controller
                 $chunks = array_chunk($da, 3000);
                 foreach($chunks as $val){
                     Pirkimai::insert($val);
+                }
+            }
+        }
+
+         //daromas APYVARTA uzkelimas
+         if($tipas == 7){
+            //Uzkelime LIETUVOS ir LATVIJOS duomenis
+            if($valstybe == 1 || $valstybe == 2){
+                if($valstybe == 1){
+                    DB::table('intes')->where('salis', 1)->delete();
+                }
+                if($valstybe == 2){
+                    DB::table('intes')->where('salis', 2)->delete();
+                }
+                $flag = true;
+                $da = [];
+                if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    //praleidziam pirma eilute
+                    if($flag) { $flag = false; continue; }
+                    $val = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                    $kiek = explode(",", $val[10]);
+                    $kiek = $kiek[0];
+
+                    $da[] = [
+                        'preke' => $val[6],
+                        'pavadinimas' => $val[7],
+                        'barkodas' => $val[5],
+                        'grupe' => $val[7],
+                        'sandelis' => $val[0],
+                        'kiekis' => $kiek,
+                        'pardavimo_kaina' => floatval(str_replace(",", ".", $val[11])),
+                        'pardavimo_suma' => floatval(str_replace(",", ".", $val[11])),
+                        'pvm' => floatval(str_replace(",", ".", $val[12])),
+                        'pvm_suma' => floatval(str_replace(",", ".", $val[13])),
+                        'suma' => floatval(str_replace(",", ".", $val[14])),
+                        'grupes_pavadinimas' => $val[7],
+                        'registras' => $val[8],
+                        'salis' => $valstybe,
+                        'dok_nr' => $val[1],
+                        'dok_data' => $val[2],
+                        'blanko_nr' => $val[3],
+                        'pirkejas' => $val[4],
+                    ];
+                }
+                fclose($handle);
+                }
+                
+                $chunks = array_chunk($da, 300);
+                foreach($chunks as $val){
+                    Inte::insert($val);
                 }
             }
         }

@@ -13,20 +13,22 @@
     <div class="navbar-menu fadeIn animated faster" :class="{'is-active':isMenuNavBarActive}">
       <div class="navbar-end">
         <div class="navbar-item is-desktop-icon-only">
-          DMB-220
+          SIDONAS
         </div>
-        <a class="navbar-item is-desktop-icon-only" title="Profilis" @click="logout">
-          <b-icon icon="account-edit" custom-size="default"/>
-          <span>Profilis</span>
-        </a>
-        <a class="navbar-item is-desktop-icon-only" title="Nustatymai" @click="logout">
-          <b-icon icon="settings" custom-size="default"/>
-          <span>Nustatymai</span>
-        </a>
-        <a class="navbar-item is-desktop-icon-only" title="Pranešimai" @click="logout">
-          <b-icon icon="email" custom-size="default"/>
-          <span>Pranešimai</span>
-        </a>
+        <router-link tag="a" to="/csv_sarasas" class="navbar-item is-desktop-icon-only" title="CSV failų įkėlimas">
+          <b-icon icon="view-list" custom-size="default"/>
+          <span>CSV failų įkėlimas</span>
+        </router-link>
+        
+        <router-link tag="a" to="/generuoti" class="navbar-item is-desktop-icon-only" title="Generuoti duomenis">
+          <b-icon icon="calculator" custom-size="default"/>
+          <span>Generuoti duomenis</span>
+        </router-link>
+
+        <router-link tag="a" to="/admin" class="navbar-item is-desktop-icon-only" title="Administravimas">
+          <b-icon icon="bullhorn" custom-size="default"/>
+          <span>Administravimas</span>
+        </router-link>
         <a class="navbar-item is-desktop-icon-only" title="Atsijungti" @click="logout">
           <b-icon icon="logout" custom-size="default"/>
           <span>Atsijungti</span>

@@ -4,7 +4,7 @@
       <div class="level">
         <div class="level-left">
           <div class="level-item">
-            &copy; {{ year }}, DMB-220 APP's
+            &copy; {{ year }}, SIDONAS ir KO
           </div>
         </div>
         <div class="level-right">
