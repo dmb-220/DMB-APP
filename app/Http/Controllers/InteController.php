@@ -39,49 +39,81 @@ class InteController extends Controller
         $sarasas = $query_p->get();
 
         $naujas = array();
+        $graza = array();
         foreach($sarasas as $value){
             if(is_numeric($value['blanko_nr'])){
-                //reik ziureti ar 0, jei taipn esutraukti 5 viena, prideti pavarde ar pan
-            $naujas[$value['blanko_nr']]['prekes'][] = $value['barkodas'];
+    
+                if($value['blanko_nr'] == "0"){
+                    $value['blanko_nr'] = $value['blanko_nr']."-".$value['pirkejas'];
+                }
 
-            $naujas[$value['blanko_nr']]['data'] = $value['dok_data'];
-            $naujas[$value['blanko_nr']]['saskaitos_nr'] = $value['blanko_nr'];
+                $naujas[$value['blanko_nr']]['saskaitos_nr'] = $value['blanko_nr'];
+                $naujas[$value['blanko_nr']]['prekes'][] = $value['barkodas'];
+                $naujas[$value['blanko_nr']]['data'] = $value['dok_data'];
+                
+                if($value['grupe'] != 'Siuntimo išlaidos'){
+                    $naujas[$value['blanko_nr']]['pristatymas'] = 0;
 
-            if($value['grupe'] != 'Siuntimo išlaidos'){
-                $naujas[$value['blanko_nr']]['pristatymas'] = 0;
+                    if(array_key_exists('suma', $naujas[$value['blanko_nr']])){
 
+                        $naujas[$value['blanko_nr']]['suma'] = round($value['suma'] + $naujas[$value['blanko_nr']]['suma'], 2);
+                        }else{
+                            $naujas[$value['blanko_nr']]['suma'] = $value['suma']; 
+                        }
 
-                if(array_key_exists('suma', $naujas[$value['blanko_nr']])){
+                    if(array_key_exists('pardavimo_suma', $naujas[$value['blanko_nr']])){
+                        $naujas[$value['blanko_nr']]['pardavimo_suma'] = round($value['pardavimo_suma'] + $naujas[$value['blanko_nr']]['pardavimo_suma'], 2);
+                        }else{
+                            $naujas[$value['blanko_nr']]['pardavimo_suma'] = $value['pardavimo_suma']; 
+                        }
 
-                    $naujas[$value['blanko_nr']]['suma'] = round($value['suma'] + $naujas[$value['blanko_nr']]['suma'], 2);
-                    }else{
-                        $naujas[$value['blanko_nr']]['suma'] = $value['suma']; 
-                    }
+                    if(array_key_exists('pvm_suma', $naujas[$value['blanko_nr']])){
+                        $naujas[$value['blanko_nr']]['pvm_suma'] = round($value['pvm_suma'] + $naujas[$value['blanko_nr']]['pvm_suma'], 2);
 
-                if(array_key_exists('pardavimo_suma', $naujas[$value['blanko_nr']])){
-                    $naujas[$value['blanko_nr']]['pardavimo_suma'] = round($value['pardavimo_suma'] + $naujas[$value['blanko_nr']]['pardavimo_suma'], 2);
-                    }else{
-                        $naujas[$value['blanko_nr']]['pardavimo_suma'] = $value['pardavimo_suma']; 
-                    }
-
-                if(array_key_exists('pvm_suma', $naujas[$value['blanko_nr']])){
-                    $naujas[$value['blanko_nr']]['pvm_suma'] = round($value['pvm_suma'] + $naujas[$value['blanko_nr']]['pvm_suma'], 2);
-
-                    }else{
-                        $naujas[$value['blanko_nr']]['pvm_suma'] = $value['pvm_suma'];
-                    }
+                        }else{
+                            $naujas[$value['blanko_nr']]['pvm_suma'] = $value['pvm_suma'];
+                        }
+                }else{
+                    $naujas[$value['blanko_nr']]['pristatymas'] = $value['suma'];
+                }
             }else{
-                $naujas[$value['blanko_nr']]['pristatymas'] = $value['suma'];
+                //darysim grazinimus
+                $graza[$value['blanko_nr']]['saskaitos_nr'] = $value['blanko_nr'];
+                $graza[$value['blanko_nr']]['prekes'][] = $value['barkodas'];
+                $graza[$value['blanko_nr']]['data'] = $value['dok_data'];
+
+                $graza[$value['blanko_nr']]['pirkejas'] = $value['pirkejas'];
+            
+
+                    if(array_key_exists('suma', $graza[$value['blanko_nr']])){
+
+                        $graza[$value['blanko_nr']]['suma'] = round($value['suma'] + $graza[$value['blanko_nr']]['suma'], 2);
+                        }else{
+                            $graza[$value['blanko_nr']]['suma'] = $value['suma']; 
+                        }
+
+                    if(array_key_exists('pardavimo_suma', $graza[$value['blanko_nr']])){
+                        $graza[$value['blanko_nr']]['pardavimo_suma'] = round($value['pardavimo_suma'] + $graza[$value['blanko_nr']]['pardavimo_suma'], 2);
+                        }else{
+                            $graza[$value['blanko_nr']]['pardavimo_suma'] = $value['pardavimo_suma']; 
+                        }
+
+                    if(array_key_exists('pvm_suma', $graza[$value['blanko_nr']])){
+                        $graza[$value['blanko_nr']]['pvm_suma'] = round($value['pvm_suma'] + $graza[$value['blanko_nr']]['pvm_suma'], 2);
+
+                        }else{
+                            $graza[$value['blanko_nr']]['pvm_suma'] = $value['pvm_suma'];
+                        }
             }
-        }
         }
 
         $naujas = array_values($naujas);
+        $graza = array_values($graza);
 
         return response()->json([
             'status' => true,
             'sarasas' => $naujas,
-            //'test' => $sarasas
+            'graza' => $graza
 
         ]);
     }
