@@ -28,20 +28,22 @@ class InteController extends Controller
         $data_nuo = $key[0];
         $data_iki = $key[1];
 
-        $data_nuo = "2020-10-01";
-        $data_iki = "2020-10-31";
+        $data_nuo = "2020-11-01";
+        $data_iki = "2020-11-30";
 
         $sarasas = array();
 
         $query_p = Inte::query();
         $query_p->where('salis', '1');
         $query_p->where('sandelis', 'INTE');
+        //$query_p->where('sandelis', 'PIGU');
         $sarasas = $query_p->get();
 
         $naujas = array();
         $graza = array();
         foreach($sarasas as $value){
             if(is_numeric($value['blanko_nr'])){
+            //if(strpos($value['blanko_nr'], "GR") === false){
     
                 if($value['blanko_nr'] == "0"){
                     $value['blanko_nr'] = $value['blanko_nr']."-".$value['pirkejas'];
@@ -50,6 +52,7 @@ class InteController extends Controller
                 $naujas[$value['blanko_nr']]['saskaitos_nr'] = $value['blanko_nr'];
                 $naujas[$value['blanko_nr']]['prekes'][] = $value['barkodas'];
                 $naujas[$value['blanko_nr']]['data'] = $value['dok_data'];
+                $naujas[$value['blanko_nr']]['pirkejas'] = $value['pirkejas'];
                 
                 if($value['grupe'] != 'Siuntimo išlaidos'){
                     $naujas[$value['blanko_nr']]['pristatymas'] = 0;
@@ -107,12 +110,20 @@ class InteController extends Controller
             }
         }
 
+        //pasiziuret kiek susimok4jo kurjeriui atvezus preke
+        $ne = array();
+        foreach($naujas as $val){
+            if($val['pristatymas'] != "1.5" || $val['pristatymas'] != "4"){
+                $ne[] = $val;
+            }
+        }
+
         $naujas = array_values($naujas);
         $graza = array_values($graza);
 
         return response()->json([
             'status' => true,
-            'sarasas' => $naujas,
+            'sarasas' => $ne,
             'graza' => $graza
 
         ]);

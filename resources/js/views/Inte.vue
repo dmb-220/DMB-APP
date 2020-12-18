@@ -65,6 +65,9 @@
           <b-table-column class="has-text-right" label="Per banka, Eur"  field="">
                 {{ parseFloat(props.row.pristatymas + props.row.suma).toFixed(2) }}
           </b-table-column>
+          <b-table-column label="Pirkėjas" field="pirkejas" sortable>
+                {{props.row.pirkejas}}
+          </b-table-column>
         </template> 
         <section class="section" slot="empty">
           <div class="content has-text-centered">

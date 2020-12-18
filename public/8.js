@@ -257,6 +257,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
 
 
 
@@ -801,6 +804,24 @@ var render = function() {
                                         props.row.pristatymas + props.row.suma
                                       ).toFixed(2)
                                     ) +
+                                    "\n        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-table-column",
+                              {
+                                attrs: {
+                                  label: "Pirkėjas",
+                                  field: "pirkejas",
+                                  sortable: ""
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(props.row.pirkejas) +
                                     "\n        "
                                 )
                               ]
