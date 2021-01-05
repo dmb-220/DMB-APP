@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@mdi/font": "^4.9.95",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "buefy": "^0.8.20",
         "bulma": "^0.8.2",
         "chart.js": "^2.9.4",
