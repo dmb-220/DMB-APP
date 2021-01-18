@@ -112,9 +112,12 @@ class InteController extends Controller
 
         //pasiziuret kiek susimok4jo kurjeriui atvezus preke
         $ne = array();
+        $ne2 = array();
         foreach($naujas as $val){
-            if($val['pristatymas'] != "1.5" || $val['pristatymas'] != "4"){
+            if($val['pristatymas'] == "1.5" || $val['pristatymas'] == "4"){
                 $ne[] = $val;
+            }else{
+                $ne2[] = $val;
             }
         }
 
@@ -123,7 +126,8 @@ class InteController extends Controller
 
         return response()->json([
             'status' => true,
-            'sarasas' => $ne,
+            'sarasas' => $ne2,
+            'sarasas2' => $ne2,
             'graza' => $graza
 
         ]);
