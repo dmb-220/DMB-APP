@@ -7,7 +7,8 @@
     </b-field>  
     <br>
     <b-field label="Pasirinkite:" class="has-check" horizontal>
-      <radio-picker @input="edit_data" :options="{1:'PARDAVIMAI', 2:'LIKUTIS', 3: 'AKCIJOS', 5: 'ATSARGŲ ATASKAITA', 4: 'KELIONĖS LAPAS', 7: 'APYVARTA'}" 
+      <radio-picker @input="edit_data" :options="{1:'PARDAVIMAI', 2:'LIKUTIS', 3: 'AKCIJOS', 
+      5: 'ATSARGŲ ATASKAITA', 4: 'KELIONĖS LAPAS', 7: 'INTE PARDAVIMAI', 8: 'BANKO IŠRAŠAS (CSV)'}" 
       v-model="tipas"></radio-picker>
     </b-field>
   </modal-box>

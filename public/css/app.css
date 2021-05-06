@@ -6700,7 +6700,7 @@ fieldset[disabled] .select select:hover {
 
 .breadcrumb li + li::before {
   color: #b5b5b5;
-  content: "/";
+  content: "\0002f";
 }
 
 .breadcrumb ul,
@@ -6742,19 +6742,19 @@ fieldset[disabled] .select select:hover {
 }
 
 .breadcrumb.has-arrow-separator li + li::before {
-  content: "\2192";
+  content: "\02192";
 }
 
 .breadcrumb.has-bullet-separator li + li::before {
-  content: "\2022";
+  content: "\02022";
 }
 
 .breadcrumb.has-dot-separator li + li::before {
-  content: "\B7";
+  content: "\000b7";
 }
 
 .breadcrumb.has-succeeds-separator li + li::before {
-  content: "\227B";
+  content: "\0227B";
 }
 
 .card {
@@ -15349,7 +15349,7 @@ label.panel-block:hover {
 }
 
 .b-skeleton > .b-skeleton-item::after {
-  content: "\A0";
+  content: "\00a0";
 }
 
 .b-skeleton > .b-skeleton-item + .b-skeleton-item {
@@ -17480,7 +17480,6 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 }
 
 .b-table .table th.is-sticky {
-  position: -webkit-sticky;
   position: sticky;
   left: 0;
   z-index: 3 !important;
@@ -17536,7 +17535,6 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 }
 
 .b-table .table td.is-sticky {
-  position: -webkit-sticky;
   position: sticky;
   left: 0;
   z-index: 1;
@@ -17560,7 +17558,6 @@ MIT (https://github.com/Wikiki/bulma-steps/blob/master/LICENSE)
 }
 
 .b-table .table-wrapper.has-sticky-header tr:first-child th {
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 2;

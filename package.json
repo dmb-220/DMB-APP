@@ -11,12 +11,13 @@
     },
     "devDependencies": {
         "@mdi/font": "^4.9.95",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "buefy": "^0.8.20",
         "bulma": "^0.8.2",
         "chart.js": "^2.9.4",
         "cross-env": "^7.0.2",
-        "laravel-mix": "^5.0.5",
+        "css-loader": "^3.6",
+        "laravel-mix": "^5.0.4",
         "laravel-mix-alias": "^1.0.2",
         "lodash": "^4.17.20",
         "moment": "^2.29.0",
@@ -33,6 +34,7 @@
         "vuex": "^3.5.1"
     },
     "dependencies": {
+        "@mycure/vue-wysiwyg": "^1.3.0",
         "apexcharts": "^3.22.2",
         "gutenberg-css": "^0.5.0",
         "jspdf": "^1.5.3",
@@ -40,8 +42,12 @@
         "vee-validate": "^3.4.0",
         "vue-axios": "^2.1.5",
         "vue-excel-export": "^0.1.3",
+        "vue-excel-xlsx": "^1.0.11",
         "vue-html-to-paper": "^1.3.1",
         "vue-multiselect": "^2.1.6",
-        "vue-print-nb": "^1.5.0"
+        "vue-print-nb": "^1.5.0",
+        "vue-wysiwyg": "^1.7.2",
+        "vue2-editor": "^2.10.2",
+        "vueditor": "^0.3.1"
     }
 }

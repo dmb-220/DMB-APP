@@ -3,14 +3,22 @@ require('./bootstrap');
 
 /* Core */
 import Vue from 'vue'
+import Vuex from 'vuex'
 import Buefy from 'buefy'
 
 import 'vue-multiselect/dist/vue-multiselect.min.css'
+
+import wysiwyg from "vue-wysiwyg";
+Vue.use(wysiwyg, {}); // config is optional. more below
+import "vue-wysiwyg/dist/vueWysiwyg.css";
 
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 
 Vue.use(VueAxios, axios);
+
+import VueExcelXlsx from "vue-excel-xlsx";
+Vue.use(VueExcelXlsx);
 
 import VueHtmlToPaper from 'vue-html-to-paper';
  

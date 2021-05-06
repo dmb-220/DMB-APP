@@ -92,12 +92,37 @@ export default {
             to: '/perkelimai',
             label: 'Perkėlimai',
             icon: 'bus',
+          }, 
+          {
+            to: '/grazinimai',
+            label: 'LT INTE SEPA',
+            icon: 'bus',
           },  
           {
-            to: '/inte',
-            label: 'Internetinė',
+            to: '/grazinimai_lv',
+            label: 'LV INTE SEPA',
             icon: 'bus',
-          },       
+          },
+          {
+            to: '/inte',
+            label: 'Pirkimai / Grąžinimai',
+            icon: 'bus',
+          }, 
+          {
+            to: '/inte_prekes',
+            label: 'INTE Perkėlimai',
+            icon: 'bus',
+          },  
+          {
+            to: '/replace',
+            label: 'LT to EE',
+            icon: 'bus',
+          },  
+          /*{
+            to: '/visi_likuciai',
+            label: 'Likuciai pagal sandeli',
+            icon: 'bus',
+          },      */ 
         ],
         /*'VEIKSMAI',
         [

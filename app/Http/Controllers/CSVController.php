@@ -8,7 +8,7 @@ use App\Akcijos;
 use App\Kelione;
 use App\Atsargos;
 use App\Pirkimai;
-
+use App\Bankas;
 use App\Inte;
 
 use App\File;
@@ -228,11 +228,12 @@ class CSVController extends Controller
                     $da[] = [
                         'preke' => $val[0],
                         'pavadinimas' => $val[1],
-                        'kaina' => $val[3],
+                        'kaina' => floatval(str_replace(",", ".", $val[3])),
                         'kiekis' => $kiek,
-                        'suma' => $val[5],
+                        'suma' => floatval(str_replace(",", ".", $val[5])),
                         'sandelis' => $val[6],
                         'registras' => $val[7],
+                        'savikaina' => floatval(str_replace(",", ".", $val[8])),
                         'salis' => $valstybe
                     ];
                 }
@@ -266,6 +267,7 @@ class CSVController extends Controller
                             'suma' => $val[8],
                             'sandelis' => $val[5],
                             'registras' => $reg,
+                            'savikaina' => 0,
                             'salis' => $valstybe
                         ];
                     }
@@ -361,7 +363,7 @@ class CSVController extends Controller
             }
         }
 
-        //daromas KELIONES LAPŲ uzkelimas
+        //daromas Atsargos uzkelimas
         if($tipas == 5){
             //Uzkelime LIETUVOS ir LATVIJOS duomenis
             if($valstybe == 1 || $valstybe == 2){
@@ -380,6 +382,9 @@ class CSVController extends Controller
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                     if($flag) { $flag = false; continue; }
                     $val = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+                    $kiek = explode(",", $val[7]);
+                    $kiek = $kiek[0];
+
                     $da[] = [
                         'data' => $val[0],
                         'doc_nr' => $val[2],
@@ -387,7 +392,7 @@ class CSVController extends Controller
                         'sandelis_is' => $val[4],
                         'sandelis_i' => $val[5],
                         'preke' => $val[6],
-                        'kiekis' => $val[7],
+                        'kiekis' => $kiek,
                         'kaina' => $val[8],
                         'grupe' => $val[9],
                         'pavadinimas' => $val[10],
@@ -466,7 +471,7 @@ class CSVController extends Controller
                     //praleidziam pirma eilute
                     if($flag) { $flag = false; continue; }
                     $val = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
-                    $kiek = explode(",", $val[10]);
+                    $kiek = explode(",", $val[11]);
                     $kiek = $kiek[0];
 
                     $da[] = [
@@ -476,11 +481,11 @@ class CSVController extends Controller
                         'grupe' => $val[7],
                         'sandelis' => $val[0],
                         'kiekis' => $kiek,
-                        'pardavimo_kaina' => floatval(str_replace(",", ".", $val[11])),
-                        'pardavimo_suma' => floatval(str_replace(",", ".", $val[11])),
-                        'pvm' => floatval(str_replace(",", ".", $val[12])),
-                        'pvm_suma' => floatval(str_replace(",", ".", $val[13])),
-                        'suma' => floatval(str_replace(",", ".", $val[14])),
+                        'pardavimo_kaina' => floatval(str_replace(",", ".", $val[12])),
+                        'pardavimo_suma' => floatval(str_replace(",", ".", $val[12])),
+                        'pvm' => floatval(str_replace(",", ".", $val[13])),
+                        'pvm_suma' => floatval(str_replace(",", ".", $val[14])),
+                        'suma' => floatval(str_replace(",", ".", $val[15])),
                         'grupes_pavadinimas' => $val[7],
                         'registras' => $val[8],
                         'salis' => $valstybe,
@@ -488,6 +493,8 @@ class CSVController extends Controller
                         'dok_data' => $val[2],
                         'blanko_nr' => $val[3],
                         'pirkejas' => $val[4],
+                        'pirkejas2' => preg_replace('/\d/', '', $val[4] ),
+                        'aprasymas' => $val[9],
                     ];
                 }
                 fclose($handle);
@@ -496,6 +503,46 @@ class CSVController extends Controller
                 $chunks = array_chunk($da, 300);
                 foreach($chunks as $val){
                     Inte::insert($val);
+                }
+            }
+        }
+
+        //daromas Banko israsas uzkelimas
+        if($tipas == 8){
+            //Uzkelime LIETUVOS ir LATVIJOS duomenis
+            if($valstybe == 1 || $valstybe == 2){
+                if($valstybe == 1){
+                    DB::table('bankas')->where('salis', 1)->delete();
+                }
+                if($valstybe == 2){
+                    DB::table('bankas')->where('salis', 2)->delete();
+                }
+                $flag = true;
+                $da = [];
+                if (($handle = fopen(storage_path($failas), "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    //praleidziam pirma eilute
+                    if($flag) { $flag = false; continue; }
+                    $val = mb_convert_encoding($data, "UTF-8", "ISO-8859-13");
+
+                    if($val[12] != ""){
+                        $da[] = [
+                            'data' => $val[1],
+                            'suma' => $val[3],
+                            'c_d' => $val[5],
+                            'paskirtis' => $val[12],
+                            'pavadinimas' =>  $val[16],
+                            'saskaita' => $val[15],
+                            'salis' => $valstybe,
+                        ];
+                    }
+                }
+                fclose($handle);
+                }
+                
+                $chunks = array_chunk($da, 300);
+                foreach($chunks as $val){
+                   Bankas::insert($val);
                 }
             }
         }

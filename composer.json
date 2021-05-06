@@ -13,7 +13,10 @@
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^7.0",
-        "laravel/tinker": "^2.0"
+        "laravel/tinker": "^2.0",
+        "pdeans/xml-builder": "^1.0",
+        "perryfaro/sepa": "^1.0",
+        "spatie/array-to-xml": "^2.15"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

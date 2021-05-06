@@ -93,6 +93,34 @@ export default new Router({
       name: 'inte',
       component: () => import('./views/Inte.vue')
     },
+    {
+      path: '/inte_prekes',
+      name: 'inte_prekes',
+      component: () => import('./views/IntePrekes.vue')
+    },
+
+    {
+      path: '/grazinimai',
+      name: 'grazinimai',
+      component: () => import('./views/Grazinimai.vue')
+    },
+    {
+      path: '/grazinimai_lv',
+      name: 'grazinimai',
+      component: () => import('./views/Grazinimai_LV.vue')
+    },
+
+    {
+      path: '/visi_likuciai',
+      name: 'visi_likuciai',
+      component: () => import('./views/VisiLikuciai.vue')
+    },
+
+    {
+      path: '/replace',
+      name: 'replace',
+      component: () => import('./views/Replace.vue')
+    },
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

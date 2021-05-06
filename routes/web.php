@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//Send E-mail
+Route::get('send_email','SendController@attachment_email');
 /*
  * UZSAKYMAI
  * */ 
@@ -72,6 +74,17 @@ Route::prefix('/generuoti')->group(function () {
 });
 
 /*
+* Generuoti
+* */ 
+Route::prefix('/intepreke')->group(function () {
+   Route::get('', 'IntePrekeController@index');
+   Route::post('store_lt', 'IntePrekeController@store_lt');
+   Route::post('store_lv', 'IntePrekeController@store_lv');
+   Route::post('store_ee', 'IntePrekeController@store_ee');
+   Route::post('store', 'IntePrekeController@store');
+});
+
+/*
  * Vaztaraščiai
  * */ 
 Route::prefix('/vaztarasciai')->group(function () {
@@ -85,7 +98,48 @@ Route::prefix('/vaztarasciai')->group(function () {
 Route::prefix('/inte')->group(function () {
     Route::get('', 'InteController@index');
     Route::post('store', 'InteController@store');
+    Route::post('store_bankas', 'InteController@store_bankas');
+    Route::post('store_pardavimai', 'InteController@store_pardavimai');
 });
+
+/*
+ * GPAIS
+ * */ 
+Route::prefix('/gpais')->group(function () {
+    Route::get('', 'GpaisController@index');
+    Route::post('store', 'GpaisController@store');
+});
+
+/*
+ * Inte
+ * */ 
+Route::prefix('/visilikuciai')->group(function () {
+    Route::get('', 'VisiLikuciaiController@index');
+    //Route::post('store', 'InteController@store');
+});
+
+/*
+ * LT to EE
+ * */ 
+Route::prefix('/replace')->group(function () {
+    Route::get('', 'replaceController@index');
+    //Route::post('store', 'InteController@store');
+});
+
+/*
+ * Grazinimu formavimas
+ * */ 
+Route::prefix('/grazinimai')->group(function () {
+    Route::get('', 'GrazinimaiController@index');
+    Route::get('grazinimai_lv', 'GrazinimaiController@grazinimai_lv');
+    Route::post('sepa', 'GrazinimaiController@sepa');
+    Route::post('sepa_LV', 'GrazinimaiController@sepa_LV');
+    Route::post('store', 'GrazinimaiController@store');
+    Route::post('store_LV', 'GrazinimaiController@store_LV');
+    Route::post('store_bankas', 'GrazinimaiController@store_bankas');
+    Route::post('store_grazinimai', 'GrazinimaiController@store_grazinimai');
+});
+
 
 /*
  * Keliones lapai
